@@ -1,0 +1,5 @@
+name: Amagaki
+
+routes:
+  - path: /
+    collection: /content/pages/

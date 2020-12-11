@@ -1,0 +1,40 @@
+{
+  "bin": {
+    "amagaki": "dist/src/index.js"
+  },
+  "scripts": {
+    "dev:start": "npm run copy; npm run compile",
+    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
+    "copy": "cpx 'src/static/**' 'dist/src/static'",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts src/**/*.tsx"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "gts": "^2.0.2",
+    "mocha": "^7.2.0",
+    "nodemon": "^2.0.4",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/async": "^3.2.5",
+    "@types/cli-progress": "^3.8.0",
+    "@types/express": "^4.17.9",
+    "@types/mime-types": "^2.1.0",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.1",
+    "async": "^3.2.0",
+    "cli-progress": "^3.8.2",
+    "commander": "^5.1.0",
+    "express": "^4.17.1",
+    "isomorphic-git": "^1.8.0",
+    "mime-types": "^2.1.27"
+  },
+  "files": [
+    "dist/src"
+  ]
+}

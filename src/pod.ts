@@ -1,6 +1,8 @@
-import {Router} from './router';
 import {Builder} from './builder';
 import {Document} from './document';
+import {readFileSync} from 'fs';
+import {Router} from './router';
+import {join} from 'path';
 
 export class Pod {
   builder: Builder;
@@ -17,5 +19,12 @@ export class Pod {
     return new Document(this, path);
   }
 
-  query() {}
+  readFile(path: string) {
+    return readFileSync(this.getFilePath(path), 'utf8');
+  }
+
+  getFilePath(path: string) {
+    path = path.replace(/^\/+/, '');
+    return join(this.root, path);
+  }
 }

@@ -1,4 +1,5 @@
 import {Pod} from './pod';
+import {safeLoad} from 'js-yaml';
 
 export class Document {
   pod: Pod;
@@ -10,6 +11,7 @@ export class Document {
   }
 
   async render() {
-    return 'foo';
+    const content = this.pod.readFile(this.path);
+    return safeLoad(content);
   }
 }

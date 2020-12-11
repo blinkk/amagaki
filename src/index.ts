@@ -7,7 +7,7 @@ import {join} from 'path';
 
 const program = createCommand();
 
-program.command('build').action((path, options) => {
+program.command('build [root]').action((path, options) => {
   const cmd = new BuildCommand(options);
   cmd.run(path);
 });

@@ -1,6 +1,7 @@
+import {basename} from 'path';
 import {Pod} from './pod';
-import {safeLoad} from 'js-yaml';
 import {Renderer} from './renderer';
+import {Url} from './url';
 
 export class Document {
   path: string;
@@ -18,20 +19,32 @@ export class Document {
   }
 
   get fields() {
-    const fieldsContent = this.pod.readFile(this.path);
-    const fields = safeLoad(fieldsContent);
+    const fields = this.pod.readYaml(this.path);
     if (!this._fields) {
       this._fields = fields;
     }
     return this._fields;
   }
 
-  async render() {
+  async render(): Promise<string> {
     const context = {
       pod: this.pod,
       doc: this,
     };
     const template = this.pod.readFile(this.viewPath);
     return this.renderer.render(template, context);
+  }
+
+  get url(): Url | undefined {
+    return this.pod.router.getUrl('doc', this);
+  }
+
+  get basename() {
+    return basename(this.path).split('.')[0];
+  }
+
+  get pathFormat() {
+    // TODO: Parameterize this.
+    return '/pages/${doc.basename}/';
   }
 }

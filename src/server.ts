@@ -16,7 +16,7 @@ export function createApp(pod: Pod) {
       return;
     }
     const content = await route.build();
-    res.set('Content-Type', route.getContentType());
+    res.set('Content-Type', route.contentType);
     res.send(content);
   });
 

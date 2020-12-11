@@ -3,6 +3,7 @@ import {Document} from './document';
 import {readFileSync} from 'fs';
 import {Router} from './router';
 import {join} from 'path';
+import {Renderer} from './renderer';
 
 export class Pod {
   builder: Builder;
@@ -17,6 +18,10 @@ export class Pod {
 
   doc(path: string) {
     return new Document(this, path);
+  }
+
+  renderer(extension: string) {
+    return new Renderer(this);
   }
 
   readFile(path: string) {

@@ -9,7 +9,6 @@ export class BuildCommand {
 
   async run(path: string) {
     const pod = new Pod(path);
-    const results = await pod.builder.build();
-    console.log(results);
+    await pod.builder.export();
   }
 }

@@ -100,14 +100,7 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const docProvider = this.router.providers.get(
-      'doc'
-    ) as DocumentRouteProvider;
-    const route1 = new DocumentRoute(docProvider, '/content/pages/index.yaml');
-    const route2 = new DocumentRoute(docProvider, '/content/pages/copy.yaml');
-    docProvider.urlMap.set(route1.doc, route1.url);
-    docProvider.urlMap.set(route2.doc, route1.url);
-    return [route1, route2];
+    return [];
   }
 
   getUrlFor(doc: Document) {

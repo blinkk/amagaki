@@ -126,6 +126,19 @@ export class StaticFileRouteProivder extends RouteProvider {
     super(router);
     this.type = 'static_file';
   }
+
+  get routes(): Array<Route> {
+    const routePaths: Array<string> = [];
+    const podPaths = this.pod.walk('/source/static/');
+    const routes: Array<Route> = [];
+    podPaths.forEach(podPath => {
+      routePaths.push(podPath);
+      const route = new StaticRoute(this, podPath);
+      routes.push(route);
+      this.urlMap.set(route.staticFile, route.url);
+    });
+    return routes;
+  }
 }
 
 export class StaticDirectoryRouteProivder extends RouteProvider {
@@ -137,9 +150,11 @@ export class StaticDirectoryRouteProivder extends RouteProvider {
 
 export class Route {
   provider: RouteProvider;
+  pod: Pod;
 
   constructor(provider: RouteProvider) {
     this.provider = provider;
+    this.pod = this.provider.pod;
   }
 
   async build(): Promise<string> {
@@ -154,18 +169,25 @@ export class Route {
     throw new Error();
   }
 
-  get url(): Url {
+  get urlPath(): string {
     throw new Error();
+  }
+
+  get url(): Url {
+    return new Url({
+      path: this.urlPath,
+      host: this.pod.env.host,
+      port: this.pod.env.port,
+      scheme: this.pod.env.scheme,
+    });
   }
 }
 
 export class DocumentRoute extends Route {
-  pod: Pod;
   podPath: string;
 
   constructor(provider: RouteProvider, podPath: string) {
     super(provider);
-    this.pod = provider.pod;
     this.podPath = podPath;
   }
 
@@ -189,13 +211,25 @@ export class DocumentRoute extends Route {
     return 'text/html';
   }
 
-  get url() {
-    const path = interpolate(this.doc.pathFormat, {doc: this.doc});
-    return new Url({
-      path: path,
-      host: this.pod.env.host,
-      port: this.pod.env.port,
-      scheme: this.pod.env.scheme,
-    });
+  get urlPath() {
+    return interpolate(this.doc.pathFormat, {doc: this.doc});
+  }
+}
+
+export class StaticRoute extends Route {
+  podPath: string;
+
+  constructor(provider: RouteProvider, podPath: string) {
+    super(provider);
+    this.podPath = podPath;
+  }
+
+  get staticFile() {
+    return this.pod.staticFile(this.podPath);
+  }
+
+  get urlPath() {
+    // TODO: Replace with serving path defined in amagaki.yaml?routes.
+    return `/static${this.podPath}`;
   }
 }

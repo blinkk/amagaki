@@ -8,6 +8,7 @@ import {Environment} from './environment';
 import {Collection} from './collection';
 import * as yaml from 'js-yaml';
 import * as utils from './utils';
+import {StaticFile} from './static';
 
 export class Pod {
   builder: Builder;
@@ -16,6 +17,7 @@ export class Pod {
   env: Environment;
   private _yamlSchema: any;
   private _docCache: any;
+  private _staticFileCache: any;
   private _yamlCache: any;
 
   constructor(root: string) {
@@ -30,6 +32,7 @@ export class Pod {
     });
     this._docCache = {};
     this._yamlCache = {};
+    this._staticFileCache = {};
   }
 
   doc(path: string) {
@@ -38,6 +41,14 @@ export class Pod {
     }
     this._docCache[path] = new Document(this, path);
     return this._docCache[path];
+  }
+
+  staticFile(path: string) {
+    if (this._staticFileCache[path]) {
+      return this._staticFileCache[path];
+    }
+    this._staticFileCache[path] = new StaticFile(this, path);
+    return this._staticFileCache[path];
   }
 
   collection(path: string) {

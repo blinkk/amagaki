@@ -1,6 +1,8 @@
 import express = require('express');
 import {Pod} from './pod';
 import * as fsPath from 'path';
+import {StaticRoute} from './router';
+
 export class Server {
   constructor() {}
 }
@@ -18,13 +20,20 @@ export function createApp(pod: Pod) {
         .sendFile(fsPath.join(__dirname, './static/', 'error-no-route.html'));
       return;
     }
-    try {
-      const content = await route.build();
-      res.set('Content-Type', route.contentType);
-      res.send(content);
-    } catch (err) {
-      res.status(500);
-      res.send(err.toString());
+    if (route.provider.type === 'static_file') {
+      res.sendFile(
+        pod.getAbsoluteFilePath((route as StaticRoute).staticFile.podPath)
+      );
+      return;
+    } else {
+      try {
+        const content = await route.build();
+        res.set('Content-Type', route.contentType);
+        res.send(content);
+      } catch (err) {
+        res.status(500);
+        res.send(err.toString());
+      }
     }
   });
 

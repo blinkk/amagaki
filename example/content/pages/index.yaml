@@ -1,1 +1,36 @@
-hello: world
+title: Page title
+description: Page description
+partials:
+- partial: header
+  title: Test
+  nav:
+  - !a.Doc /content/pages/about.yaml
+  - !a.Doc /content/pages/index.yaml
+  - !a.Doc /content/pages/contact.yaml
+  - !a.Doc /content/kintaro/Team/4878488224399360.yaml
+- partial: hero
+  title: Dolor consequat commodo ipsum laborum magna Lorem.
+  body: Ex aliqua dolore sunt ipsum consectetur in proident aute. Sunt dolore nulla non proident cupidatat excepteur non consectetur elit Lorem deserunt aliqua. Occaecat eiusmod laboris culpa dolore cupidatat pariatur consectetur.
+  buttons:
+  - label: Learn more
+    url: https://example.com
+- partial: 5050-simple
+  options:
+  - reversed
+  title: 5050 title
+  body: Body content
+  buttons:
+  - label: Learn more
+    url: https://example.com
+  assets:
+  - url: 'test'
+- partial: 5050-simple
+  options:
+  - reversed
+  title: 5050 title
+  body: Body content
+  buttons:
+  - label: Learn more
+    url: https://example.com
+  assets:
+  - url: 'test'

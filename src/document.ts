@@ -36,8 +36,7 @@ export class Document {
       env: this.pod.env,
       pod: this.pod,
     };
-    const template = this.pod.readFile(this.viewPath);
-    return this.renderer.render(template, context);
+    return this.renderer.render(this.viewPath, context);
   }
 
   get url(): Url | undefined {

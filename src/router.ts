@@ -170,7 +170,11 @@ export class DocumentRoute extends Route {
   }
 
   async build(): Promise<string> {
-    return await this.doc.render();
+    try {
+      return await this.doc.render();
+    } catch (err) {
+      throw Error(err);
+    }
   }
 
   get doc() {

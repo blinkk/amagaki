@@ -16,12 +16,18 @@ export class Renderer {
 }
 
 export class NunjucksRenderer extends Renderer {
-  configure() {
-    nunjucks.configure(this.pod.root, {autoescape: true});
+  env: nunjucks.Environment;
+
+  constructor(pod: Pod) {
+    super(pod);
+    const loader = new NunjucksPodLoader(this.pod);
+    this.env = new nunjucks.Environment([loader], {
+      autoescape: true,
+    });
   }
 
-  async render(template: string, context: any): Promise<string> {
-    return nunjucks.renderString(template, context);
+  async render(path: string, context: any): Promise<string> {
+    return this.env.render(path, context);
   }
 }
 
@@ -34,4 +40,21 @@ export function getRenderer(path: string) {
     return JavaScriptRenderer;
   } // TODO: Raise if no renderer available.
   return NunjucksRenderer;
+}
+
+class NunjucksPodLoader extends nunjucks.Loader {
+  pod: Pod;
+
+  constructor(pod: Pod) {
+    super();
+    this.pod = pod;
+  }
+
+  getSource(name: string) {
+    return {
+      src: this.pod.readFile(name),
+      path: name,
+      noCache: true,
+    };
+  }
 }

@@ -1,5 +1,6 @@
 import express = require('express');
 import {Pod} from './pod';
+import * as fsPath from 'path';
 export class Server {
   constructor() {}
 }
@@ -12,12 +13,19 @@ export function createApp(pod: Pod) {
   app.all('/*', async (req: express.Request, res: express.Response) => {
     const [route, params] = pod.router.resolve(req.path);
     if (!route) {
-      res.sendStatus(404);
+      res
+        .status(404)
+        .sendFile(fsPath.join(__dirname, './static/', 'error-no-route.html'));
       return;
     }
-    const content = await route.build();
-    res.set('Content-Type', route.contentType);
-    res.send(content);
+    try {
+      const content = await route.build();
+      res.set('Content-Type', route.contentType);
+      res.send(content);
+    } catch (err) {
+      res.status(500);
+      res.send(err.toString());
+    }
   });
 
   return app;

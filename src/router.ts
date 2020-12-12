@@ -8,12 +8,10 @@ import {interpolate} from './utils';
 export class Router {
   pod: Pod;
   providers: Map<string, RouteProvider>;
-  _routes: Array<Route>;
 
   constructor(pod: Pod) {
     this.pod = pod;
     this.providers = new Map();
-    this._routes = [];
     [
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
@@ -38,15 +36,15 @@ export class Router {
   }
 
   get routes() {
-    if (this._routes.length) {
-      return this._routes;
+    if (this.pod.cache.routes.length) {
+      return this.pod.cache.routes;
     }
     this.providers.forEach(provider => {
       provider.routes.forEach(route => {
-        this._routes.push(route);
+        this.pod.cache.routes.push(route);
       });
     });
-    return this._routes;
+    return this.pod.cache.routes;
   }
 
   addProvider(provider: RouteProvider) {

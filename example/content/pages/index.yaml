@@ -20,6 +20,12 @@ partials:
 - partial: columns-50x50-simple
   options:
   - reversed
+  columns:
+  - primary:
+      title: Magna do magna occaecat irure.
+      body: Esse in dolor anim excepteur incididunt laborum pariatur consequat. Occaecat officia elit nisi Lorem ex ex mollit aliqua ipsum fugiat quis amet sit. Mollit dolore cillum ea commodo ullamco cillum minim nisi et reprehenderit consectetur aute fugiat.
+  - asset:
+      url: https://placeholder-dot-madebygoog.appspot.com/1x1.svg
   title: 5050 title
   body: Body content
   buttons:

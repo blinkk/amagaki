@@ -9,16 +9,14 @@ import {Collection} from './collection';
 import * as yaml from 'js-yaml';
 import * as utils from './utils';
 import {StaticFile} from './static';
+import Cache from './cache';
 
 export class Pod {
   builder: Builder;
   root: string;
   router: Router;
   env: Environment;
-  private _yamlSchema: any;
-  private _docCache: any;
-  private _staticFileCache: any;
-  private _yamlCache: any;
+  cache: Cache;
 
   constructor(root: string) {
     this.root = root;
@@ -30,25 +28,23 @@ export class Pod {
       scheme: 'http',
       dev: true,
     });
-    this._docCache = {};
-    this._yamlCache = {};
-    this._staticFileCache = {};
+    this.cache = new Cache(this);
   }
 
   doc(path: string) {
-    if (this._docCache[path]) {
-      return this._docCache[path];
+    if (this.cache.docs[path]) {
+      return this.cache.docs[path];
     }
-    this._docCache[path] = new Document(this, path);
-    return this._docCache[path];
+    this.cache.docs[path] = new Document(this, path);
+    return this.cache.docs[path];
   }
 
   staticFile(path: string) {
-    if (this._staticFileCache[path]) {
-      return this._staticFileCache[path];
+    if (this.cache.staticFiles[path]) {
+      return this.cache.staticFiles[path];
     }
-    this._staticFileCache[path] = new StaticFile(this, path);
-    return this._staticFileCache[path];
+    this.cache.staticFiles[path] = new StaticFile(this, path);
+    return this.cache.staticFiles[path];
   }
 
   collection(path: string) {
@@ -65,21 +61,21 @@ export class Pod {
   }
 
   readYaml(path: string) {
-    if (this._yamlCache[path]) {
-      return this._yamlCache[path];
+    if (this.cache.yamls[path]) {
+      return this.cache.yamls[path];
     }
-    this._yamlCache[path] = yaml.load(this.readFile(path), {
+    this.cache.yamls[path] = yaml.load(this.readFile(path), {
       schema: this.yamlSchema,
     });
-    return this._yamlCache[path];
+    return this.cache.yamls[path];
   }
 
   get yamlSchema() {
-    if (this._yamlSchema) {
-      return this._yamlSchema;
+    if (this.cache.yamlSchema) {
+      return this.cache.yamlSchema;
     }
-    this._yamlSchema = utils.createYamlSchema(this);
-    return this._yamlSchema;
+    this.cache.yamlSchema = utils.createYamlSchema(this);
+    return this.cache.yamlSchema;
   }
 
   getAbsoluteFilePath(path: string) {

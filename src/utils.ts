@@ -28,7 +28,7 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
 
 export function createYamlSchema(pod: Pod) {
   // TODO: Expose YAML schemas for sites to register additional types.
-  const docType = new yaml.Type('!a.doc', {
+  const docType = new yaml.Type('!a.Doc', {
     kind: 'scalar',
     resolve: data => {
       return data !== null && data.startsWith('/');

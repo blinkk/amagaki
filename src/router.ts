@@ -24,14 +24,15 @@ export class Router {
 
   createTree() {}
 
-  resolve(path: string): [Route | undefined, Record<string, string>] {
+  resolve(path: string): [Route | null, Record<string, string>] {
     // TODO: Implement route trie.
-    const route = new DocumentRoute(
-      this.providers.get('doc') as RouteProvider,
-      '/content/pages/index.yaml'
-    );
-    const params = {};
-    return [route, params];
+    for (let i = 0; i < this.routes.length; i++) {
+      const route = this.routes[i];
+      if (route.url.path === path) {
+        return [route, {}];
+      }
+    }
+    return [null, {}];
   }
 
   get routes() {
@@ -97,7 +98,9 @@ export class CollectionRouteProvider extends RouteProvider {
     const docProvider = this.router.providers.get(
       'doc'
     ) as DocumentRouteProvider;
-    const podPaths = this.pod.walk('/content/kintaro/');
+    const podPaths = this.pod
+      .walk('/content/pages/')
+      .concat(this.pod.walk('/content/kintaro/'));
     const routes: Array<Route> = [];
     podPaths.forEach(podPath => {
       const basePath = basename(podPath);

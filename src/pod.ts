@@ -16,6 +16,7 @@ export class Pod {
   env: Environment;
   private _yamlSchema: any;
   private _docCache: any;
+  private _yamlCache: any;
 
   constructor(root: string) {
     this.root = root;
@@ -28,6 +29,7 @@ export class Pod {
       dev: true,
     });
     this._docCache = {};
+    this._yamlCache = {};
   }
 
   doc(path: string) {
@@ -52,7 +54,13 @@ export class Pod {
   }
 
   readYaml(path: string) {
-    return yaml.load(this.readFile(path), {schema: this.yamlSchema});
+    if (this._yamlCache[path]) {
+      return this._yamlCache[path];
+    }
+    this._yamlCache[path] = yaml.load(this.readFile(path), {
+      schema: this.yamlSchema,
+    });
+    return this._yamlCache[path];
   }
 
   get yamlSchema() {

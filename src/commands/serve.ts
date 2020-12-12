@@ -1,5 +1,6 @@
 import {Pod} from '../pod';
 import {createApp} from '../server';
+import * as fs from 'fs';
 
 interface ServeOptions {
   site: string;
@@ -13,7 +14,7 @@ export class ServeCommand {
   }
 
   async run(path: string) {
-    const pod = new Pod(path);
+    const pod = new Pod(fs.realpathSync(path));
     const app = createApp(pod);
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {

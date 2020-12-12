@@ -1,3 +1,4 @@
+import {basename} from 'path';
 import {Document} from './document';
 import {Pod} from './pod';
 import {Url} from './url';
@@ -81,11 +82,7 @@ export class DocumentRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const route1 = new DocumentRoute(this, '/content/pages/index.yaml');
-    const route2 = new DocumentRoute(this, '/content/pages/copy.yaml');
-    this.urlMap.set(route1.doc, route1.url);
-    this.urlMap.set(route2.doc, route1.url);
-    return [route1, route2];
+    return [];
   }
 
   getUrlFor(doc: Document) {
@@ -100,7 +97,28 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    return [];
+    const routePaths: Array<string> = [];
+    const docProvider = this.router.providers.get(
+      'doc'
+    ) as DocumentRouteProvider;
+    const podPaths = this.pod.walk('/content/pages/');
+    const routes: Array<Route> = [];
+    podPaths.forEach(podPath => {
+      const basePath = basename(podPath);
+      if (basePath.startsWith('_')) {
+        return;
+      }
+      // TODO: Handle other content types.
+      if (!basePath.endsWith('.yaml')) {
+        return;
+      }
+      routePaths.push(podPath);
+      const route = new DocumentRoute(docProvider, podPath);
+      routes.push(route);
+      docProvider.urlMap.set(route.doc, route.url);
+    });
+
+    return routes;
   }
 
   getUrlFor(doc: Document) {

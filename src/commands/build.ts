@@ -1,4 +1,5 @@
 import {Pod} from '../pod';
+import * as fs from 'fs';
 
 interface BuildOptions {}
 
@@ -8,7 +9,7 @@ export class BuildCommand {
   }
 
   async run(path: string) {
-    const pod = new Pod(path);
+    const pod = new Pod(fs.realpathSync(path));
     await pod.builder.export();
   }
 }

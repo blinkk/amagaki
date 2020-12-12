@@ -7,6 +7,7 @@ import {getRenderer} from './renderer';
 import {Environment} from './environment';
 import {Collection} from './collection';
 import {safeLoad} from 'js-yaml';
+import * as utils from './utils';
 
 export class Pod {
   builder: Builder;
@@ -40,15 +41,19 @@ export class Pod {
   }
 
   readFile(path: string) {
-    return readFileSync(this.getFilePath(path), 'utf8');
+    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
   }
 
   readYaml(path: string) {
     return safeLoad(this.readFile(path));
   }
 
-  getFilePath(path: string) {
+  getAbsoluteFilePath(path: string) {
     path = path.replace(/^\/+/, '');
     return join(this.root, path);
+  }
+
+  walk(path: string) {
+    return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
   }
 }

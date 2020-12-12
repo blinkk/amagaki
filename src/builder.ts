@@ -24,6 +24,13 @@ export class Builder {
     return extname(path) ? path : `${path}/index.html`;
   }
 
+  static ensureDirectoryExists(path: string) {
+    const dirPath = dirname(path);
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, {recursive: true});
+    }
+  }
+
   async export() {
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
@@ -43,7 +50,7 @@ export class Builder {
           this.writeFile(tempPath, content);
           artifacts.push({
             tempPath: tempPath,
-            realPath: this.pod.getFilePath(join('/build/', normalPath)),
+            realPath: this.pod.getAbsoluteFilePath(join('/build/', normalPath)),
           });
         })
       );
@@ -51,8 +58,8 @@ export class Builder {
         artifacts,
         10,
         asyncify(async (artifact: Artifact) => {
+          Builder.ensureDirectoryExists(artifact.realPath);
           fs.renameSync(artifact.tempPath, artifact.realPath);
-          console.log(`Saved -> ${artifact.realPath}`);
         })
       );
     } finally {
@@ -61,10 +68,7 @@ export class Builder {
   }
 
   writeFile(outputPath: string, content: string) {
-    const dirPath = dirname(outputPath);
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, {recursive: true});
-    }
+    Builder.ensureDirectoryExists(outputPath);
     fs.writeFileSync(outputPath, content);
     console.log(`Saved ${outputPath}`);
   }

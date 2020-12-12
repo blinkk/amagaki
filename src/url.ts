@@ -17,4 +17,8 @@ export class Url {
     this.scheme = options.scheme;
     this.port = options.port;
   }
+
+  toString() {
+    return `{Url: ${JSON.stringify(this)}}`;
+  }
 }

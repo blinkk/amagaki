@@ -84,10 +84,6 @@ export class DocumentRouteProvider extends RouteProvider {
   get routes(): Array<Route> {
     return [];
   }
-
-  getUrlFor(doc: Document) {
-    return this.urlMap.get(doc);
-  }
 }
 
 export class CollectionRouteProvider extends RouteProvider {
@@ -101,7 +97,7 @@ export class CollectionRouteProvider extends RouteProvider {
     const docProvider = this.router.providers.get(
       'doc'
     ) as DocumentRouteProvider;
-    const podPaths = this.pod.walk('/content/pages/');
+    const podPaths = this.pod.walk('/content/kintaro/');
     const routes: Array<Route> = [];
     podPaths.forEach(podPath => {
       const basePath = basename(podPath);
@@ -119,10 +115,6 @@ export class CollectionRouteProvider extends RouteProvider {
     });
 
     return routes;
-  }
-
-  getUrlFor(doc: Document) {
-    return this.urlMap.get(doc);
   }
 }
 

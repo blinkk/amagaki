@@ -6,7 +6,7 @@ import {join} from 'path';
 import {getRenderer} from './renderer';
 import {Environment} from './environment';
 import {Collection} from './collection';
-import {safeLoad} from 'js-yaml';
+import * as yaml from 'js-yaml';
 import * as utils from './utils';
 
 export class Pod {
@@ -14,6 +14,8 @@ export class Pod {
   root: string;
   router: Router;
   env: Environment;
+  private _yamlSchema: any;
+  private _docCache: any;
 
   constructor(root: string) {
     this.root = root;
@@ -25,10 +27,15 @@ export class Pod {
       scheme: 'http',
       dev: true,
     });
+    this._docCache = {};
   }
 
   doc(path: string) {
-    return new Document(this, path);
+    if (this._docCache[path]) {
+      return this._docCache[path];
+    }
+    this._docCache[path] = new Document(this, path);
+    return this._docCache[path];
   }
 
   collection(path: string) {
@@ -45,7 +52,15 @@ export class Pod {
   }
 
   readYaml(path: string) {
-    return safeLoad(this.readFile(path));
+    return yaml.load(this.readFile(path), {schema: this.yamlSchema});
+  }
+
+  get yamlSchema() {
+    if (this._yamlSchema) {
+      return this._yamlSchema;
+    }
+    this._yamlSchema = utils.createYamlSchema(this);
+    return this._yamlSchema;
   }
 
   getAbsoluteFilePath(path: string) {

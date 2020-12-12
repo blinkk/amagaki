@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <title>Hello World!</title>
 <pre>
+    Doc: {{doc|safe}}
+
+    Doc URL: {{doc.url|safe}}
+
+    Doc URL Path: {{doc.url.path}}
+
+    Env: {{env|safe}}
+</pre>
+<pre>
 {% for key, val in doc.fields %}
     {{key}}: {{val}}
 {% endfor %}

@@ -1,5 +1,7 @@
+import {Pod} from './pod';
 import * as fs from 'fs';
 import * as fsPath from 'path';
+import * as yaml from 'js-yaml';
 
 export function interpolate(string: string, params: any) {
   const names = Object.keys(params);
@@ -22,4 +24,21 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
     }
   });
   return files;
+}
+
+export function createYamlSchema(pod: Pod) {
+  // TODO: Expose YAML schemas for sites to register additional types.
+  const docType = new yaml.Type('!a.doc', {
+    kind: 'scalar',
+    resolve: data => {
+      return data !== null && data.startsWith('/');
+    },
+    construct: podPath => {
+      return pod.doc(podPath);
+    },
+    represent: doc => {
+      return doc;
+    },
+  });
+  return yaml.Schema.create([docType]);
 }

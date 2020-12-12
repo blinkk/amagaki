@@ -18,6 +18,10 @@ export class Document {
     this.viewPath = '/views/base.njk';
   }
 
+  toString() {
+    return `{Document: "${this.path}"}`;
+  }
+
   get fields() {
     const fields = this.pod.readYaml(this.path);
     if (!this._fields) {
@@ -28,8 +32,9 @@ export class Document {
 
   async render(): Promise<string> {
     const context = {
-      pod: this.pod,
       doc: this,
+      env: this.pod.env,
+      pod: this.pod,
     };
     const template = this.pod.readFile(this.viewPath);
     return this.renderer.render(template, context);

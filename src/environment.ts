@@ -19,4 +19,8 @@ export class Environment {
     this.scheme = options.scheme;
     this.dev = options.dev;
   }
+
+  toString() {
+    return JSON.stringify(this);
+  }
 }

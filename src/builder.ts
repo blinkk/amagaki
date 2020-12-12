@@ -45,9 +45,8 @@ export class Builder {
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
-    const tempDirRoot = join(
-      fs.realpathSync(os.tmpdir()),
-      fs.mkdtempSync('amagaki-build-')
+    const tempDirRoot = fs.mkdtempSync(
+      join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
     );
     try {
       bar.start(this.pod.router.routes.length, artifacts.length);

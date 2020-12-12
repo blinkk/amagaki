@@ -2,6 +2,7 @@ import {asyncify, mapLimit, mapValuesLimit} from 'async';
 import {Pod} from './pod';
 import {Route} from './router';
 import {extname, dirname, join} from 'path';
+import * as cliProgress from 'cli-progress';
 import * as fs from 'fs';
 import * as os from 'os';
 
@@ -31,7 +32,17 @@ export class Builder {
     }
   }
 
+  static createProgressBar() {
+    return new cliProgress.SingleBar(
+      {
+        format: 'Building ({value}/{total}): {bar} Total: {duration_formatted}',
+      },
+      cliProgress.Presets.shades_classic
+    );
+  }
+
   async export() {
+    const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
     const tempDirRoot = join(
@@ -39,6 +50,7 @@ export class Builder {
       fs.mkdtempSync('amagaki-build-')
     );
     try {
+      bar.start(this.pod.router.routes.length, artifacts.length);
       await mapLimit(
         this.pod.router.routes,
         10,
@@ -52,6 +64,7 @@ export class Builder {
             tempPath: tempPath,
             realPath: this.pod.getAbsoluteFilePath(join('/build/', normalPath)),
           });
+          bar.increment();
         })
       );
       await mapLimit(
@@ -63,6 +76,7 @@ export class Builder {
         })
       );
     } finally {
+      bar.stop();
       fs.rmdirSync(tempDirRoot, {recursive: true});
     }
   }
@@ -70,6 +84,5 @@ export class Builder {
   writeFile(outputPath: string, content: string) {
     Builder.ensureDirectoryExists(outputPath);
     fs.writeFileSync(outputPath, content);
-    console.log(`Saved ${outputPath}`);
   }
 }

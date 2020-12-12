@@ -1,32 +1,37 @@
-import {basename} from 'path';
+import * as fsPath from 'path';
 import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
+
+const DEFAULT_RENDERER = 'njk';
+const DEFAULT_VIEW = '/views/base.njk';
 
 export class Document {
   path: string;
   pod: Pod;
   renderer: Renderer;
-  viewPath: string;
-
   private _fields: any;
 
   constructor(pod: Pod, path: string) {
     this.pod = pod;
     this.path = path;
-    this.renderer = pod.renderer('njk');
-    this.viewPath = '/views/base.njk';
+    this.renderer = pod.renderer(DEFAULT_RENDERER);
+    this._fields = null;
   }
 
   toString() {
     return `{Document: "${this.path}"}`;
   }
 
+  get collection() {
+    return this.pod.collection(fsPath.dirname(this.path));
+  }
+
   get fields() {
-    const fields = this.pod.readYaml(this.path);
-    if (!this._fields) {
-      this._fields = fields;
+    if (this._fields) {
+      return this._fields;
     }
+    this._fields = this.pod.readYaml(this.path);
     return this._fields;
   }
 
@@ -39,7 +44,7 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    return this.renderer.render(this.viewPath, context);
+    return this.renderer.render(this.view, context);
   }
 
   get url(): Url | undefined {
@@ -47,11 +52,19 @@ export class Document {
   }
 
   get basename() {
-    return basename(this.path).split('.')[0];
+    return fsPath.basename(this.path).split('.')[0];
   }
 
   get pathFormat() {
-    // TODO: Parameterize this.
-    return '/pages/${doc.basename}/';
+    // TODO: See if this is what we want to do, or if we want path formats to be
+    // exclusively defined by the router.
+    // return '/pages/${doc.basename}/';
+    return this.fields['$path'] || this.collection.fields['$path'];
+  }
+
+  get view() {
+    return (
+      this.fields['$view'] || this.collection.fields['$view'] || DEFAULT_VIEW
+    );
   }
 }

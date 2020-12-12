@@ -1,6 +1,6 @@
 import {Builder} from './builder';
 import {Document} from './document';
-import {readFileSync} from 'fs';
+import {existsSync, readFileSync} from 'fs';
 import {Router} from './router';
 import {join} from 'path';
 import {getRenderer} from './renderer';
@@ -48,7 +48,11 @@ export class Pod {
   }
 
   collection(path: string) {
-    return new Collection(this, path);
+    if (this.cache.collections[path]) {
+      return this.cache.collections[path];
+    }
+    this.cache.collections[path] = new Collection(this, path);
+    return this.cache.collections[path];
   }
 
   renderer(path: string) {
@@ -58,6 +62,10 @@ export class Pod {
 
   readFile(path: string) {
     return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+  }
+
+  fileExists(path: string) {
+    return existsSync(this.getAbsoluteFilePath(path));
   }
 
   readYaml(path: string) {

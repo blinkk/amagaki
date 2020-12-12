@@ -113,9 +113,13 @@ export class CollectionRouteProvider extends RouteProvider {
       if (!basePath.endsWith('.yaml')) {
         return;
       }
-      routePaths.push(podPath);
       const route = new DocumentRoute(docProvider, podPath);
+      // Only build docs with path formats.
+      if (!route.doc.pathFormat) {
+        return;
+      }
       routes.push(route);
+      routePaths.push(podPath);
       docProvider.urlMap.set(route.doc, route.url);
     });
 
@@ -201,7 +205,8 @@ export class DocumentRoute extends Route {
     try {
       return await this.doc.render();
     } catch (err) {
-      throw Error(err);
+      console.log(`Error buildng: ${this.doc}`);
+      throw err;
     }
   }
 

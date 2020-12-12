@@ -36,7 +36,7 @@ export class JavaScriptRenderer extends Renderer {}
 export function getRenderer(path: string) {
   if (path.endsWith('.njk')) {
     return NunjucksRenderer;
-  } else if (path.endsWith('.njk')) {
+  } else if (path.endsWith('.js')) {
     return JavaScriptRenderer;
   } // TODO: Raise if no renderer available.
   return NunjucksRenderer;

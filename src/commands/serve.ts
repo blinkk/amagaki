@@ -1,5 +1,6 @@
-import {Pod} from '../pod';
 import {createApp} from '../server';
+import {Pod} from '../pod';
+import * as colors from 'colors';
 import * as fs from 'fs';
 
 interface ServeOptions {
@@ -18,8 +19,12 @@ export class ServeCommand {
     const app = createApp(pod);
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {
-      console.log(`App listening on port ${PORT}`);
-      console.log('Press Ctrl+C to quit.');
+      console.log('   Pod:'.green, `${pod.root}`);
+      console.log(
+        'Server:'.green,
+        `${pod.env.scheme}://${pod.env.host}:${PORT}/`
+      );
+      console.log(' Ready. Press ctrl+c to quit.'.green);
     });
   }
 }

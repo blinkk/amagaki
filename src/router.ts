@@ -1,17 +1,19 @@
 import {basename} from 'path';
 import {Document} from './document';
 import {Pod} from './pod';
+import {StaticFile} from './static';
 import {Url} from './url';
 import {interpolate} from './utils';
 
 export class Router {
   pod: Pod;
   providers: Map<string, RouteProvider>;
+  _routes: Array<Route>;
 
   constructor(pod: Pod) {
     this.pod = pod;
     this.providers = new Map();
-
+    this._routes = [];
     [
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
@@ -36,20 +38,22 @@ export class Router {
   }
 
   get routes() {
-    const routes: Array<Route> = [];
+    if (this._routes.length) {
+      return this._routes;
+    }
     this.providers.forEach(provider => {
       provider.routes.forEach(route => {
-        routes.push(route);
+        this._routes.push(route);
       });
     });
-    return routes;
+    return this._routes;
   }
 
   addProvider(provider: RouteProvider) {
     this.providers.set(provider.type, provider);
   }
 
-  getUrl(type: string, item: Document) {
+  getUrl(type: string, item: Document | StaticFile) {
     const provider = this.providers.get(type);
     if (!provider) {
       throw Error(`RouteProvider not found for ${type}`);
@@ -61,7 +65,7 @@ export class Router {
 export class RouteProvider {
   pod: Pod;
   router: Router;
-  urlMap: Map<Document, Url>;
+  urlMap: Map<Document | StaticFile, Url>;
   type: string;
 
   constructor(router: Router) {
@@ -191,6 +195,10 @@ export class DocumentRoute extends Route {
     this.podPath = podPath;
   }
 
+  toString() {
+    return `{DocumentRoute: ${this.doc}}`;
+  }
+
   async build(): Promise<string> {
     try {
       return await this.doc.render();
@@ -222,6 +230,10 @@ export class StaticRoute extends Route {
   constructor(provider: RouteProvider, podPath: string) {
     super(provider);
     this.podPath = podPath;
+  }
+
+  toString() {
+    return `{StaticRoute: ${this.staticFile}}`;
   }
 
   get staticFile() {

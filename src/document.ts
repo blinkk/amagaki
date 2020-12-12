@@ -35,6 +35,9 @@ export class Document {
       doc: this,
       env: this.pod.env,
       pod: this.pod,
+      a: {
+        static: this.pod.staticFile.bind(this.pod),
+      },
     };
     return this.renderer.render(this.viewPath, context);
   }

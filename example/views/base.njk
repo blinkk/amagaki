@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <title>{{doc.title}}</title>
 <meta name="description" value="{{doc.fields.description}}">
+<link href="//fonts.googleapis.com/css?family=Nunito&amp;display=swap" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{{a.static('/source/static/main.css').url.path}}">
 <body>
-
-{% for partial in doc.fields.partials %}
-    {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
-{% endfor %}
-
-<pre>
-    Doc: {{doc|safe}}
-    Doc URL: {{doc.url|safe}}
-    Doc URL Path: {{doc.url.path}}
-    Env: {{env|safe}}
-    {% for key, val in doc.fields %}
-        {{key}}: {{val}}
+<div class="main">
+    {% for partial in doc.fields.partials %}
+        <div class="help">{{partial.partial}}</div>
+        {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
     {% endfor %}
-</pre>
+</div>

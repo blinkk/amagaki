@@ -14,7 +14,10 @@ partials:
   buttons:
   - label: Learn more
     url: https://example.com
-- partial: 5050-simple
+- partial: spacer
+  options:
+  - large
+- partial: columns-50x50-simple
   options:
   - reversed
   title: 5050 title
@@ -24,7 +27,10 @@ partials:
     url: https://example.com
   assets:
   - url: 'test'
-- partial: 5050-simple
+- partial: spacer
+  options:
+  - medium
+- partial: columns-50x50-simple
   options:
   - reversed
   title: 5050 title
@@ -34,3 +40,7 @@ partials:
     url: https://example.com
   assets:
   - url: 'test'
+- partial: spacer
+  options:
+  - large
+- partial: debug

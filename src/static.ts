@@ -1,4 +1,5 @@
 import {Pod} from './pod';
+import {Url} from './url';
 
 export class StaticFile {
   pod: Pod;
@@ -11,5 +12,9 @@ export class StaticFile {
 
   toString() {
     return `{StaticFile: "${this.podPath}"}`;
+  }
+
+  get url(): Url | undefined {
+    return this.pod.router.getUrl('static_file', this);
   }
 }

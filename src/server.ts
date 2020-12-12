@@ -8,8 +8,6 @@ export class Server {
 }
 
 export function createApp(pod: Pod) {
-  console.log('Starting server');
-
   const app = express();
   app.disable('x-powered-by');
   app.all('/*', async (req: express.Request, res: express.Response) => {
@@ -32,7 +30,8 @@ export function createApp(pod: Pod) {
         res.send(content);
       } catch (err) {
         res.status(500);
-        res.send(err.toString());
+        res.set('Content-Type', 'text/plain');
+        res.send(`${err.toString()} ${err.stack}`);
       }
     }
   });

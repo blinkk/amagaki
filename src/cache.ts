@@ -8,11 +8,13 @@ import {Locale} from './locale';
 
 export default class Cache {
   pod: Pod;
-  docs!: Record<string, Document>;
   collections!: Record<string, Collection>;
-  routes!: Array<Route>;
-  staticFiles!: Record<string, StaticFile>;
+  docs!: Record<string, Document>;
+  interpolations!: Record<string, Function>;
   locales!: Record<string, Locale>;
+  routes!: Array<Route>;
+  urlPaths!: Map<Document, string>;
+  staticFiles!: Record<string, StaticFile>;
   yamls!: Record<string, any>;
   yamlSchema!: yaml.Schema | null;
 
@@ -24,9 +26,11 @@ export default class Cache {
   clearAll() {
     this.collections = {};
     this.docs = {};
+    this.interpolations = {};
     this.locales = {};
     this.routes = [];
     this.staticFiles = {};
+    this.urlPaths = new Map();
     this.yamls = {};
     this.yamlSchema = null;
   }

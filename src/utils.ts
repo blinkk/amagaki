@@ -4,10 +4,17 @@ import * as fsPath from 'path';
 import * as yaml from 'js-yaml';
 import {Document} from './document';
 
-export function interpolate(string: string, params: any) {
+export function interpolate(pod: Pod, string: string, params: any) {
+  // Cache created functions to avoid memory leak.
   const names = Object.keys(params);
   const vals = Object.values(params);
-  return new Function(...names, `return \`${string}\`;`)(...vals);
+  const key = `${string}:${names}`;
+  if (pod.cache.interpolations[key]) {
+    return pod.cache.interpolations[key](...vals);
+  }
+  const func = new Function(...names, `return \`${string}\`;`);
+  pod.cache.interpolations[key] = func;
+  return func(...vals);
 }
 
 export function basename(path: string) {

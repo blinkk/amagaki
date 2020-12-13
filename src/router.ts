@@ -4,7 +4,7 @@ import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './static';
 import {Url} from './url';
-import {interpolate} from './utils';
+import * as utils from './utils';
 
 export class Router {
   pod: Pod;
@@ -239,7 +239,15 @@ export class DocumentRoute extends Route {
   }
 
   get urlPath() {
-    return interpolate(this.doc.pathFormat, {doc: this.doc});
+    let urlPath = this.pod.cache.urlPaths.get(this.doc);
+    if (urlPath) {
+      return urlPath;
+    }
+    urlPath = utils.interpolate(this.pod, this.doc.pathFormat, {
+      doc: this.doc,
+    }) as string;
+    this.pod.cache.urlPaths.set(this.doc, urlPath);
+    return urlPath;
   }
 }
 

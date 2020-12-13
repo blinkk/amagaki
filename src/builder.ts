@@ -101,9 +101,10 @@ export class Builder {
       fs.rmdirSync(tempDirRoot, {recursive: true});
     }
     console.log(
-      `Memory usage: ${utils.formatBytes(
-        startingMemoryUsage.rss
-      )} -> ${utils.formatBytes(process.memoryUsage().rss)}`
+      'Memory usage: '.blue +
+        `${utils.formatBytes(startingMemoryUsage.rss)} -> ${utils.formatBytes(
+          process.memoryUsage().rss
+        )}`
     );
   }
 

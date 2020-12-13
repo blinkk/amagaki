@@ -11,6 +11,7 @@ partials:
   - !a.Doc /content/kintaro/Team/4878488224399360.yaml
 - partial: hero
   title: Dolor consequat commodo ipsum laborum magna Lorem.
+  title@de_DE: Hello World in German.
   body: Ex aliqua dolore sunt ipsum consectetur in proident aute. Sunt dolore nulla non proident cupidatat excepteur non consectetur elit Lorem deserunt aliqua. Occaecat eiusmod laboris culpa dolore cupidatat pariatur consectetur.
   buttons:
   - label: Learn more

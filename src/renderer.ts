@@ -1,5 +1,6 @@
 import {Pod} from './pod';
 import * as nunjucks from 'nunjucks';
+import * as utils from './utils';
 
 export class Renderer {
   pod: Pod;
@@ -23,6 +24,11 @@ export class NunjucksRenderer extends Renderer {
     const loader = new NunjucksPodLoader(this.pod);
     this.env = new nunjucks.Environment([loader], {
       autoescape: true,
+    });
+    this.env.addFilter('localize', function (parent, key) {
+      // Use `function` to preserve scope. `this` is the Nunjucks template.
+      // @ts-ignore
+      return utils.getLocalizedValue(this.ctx.doc, parent, key);
     });
   }
 

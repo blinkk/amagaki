@@ -2,6 +2,7 @@ import {Pod} from './pod';
 import * as fs from 'fs';
 import * as fsPath from 'path';
 import * as yaml from 'js-yaml';
+import {Document} from './document';
 
 export function interpolate(string: string, params: any) {
   const names = Object.keys(params);
@@ -41,4 +42,8 @@ export function createYamlSchema(pod: Pod) {
     },
   });
   return yaml.Schema.create([docType]);
+}
+
+export function getLocalizedValue(doc: Document, item: any, key: string) {
+  return doc.locale ? item[`${key}@${doc.locale.id}`] || item[key] : item[key];
 }

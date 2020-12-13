@@ -8,11 +8,11 @@ import {interpolate} from './utils';
 
 export class Router {
   pod: Pod;
-  providers: Map<string, RouteProvider>;
+  providers: Record<string, RouteProvider>;
 
   constructor(pod: Pod) {
     this.pod = pod;
-    this.providers = new Map();
+    this.providers = {};
     [
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
@@ -40,7 +40,7 @@ export class Router {
     if (this.pod.cache.routes.length) {
       return this.pod.cache.routes;
     }
-    this.providers.forEach(provider => {
+    Object.values(this.providers).forEach(provider => {
       provider.routes.forEach(route => {
         this.pod.cache.routes.push(route);
       });
@@ -49,11 +49,11 @@ export class Router {
   }
 
   addProvider(provider: RouteProvider) {
-    this.providers.set(provider.type, provider);
+    this.providers[provider.type] = provider;
   }
 
   getUrl(type: string, item: Document | StaticFile) {
-    const provider = this.providers.get(type);
+    const provider = this.providers[type];
     if (!provider) {
       throw Error(`RouteProvider not found for ${type}`);
     }
@@ -99,9 +99,7 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const docProvider = this.router.providers.get(
-      'doc'
-    ) as DocumentRouteProvider;
+    const docProvider = this.router.providers['doc'] as DocumentRouteProvider;
     // TODO: See if we want to do assemble routes by walking all /content/
     // files. In Grow.dev, this was too slow. In Amagaki, we could alternatively
     // require users to specify routes in amagak.yaml?routes.

@@ -1,0 +1,17 @@
+<div class="{{partial.partial}} {% for option in partial.options %}{{partial.partial}}--{{option}}{% endfor %}">
+    <div class="{{partial.partial}}__content">
+        <div class="{{partial.partial}}__content__links">
+        </div>
+        <div class="{{partial.partial}}__content__aside">
+          {{"Select language:"|t}}
+          <select onchange="window.location.href = this.value">
+            {% for locale in doc.locales %}
+              {% set localized_doc = doc.pod.doc(doc.path, locale) %}
+              <option value="{{localized_doc.url.path}}" {% if localized_doc.locale == doc.locale %}selected{% endif %}>
+                {{locale.id}}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+    </div>
+</div>

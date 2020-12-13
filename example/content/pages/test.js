@@ -3,7 +3,7 @@ exports.fields = {
 };
 
 exports.render = (doc, pod, env) {
-    return `<!a.DocTYPE html>
+    return `<!DOCTYPE html>
 <title>${doc.title}</title>
 `;
 };

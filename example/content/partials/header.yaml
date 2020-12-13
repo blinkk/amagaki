@@ -1,0 +1,11 @@
+partial: header
+logo:
+  doc: !a.Doc /content/pages/index.yaml
+  title: Amagaki
+  image:
+    url: https://placeholder-dot-madebygoog.appspot.com/7x3.svg
+nav:
+- !a.Doc /content/pages/index.yaml
+- !a.Doc /content/pages/routes.yaml
+- !a.Doc /content/pages/about.yaml
+- !a.Doc /content/pages/contact.yaml

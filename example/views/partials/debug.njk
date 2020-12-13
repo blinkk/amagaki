@@ -1,0 +1,30 @@
+<div class="debug">
+    Doc:
+    {{doc|safe}}
+
+    Doc URL:
+    {{doc.url|safe}}
+
+    Doc URL Path:
+    {{doc.url.path}}
+
+    Doc Locales:
+    {{doc.locales}}
+
+    Env:
+    {{env|safe}}
+
+    Fields:
+    {% for key, val in doc.fields %}
+        {{key}}: {{val}}
+    {% endfor %}
+
+    {# NOTE: This creates some slowdown. 
+    Routes ({{pod.router.routes.length}}):
+    <ul>
+        {% for route in pod.router.routes %}
+            <li><a href="{{route.url.path}}">{{route}}</a>
+        {% endfor %}
+    </ul>
+    #}        
+</div>

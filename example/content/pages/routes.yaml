@@ -1,0 +1,10 @@
+title: All routes
+description: Page description
+partials:
+- partial: hero
+  title: Routes
+  body: Browse all the routes below.
+- partial: spacer
+  options:
+  - large
+- partial: routes

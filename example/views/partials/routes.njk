@@ -1,0 +1,18 @@
+<div class="routes">
+    <table>
+        <thead>
+            <tr>
+                <td>{{"Locale"|t}}</td>
+                <td>{{"URL path"|t}}</td>
+                <td>{{"Title"|t}}</td>
+            </tr>
+        </thead>
+        {% for item in doc.pod.router.routes %}
+            <tr>
+                <td>{{item.locale.id}}</td>
+                <td><a href="{{item.url.path}}">{{item.url.path}}</a></td>
+                <td>{{item.doc.fields.title|t}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

@@ -1,5 +1,5 @@
 .npmrc
+.DS_Store
 build/
 dist/
-example/
 node_modules/

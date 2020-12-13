@@ -3,6 +3,22 @@
 Amagaki is an experimental static site generator based on
 [Grow.dev](https://grow.dev/).
 
+## Try it out
+
+```
+# Install dependencies.
+npm install
+
+# Build Amagaki (and start development watcher).
+npm run dev
+
+# Build the example site.
+./dist/src/index.js build example
+
+# Run the Amagaki dev server for the example site.
+./dist/src/index.js serve example
+```
+
 ## Key concepts
 
 - TypeScript and Node

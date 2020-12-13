@@ -32,6 +32,10 @@ export class Locale {
   }
 
   getTranslation(value: string | TranslationString) {
+    if (!value) {
+      return value;
+    }
+
     const string = this.toTranslationString(value);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
       this.emptyStrings.add(string);
@@ -57,5 +61,10 @@ export class Locale {
     this.emptyStrings.add(string);
     // No translation was found at all, fall back to the source string.
     return value;
+  }
+
+  get isRtl() {
+    // TODO: Implement this.
+    throw Error();
   }
 }

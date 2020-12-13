@@ -16,7 +16,7 @@ export class Locale {
   }
 
   getTranslation(value: string) {
-    if (!this.pod.fileExists(this.podPath)) {
+    if (!this.pod.fileExists(this.podPath) || !this.translations) {
       return value;
     }
     return this.translations[value] || value;

@@ -10,8 +10,8 @@ partials:
   - !a.Doc /content/pages/contact.yaml
   - !a.Doc /content/kintaro/Team/4878488224399360.yaml
 - partial: hero
-  title: Hello World
-  body: Ex aliqua dolore sunt ipsum consectetur in proident aute. Sunt dolore nulla non proident cupidatat excepteur non consectetur elit Lorem deserunt aliqua. Occaecat eiusmod laboris culpa dolore cupidatat pariatur consectetur.
+  title: Activity Zones
+  body: Adapters & Cables
   buttons:
   - label: Learn more
     url: https://example.com

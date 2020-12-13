@@ -51,7 +51,11 @@ export class Pod {
     if (this.cache.collections[path]) {
       return this.cache.collections[path];
     }
-    this.cache.collections[path] = new Collection(this, path);
+    const collection = Collection.find(this, path);
+    if (!collection) {
+      return null;
+    }
+    this.cache.collections[path] = collection;
     return this.cache.collections[path];
   }
 

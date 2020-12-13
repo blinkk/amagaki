@@ -59,12 +59,23 @@ export class Document {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
     // return '/pages/${doc.basename}/';
-    return this.fields['$path'] || this.collection.fields['$path'];
+    if (!this.fields) {
+      return null;
+    }
+    return (
+      this.fields['$path'] ||
+      (this.collection && this.collection.fields['$path'])
+    );
   }
 
   get view() {
+    if (!this.fields) {
+      return null;
+    }
     return (
-      this.fields['$view'] || this.collection.fields['$view'] || DEFAULT_VIEW
+      this.fields['$view'] ||
+      (this.collection && this.collection.fields['$view']) ||
+      DEFAULT_VIEW
     );
   }
 }

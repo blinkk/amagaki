@@ -90,6 +90,8 @@ export class DocumentRouteProvider extends RouteProvider {
 }
 
 export class CollectionRouteProvider extends RouteProvider {
+  static DefaultContentFolder = '/content/';
+
   constructor(router: Router) {
     super(router);
     this.type = 'collection';
@@ -100,9 +102,12 @@ export class CollectionRouteProvider extends RouteProvider {
     const docProvider = this.router.providers.get(
       'doc'
     ) as DocumentRouteProvider;
-    const podPaths = this.pod
-      .walk('/content/pages/')
-      .concat(this.pod.walk('/content/kintaro/'));
+    // TODO: See if we want to do assemble routes by walking all /content/
+    // files. In Grow.dev, this was too slow. In Amagaki, we could alternatively
+    // require users to specify routes in amagak.yaml?routes.
+    const podPaths = this.pod.walk(
+      CollectionRouteProvider.DefaultContentFolder
+    );
     const routes: Array<Route> = [];
     podPaths.forEach(podPath => {
       const basePath = basename(podPath);
@@ -128,6 +133,8 @@ export class CollectionRouteProvider extends RouteProvider {
 }
 
 export class StaticFileRouteProivder extends RouteProvider {
+  static DefaultStaticFolder = '/source/static/';
+
   constructor(router: Router) {
     super(router);
     this.type = 'static_file';
@@ -135,7 +142,7 @@ export class StaticFileRouteProivder extends RouteProvider {
 
   get routes(): Array<Route> {
     const routePaths: Array<string> = [];
-    const podPaths = this.pod.walk('/source/static/');
+    const podPaths = this.pod.walk(StaticFileRouteProivder.DefaultStaticFolder);
     const routes: Array<Route> = [];
     podPaths.forEach(podPath => {
       routePaths.push(podPath);

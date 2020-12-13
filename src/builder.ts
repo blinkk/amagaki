@@ -13,9 +13,15 @@ interface Artifact {
 
 export class Builder {
   pod: Pod;
+  outputDirectoryPodPath: string;
+  static DefaultOutputDirectory = 'build';
 
   constructor(pod: Pod) {
     this.pod = pod;
+    // TODO: Right now, this is limited to a sub-directory within the pod. We
+    // want that to be the default, but we should also permit building to
+    // directories external to the pod.
+    this.outputDirectoryPodPath = Builder.DefaultOutputDirectory;
   }
 
   static normalizePath(path: string) {
@@ -56,7 +62,11 @@ export class Builder {
         asyncify(async (route: Route) => {
           // TODO: Allow changing output dir.
           const normalPath = Builder.normalizePath(route.url.path);
-          const tempPath = join(tempDirRoot, 'build', normalPath);
+          const tempPath = join(
+            tempDirRoot,
+            this.outputDirectoryPodPath,
+            normalPath
+          );
           if (route.provider.type === 'static_file') {
             this.copyFile(tempPath, (route as StaticRoute).staticFile.podPath);
           } else {
@@ -65,7 +75,9 @@ export class Builder {
           }
           artifacts.push({
             tempPath: tempPath,
-            realPath: this.pod.getAbsoluteFilePath(join('/build/', normalPath)),
+            realPath: this.pod.getAbsoluteFilePath(
+              join(this.outputDirectoryPodPath, normalPath)
+            ),
           });
           bar.increment();
         })

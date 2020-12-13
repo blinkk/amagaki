@@ -19,14 +19,29 @@ export class Collection {
     return `{Collection: "${this.path}"}`;
   }
 
+  static find(pod: Pod, path: string): Collection | null {
+    const collection = new Collection(pod, path);
+    if (collection.exists) {
+      return collection;
+    }
+    // Reached the pod root, no collection found.
+    if (collection.path === '') {
+      return null;
+    }
+    return Collection.find(pod, collection.parentPath);
+  }
+
   get exists() {
     return this.pod.fileExists(this.collectionPath);
   }
 
+  get parentPath() {
+    const absPath = this.pod.getAbsoluteFilePath(fsPath.join(this.path, '..'));
+    return fs.realpathSync(absPath).replace(this.pod.root, '');
+  }
+
   get parent() {
-    const absPath = fsPath.join(this.collectionPath, '..');
-    const path = fs.realpathSync(absPath);
-    return this.pod.collection(path);
+    return this.pod.collection(this.parentPath);
   }
 
   get fields() {

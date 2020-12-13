@@ -64,7 +64,7 @@ export class Collection {
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return this.fields['$localization']['locales'];
+      return this.fields['$localization']['locales'].map(this.pod.locale);
     }
 
     return this.pod.locales;

@@ -1,5 +1,6 @@
 import {basename} from 'path';
 import {Document} from './document';
+import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './static';
 import {Url} from './url';
@@ -98,7 +99,6 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const routePaths: Array<string> = [];
     const docProvider = this.router.providers.get(
       'doc'
     ) as DocumentRouteProvider;
@@ -109,6 +109,18 @@ export class CollectionRouteProvider extends RouteProvider {
       CollectionRouteProvider.DefaultContentFolder
     );
     const routes: Array<Route> = [];
+
+    function addRoute(podPath: string, locale?: Locale) {
+      const route = new DocumentRoute(docProvider, podPath, locale);
+      // Only build docs with path formats.
+      if (!route.doc.pathFormat) {
+        return;
+      }
+      routes.push(route);
+      docProvider.urlMap.set(route.doc, route.url);
+      return route;
+    }
+
     podPaths.forEach(podPath => {
       const basePath = basename(podPath);
       if (basePath.startsWith('_')) {
@@ -118,14 +130,13 @@ export class CollectionRouteProvider extends RouteProvider {
       if (!basePath.endsWith('.yaml')) {
         return;
       }
-      const route = new DocumentRoute(docProvider, podPath);
-      // Only build docs with path formats.
-      if (!route.doc.pathFormat) {
-        return;
-      }
-      routes.push(route);
-      routePaths.push(podPath);
-      docProvider.urlMap.set(route.doc, route.url);
+
+      // Add base and localized docs.
+      const baseRoute = addRoute(podPath);
+      baseRoute &&
+        baseRoute.doc.locales.forEach((locale: Locale) => {
+          addRoute(podPath, locale);
+        });
     });
 
     return routes;
@@ -141,11 +152,9 @@ export class StaticFileRouteProivder extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const routePaths: Array<string> = [];
     const podPaths = this.pod.walk(StaticFileRouteProivder.DefaultStaticFolder);
     const routes: Array<Route> = [];
     podPaths.forEach(podPath => {
-      routePaths.push(podPath);
       const route = new StaticRoute(this, podPath);
       routes.push(route);
       this.urlMap.set(route.staticFile, route.url);
@@ -198,10 +207,12 @@ export class Route {
 
 export class DocumentRoute extends Route {
   podPath: string;
+  locale: Locale;
 
-  constructor(provider: RouteProvider, podPath: string) {
+  constructor(provider: RouteProvider, podPath: string, locale?: Locale) {
     super(provider);
     this.podPath = podPath;
+    this.locale = locale || this.pod.defaultLocale;
   }
 
   toString() {
@@ -218,7 +229,7 @@ export class DocumentRoute extends Route {
   }
 
   get doc() {
-    return this.pod.doc(this.podPath);
+    return this.pod.doc(this.podPath, this.locale);
   }
 
   get path() {

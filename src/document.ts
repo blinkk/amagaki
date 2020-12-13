@@ -14,11 +14,11 @@ export class Document {
   locale: Locale;
   private _fields: any;
 
-  constructor(pod: Pod, path: string, locale?: Locale) {
+  constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
     this.renderer = pod.renderer(DEFAULT_RENDERER);
-    this.locale = locale || pod.defaultLocale;
+    this.locale = locale;
 
     this._fields = null;
   }
@@ -63,12 +63,24 @@ export class Document {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
     // return '/pages/${doc.basename}/';
-    if (!this.fields) {
-      return null;
+    if (this.locale.id === this.pod.defaultLocale.id) {
+      return (
+        (this.fields && this.fields['$path']) ||
+        (this.collection && this.collection.fields['$path'])
+      );
+    } else {
+      return this.pathFormatLocalized;
     }
+  }
+
+  get pathFormatLocalized() {
     return (
-      this.fields['$path'] ||
-      (this.collection && this.collection.fields['$path'])
+      (this.fields &&
+        this.fields['$localization'] &&
+        this.fields['$localization']['path']) ||
+      (this.collection &&
+        this.collection.fields['$localization'] &&
+        this.collection.fields['$localization']['path'])
     );
   }
 
@@ -89,7 +101,7 @@ export class Document {
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return this.fields['$localization']['locales'];
+      return this.fields['$localization']['locales'].map(this.pod.locale);
     }
 
     if (this.collection) {

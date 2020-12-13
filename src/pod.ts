@@ -37,12 +37,14 @@ export class Pod {
     return new Locale(this, id);
   }
 
-  doc(path: string) {
-    if (this.cache.docs[path]) {
-      return this.cache.docs[path];
+  doc(path: string, locale?: Locale) {
+    locale = locale || this.defaultLocale;
+    const key = `${path}${locale.id}`;
+    if (this.cache.docs[key]) {
+      return this.cache.docs[key];
     }
-    this.cache.docs[path] = new Document(this, path);
-    return this.cache.docs[path];
+    this.cache.docs[key] = new Document(this, path, locale);
+    return this.cache.docs[key];
   }
 
   staticFile(path: string) {
@@ -110,6 +112,7 @@ export class Pod {
   }
 
   get locales() {
+    // TODO: Replace with amagaki.yaml?locales.
     return [];
   }
 }

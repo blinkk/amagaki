@@ -12,6 +12,7 @@ export class Collection {
     this.pod = pod;
     this.path = path;
     this.collectionPath = fsPath.join(this.path, '_collection.yaml');
+
     this._fields = null;
   }
 
@@ -55,5 +56,17 @@ export class Collection {
     }
     this._fields = this.pod.readYaml(this.collectionPath);
     return this._fields;
+  }
+
+  get locales() {
+    if (
+      this.fields &&
+      this.fields['$localization'] &&
+      this.fields['$localization']['locales']
+    ) {
+      return this.fields['$localization']['locales'];
+    }
+
+    return this.pod.locales;
   }
 }

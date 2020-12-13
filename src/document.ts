@@ -1,4 +1,5 @@
 import * as fsPath from 'path';
+import {Locale} from './locale';
 import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
@@ -10,17 +11,20 @@ export class Document {
   path: string;
   pod: Pod;
   renderer: Renderer;
+  locale: Locale;
   private _fields: any;
 
-  constructor(pod: Pod, path: string) {
+  constructor(pod: Pod, path: string, locale?: Locale) {
     this.pod = pod;
     this.path = path;
     this.renderer = pod.renderer(DEFAULT_RENDERER);
+    this.locale = locale || pod.defaultLocale;
+
     this._fields = null;
   }
 
   toString() {
-    return `{Document: "${this.path}"}`;
+    return `{Document: "${this.path}" (${this.locale.id})}`;
   }
 
   get collection() {
@@ -77,5 +81,21 @@ export class Document {
       (this.collection && this.collection.fields['$view']) ||
       DEFAULT_VIEW
     );
+  }
+
+  get locales() {
+    if (
+      this.fields &&
+      this.fields['$localization'] &&
+      this.fields['$localization']['locales']
+    ) {
+      return this.fields['$localization']['locales'];
+    }
+
+    if (this.collection) {
+      return this.collection.locales;
+    }
+
+    return this.pod.locales;
   }
 }

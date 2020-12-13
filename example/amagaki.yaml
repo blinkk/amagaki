@@ -1,5 +1,11 @@
 name: Amagaki
 
+localization:
+  locales:
+  - de_DE
+  - en_US
+  - ja_JP
+
 routes:
   - path: /
     collection: /content/pages/

@@ -10,6 +10,7 @@ import * as yaml from 'js-yaml';
 import * as utils from './utils';
 import {StaticFile} from './static';
 import Cache from './cache';
+import {Locale} from './locale';
 
 export class Pod {
   builder: Builder;
@@ -17,6 +18,7 @@ export class Pod {
   router: Router;
   env: Environment;
   cache: Cache;
+  static DefaultLocale = 'en';
 
   constructor(root: string) {
     this.root = root;
@@ -29,6 +31,10 @@ export class Pod {
       dev: true,
     });
     this.cache = new Cache(this);
+  }
+
+  locale(id: string) {
+    return new Locale(this, id);
   }
 
   doc(path: string) {
@@ -82,6 +88,15 @@ export class Pod {
     return this.cache.yamls[path];
   }
 
+  getAbsoluteFilePath(path: string) {
+    path = path.replace(/^\/+/, '');
+    return join(this.root, path);
+  }
+
+  walk(path: string) {
+    return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
+  }
+
   get yamlSchema() {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
@@ -90,12 +105,11 @@ export class Pod {
     return this.cache.yamlSchema;
   }
 
-  getAbsoluteFilePath(path: string) {
-    path = path.replace(/^\/+/, '');
-    return join(this.root, path);
+  get defaultLocale() {
+    return this.locale(Pod.DefaultLocale);
   }
 
-  walk(path: string) {
-    return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
+  get locales() {
+    return [];
   }
 }

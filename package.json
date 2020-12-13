@@ -2,6 +2,11 @@
   "bin": {
     "amagaki": "dist/src/index.js"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blinkkcode/amagaki.git"
+  },
   "engines": {
     "node": ">=8.5.0"
   }, "scripts": {

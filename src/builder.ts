@@ -15,6 +15,8 @@ export class Builder {
   pod: Pod;
   outputDirectoryPodPath: string;
   static DefaultOutputDirectory = 'build';
+  static DefaultNumConcurrentBuilds = 10;
+  static DefaultNumConcurrentCopies = 10;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -58,7 +60,7 @@ export class Builder {
       bar.start(this.pod.router.routes.length, artifacts.length);
       await mapLimit(
         this.pod.router.routes,
-        10,
+        Builder.DefaultNumConcurrentBuilds,
         asyncify(async (route: Route) => {
           // TODO: Allow changing output dir.
           const normalPath = Builder.normalizePath(route.url.path);
@@ -84,7 +86,7 @@ export class Builder {
       );
       await mapLimit(
         artifacts,
-        10,
+        Builder.DefaultNumConcurrentCopies,
         asyncify(async (artifact: Artifact) => {
           Builder.ensureDirectoryExists(artifact.realPath);
           fs.renameSync(artifact.tempPath, artifact.realPath);

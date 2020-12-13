@@ -21,6 +21,6 @@ export class Environment {
   }
 
   toString() {
-    return JSON.stringify(this);
+    return `[Env: ${JSON.stringify(this)}]`;
   }
 }

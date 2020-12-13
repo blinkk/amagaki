@@ -24,7 +24,7 @@ export class Document {
   }
 
   toString() {
-    return `{Document: "${this.path}" (${this.locale.id})}`;
+    return `[Document: ${this.path} (${this.locale.id})]`;
   }
 
   get collection() {

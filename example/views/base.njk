@@ -5,8 +5,12 @@
 <link rel="stylesheet" href="{{a.static('/source/static/main.css').url.path}}">
 <body>
 <div class="main">
-    {% for partial in doc.fields.partials %}
-        <div class="help">{{partial.partial}}</div>
-        {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
-    {% endfor %}
+    {% if doc.fields.partials %}
+        {% for partial in doc.fields.partials %}
+            <div class="help">{{partial.partial}}</div>
+            {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
+        {% endfor %}
+    {% else %}
+        {% include "/views/partials/debug.njk" %}
+    {% endif %}
 </div>

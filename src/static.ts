@@ -11,7 +11,7 @@ export class StaticFile {
   }
 
   toString() {
-    return `{StaticFile: "${this.podPath}"}`;
+    return `[StaticFile: ${this.podPath}]`;
   }
 
   get url(): Url | undefined {

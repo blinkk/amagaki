@@ -216,7 +216,7 @@ export class DocumentRoute extends Route {
   }
 
   toString() {
-    return `{DocumentRoute: ${this.doc}}`;
+    return `[DocumentRoute: ${this.doc}]`;
   }
 
   async build(): Promise<string> {
@@ -254,7 +254,7 @@ export class StaticRoute extends Route {
   }
 
   toString() {
-    return `{StaticRoute: ${this.staticFile}}`;
+    return `[StaticRoute: ${this.staticFile}]`;
   }
 
   get staticFile() {

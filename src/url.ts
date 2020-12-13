@@ -19,6 +19,6 @@ export class Url {
   }
 
   toString() {
-    return `{Url: ${JSON.stringify(this)}}`;
+    return `[Url: ${JSON.stringify(this)}]`;
   }
 }

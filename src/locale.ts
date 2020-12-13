@@ -11,6 +11,10 @@ export class Locale {
     this.podPath = `/locales/${id}.yaml`;
   }
 
+  toString() {
+    return `[Locale: ${this.id}]`;
+  }
+
   get translations() {
     return this.pod.readYaml(this.podPath);
   }

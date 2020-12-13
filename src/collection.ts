@@ -17,7 +17,7 @@ export class Collection {
   }
 
   toString() {
-    return `{Collection: "${this.path}"}`;
+    return `[Collection: ${this.path}]`;
   }
 
   static find(pod: Pod, path: string): Collection | null {

@@ -53,7 +53,6 @@ export class Builder {
   }
 
   async export() {
-    const startingMemoryUsage = process.memoryUsage();
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
@@ -101,10 +100,7 @@ export class Builder {
       fs.rmdirSync(tempDirRoot, {recursive: true});
     }
     console.log(
-      'Memory usage: '.blue +
-        `${utils.formatBytes(startingMemoryUsage.rss)} -> ${utils.formatBytes(
-          process.memoryUsage().rss
-        )}`
+      'Memory usage: '.blue + utils.formatBytes(process.memoryUsage().rss)
     );
   }
 

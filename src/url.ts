@@ -19,6 +19,9 @@ export class Url {
   }
 
   toString() {
-    return `[Url: ${JSON.stringify(this)}]`;
+    if (this.port) {
+      return `${this.scheme}://${this.host}:${this.port}${this.path}`;
+    }
+    return `${this.scheme}://${this.host}${this.path}`;
   }
 }

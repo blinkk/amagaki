@@ -41,7 +41,19 @@ export function createYamlSchema(pod: Pod) {
       return doc;
     },
   });
-  return yaml.Schema.create([docType]);
+  const stringType = new yaml.Type('!a.String', {
+    kind: 'scalar',
+    resolve: data => {
+      return typeof data === 'string';
+    },
+    construct: value => {
+      return pod.string(value);
+    },
+    represent: string => {
+      return string;
+    },
+  });
+  return yaml.Schema.create([docType, stringType]);
 }
 
 export function getLocalizedValue(doc: Document, item: any, key: string) {

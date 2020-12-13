@@ -11,6 +11,7 @@ import * as utils from './utils';
 import {StaticFile} from './static';
 import Cache from './cache';
 import {Locale} from './locale';
+import {TranslationString} from './string';
 
 export class Pod {
   builder: Builder;
@@ -34,7 +35,11 @@ export class Pod {
   }
 
   locale(id: string) {
-    return new Locale(this, id);
+    if (this.cache.locales[id]) {
+      return this.cache.locales[id];
+    }
+    this.cache.locales[id] = new Locale(this, id);
+    return this.cache.locales[id];
   }
 
   doc(path: string, locale?: Locale) {
@@ -65,6 +70,10 @@ export class Pod {
     }
     this.cache.collections[path] = collection;
     return this.cache.collections[path];
+  }
+
+  string(value: string) {
+    return new TranslationString(this, value);
   }
 
   renderer(path: string) {

@@ -4,6 +4,7 @@ import {Route} from './router';
 import {StaticFile} from './static';
 import * as yaml from 'js-yaml';
 import {Collection} from './collection';
+import {Locale} from './locale';
 
 export default class Cache {
   pod: Pod;
@@ -11,6 +12,7 @@ export default class Cache {
   collections!: Record<string, Collection>;
   routes!: Array<Route>;
   staticFiles!: Record<string, StaticFile>;
+  locales!: Record<string, Locale>;
   yamls!: Record<string, any>;
   yamlSchema!: yaml.Schema | null;
 
@@ -22,9 +24,10 @@ export default class Cache {
   clearAll() {
     this.collections = {};
     this.docs = {};
-    this.yamls = {};
+    this.locales = {};
     this.routes = [];
     this.staticFiles = {};
+    this.yamls = {};
     this.yamlSchema = null;
   }
 

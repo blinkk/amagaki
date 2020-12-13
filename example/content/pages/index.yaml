@@ -11,7 +11,7 @@ partials:
   - !a.Doc /content/kintaro/Team/4878488224399360.yaml
 - partial: hero
   title: !a.String
-    prefer: Activity Zones
+    prefer: Better Activity Zones
     value: Activity Zones
   body: Adapters & Cables
   buttons:

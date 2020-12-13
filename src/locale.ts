@@ -37,11 +37,25 @@ export class Locale {
       this.emptyStrings.add(string);
       return value;
     }
+    // Check for the translation of the preferred value and return it. This
+    // permits specification of a "preferred" string, for instances where some
+    // locales may have translations and others may not. Usually, this is useful
+    // to support updating source languages without waiting for new translations
+    // to arrive.
+    if (string.prefer) {
+      const preferredValue = this.translations[string.prefer];
+      if (preferredValue) {
+        return preferredValue;
+      }
+      // Collect the string because the preferred translation is missing.
+      this.emptyStrings.add(string);
+    }
     const foundValue = this.translations[string.value];
     if (foundValue) {
       return foundValue;
     }
     this.emptyStrings.add(string);
+    // No translation was found at all, fall back to the source string.
     return value;
   }
 }

@@ -12,6 +12,12 @@ interface Artifact {
   realPath: string;
 }
 
+interface BuildMetrics {
+  memoryUsage: number;
+  numStaticRoutes: number;
+  numDocumentRoutes: number;
+}
+
 export class Builder {
   pod: Pod;
   outputDirectoryPodPath: string;
@@ -53,6 +59,11 @@ export class Builder {
   }
 
   async export() {
+    const buildMetrics: BuildMetrics = {
+      numStaticRoutes: 0,
+      numDocumentRoutes: 0,
+      memoryUsage: 0,
+    };
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
@@ -74,9 +85,11 @@ export class Builder {
           );
           if (route.provider.type === 'static_file') {
             this.copyFile(tempPath, (route as StaticRoute).staticFile.podPath);
+            buildMetrics.numStaticRoutes += 1;
           } else {
             const content = await route.build();
             this.writeFile(tempPath, content);
+            buildMetrics.numDocumentRoutes += 1;
           }
           artifacts.push({
             tempPath: tempPath,
@@ -99,9 +112,32 @@ export class Builder {
       bar.stop();
       fs.rmdirSync(tempDirRoot, {recursive: true});
     }
+
+    // Output build metrics.
     console.log(
       'Memory usage: '.blue + utils.formatBytes(process.memoryUsage().heapUsed)
     );
+
+    if (buildMetrics.numDocumentRoutes) {
+      console.log('Documents: '.blue + `${buildMetrics.numDocumentRoutes}`);
+    }
+    if (buildMetrics.numStaticRoutes) {
+      console.log('Static files: '.blue + `${buildMetrics.numStaticRoutes}`);
+    }
+    let numMissingTranslations = 0;
+    let numMissingLocales = 0;
+    Object.values(this.pod.cache.locales).forEach(locale => {
+      numMissingTranslations += locale.emptyStrings.size;
+      if (locale.emptyStrings.size) {
+        numMissingLocales += 1;
+      }
+    });
+    if (numMissingTranslations) {
+      console.log(
+        'Missing translations: '.blue +
+          `${numMissingTranslations} (across ${numMissingLocales} locales)`
+      );
+    }
   }
 
   copyFile(outputPath: string, podPath: string) {

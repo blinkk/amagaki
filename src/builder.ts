@@ -16,6 +16,8 @@ interface BuildMetrics {
   memoryUsage: number;
   numStaticRoutes: number;
   numDocumentRoutes: number;
+  outputSizeStaticFiles: number;
+  outputSizeDocuments: number;
 }
 
 export class Builder {
@@ -63,6 +65,8 @@ export class Builder {
       numStaticRoutes: 0,
       numDocumentRoutes: 0,
       memoryUsage: 0,
+      outputSizeDocuments: 0,
+      outputSizeStaticFiles: 0,
     };
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
@@ -86,10 +90,12 @@ export class Builder {
           if (route.provider.type === 'static_file') {
             this.copyFile(tempPath, (route as StaticRoute).staticFile.podPath);
             buildMetrics.numStaticRoutes += 1;
+            buildMetrics.outputSizeStaticFiles += fs.statSync(tempPath).size;
           } else {
             const content = await route.build();
             this.writeFile(tempPath, content);
             buildMetrics.numDocumentRoutes += 1;
+            buildMetrics.outputSizeDocuments += fs.statSync(tempPath).size;
           }
           artifacts.push({
             tempPath: tempPath,
@@ -119,10 +125,20 @@ export class Builder {
     );
 
     if (buildMetrics.numDocumentRoutes) {
-      console.log('Documents: '.blue + `${buildMetrics.numDocumentRoutes}`);
+      console.log(
+        'Documents: '.blue +
+          `${buildMetrics.numDocumentRoutes} (${utils.formatBytes(
+            buildMetrics.outputSizeDocuments
+          )})`
+      );
     }
     if (buildMetrics.numStaticRoutes) {
-      console.log('Static files: '.blue + `${buildMetrics.numStaticRoutes}`);
+      console.log(
+        'Static files: '.blue +
+          `${buildMetrics.numStaticRoutes} (${utils.formatBytes(
+            buildMetrics.outputSizeStaticFiles
+          )})`
+      );
     }
     let numMissingTranslations = 0;
     let numMissingLocales = 0;

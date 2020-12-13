@@ -39,6 +39,7 @@ export function createYamlSchema(pod: Pod) {
   const docType = new yaml.Type('!a.Doc', {
     kind: 'scalar',
     resolve: data => {
+      // TODO: Validate this is in the content folder.
       return data !== null && data.startsWith('/');
     },
     construct: podPath => {
@@ -46,6 +47,19 @@ export function createYamlSchema(pod: Pod) {
     },
     represent: doc => {
       return doc;
+    },
+  });
+  const staticType = new yaml.Type('!a.Static', {
+    kind: 'scalar',
+    resolve: data => {
+      // TODO: Add more validation?
+      return data !== null && data.startsWith('/');
+    },
+    construct: podPath => {
+      return pod.staticFile(podPath);
+    },
+    represent: staticFile => {
+      return staticFile;
     },
   });
   const stringType = new yaml.Type('!a.String', {
@@ -63,7 +77,7 @@ export function createYamlSchema(pod: Pod) {
       return string;
     },
   });
-  return yaml.Schema.create([docType, stringType]);
+  return yaml.Schema.create([docType, staticType, stringType]);
 }
 
 export function getLocalizedValue(doc: Document, item: any, key: string) {

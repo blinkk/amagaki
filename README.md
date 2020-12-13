@@ -48,6 +48,22 @@ $path: /pages/${doc.basename.toLowerCase()}/
 
 - Can support multiple template languages or Markdown flavors.
 
+- Need to prototype this: single-page client-side rendering (i.e. Amagaki in a
+  Chrome tab). Theoretically, this would allow us to build an interactive editor
+  that lets operators change content and see an instant preview of the changes
+  (all without a backend server).
+
+## What about the Live Editor (grow-ext-editor)?
+
+We'll need to prototype this!
+
+The server-side APIs that the Editor's frontend depends on can be rewritten as
+an Amagaki extension and then plugged into Amagaki's dev server. We can then
+pair the Editor frontend with the Amagaki server for page rendering.
+
+If we want to pursue this route, we may need to "fork" the Editor or add
+pluggable support for Amagaki's tags (i.e. `g.doc` -> `a.Doc`).
+
 ## Key differences from Grow.dev
 
 - Instant dev server startup. All routing and document instantiation is done
@@ -95,3 +111,9 @@ foo@ja_JP: こんにちは世界
 
 - More minimal core. Preprocessor integrations (i.e. with Google Sheets) to be
   implemented as extensions.
+
+A few proposed naming changes (TBD?):
+
+- `_blueprint.yaml` is now `_collection.yaml`
+- `podspec.yaml` is now `amagaki.yaml`
+- `g.doc`, `g.static`, etc. are now `a.Doc`, `a.Static` etc.

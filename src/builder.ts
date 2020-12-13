@@ -5,6 +5,7 @@ import {extname, dirname, join} from 'path';
 import * as cliProgress from 'cli-progress';
 import * as fs from 'fs';
 import * as os from 'os';
+import * as utils from './utils';
 
 interface Artifact {
   tempPath: string;
@@ -43,13 +44,16 @@ export class Builder {
   static createProgressBar() {
     return new cliProgress.SingleBar(
       {
-        format: 'Building ({value}/{total}): {bar} Total: {duration_formatted}',
+        format:
+          'Building ({value}/{total}): '.green +
+          '{bar} Total: {duration_formatted}',
       },
       cliProgress.Presets.shades_classic
     );
   }
 
   async export() {
+    const startingMemoryUsage = process.memoryUsage();
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
     // TODO: Cleanly handle errors.
@@ -96,6 +100,11 @@ export class Builder {
       bar.stop();
       fs.rmdirSync(tempDirRoot, {recursive: true});
     }
+    console.log(
+      `Memory usage: ${utils.formatBytes(
+        startingMemoryUsage.rss
+      )} -> ${utils.formatBytes(process.memoryUsage().rss)}`
+    );
   }
 
   copyFile(outputPath: string, podPath: string) {

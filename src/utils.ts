@@ -49,9 +49,12 @@ export function createYamlSchema(pod: Pod) {
     },
   });
   const stringType = new yaml.Type('!a.String', {
-    kind: 'scalar',
+    kind: 'mapping',
     resolve: data => {
-      return typeof data === 'string';
+      return (
+        typeof data === 'string' ||
+        (typeof data === 'object' && 'value' in data)
+      );
     },
     construct: value => {
       return pod.string(value);

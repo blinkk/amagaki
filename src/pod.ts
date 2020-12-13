@@ -11,7 +11,7 @@ import * as utils from './utils';
 import {StaticFile} from './static';
 import Cache from './cache';
 import {Locale} from './locale';
-import {TranslationString} from './string';
+import {TranslationString, StringOptions} from './string';
 
 export class Pod {
   builder: Builder;
@@ -72,8 +72,8 @@ export class Pod {
     return this.cache.collections[path];
   }
 
-  string(value: string) {
-    return new TranslationString(this, value);
+  string(options: StringOptions) {
+    return new TranslationString(this, options);
   }
 
   renderer(path: string) {

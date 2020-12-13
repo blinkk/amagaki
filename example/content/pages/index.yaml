@@ -10,7 +10,9 @@ partials:
   - !a.Doc /content/pages/contact.yaml
   - !a.Doc /content/kintaro/Team/4878488224399360.yaml
 - partial: hero
-  title: Activity Zones
+  title: !a.String
+    prefer: Activity Zones
+    value: Activity Zones
   body: Adapters & Cables
   buttons:
   - label: Learn more

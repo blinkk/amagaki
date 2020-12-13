@@ -22,16 +22,26 @@ export class Locale {
     return this.pod.readYaml(this.podPath);
   }
 
-  getTranslation(value: string) {
+  toTranslationString(value: string | TranslationString) {
+    if (typeof value === 'string') {
+      return new TranslationString(this.pod, {
+        value: value as string,
+      });
+    }
+    return value;
+  }
+
+  getTranslation(value: string | TranslationString) {
+    const string = this.toTranslationString(value);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
-      this.emptyStrings.add(new TranslationString(this.pod, value));
+      this.emptyStrings.add(string);
       return value;
     }
-    const foundValue = this.translations[value];
+    const foundValue = this.translations[string.value];
     if (foundValue) {
       return foundValue;
     }
-    this.emptyStrings.add(new TranslationString(this.pod, value));
+    this.emptyStrings.add(string);
     return value;
   }
 }

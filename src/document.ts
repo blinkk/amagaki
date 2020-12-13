@@ -41,6 +41,7 @@ export class Document {
 
   async render(): Promise<string> {
     const context = {
+      process: process,
       doc: this,
       env: this.pod.env,
       pod: this.pod,

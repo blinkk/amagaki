@@ -1,7 +1,6 @@
 import {Pod} from './pod';
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
-import {stringify} from 'querystring';
 
 export class Renderer {
   pod: Pod;
@@ -35,6 +34,9 @@ export class NunjucksRenderer extends Renderer {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
       // @ts-ignore
       return utils.getLocalizedValue(this.ctx.doc, parent, key);
+    });
+    this.env.addFilter('formatBytes', value => {
+      return utils.formatBytes(value);
     });
   }
 

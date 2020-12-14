@@ -28,7 +28,7 @@ export class NunjucksRenderer extends Renderer {
     this.env.addFilter('t', function (value) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
       // @ts-ignore
-      return this.ctx.doc.locale.getTranslation(value);
+      return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);
     });
     this.env.addFilter('localize', function (parent, key) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.

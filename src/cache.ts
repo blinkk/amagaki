@@ -5,6 +5,7 @@ import {StaticFile} from './static';
 import * as yaml from 'js-yaml';
 import {Collection} from './collection';
 import {Locale} from './locale';
+import {TranslationString} from './string';
 
 export default class Cache {
   pod: Pod;
@@ -16,6 +17,7 @@ export default class Cache {
   routes!: Array<Route>;
   urlPaths!: Map<Document, string>;
   staticFiles!: Record<string, StaticFile>;
+  strings!: Record<string, TranslationString>;
   yamls!: Record<string, any>;
   yamlSchema!: yaml.Schema | null;
 
@@ -32,6 +34,7 @@ export default class Cache {
     this.routeMap = {};
     this.routes = [];
     this.staticFiles = {};
+    this.strings = {};
     this.urlPaths = new Map();
     this.yamls = {};
     this.yamlSchema = null;

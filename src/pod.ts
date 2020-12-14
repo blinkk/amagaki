@@ -73,7 +73,11 @@ export class Pod {
   }
 
   string(options: StringOptions) {
-    return new TranslationString(this, options);
+    if (this.cache.strings[options.value]) {
+      return this.cache.strings[options.value];
+    }
+    this.cache.strings[options.value] = new TranslationString(this, options);
+    return this.cache.strings[options.value];
   }
 
   renderer(path: string) {

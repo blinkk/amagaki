@@ -1,3 +1,4 @@
+import {Document} from './document';
 import {Pod} from './pod';
 import {TranslationString} from './string';
 
@@ -5,13 +6,13 @@ export class Locale {
   pod: Pod;
   podPath: string;
   id: string;
-  emptyStrings: Set<TranslationString>;
+  recordedStrings: Map<TranslationString, Set<Document>>;
 
   constructor(pod: Pod, id: string) {
     this.pod = pod;
     this.id = id;
     this.podPath = `/locales/${id}.yaml`;
-    this.emptyStrings = new Set();
+    this.recordedStrings = new Map();
   }
 
   toString() {
@@ -24,21 +25,30 @@ export class Locale {
 
   toTranslationString(value: string | TranslationString) {
     if (typeof value === 'string') {
-      return new TranslationString(this.pod, {
+      return this.pod.string({
         value: value as string,
       });
     }
     return value;
   }
 
-  getTranslation(value: string | TranslationString) {
+  recordString(string: TranslationString, location?: Document) {
+    if (!this.recordedStrings.has(string)) {
+      this.recordedStrings.set(string, new Set());
+    }
+    if (location) {
+      (this.recordedStrings.get(string) as Set<Document>).add(location);
+    }
+  }
+
+  getTranslation(value: string | TranslationString, location?: Document) {
     if (!value) {
       return value;
     }
 
     const string = this.toTranslationString(value);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
-      this.emptyStrings.add(string);
+      this.recordString(string, location);
       return value;
     }
     // Check for the translation of the preferred value and return it. This
@@ -52,13 +62,13 @@ export class Locale {
         return preferredValue;
       }
       // Collect the string because the preferred translation is missing.
-      this.emptyStrings.add(string);
+      this.recordString(string, location);
     }
     const foundValue = this.translations[string.value];
     if (foundValue) {
       return foundValue;
     }
-    this.emptyStrings.add(string);
+    this.recordString(string, location);
     // No translation was found at all, fall back to the source string.
     return value;
   }

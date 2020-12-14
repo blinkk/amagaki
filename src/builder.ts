@@ -1,4 +1,4 @@
-import {asyncify, mapLimit, mapValuesLimit} from 'async';
+import {asyncify, mapLimit} from 'async';
 import {Pod} from './pod';
 import {Route, StaticRoute} from './router';
 import {extname, dirname, join} from 'path';
@@ -171,8 +171,8 @@ export class Builder {
     let numMissingTranslations = 0;
     let numMissingLocales = 0;
     Object.values(this.pod.cache.locales).forEach(locale => {
-      numMissingTranslations += locale.emptyStrings.size;
-      if (locale.emptyStrings.size) {
+      numMissingTranslations += locale.recordedStrings.size;
+      if (locale.recordedStrings.size) {
         numMissingLocales += 1;
       }
     });

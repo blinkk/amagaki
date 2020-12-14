@@ -12,6 +12,7 @@ export default class Cache {
   docs!: Record<string, Document>;
   interpolations!: Record<string, Function>;
   locales!: Record<string, Locale>;
+  routeMap!: Record<string, Route>;
   routes!: Array<Route>;
   urlPaths!: Map<Document, string>;
   staticFiles!: Record<string, StaticFile>;
@@ -28,6 +29,7 @@ export default class Cache {
     this.docs = {};
     this.interpolations = {};
     this.locales = {};
+    this.routeMap = {};
     this.routes = [];
     this.staticFiles = {};
     this.urlPaths = new Map();

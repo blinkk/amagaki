@@ -42,7 +42,14 @@ export class Router {
     }
     Object.values(this.providers).forEach(provider => {
       provider.routes.forEach(route => {
+        const routeUrl = route.url.path;
+        if (routeUrl in this.pod.cache.routeMap) {
+          throw Error(
+            `'Two routes share the same URL path: ${this.pod.cache.routeMap[routeUrl]} and ${route}'. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
+          );
+        }
         this.pod.cache.routes.push(route);
+        this.pod.cache.routeMap[route.url.path] = route;
       });
     });
     return this.pod.cache.routes;
@@ -133,7 +140,9 @@ export class CollectionRouteProvider extends RouteProvider {
       const baseRoute = addRoute(podPath);
       baseRoute &&
         baseRoute.doc.locales.forEach((locale: Locale) => {
-          addRoute(podPath, locale);
+          if (locale !== baseRoute.doc.defaultLocale) {
+            addRoute(podPath, locale);
+          }
         });
     });
 

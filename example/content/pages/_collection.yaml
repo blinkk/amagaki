@@ -3,18 +3,11 @@ $view: /views/base.njk
 $localization:
   path: /intl/${doc.locale.id}/${doc.basename}/
   locales:
-  - at_AT
-  - de_AT
-  - de_CH
-  - de_DE
-  - en_CA
-  - en_US
-  - fi_FI
-  - fr_CA
-  - fr_CH
-  - fr_FR
-  - it_CH
-  - it_IT
-  - ja_JP
-  - ko_KR
-  - nl_BE
+  - de
+  - en
+  - fi
+  - fr
+  - it
+  - ja
+  - ko
+  - nl

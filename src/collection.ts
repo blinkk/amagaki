@@ -1,6 +1,7 @@
 import {Pod} from './pod';
 import * as fs from 'fs';
 import * as fsPath from 'path';
+import {Locale} from './locale';
 
 export class Collection {
   path: string;
@@ -58,17 +59,18 @@ export class Collection {
     return this._fields;
   }
 
-  get locales() {
+  get locales(): Set<Locale> {
     if (
       this.fields &&
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return this.fields['$localization']['locales'].map((locale: string) => {
-        return this.pod.locale(locale);
-      });
+      return new Set(
+        this.fields['$localization']['locales'].map((locale: string) => {
+          return this.pod.locale(locale);
+        })
+      );
     }
-
     return this.pod.locales;
   }
 }

@@ -120,8 +120,8 @@ export class Pod {
     return this.locale(Pod.DefaultLocale);
   }
 
-  get locales() {
+  get locales(): Set<Locale> {
     // TODO: Replace with amagaki.yaml?locales.
-    return [];
+    return new Set();
   }
 }

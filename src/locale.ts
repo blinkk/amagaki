@@ -19,7 +19,7 @@ export class Locale {
   }
 
   get translations() {
-    return this.pod.readYaml(this.podPath);
+    return this.pod.readYaml(this.podPath)['translations'];
   }
 
   toTranslationString(value: string | TranslationString) {

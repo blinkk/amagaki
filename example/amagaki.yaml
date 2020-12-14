@@ -1,1 +1,13 @@
 name: Amagaki Example
+
+localization:
+  default_locale: en
+  locales:
+  - en
+  - fr
+  - it
+  - ja
+
+routes:
+- path: /static/:splat
+  static_dir: /source/static/*

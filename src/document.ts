@@ -39,6 +39,10 @@ export class Document {
     return this._fields;
   }
 
+  get defaultLocale() {
+    return this.pod.defaultLocale;
+  }
+
   async render(): Promise<string> {
     const context = {
       process: process,
@@ -96,21 +100,21 @@ export class Document {
     );
   }
 
-  get locales() {
+  get locales(): Set<Locale> {
     if (
       this.fields &&
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return this.fields['$localization']['locales'].map((locale: string) => {
-        return this.pod.locale(locale);
-      });
+      return new Set(
+        this.fields['$localization']['locales'].map((locale: string) => {
+          return this.pod.locale(locale);
+        })
+      );
     }
-
     if (this.collection) {
       return this.collection.locales;
     }
-
     return this.pod.locales;
   }
 }

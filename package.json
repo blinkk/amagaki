@@ -1,8 +1,11 @@
 {
+  "name": "@amagaki/amagaki",
   "bin": {
-    "amagaki": "dist/src/index.js"
+    "amagaki": "./dist/src/index.js"
   },
+  "version": "0.1.0",
   "license": "MIT",
+  "homepage": "https://amagaki.dev",
   "repository": {
     "type": "git",
     "url": "git://github.com/blinkkcode/amagaki.git"
@@ -13,7 +16,7 @@
   "scripts": {
     "dev:start": "npm run copy; npm run compile",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
-    "copy": "cp src/static/* dist/src/static",
+    "copy": "mkdir -p dist/src/static; cp src/static/* dist/src/static",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc",

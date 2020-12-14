@@ -4,6 +4,7 @@ import {Route, StaticRoute} from './router';
 import {extname, dirname, join} from 'path';
 import * as cliProgress from 'cli-progress';
 import * as fs from 'fs';
+import * as fsPath from 'path';
 import * as os from 'os';
 import * as utils from './utils';
 
@@ -46,6 +47,33 @@ export class Builder {
     const dirPath = dirname(path);
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, {recursive: true});
+    }
+  }
+
+  copyFile(outputPath: string, podPath: string) {
+    Builder.ensureDirectoryExists(outputPath);
+    fs.copyFileSync(this.pod.getAbsoluteFilePath(podPath), outputPath);
+  }
+
+  writeFile(outputPath: string, content: string) {
+    Builder.ensureDirectoryExists(outputPath);
+    fs.writeFileSync(outputPath, content);
+  }
+
+  deleteDirectoryRecursive(path: string) {
+    // NOTE: {recursive: true} arg on fs.rmdirSync was not reliable.
+    let filePaths = [];
+    if (fs.existsSync(path)) {
+      filePaths = fs.readdirSync(path);
+      filePaths.forEach(filePath => {
+        const curPath = fsPath.join(path, filePath);
+        if (fs.lstatSync(curPath).isDirectory()) {
+          this.deleteDirectoryRecursive(curPath);
+        } else {
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(path);
     }
   }
 
@@ -116,7 +144,7 @@ export class Builder {
       );
     } finally {
       bar.stop();
-      fs.rmdirSync(tempDirRoot, {recursive: true});
+      this.deleteDirectoryRecursive(tempDirRoot);
     }
 
     // Output build metrics.
@@ -154,15 +182,5 @@ export class Builder {
           `${numMissingTranslations} (across ${numMissingLocales} locales)`
       );
     }
-  }
-
-  copyFile(outputPath: string, podPath: string) {
-    Builder.ensureDirectoryExists(outputPath);
-    fs.copyFileSync(this.pod.getAbsoluteFilePath(podPath), outputPath);
-  }
-
-  writeFile(outputPath: string, content: string) {
-    Builder.ensureDirectoryExists(outputPath);
-    fs.writeFileSync(outputPath, content);
   }
 }

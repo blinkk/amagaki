@@ -13,10 +13,10 @@ npm install
 npm run dev
 
 # Build the example site.
-./dist/src/index.js build example
+node ./dist/src/index.js build example
 
 # Run the Amagaki dev server for the example site.
-./dist/src/index.js serve example
+node ./dist/src/index.js serve example
 ```
 
 ## Key concepts

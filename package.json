@@ -8,11 +8,12 @@
     "url": "git://github.com/blinkkcode/amagaki.git"
   },
   "engines": {
-    "node": ">=8.5.0"
-  }, "scripts": {
+    "node": ">=10.12.0"
+  },
+  "scripts": {
     "dev:start": "npm run copy; npm run compile",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
-    "copy": "cpx 'src/static/**' 'dist/src/static'",
+    "copy": "cp src/static/* dist/src/static",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc",
@@ -20,7 +21,6 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^3.12.5",
-    "cpx": "^1.5.0",
     "gts": "^2.0.2",
     "mocha": "^7.2.0",
     "nodemon": "^2.0.4",
@@ -40,7 +40,6 @@
     "cli-progress": "^3.8.2",
     "commander": "^5.1.0",
     "express": "^4.17.1",
-    "isomorphic-git": "^1.8.0",
     "js-yaml": "^3.14.1",
     "mime-types": "^2.1.27",
     "nunjucks": "^3.2.2"

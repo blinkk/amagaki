@@ -20,6 +20,7 @@ export default class Cache {
   strings!: Record<string, TranslationString>;
   yamls!: Record<string, any>;
   yamlSchema!: yaml.Schema | null;
+  yamlStrings!: Record<string, any>;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -37,6 +38,7 @@ export default class Cache {
     this.strings = {};
     this.urlPaths = new Map();
     this.yamls = {};
+    this.yamlStrings = {};
     this.yamlSchema = null;
   }
 

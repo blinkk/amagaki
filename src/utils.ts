@@ -94,3 +94,34 @@ export function formatBytes(bytes: number) {
   // @ts-ignore
   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
+
+export interface FrontMatterResult {
+  frontMatter: string | null;
+  body: string | null;
+}
+
+export function splitFrontMatter(content: string): FrontMatterResult {
+  const openingPart = '---\n';
+  const closingPart = '\n---';
+  // No opening part present, assume the whole file is not front matter.
+  if (!content.startsWith(openingPart)) {
+    return {
+      frontMatter: null,
+      body: content,
+    };
+  }
+  // Strip the opening part.
+  content = content.slice(openingPart.length);
+  const closingIndex = content.indexOf(closingPart);
+  // No closing part present, assume the whole file is front matter.
+  if (closingIndex === -1) {
+    return {
+      frontMatter: content,
+      body: null,
+    };
+  }
+  return {
+    frontMatter: content.slice(0, closingIndex),
+    body: content.slice(closingIndex),
+  };
+}

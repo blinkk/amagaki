@@ -3,6 +3,7 @@ import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
 import * as fsPath from 'path';
+import * as utils from './utils';
 
 const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
@@ -13,7 +14,7 @@ export class Document {
   renderer: Renderer;
   locale: Locale;
   readonly ext: string;
-  private _fields: any;
+  private _fields: any; // TODO: See if we can limit this.
   private _body: string | null;
   private _content: string | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
@@ -123,7 +124,7 @@ export class Document {
       return this._fields;
     }
     if (this.ext === '.md') {
-      this._fields = {};
+      this.initPartsFromFrontMatter(); // Sets this._fields.
     } else {
       this._fields = this.pod.readYaml(this.path);
     }
@@ -145,9 +146,23 @@ export class Document {
     if (this.ext === '.yaml') {
       this._body = '';
     } else if (this.ext === '.md') {
-      // TODO: Parse out frontmatter.
-      this._body = this.content;
+      this.initPartsFromFrontMatter(); // Sets this._body.
     }
     return this._body;
+  }
+
+  private initPartsFromFrontMatter() {
+    // If either the fields or body value are not null, assume the front matter
+    // has already been split.
+    if (this._body !== null) {
+      return;
+    }
+    const result = utils.splitFrontMatter(this.content);
+    this._body = result.body;
+    if (result.frontMatter === null) {
+      this._fields = {};
+    } else {
+      this._fields = this.pod.readYamlString(result.frontMatter, this.path);
+    }
   }
 }

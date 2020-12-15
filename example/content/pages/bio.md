@@ -1,5 +1,5 @@
 ---
-$title: My Biography
+title: My biography
 ---
 # Inferior at memores non quae veluti oscula
 

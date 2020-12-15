@@ -103,6 +103,16 @@ export class Pod {
     return this.cache.yamls[path];
   }
 
+  readYamlString(content: string, cacheKey: string) {
+    if (this.cache.yamlStrings[cacheKey]) {
+      return this.cache.yamlStrings[cacheKey];
+    }
+    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+      schema: this.yamlSchema,
+    });
+    return this.cache.yamlStrings[cacheKey];
+  }
+
   getAbsoluteFilePath(path: string) {
     path = path.replace(/^\/+/, '');
     return join(this.root, path);

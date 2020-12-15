@@ -39,6 +39,13 @@ interface BuildManifest {
   files: Array<PodPathSha>;
 }
 
+interface BuildDiffPaths {
+  adds: Array<string>;
+  edits: Array<string>;
+  noChanges: Array<string>;
+  deletes: Array<string>;
+}
+
 interface BuildMetrics {
   memoryUsage: number;
   numStaticRoutes: number;
@@ -51,7 +58,7 @@ export class Builder {
   pod: Pod;
   manifestPodPath: string;
   outputDirectoryPodPath: string;
-  controlDirectoryPodPath: string;
+  controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
   static DefaultNumConcurrentBuilds = 10;
   static DefaultNumConcurrentCopies = 10;
@@ -62,11 +69,12 @@ export class Builder {
     // want that to be the default, but we should also permit building to
     // directories external to the pod.
     this.outputDirectoryPodPath = Builder.DefaultOutputDirectory;
-    this.controlDirectoryPodPath = this.pod.getAbsoluteFilePath(
+    this.controlDirectoryAbsolutePath = this.pod.getAbsoluteFilePath(
       fsPath.join(this.outputDirectoryPodPath, '.amagaki')
     );
     this.manifestPodPath = fsPath.join(
-      this.controlDirectoryPodPath,
+      this.outputDirectoryPodPath,
+      '.amagaki',
       'manifest.json'
     );
   }
@@ -125,6 +133,60 @@ export class Builder {
     }
   }
 
+  getExistingManifest(): BuildManifest | null {
+    const path = this.manifestPodPath;
+    if (this.pod.fileExists(path)) {
+      return JSON.parse(this.pod.readFile(this.manifestPodPath));
+    }
+    return null;
+  }
+
+  cleanOutputUsingManifests(
+    existingManifest: BuildManifest | null,
+    newManifest: BuildManifest
+  ) {
+    const buildDiffPaths: BuildDiffPaths = {
+      adds: [],
+      edits: [],
+      noChanges: [],
+      deletes: [],
+    };
+    // No existing manifest, everything is an "add".
+    if (!existingManifest) {
+      buildDiffPaths.adds = newManifest.files.map(pathSha => {
+        return pathSha.path;
+      });
+    } else {
+      // Build adds, edits, and no changes.
+      const existingPathShas: Record<string, string> = {};
+      existingManifest.files.forEach(pathSha => {
+        existingPathShas[pathSha.path] = pathSha.sha;
+      });
+      newManifest.files.forEach(newPathSha => {
+        if (newPathSha.path in existingPathShas) {
+          if (newPathSha.sha === existingPathShas[newPathSha.path]) {
+            buildDiffPaths.noChanges.push(newPathSha.path);
+          } else {
+            buildDiffPaths.edits.push(newPathSha.path);
+          }
+        } else {
+          buildDiffPaths.adds.push(newPathSha.path);
+        }
+      });
+      // Build deletes.
+      const newPathShas: Record<string, string> = {};
+      newManifest.files.forEach(pathSha => {
+        newPathShas[pathSha.path] = pathSha.sha;
+      });
+      existingManifest.files.forEach(pathSha => {
+        if (!(pathSha.path in newPathShas)) {
+          buildDiffPaths.deletes.push(pathSha.path);
+        }
+      });
+    }
+    return buildDiffPaths;
+  }
+
   static createProgressBar() {
     return new cliProgress.SingleBar(
       {
@@ -137,6 +199,7 @@ export class Builder {
   }
 
   async export() {
+    const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
       commit: null,
@@ -205,7 +268,7 @@ export class Builder {
     } finally {
       bar.stop();
       this.writeFile(
-        this.manifestPodPath,
+        this.pod.getAbsoluteFilePath(this.manifestPodPath),
         JSON.stringify(buildManifest, null, 2)
       );
       this.deleteDirectoryRecursive(tempDirRoot);
@@ -246,5 +309,16 @@ export class Builder {
           `${numMissingTranslations} (across ${numMissingLocales} locales)`
       );
     }
+
+    const buildDiff = this.cleanOutputUsingManifests(
+      existingManifest,
+      buildManifest
+    );
+    console.log(
+      'Changes: '.blue +
+        `${buildDiff.adds.length} adds `.green +
+        `${buildDiff.edits.length} edits `.yellow +
+        `${buildDiff.deletes.length} deletes`.red
+    );
   }
 }

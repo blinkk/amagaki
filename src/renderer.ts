@@ -72,7 +72,7 @@ class NunjucksPodLoader extends nunjucks.Loader {
     return {
       src: this.pod.readFile(name),
       path: name,
-      noCache: true,
+      noCache: false,
     };
   }
 }

@@ -25,15 +25,22 @@ export class Router {
 
   createTree() {}
 
-  resolve(path: string): [Route | null, Record<string, string>] {
+  resolve(path: string): Route | null {
     // TODO: Implement route trie.
     for (let i = 0; i < this.routes.length; i++) {
       const route = this.routes[i];
       if (route.url.path === path) {
-        return [route, {}];
+        return route;
       }
     }
-    return [null, {}];
+    return null;
+  }
+
+  warmup() {
+    const now = new Date().getTime() / 1000;
+    // Warm up by referencing (building) the routes.
+    this.routes.length;
+    return new Date().getTime() / 1000 - now;
   }
 
   get routes() {
@@ -274,7 +281,7 @@ export class StaticRoute extends Route {
   }
 
   get urlPath() {
-    // TODO: Replace with serving path defined in amagaki.yaml?routes.
+    // TODO: Replace with serving path defined in amagaki.yaml.
     return `/static${this.podPath}`;
   }
 }

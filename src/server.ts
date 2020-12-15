@@ -11,7 +11,7 @@ export function createApp(pod: Pod) {
   const app = express();
   app.disable('x-powered-by');
   app.all('/*', async (req: express.Request, res: express.Response) => {
-    const [route, params] = pod.router.resolve(req.path);
+    const route = pod.router.resolve(req.path);
     if (!route) {
       res
         .status(404)

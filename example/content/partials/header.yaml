@@ -1,7 +1,7 @@
 partial: header
 logo:
   doc: !a.Doc /content/pages/index.yaml
-  title: Amagaki
+  title: !a.Yaml /content/partials/base.yaml?title
   image:
     url: https://placeholder-dot-madebygoog.appspot.com/7x3.svg
 nav:

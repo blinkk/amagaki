@@ -82,10 +82,7 @@ export class Builder {
     const pipeline = util.promisify(stream.pipeline);
     const hash = crypto.createHash('sha1');
     hash.setEncoding('hex');
-    async function run() {
-      await pipeline(fs.createReadStream(outputPath), hash);
-    }
-    await run();
+    await pipeline(fs.createReadStream(outputPath), hash);
     return hash.read();
   }
 

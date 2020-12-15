@@ -10,7 +10,7 @@ import * as yaml from 'js-yaml';
 import * as utils from './utils';
 import {StaticFile} from './static';
 import Cache from './cache';
-import {Locale} from './locale';
+import {Locale, LocaleSet} from './locale';
 import {TranslationString, StringOptions} from './string';
 
 export class Pod {
@@ -126,6 +126,6 @@ export class Pod {
 
   get locales(): Set<Locale> {
     // TODO: Replace with amagaki.yaml?locales.
-    return new Set();
+    return new LocaleSet();
   }
 }

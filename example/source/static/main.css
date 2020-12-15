@@ -22,6 +22,10 @@ body {
     max-width: 1024px;
 }
 
+.main__body {
+    padding: 0 20px
+}
+
 .button {
     background: var(--color-orange);
     color: white;

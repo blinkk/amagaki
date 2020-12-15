@@ -13,6 +13,10 @@
             <div class="help">{{partial.partial}}</div>
             {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
         {% endfor %}
+    {% else %}
+        <div class="main__body">
+            {{doc.body|markdown|safe}}
+        </div>
     {% endif %}
     {% set partial = doc.pod.doc('/content/partials/footer.yaml').fields %}
     {% include "/views/partials/footer.njk" %}

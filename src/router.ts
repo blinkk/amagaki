@@ -1,4 +1,4 @@
-import {basename} from 'path';
+import * as fsPath from 'path';
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
@@ -127,12 +127,9 @@ export class CollectionRouteProvider extends RouteProvider {
     }
 
     podPaths.forEach(podPath => {
-      const basePath = basename(podPath);
-      if (basePath.startsWith('_')) {
-        return;
-      }
-      // TODO: Handle other content types.
-      if (!basePath.endsWith('.yaml')) {
+      const basePath = fsPath.basename(podPath);
+      const ext = fsPath.extname(podPath);
+      if (!Document.SupportedExtensions.has(ext) || basePath.startsWith('_')) {
         return;
       }
 

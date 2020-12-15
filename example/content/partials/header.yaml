@@ -9,3 +9,4 @@ nav:
 - !a.Doc /content/pages/routes.yaml
 - !a.Doc /content/pages/about.yaml
 - !a.Doc /content/pages/contact.yaml
+- !a.Doc /content/pages/bio.md

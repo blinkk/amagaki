@@ -1,8 +1,8 @@
-import * as fsPath from 'path';
-import {Locale} from './locale';
+import {Locale, LocaleSet} from './locale';
 import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
+import * as fsPath from 'path';
 
 const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
@@ -12,15 +12,22 @@ export class Document {
   pod: Pod;
   renderer: Renderer;
   locale: Locale;
+  readonly ext: string;
   private _fields: any;
+  private _body: string | null;
+  private _content: string | null;
+  static SupportedExtensions = new Set(['.md', '.yaml']);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
     this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
+    this.ext = fsPath.extname(this.path);
 
+    this._body = null;
     this._fields = null;
+    this._content = null;
   }
 
   toString() {
@@ -31,15 +38,8 @@ export class Document {
     return this.pod.collection(fsPath.dirname(this.path));
   }
 
-  get fields() {
-    if (this._fields) {
-      return this._fields;
-    }
-    this._fields = this.pod.readYaml(this.path);
-    return this._fields;
-  }
-
   get defaultLocale() {
+    // TODO: Allow docs and collections to override default locales.
     return this.pod.defaultLocale;
   }
 
@@ -106,7 +106,7 @@ export class Document {
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return new Set(
+      return new LocaleSet(
         this.fields['$localization']['locales'].map((locale: string) => {
           return this.pod.locale(locale);
         })
@@ -116,5 +116,38 @@ export class Document {
       return this.collection.locales;
     }
     return this.pod.locales;
+  }
+
+  get fields() {
+    if (this._fields) {
+      return this._fields;
+    }
+    if (this.ext === '.md') {
+      this._fields = {};
+    } else {
+      this._fields = this.pod.readYaml(this.path);
+    }
+    return this._fields;
+  }
+
+  get content() {
+    if (this._content !== null) {
+      return this._content;
+    }
+    this._content = this.pod.readFile(this.path);
+    return this._content;
+  }
+
+  get body() {
+    if (this._body !== null) {
+      return this._body;
+    }
+    if (this.ext === '.yaml') {
+      this._body = '';
+    } else if (this.ext === '.md') {
+      // TODO: Parse out frontmatter.
+      this._body = this.content;
+    }
+    return this._body;
   }
 }

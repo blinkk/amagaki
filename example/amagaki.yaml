@@ -9,5 +9,5 @@ localization:
   - ja
 
 routes:
-- path: /static/:splat
-  static_dir: /source/static/*
+- path: /static/*
+  static_dir: /source/static/

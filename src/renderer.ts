@@ -1,4 +1,5 @@
 import {Pod} from './pod';
+import * as marked from 'marked';
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
 
@@ -15,6 +16,17 @@ export class Renderer {
     throw new Error();
   }
 }
+
+export function getRenderer(path: string) {
+  if (path.endsWith('.njk')) {
+    return NunjucksRenderer;
+  } else if (path.endsWith('.js')) {
+    return JavaScriptRenderer;
+  } // TODO: Raise if no renderer available.
+  return NunjucksRenderer;
+}
+
+export class JavaScriptRenderer extends Renderer {}
 
 export class NunjucksRenderer extends Renderer {
   env: nunjucks.Environment;
@@ -38,22 +50,14 @@ export class NunjucksRenderer extends Renderer {
     this.env.addFilter('formatBytes', value => {
       return utils.formatBytes(value);
     });
+    this.env.addFilter('markdown', value => {
+      return marked(value);
+    });
   }
 
   async render(path: string, context: any): Promise<string> {
     return this.env.render(path, context);
   }
-}
-
-export class JavaScriptRenderer extends Renderer {}
-
-export function getRenderer(path: string) {
-  if (path.endsWith('.njk')) {
-    return NunjucksRenderer;
-  } else if (path.endsWith('.js')) {
-    return JavaScriptRenderer;
-  } // TODO: Raise if no renderer available.
-  return NunjucksRenderer;
 }
 
 class NunjucksPodLoader extends nunjucks.Loader {

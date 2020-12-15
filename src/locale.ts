@@ -2,6 +2,12 @@ import {Document} from './document';
 import {Pod} from './pod';
 import {TranslationString} from './string';
 
+export class LocaleSet extends Set {
+  toString() {
+    return `[Locales: ${Array.from(this.values()).join(', ')}]`;
+  }
+}
+
 export class Locale {
   pod: Pod;
   podPath: string;

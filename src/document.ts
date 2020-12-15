@@ -124,7 +124,7 @@ export class Document {
       return this._fields;
     }
     if (this.ext === '.md') {
-      this.initPartsFromFrontMatter(); // Sets this._fields.
+      this.initPartsFromFrontMatter(); // Set this._fields.
     } else {
       this._fields = this.pod.readYaml(this.path);
     }
@@ -146,14 +146,13 @@ export class Document {
     if (this.ext === '.yaml') {
       this._body = '';
     } else if (this.ext === '.md') {
-      this.initPartsFromFrontMatter(); // Sets this._body.
+      this.initPartsFromFrontMatter(); // Set this._body.
     }
     return this._body;
   }
 
   private initPartsFromFrontMatter() {
-    // If either the fields or body value are not null, assume the front matter
-    // has already been split.
+    // If the body value is not null, assume the front matter has been split.
     if (this._body !== null) {
       return;
     }

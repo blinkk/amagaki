@@ -49,6 +49,7 @@ interface BuildMetrics {
 
 export class Builder {
   pod: Pod;
+  manifestPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryPodPath: string;
   static DefaultOutputDirectory = 'build';
@@ -64,6 +65,10 @@ export class Builder {
     this.controlDirectoryPodPath = this.pod.getAbsoluteFilePath(
       fsPath.join(this.outputDirectoryPodPath, '.amagaki')
     );
+    this.manifestPodPath = fsPath.join(
+      this.controlDirectoryPodPath,
+      'manifest.json'
+    );
   }
 
   static normalizePath(path: string) {
@@ -71,13 +76,6 @@ export class Builder {
       return `${path}index.html`;
     }
     return fsPath.extname(path) ? path : `${path}/index.html`;
-  }
-
-  static ensureDirectoryExists(path: string) {
-    const dirPath = fsPath.dirname(path);
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, {recursive: true});
-    }
   }
 
   async getFileSha(outputPath: string) {
@@ -91,9 +89,21 @@ export class Builder {
     return hash.read();
   }
 
+  static ensureDirectoryExists(path: string) {
+    const dirPath = fsPath.dirname(path);
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, {recursive: true});
+    }
+  }
+
   copyFile(outputPath: string, podPath: string) {
     Builder.ensureDirectoryExists(outputPath);
     fs.copyFileSync(this.pod.getAbsoluteFilePath(podPath), outputPath);
+  }
+
+  moveFile(beforePath: string, afterPath: string) {
+    Builder.ensureDirectoryExists(afterPath);
+    fs.renameSync(beforePath, afterPath);
   }
 
   writeFile(outputPath: string, content: string) {
@@ -192,17 +202,15 @@ export class Builder {
         artifacts,
         Builder.DefaultNumConcurrentCopies,
         asyncify(async (artifact: Artifact) => {
-          Builder.ensureDirectoryExists(artifact.realPath);
-          fs.renameSync(artifact.tempPath, artifact.realPath);
+          this.moveFile(artifact.tempPath, artifact.realPath);
         })
       );
     } finally {
       bar.stop();
-      const buildManifestPath = fsPath.join(
-        this.controlDirectoryPodPath,
-        'manifest.json'
+      this.writeFile(
+        this.manifestPodPath,
+        JSON.stringify(buildManifest, null, 2)
       );
-      this.writeFile(buildManifestPath, JSON.stringify(buildManifest, null, 2));
       this.deleteDirectoryRecursive(tempDirRoot);
     }
 

@@ -22,6 +22,8 @@ export class Pod {
   static DefaultLocale = 'en';
 
   constructor(root: string) {
+    // Anything that occurs in the Pod constructor must be very lightweight.
+    // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
     this.builder = new Builder(this);
     this.router = new Router(this);

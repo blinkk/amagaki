@@ -15,7 +15,7 @@ export class ServeCommand {
     this.options = options;
   }
 
-  async run(path: string) {
+  async run(path: string = './') {
     const pod = new Pod(fs.realpathSync(path));
     const watcher = new Watcher(pod);
     const app = createApp(pod);

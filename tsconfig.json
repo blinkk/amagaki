@@ -4,6 +4,7 @@
       "esModuleInterop": true,
       "rootDir": ".",
       "outDir": "dist",
+      "resolveJsonModule": true,
       "types": [
         "mocha",
         "node"

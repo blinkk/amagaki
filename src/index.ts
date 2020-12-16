@@ -3,12 +3,14 @@
 import {createCommand} from 'commander';
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
-import {getCurrentVersion} from './sdk';
+import SemVer from 'semver/classes/semver';
+import * as packageData from '../package.json';
 
+export const VERSION = new SemVer(packageData.version);
 export const MIN_NODE_VERSION = 10;
 
 const program = createCommand();
-program.version(getCurrentVersion().toString());
+program.version(VERSION.toString());
 
 program.command('build [root]').action((path, options) => {
   if (!isNodeVersionSupported()) {

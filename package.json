@@ -49,8 +49,7 @@
     "js-yaml": "^3.14.1",
     "marked": "^1.2.6",
     "mime-types": "^2.1.27",
-    "nunjucks": "^3.2.2",
-    "semver": "^7.3.4"
+    "nunjucks": "^3.2.2"
   },
   "files": [
     "dist/src"

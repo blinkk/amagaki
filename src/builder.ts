@@ -9,7 +9,6 @@ import * as os from 'os';
 import * as utils from './utils';
 import * as util from 'util';
 import * as stream from 'stream';
-import {Stream} from 'stream';
 
 interface Artifact {
   tempPath: string;

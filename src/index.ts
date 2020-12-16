@@ -3,7 +3,9 @@
 import {createCommand} from 'commander';
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
-import {getCurrentVersion, isNodeVersionSupported} from './sdk';
+import {getCurrentVersion} from './sdk';
+
+export const MIN_NODE_VERSION = 10;
 
 const program = createCommand();
 program.version(getCurrentVersion().toString());
@@ -30,3 +32,14 @@ program
   });
 
 program.parse(process.argv);
+
+export function isNodeVersionSupported(): boolean {
+  const version = Number(process.version.slice(1).split('.')[0]);
+  if (version < MIN_NODE_VERSION) {
+    console.error(
+      `Amagaki requires Node.js 10.x or higher. You are currently running ${process.version}, which is not supported.`
+    );
+    return false;
+  }
+  return true;
+}

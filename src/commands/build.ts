@@ -8,7 +8,7 @@ export class BuildCommand {
     this.options = options;
   }
 
-  async run(path: string) {
+  async run(path = './') {
     const pod = new Pod(fs.realpathSync(path));
     await pod.builder.export();
   }

@@ -1,5 +1,5 @@
 import {Pod} from './pod';
-import * as marked from 'marked';
+import marked from 'marked';
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
 

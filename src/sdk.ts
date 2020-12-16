@@ -1,4 +1,17 @@
+import SemVer from 'semver/classes/semver';
+
 export const MIN_NODE_VERSION = 10;
+export const VERSION = new SemVer('v0.1.0')
+
+export function getCurrentVersion(): SemVer {
+  // TODO: Read from package.json?
+  return VERSION;
+}
+
+export function getLatestVersion(): SemVer {
+  // TODO: Read from github releases api.
+  return VERSION;
+}
 
 export function isNodeVersionSupported(): boolean {
   const version = Number(process.version.slice(1).split('.')[0]);

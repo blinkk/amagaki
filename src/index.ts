@@ -3,9 +3,10 @@
 import {createCommand} from 'commander';
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
-import {isNodeVersionSupported} from './sdk';
+import {getCurrentVersion, isNodeVersionSupported} from './sdk';
 
 const program = createCommand();
+program.version(getCurrentVersion().toString());
 
 program.command('build [root]').action((path, options) => {
   if (!isNodeVersionSupported()) {

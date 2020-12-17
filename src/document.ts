@@ -8,14 +8,18 @@ import * as utils from './utils';
 const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
 
+interface DocumentParts {
+  body?: string | null;
+  fields?: any | null; // TODO: See if we can limit this.
+}
+
 export class Document {
   path: string;
   pod: Pod;
   renderer: Renderer;
   locale: Locale;
   readonly ext: string;
-  private _fields: any; // TODO: See if we can limit this.
-  private _body: string | null;
+  private _parts: DocumentParts;
   private _content: string | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
 
@@ -26,8 +30,10 @@ export class Document {
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
 
-    this._body = null;
-    this._fields = null;
+    this._parts = {
+      body: null,
+      fields: null,
+    };
     this._content = null;
   }
 
@@ -120,15 +126,18 @@ export class Document {
   }
 
   get fields() {
-    if (this._fields) {
-      return this._fields;
+    if (this._parts.fields) {
+      return this._parts.fields;
     }
     if (this.ext === '.md') {
-      this.initPartsFromFrontMatter(); // Set this._fields.
+      this._parts = this.initPartsFromFrontMatter();
     } else {
-      this._fields = this.pod.readYaml(this.path);
+      this._parts.fields = utils.localizeData(
+        this.pod.readYaml(this.path),
+        this.locale
+      );
     }
-    return this._fields;
+    return this._parts.fields;
   }
 
   get content() {
@@ -140,28 +149,32 @@ export class Document {
   }
 
   get body() {
-    if (this._body !== null) {
-      return this._body;
+    if (this._parts.body !== null) {
+      return this._parts.body;
     }
     if (this.ext === '.yaml') {
-      this._body = '';
+      this._parts.body = '';
     } else if (this.ext === '.md') {
-      this.initPartsFromFrontMatter(); // Set this._body.
+      this._parts = this.initPartsFromFrontMatter();
     }
-    return this._body;
+    return this._parts.body;
   }
 
-  private initPartsFromFrontMatter() {
+  private initPartsFromFrontMatter(): DocumentParts {
     // If the body value is not null, assume the front matter has been split.
-    if (this._body !== null) {
-      return;
+    if (this._parts.body !== null) {
+      return this._parts;
     }
     const result = utils.splitFrontMatter(this.content);
-    this._body = result.body;
-    if (result.frontMatter === null) {
-      this._fields = {};
-    } else {
-      this._fields = this.pod.readYamlString(result.frontMatter, this.path);
-    }
+    return {
+      body: result.body || null,
+      fields:
+        result.frontMatter === null
+          ? {}
+          : utils.localizeData(
+              this.pod.readYamlString(result.frontMatter, this.path),
+              this.locale
+            ),
+    };
   }
 }

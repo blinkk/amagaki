@@ -2,8 +2,10 @@ title: All routes
 description: Page description
 partials:
 - partial: hero
-  title: Routes
-  body: Browse all the routes below.
+  title: !a.String
+    value: Routes
+  body: !a.String
+    value: Browse all the routes below.
 - partial: spacer
   options:
   - large

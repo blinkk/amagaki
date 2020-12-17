@@ -189,8 +189,8 @@ export function localizeData(data: any, locale: Locale) {
       newData[i] = localizeData(newData[i], locale);
     }
     return newData;
-  } else if (DataType.isInstance(data) && DataType.isFunction(data.toLocale)) {
-    return data.toLocale(locale);
+  } else if (DataType.isInstance(data) && DataType.isFunction(data.localize)) {
+    return data.localize(locale);
   }
   return data;
 }

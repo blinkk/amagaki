@@ -22,7 +22,7 @@ export class TranslationString {
     this.locale = locale;
   }
 
-  toLocale(locale: Locale) {
+  localize(locale: Locale) {
     return new TranslationString(
       this.pod,
       {

@@ -19,7 +19,7 @@ export class Document {
   renderer: Renderer;
   locale: Locale;
   readonly ext: string;
-  private _parts: DocumentParts;
+  private parts: DocumentParts;
   private _content: string | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
 
@@ -30,7 +30,7 @@ export class Document {
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
 
-    this._parts = {
+    this.parts = {
       body: null,
       fields: null,
     };
@@ -126,18 +126,18 @@ export class Document {
   }
 
   get fields() {
-    if (this._parts.fields) {
-      return this._parts.fields;
+    if (this.parts.fields) {
+      return this.parts.fields;
     }
     if (this.ext === '.md') {
-      this._parts = this.initPartsFromFrontMatter();
+      this.parts = this.initPartsFromFrontMatter();
     } else {
-      this._parts.fields = utils.localizeData(
+      this.parts.fields = utils.localizeData(
         this.pod.readYaml(this.path),
         this.locale
       );
     }
-    return this._parts.fields;
+    return this.parts.fields;
   }
 
   get content() {
@@ -149,21 +149,21 @@ export class Document {
   }
 
   get body() {
-    if (this._parts.body !== null) {
-      return this._parts.body;
+    if (this.parts.body !== null) {
+      return this.parts.body;
     }
     if (this.ext === '.yaml') {
-      this._parts.body = '';
+      this.parts.body = '';
     } else if (this.ext === '.md') {
-      this._parts = this.initPartsFromFrontMatter();
+      this.parts = this.initPartsFromFrontMatter();
     }
-    return this._parts.body;
+    return this.parts.body;
   }
 
   private initPartsFromFrontMatter(): DocumentParts {
     // If the body value is not null, assume the front matter has been split.
-    if (this._parts.body !== null) {
-      return this._parts;
+    if (this.parts.body !== null) {
+      return this.parts;
     }
     const result = utils.splitFrontMatter(this.content);
     return {

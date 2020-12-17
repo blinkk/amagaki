@@ -1,5 +1,6 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
+
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
@@ -7,6 +8,7 @@ import {StringOptions, TranslationString} from './string';
 import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
+
 import {Builder} from './builder';
 import {Cache} from './cache';
 import {Collection} from './collection';
@@ -60,17 +62,17 @@ export class Pod {
   readonly router: Router;
 
   constructor(root: string) {
-    // Anything that occurs in the Pod constructor must be very lightweight.
-    // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);
     this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
+    // TODO: Env should be parameterized and optionally passed in when the Pod
+    // is instantiated.
     this.env = new Environment({
       host: 'localhost',
-      name: 'default',
+      name: Environment.DefaultName,
       scheme: 'http',
       dev: true,
     });

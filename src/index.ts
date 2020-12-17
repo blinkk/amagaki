@@ -11,18 +11,21 @@ export const MIN_NODE_VERSION = 10;
 const program = createCommand();
 program.version(VERSION);
 
-program.command('build [root]').action((path, options) => {
-  if (!isNodeVersionSupported()) {
-    return;
-  }
+program
+  .command('build [root]')
+  .description('build the website')
+  .action((path, options) => {
+    if (!isNodeVersionSupported()) {
+      return;
+    }
 
-  const cmd = new BuildCommand(options);
-  cmd.run(path);
-});
+    const cmd = new BuildCommand(options);
+    cmd.run(path);
+  });
 
 program
   .command('serve [root]')
-  .description('Runs the server')
+  .description('start the development server')
   .action((path, options) => {
     if (!isNodeVersionSupported()) {
       return;

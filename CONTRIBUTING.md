@@ -25,7 +25,7 @@ Keep the above in mind when adding features to Amagaki!
   correctly.
 - Avoid introducing new dependencies as much as possible. The core project
   should be kept slim/lean. Installing Amagaki should install as few
-  sub-packages as possible. 
+  sub-packages as possible.
 - Group code logically by file. A new contributor should be able to quickly
   understand the project structure and where to go to make code changes or
   enhancements – having too many files reduces scannability of the codebase.
@@ -61,7 +61,7 @@ Keep the above in mind when adding features to Amagaki!
   one line. Example:
 
 ```
-Add support for localized documents.
+Add support for localized documents
 ```
 
 ## Development workflow
@@ -117,3 +117,8 @@ dbaeumer.vscode-eslint
   "source.fixAll.eslint": true
 },
 ```
+
+## Other
+
+- What does Amagaki mean? It's a variety of persimmon (sweet persimmon).
+- How do I pronounce it? [("ahmuh-gah-key")](https://eng.ichacha.net/pronounce/amagaki.html)

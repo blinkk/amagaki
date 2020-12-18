@@ -21,9 +21,6 @@ export class BuildCommand {
       .timersFor('command.build', 'Build command')
       .wrapAsync(pod.builder.export.bind(pod.builder));
     await command();
-
-    if (this.globalOptions.profile) {
-      pod.profiler.report();
-    }
+    pod.profiler.report([], this.globalOptions.profile);
   }
 }

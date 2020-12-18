@@ -8,6 +8,7 @@ interface TimeParts {
 }
 
 const DEFAULT_REPORT_KEYS = [/file\..*/, /yaml\..*/];
+const DEFAULT_THRESHOLD = 0.2;
 
 export class Profiler {
   private timerTypes: Record<string, TimerType>;
@@ -44,18 +45,41 @@ export class Profiler {
 
   report(
     keys?: Array<string> | Array<RegExp>,
-    outMethod: Function = console.log
+    showExpandedReport = false,
+    logMethod: Function = console.log,
+    warnMethod: Function = console.warn
   ) {
     const totalDuration = this.duration;
-    keys = keys || DEFAULT_REPORT_KEYS;
+    const shownTimerKeys: Array<string> = [];
+
+    // Show timers that are over threshold first.
     for (const timerKey of Object.keys(this.timerTypes).sort()) {
+      if (this.timerTypes[timerKey].isOverThreshold(totalDuration)) {
+        this.timerTypes[timerKey].report(totalDuration, warnMethod);
+        shownTimerKeys.push(timerKey);
+      }
+    }
+
+    if (!showExpandedReport) {
+      return;
+    }
+
+    // Show the timers that match the key expressions.
+    if (!keys || keys.length === 0) {
+      keys = DEFAULT_REPORT_KEYS;
+    }
+    for (const timerKey of Object.keys(this.timerTypes).sort()) {
+      if (shownTimerKeys.includes(timerKey)) {
+        continue;
+      }
+
       for (let keyExp of keys) {
         // TODO: use datatype class.
         if (!(typeof keyExp === 'object' && keyExp.constructor !== RegExp)) {
           keyExp = new RegExp(keyExp);
         }
         if (keyExp.test(timerKey)) {
-          this.timerTypes[timerKey].report(totalDuration, outMethod);
+          this.timerTypes[timerKey].report(totalDuration, logMethod);
         }
       }
     }
@@ -81,10 +105,12 @@ export class TimerType {
   key: string;
   label?: string;
   meta?: any;
+  threshold: number;
   private timers: Array<Timer>;
 
   constructor(key: string, label?: string, meta?: any) {
     this.timers = [];
+    this.threshold = DEFAULT_THRESHOLD;
 
     this.key = key;
     this.label = label;
@@ -136,14 +162,18 @@ export class TimerType {
     return sum;
   }
 
-  report(duration: number, outMethod: Function = console.log) {
+  isOverThreshold(totalDuration: number): boolean {
+    return this.sum / totalDuration >= this.threshold;
+  }
+
+  report(duration: number, logMethod: Function = console.log) {
     const sumDuration = this.sum;
     let percent = (sumDuration / duration).toFixed(2);
     if (duration === 0) {
       percent = '100';
     }
 
-    outMethod(
+    logMethod(
       `${this.label || this.key} took ${timeFormat(
         sumDuration
       )} (${percent}% called ${this.timers.length}x, ${timeFormat(

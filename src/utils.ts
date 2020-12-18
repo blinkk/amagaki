@@ -183,15 +183,20 @@ export function localizeData(data: any, locale: Locale) {
       newData[key] = localizeData(data[key], locale);
     }
     return newData;
-  } else if (DataType.isArray(data)) {
+  }
+
+  if (DataType.isArray(data)) {
     const newData = [...data];
     for (const i in newData) {
       newData[i] = localizeData(newData[i], locale);
     }
     return newData;
-  } else if (DataType.isInstance(data) && DataType.isFunction(data.localize)) {
+  }
+
+  if (DataType.isInstance(data) && DataType.isFunction(data.localize)) {
     return data.localize(locale);
   }
+
   return data;
 }
 

@@ -172,7 +172,7 @@ export function interpolate(pod: Pod, string: string, params: any) {
   return func(...vals);
 }
 
-export function localizeData(data: any, locale: Locale) {
+export function localizeData(data: any, locale: Locale): any {
   if (!data) {
     return data;
   }

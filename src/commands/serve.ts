@@ -1,9 +1,9 @@
-import {createApp} from '../server';
-import {Pod} from '../pod';
 import * as _colors from 'colors';
 import * as fs from 'fs';
-import Watcher from '../watcher';
 import {GlobalOptions} from './global';
+import {Pod} from '../pod';
+import Watcher from '../watcher';
+import {createApp} from '../server';
 
 interface ServeOptions {
   fcd?: string;

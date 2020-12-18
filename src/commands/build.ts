@@ -1,7 +1,7 @@
-import {Pod} from '../pod';
 import * as fs from 'fs';
-import profiler from '../profile';
 import {GlobalOptions} from './global';
+import {Pod} from '../pod';
+import profiler from '../profile';
 
 interface BuildOptions {
   outputDirectory?: string;

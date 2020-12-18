@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import {createCommand} from 'commander';
+import * as packageData from '../package.json';
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
-import * as packageData from '../package.json';
+import {createCommand} from 'commander';
 
 export const VERSION = packageData.version;
 export const MIN_NODE_VERSION = 10;

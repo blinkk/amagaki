@@ -194,30 +194,6 @@ export class TimerType {
     }
     return `[TimerType: ${this.key} (${this.duration})]`;
   }
-
-  wrap(method: Function): Function {
-    return (...args: any) => {
-      const timer = this.timer();
-      timer.start();
-      try {
-        return method(...args);
-      } finally {
-        timer.stop();
-      }
-    };
-  }
-
-  wrapAsync(method: Function): Function {
-    return async (...args: any) => {
-      const timer = this.timer();
-      timer.start();
-      try {
-        return await method(...args);
-      } finally {
-        timer.stop();
-      }
-    };
-  }
 }
 
 export class Timer {

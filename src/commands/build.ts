@@ -17,10 +17,13 @@ export class BuildCommand {
 
   async run(path = './') {
     const pod = new Pod(fs.realpathSync(path));
-    const command = pod.profiler
-      .timersFor('command.build', 'Build command')
-      .wrapAsync(pod.builder.export.bind(pod.builder));
-    await command();
+    const timer = pod.profiler.timer('command.build', 'Build command');
+    try {
+      await pod.builder.export();
+    } finally {
+      timer.stop();
+    }
+
     pod.profiler.report([], this.globalOptions.profile);
   }
 }

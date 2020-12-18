@@ -186,9 +186,9 @@ export function localizeData(data: any, locale: Locale) {
   }
 
   if (DataType.isArray(data)) {
-    const newData = [...data];
-    for (const i in newData) {
-      newData[i] = localizeData(newData[i], locale);
+    const newData = [];
+    for (const item of data) {
+      newData.push(localizeData(item, locale));
     }
     return newData;
   }

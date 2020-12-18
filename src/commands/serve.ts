@@ -3,6 +3,7 @@ import {Pod} from '../pod';
 import * as _colors from 'colors';
 import * as fs from 'fs';
 import Watcher from '../watcher';
+import {GlobalOptions} from './global';
 
 interface ServeOptions {
   fcd?: string;
@@ -11,10 +12,10 @@ interface ServeOptions {
 }
 
 export class ServeCommand {
-  private readonly globalOptions: Record<string, any>;
+  private readonly globalOptions: GlobalOptions;
   private readonly options: ServeOptions;
 
-  constructor(globalOptions: Record<string, any>, options: ServeOptions) {
+  constructor(globalOptions: GlobalOptions, options: ServeOptions) {
     this.globalOptions = globalOptions;
     this.options = options;
   }

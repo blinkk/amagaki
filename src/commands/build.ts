@@ -1,16 +1,17 @@
 import {Pod} from '../pod';
 import * as fs from 'fs';
 import profiler from '../profile';
+import {GlobalOptions} from './global';
 
 interface BuildOptions {
   outputDirectory?: string;
 }
 
 export class BuildCommand {
-  private readonly globalOptions: Record<string, any>;
+  private readonly globalOptions: GlobalOptions;
   private readonly options: BuildOptions;
 
-  constructor(globalOptions: Record<string, any>, options: BuildOptions) {
+  constructor(globalOptions: GlobalOptions, options: BuildOptions) {
     this.globalOptions = globalOptions;
     this.options = options;
   }

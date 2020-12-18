@@ -1,14 +1,14 @@
-import {asyncify, mapLimit} from 'async';
-import {Pod} from './pod';
-import {Route, StaticRoute} from './router';
 import * as cliProgress from 'cli-progress';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as fsPath from 'path';
 import * as os from 'os';
-import * as utils from './utils';
-import * as util from 'util';
 import * as stream from 'stream';
+import * as util from 'util';
+import * as utils from './utils';
+import {Route, StaticRoute} from './router';
+import {asyncify, mapLimit} from 'async';
+import {Pod} from './pod';
 
 interface Artifact {
   tempPath: string;

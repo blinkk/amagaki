@@ -1,17 +1,17 @@
-import {Builder} from './builder';
-import {Document} from './document';
-import {existsSync, readFileSync} from 'fs';
-import {Router} from './router';
-import {join} from 'path';
-import {getRenderer} from './renderer';
-import {Environment} from './environment';
-import {Collection} from './collection';
-import * as yaml from 'js-yaml';
 import * as utils from './utils';
-import {StaticFile} from './static';
-import Cache from './cache';
+import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
-import {TranslationString, StringOptions} from './string';
+import {StringOptions, TranslationString} from './string';
+import {existsSync, readFileSync} from 'fs';
+import {Builder} from './builder';
+import Cache from './cache';
+import {Collection} from './collection';
+import {Document} from './document';
+import {Environment} from './environment';
+import {Router} from './router';
+import {StaticFile} from './static';
+import {getRenderer} from './renderer';
+import {join} from 'path';
 
 export class Pod {
   static DefaultLocale = 'en';

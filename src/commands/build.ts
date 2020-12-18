@@ -1,5 +1,5 @@
-import {Pod} from '../pod';
 import * as fs from 'fs';
+import {Pod} from '../pod';
 
 interface BuildOptions {
   outputDirectory?: string;

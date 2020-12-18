@@ -1,10 +1,10 @@
+import * as yaml from 'js-yaml';
+import {Collection} from './collection';
 import {Document} from './document';
+import {Locale} from './locale';
 import {Pod} from './pod';
 import {Route} from './router';
 import {StaticFile} from './static';
-import * as yaml from 'js-yaml';
-import {Collection} from './collection';
-import {Locale} from './locale';
 import {TranslationString} from './string';
 
 export default class Cache {

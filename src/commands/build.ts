@@ -1,7 +1,9 @@
 import {Pod} from '../pod';
 import * as fs from 'fs';
 
-interface BuildOptions {}
+interface BuildOptions {
+  outputDirectory?: string;
+}
 
 export class BuildCommand {
   constructor(private readonly options: BuildOptions) {

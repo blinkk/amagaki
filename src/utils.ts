@@ -1,8 +1,8 @@
-import {Pod} from './pod';
 import * as fs from 'fs';
 import * as fsPath from 'path';
 import * as yaml from 'js-yaml';
 import {Document} from './document';
+import {Pod} from './pod';
 
 export function interpolate(pod: Pod, string: string, params: any) {
   // Cache created functions to avoid memory leak.

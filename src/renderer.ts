@@ -1,7 +1,7 @@
-import {Pod} from './pod';
-import marked from 'marked';
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
+import {Pod} from './pod';
+import marked from 'marked';
 
 export class Renderer {
   pod: Pod;

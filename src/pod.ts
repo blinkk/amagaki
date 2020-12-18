@@ -61,8 +61,13 @@ export class Pod {
     this.cache.docs[key] = new Document(this, path, locale);
     return this.cache.docs[key];
   }
+
   fileExists(path: string) {
     return existsSync(this.getAbsoluteFilePath(path));
+  }
+
+  fileRead(path: string) {
+    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
   }
 
   getAbsoluteFilePath(path: string) {
@@ -81,30 +86,6 @@ export class Pod {
   get locales(): Set<Locale> {
     // TODO: Replace with amagaki.yaml?locales.
     return new LocaleSet();
-  }
-
-  readFile(path: string) {
-    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
-  }
-
-  readYaml(path: string) {
-    if (this.cache.yamls[path]) {
-      return this.cache.yamls[path];
-    }
-    this.cache.yamls[path] = yaml.load(this.readFile(path), {
-      schema: this.yamlSchema,
-    });
-    return this.cache.yamls[path];
-  }
-
-  readYamlString(content: string, cacheKey: string) {
-    if (this.cache.yamlStrings[cacheKey]) {
-      return this.cache.yamlStrings[cacheKey];
-    }
-    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
-      schema: this.yamlSchema,
-    });
-    return this.cache.yamlStrings[cacheKey];
   }
 
   renderer(path: string) {
@@ -130,6 +111,26 @@ export class Pod {
 
   walk(path: string) {
     return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
+  }
+
+  yamlRead(path: string) {
+    if (this.cache.yamls[path]) {
+      return this.cache.yamls[path];
+    }
+    this.cache.yamls[path] = yaml.load(this.fileRead(path), {
+      schema: this.yamlSchema,
+    });
+    return this.cache.yamls[path];
+  }
+
+  yamlReadString(content: string, cacheKey: string) {
+    if (this.cache.yamlStrings[cacheKey]) {
+      return this.cache.yamlStrings[cacheKey];
+    }
+    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+      schema: this.yamlSchema,
+    });
+    return this.cache.yamlStrings[cacheKey];
   }
 
   get yamlSchema() {

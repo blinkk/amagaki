@@ -89,7 +89,7 @@ export function createYamlSchema(pod: Pod) {
       // value can be: /content/partials/base.yaml?foo.bar.baz
       const parts = value.split('?');
       const podPath = parts[0];
-      const result = pod.readYaml(podPath);
+      const result = pod.yamlRead(podPath);
       if (parts.length > 1) {
         const query = parts[1].split('.');
         // TODO: Implement nested lookups.

@@ -126,7 +126,7 @@ export class Document {
     if (this.ext === '.md') {
       this.initPartsFromFrontMatter(); // Set this._fields.
     } else {
-      this._fields = this.pod.readYaml(this.path);
+      this._fields = this.pod.yamlRead(this.path);
     }
     return this._fields;
   }
@@ -135,7 +135,7 @@ export class Document {
     if (this._content !== null) {
       return this._content;
     }
-    this._content = this.pod.readFile(this.path);
+    this._content = this.pod.fileRead(this.path);
     return this._content;
   }
 
@@ -161,7 +161,7 @@ export class Document {
     if (result.frontMatter === null) {
       this._fields = {};
     } else {
-      this._fields = this.pod.readYamlString(result.frontMatter, this.path);
+      this._fields = this.pod.yamlReadString(result.frontMatter, this.path);
     }
   }
 }

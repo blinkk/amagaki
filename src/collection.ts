@@ -55,7 +55,7 @@ export class Collection {
     if (!this.exists) {
       return {};
     }
-    this._fields = this.pod.readYaml(this.collectionPath);
+    this._fields = this.pod.yamlRead(this.collectionPath);
     return this._fields;
   }
 

@@ -135,7 +135,7 @@ export class Builder {
   getExistingManifest(): BuildManifest | null {
     const path = this.manifestPodPath;
     if (this.pod.fileExists(path)) {
-      return JSON.parse(this.pod.readFile(this.manifestPodPath));
+      return JSON.parse(this.pod.fileRead(this.manifestPodPath));
     }
     return null;
   }

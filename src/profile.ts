@@ -1,4 +1,3 @@
-import {utils} from 'mocha';
 import {performance} from 'perf_hooks';
 
 interface TimeParts {
@@ -18,7 +17,7 @@ export class Profiler {
   }
 
   get duration(): number {
-    return this.end - this.start;
+    return this.end - this.begin;
   }
 
   // Get the last end time for all timers.
@@ -33,14 +32,14 @@ export class Profiler {
   }
 
   // Get the first start time for all timers.
-  get start(): number {
-    let minStart = Number.MAX_SAFE_INTEGER;
+  get begin(): number {
+    let minBegin = Number.MAX_SAFE_INTEGER;
     for (const key of Object.keys(this.timerTypes)) {
-      if (this.timerTypes[key].end < minStart) {
-        minStart = this.timerTypes[key].end;
+      if (this.timerTypes[key].begin < minBegin) {
+        minBegin = this.timerTypes[key].begin;
       }
     }
-    return minStart;
+    return minBegin;
   }
 
   report(
@@ -60,6 +59,13 @@ export class Profiler {
         }
       }
     }
+  }
+
+  timer(key: string, label?: string, meta?: any): Timer {
+    if (!this.timerTypes[key]) {
+      this.timerTypes[key] = new TimerType(key, label, meta);
+    }
+    return this.timerTypes[key].timer();
   }
 
   timersFor(key: string, label?: string, meta?: any): TimerType {
@@ -96,7 +102,7 @@ export class TimerType {
   }
 
   get duration(): number {
-    return this.end - this.start;
+    return this.end - this.begin;
   }
 
   // Get the last end time for all timers.
@@ -111,14 +117,14 @@ export class TimerType {
   }
 
   // Get the first start time for all timers.
-  get start(): number {
-    let minStart = Number.MAX_SAFE_INTEGER;
+  get begin(): number {
+    let minBegin = Number.MAX_SAFE_INTEGER;
     for (const timer of this.timers) {
-      if (timer.start < minStart) {
-        minStart = timer.start;
+      if (timer.begin || Number.MAX_SAFE_INTEGER < minBegin) {
+        minBegin = timer.begin || Number.MAX_SAFE_INTEGER;
       }
     }
-    return minStart;
+    return minBegin;
   }
 
   get sum(): number {
@@ -161,6 +167,7 @@ export class TimerType {
   wrap(method: Function): Function {
     return (...args: any) => {
       const timer = this.timer();
+      timer.start();
       try {
         return method(...args);
       } finally {
@@ -169,13 +176,11 @@ export class TimerType {
     };
   }
 
-  wrapAsync(method: Function, thisRef?: any): Function {
+  wrapAsync(method: Function): Function {
     return async (...args: any) => {
       const timer = this.timer();
+      timer.start();
       try {
-        if (thisRef) {
-          return await method.apply(thisRef, ...args);
-        }
         return await method(...args);
       } finally {
         timer.stop();
@@ -185,19 +190,23 @@ export class TimerType {
 }
 
 export class Timer {
-  start: number;
+  begin?: number;
   end?: number;
 
-  constructor() {
-    this.start = performance.now();
-  }
-
   get duration() {
+    if (!this.begin) {
+      this.begin = performance.now();
+    }
+
     if (!this.end) {
       this.end = performance.now();
     }
 
-    return this.end - this.start;
+    return this.end - this.begin;
+  }
+
+  start() {
+    this.begin = performance.now();
   }
 
   stop() {
@@ -211,9 +220,6 @@ export class Timer {
     return `[Timer: ${this.duration}]`;
   }
 }
-
-const profiler = new Profiler();
-export default profiler;
 
 function timeFormat(value: number): string {
   const parts: TimeParts = {

@@ -8,34 +8,28 @@ import Cache from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import {Profiler} from './profile';
 import {Router} from './router';
 import {StaticFile} from './static';
 import {getRenderer} from './renderer';
 import {join} from 'path';
-import profiler from './profile';
-
-const storageExistsTimers = profiler.timersFor(
-  'storage.exists',
-  'Storage exists'
-);
-const storageExistsFunc = storageExistsTimers.wrap(existsSync);
-const storageReadTimers = profiler.timersFor('storage.read', 'Storage read');
-const storageReadFunc = storageReadTimers.wrap(readFileSync);
-const yamlLoadTimers = profiler.timersFor('yaml.load', 'Yaml load');
-const yamlLoadFunc = yamlLoadTimers.wrap(yaml.load);
 
 export class Pod {
   static DefaultLocale = 'en';
   builder: Builder;
   cache: Cache;
   env: Environment;
+  readonly profiler: Profiler;
   root: string;
   router: Router;
+  readonly storage: Storage;
 
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
+    this.profiler = new Profiler();
+    this.storage = new Storage(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -74,7 +68,7 @@ export class Pod {
   }
 
   fileExists(path: string) {
-    return storageExistsFunc(this.getAbsoluteFilePath(path));
+    return this.storage.fileExists(this.getAbsoluteFilePath(path));
   }
 
   getAbsoluteFilePath(path: string) {
@@ -96,14 +90,14 @@ export class Pod {
   }
 
   readFile(path: string) {
-    return storageReadFunc(this.getAbsoluteFilePath(path), 'utf8');
+    return this.storage.fileRead(this.getAbsoluteFilePath(path), 'utf8');
   }
 
   readYaml(path: string) {
     if (this.cache.yamls[path]) {
       return this.cache.yamls[path];
     }
-    this.cache.yamls[path] = yamlLoadFunc(this.readFile(path), {
+    this.cache.yamls[path] = this.storage.yamlLoad(this.readFile(path), {
       schema: this.yamlSchema,
     });
     return this.cache.yamls[path];
@@ -113,8 +107,7 @@ export class Pod {
     if (this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
     }
-
-    this.cache.yamlStrings[cacheKey] = yamlLoadFunc(content, {
+    this.cache.yamlStrings[cacheKey] = this.storage.yamlLoad(content, {
       schema: this.yamlSchema,
     });
     return this.cache.yamlStrings[cacheKey];
@@ -151,5 +144,31 @@ export class Pod {
     }
     this.cache.yamlSchema = utils.createYamlSchema(this);
     return this.cache.yamlSchema;
+  }
+}
+
+export class Storage {
+  pod: Pod;
+  fileExists: Function;
+  fileRead: Function;
+  yamlLoad: Function;
+
+  constructor(pod: Pod) {
+    this.pod = pod;
+
+    // Wrap the method to prevent profiler lookup for each call.
+    this.fileRead = pod.profiler
+      .timersFor('storage.read', 'Storage read')
+      .wrap(readFileSync);
+
+    // Wrap the method to prevent profiler lookup for each call.
+    this.fileExists = pod.profiler
+      .timersFor('storage.exists', 'Storage exists')
+      .wrap(existsSync);
+
+    // Wrap the method to prevent profiler lookup for each call.
+    this.yamlLoad = pod.profiler
+      .timersFor('yaml.load', 'Yaml load')
+      .wrap(yaml.load);
   }
 }

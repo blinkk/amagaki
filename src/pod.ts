@@ -8,6 +8,7 @@ import Cache from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import {Profiler} from './profile';
 import {Router} from './router';
 import {StaticFile} from './static';
 import {getRenderer} from './renderer';
@@ -18,6 +19,7 @@ export class Pod {
   builder: Builder;
   cache: Cache;
   env: Environment;
+  readonly profiler: Profiler;
   root: string;
   router: Router;
 
@@ -25,6 +27,7 @@ export class Pod {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
+    this.profiler = new Profiler();
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -61,8 +64,14 @@ export class Pod {
     this.cache.docs[key] = new Document(this, path, locale);
     return this.cache.docs[key];
   }
+
   fileExists(path: string) {
-    return existsSync(this.getAbsoluteFilePath(path));
+    const timer = this.profiler.timer('file.exists', 'File exists');
+    try {
+      return existsSync(this.getAbsoluteFilePath(path));
+    } finally {
+      timer.stop();
+    }
   }
 
   getAbsoluteFilePath(path: string) {
@@ -84,16 +93,28 @@ export class Pod {
   }
 
   readFile(path: string) {
-    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+    const timer = this.profiler.timer('file.read', 'File read');
+    try {
+      return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+    } finally {
+      timer.stop();
+    }
   }
 
   readYaml(path: string) {
     if (this.cache.yamls[path]) {
       return this.cache.yamls[path];
     }
-    this.cache.yamls[path] = yaml.load(this.readFile(path), {
-      schema: this.yamlSchema,
-    });
+
+    const timer = this.profiler.timer('yaml.load', 'Yaml load');
+    try {
+      this.cache.yamls[path] = yaml.load(this.readFile(path), {
+        schema: this.yamlSchema,
+      });
+    } finally {
+      timer.stop();
+    }
+
     return this.cache.yamls[path];
   }
 
@@ -101,9 +122,16 @@ export class Pod {
     if (this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
     }
-    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
-      schema: this.yamlSchema,
-    });
+
+    const timer = this.profiler.timer('yaml.load', 'Yaml load');
+    try {
+      this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+        schema: this.yamlSchema,
+      });
+    } finally {
+      timer.stop();
+    }
+
     return this.cache.yamlStrings[cacheKey];
   }
 
@@ -136,7 +164,14 @@ export class Pod {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
     }
-    this.cache.yamlSchema = utils.createYamlSchema(this);
+
+    const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
+    try {
+      this.cache.yamlSchema = utils.createYamlSchema(this);
+    } finally {
+      timer.stop();
+    }
+
     return this.cache.yamlSchema;
   }
 }

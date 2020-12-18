@@ -1,10 +1,10 @@
 import * as fsPath from 'path';
+import * as utils from './utils';
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './static';
 import {Url} from './url';
-import * as utils from './utils';
 
 export class Router {
   pod: Pod;

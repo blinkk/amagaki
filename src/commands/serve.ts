@@ -1,17 +1,22 @@
-import {createApp} from '../server';
-import {Pod} from '../pod';
 import * as _colors from 'colors';
 import * as fs from 'fs';
+import {GlobalOptions} from './global';
+import {Pod} from '../pod';
 import Watcher from '../watcher';
+import {createApp} from '../server';
 
 interface ServeOptions {
-  site: string;
-  ref?: string;
   fcd?: string;
+  ref?: string;
+  site: string;
 }
 
 export class ServeCommand {
-  constructor(private readonly options: ServeOptions) {
+  private readonly globalOptions: GlobalOptions;
+  private readonly options: ServeOptions;
+
+  constructor(globalOptions: GlobalOptions, options: ServeOptions) {
+    this.globalOptions = globalOptions;
     this.options = options;
   }
 

@@ -1,30 +1,33 @@
-import {Builder} from './builder';
-import {Document} from './document';
-import {existsSync, readFileSync} from 'fs';
-import {Router} from './router';
-import {join} from 'path';
-import {getRenderer} from './renderer';
-import {Environment} from './environment';
-import {Collection} from './collection';
-import * as yaml from 'js-yaml';
 import * as utils from './utils';
-import {StaticFile} from './static';
-import Cache from './cache';
+import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
-import {TranslationString, StringOptions} from './string';
+import {StringOptions, TranslationString} from './string';
+import {existsSync, readFileSync} from 'fs';
+import {Builder} from './builder';
+import Cache from './cache';
+import {Collection} from './collection';
+import {Document} from './document';
+import {Environment} from './environment';
+import {Profiler} from './profile';
+import {Router} from './router';
+import {StaticFile} from './static';
+import {getRenderer} from './renderer';
+import {join} from 'path';
 
 export class Pod {
+  static DefaultLocale = 'en';
   builder: Builder;
+  cache: Cache;
+  env: Environment;
+  readonly profiler: Profiler;
   root: string;
   router: Router;
-  env: Environment;
-  cache: Cache;
-  static DefaultLocale = 'en';
 
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
+    this.profiler = new Profiler();
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -34,32 +37,6 @@ export class Pod {
       dev: true,
     });
     this.cache = new Cache(this);
-  }
-
-  locale(id: string) {
-    if (this.cache.locales[id]) {
-      return this.cache.locales[id];
-    }
-    this.cache.locales[id] = new Locale(this, id);
-    return this.cache.locales[id];
-  }
-
-  doc(path: string, locale?: Locale) {
-    locale = locale || this.defaultLocale;
-    const key = `${path}${locale.id}`;
-    if (this.cache.docs[key]) {
-      return this.cache.docs[key];
-    }
-    this.cache.docs[key] = new Document(this, path, locale);
-    return this.cache.docs[key];
-  }
-
-  staticFile(path: string) {
-    if (this.cache.staticFiles[path]) {
-      return this.cache.staticFiles[path];
-    }
-    this.cache.staticFiles[path] = new StaticFile(this, path);
-    return this.cache.staticFiles[path];
   }
 
   collection(path: string) {
@@ -72,6 +49,103 @@ export class Pod {
     }
     this.cache.collections[path] = collection;
     return this.cache.collections[path];
+  }
+
+  get defaultLocale() {
+    return this.locale(Pod.DefaultLocale);
+  }
+
+  doc(path: string, locale?: Locale) {
+    locale = locale || this.defaultLocale;
+    const key = `${path}${locale.id}`;
+    if (this.cache.docs[key]) {
+      return this.cache.docs[key];
+    }
+    this.cache.docs[key] = new Document(this, path, locale);
+    return this.cache.docs[key];
+  }
+
+  fileExists(path: string) {
+    const timer = this.profiler.timer('file.exists', 'File exists');
+    try {
+      return existsSync(this.getAbsoluteFilePath(path));
+    } finally {
+      timer.stop();
+    }
+  }
+
+  getAbsoluteFilePath(path: string) {
+    path = path.replace(/^\/+/, '');
+    return join(this.root, path);
+  }
+
+  locale(id: string) {
+    if (this.cache.locales[id]) {
+      return this.cache.locales[id];
+    }
+    this.cache.locales[id] = new Locale(this, id);
+    return this.cache.locales[id];
+  }
+
+  get locales(): Set<Locale> {
+    // TODO: Replace with amagaki.yaml?locales.
+    return new LocaleSet();
+  }
+
+  readFile(path: string) {
+    const timer = this.profiler.timer('file.read', 'File read');
+    try {
+      return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+    } finally {
+      timer.stop();
+    }
+  }
+
+  readYaml(path: string) {
+    if (this.cache.yamls[path]) {
+      return this.cache.yamls[path];
+    }
+
+    const timer = this.profiler.timer('yaml.load', 'Yaml load');
+    try {
+      this.cache.yamls[path] = yaml.load(this.readFile(path), {
+        schema: this.yamlSchema,
+      });
+    } finally {
+      timer.stop();
+    }
+
+    return this.cache.yamls[path];
+  }
+
+  readYamlString(content: string, cacheKey: string) {
+    if (this.cache.yamlStrings[cacheKey]) {
+      return this.cache.yamlStrings[cacheKey];
+    }
+
+    const timer = this.profiler.timer('yaml.load', 'Yaml load');
+    try {
+      this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+        schema: this.yamlSchema,
+      });
+    } finally {
+      timer.stop();
+    }
+
+    return this.cache.yamlStrings[cacheKey];
+  }
+
+  renderer(path: string) {
+    const rendererClass = getRenderer(path);
+    return new rendererClass(this);
+  }
+
+  staticFile(path: string) {
+    if (this.cache.staticFiles[path]) {
+      return this.cache.staticFiles[path];
+    }
+    this.cache.staticFiles[path] = new StaticFile(this, path);
+    return this.cache.staticFiles[path];
   }
 
   string(options: StringOptions, locale?: Locale) {
@@ -87,44 +161,6 @@ export class Pod {
     return this.cache.strings[options.value];
   }
 
-  renderer(path: string) {
-    const rendererClass = getRenderer(path);
-    return new rendererClass(this);
-  }
-
-  readFile(path: string) {
-    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
-  }
-
-  fileExists(path: string) {
-    return existsSync(this.getAbsoluteFilePath(path));
-  }
-
-  readYaml(path: string) {
-    if (this.cache.yamls[path]) {
-      return this.cache.yamls[path];
-    }
-    this.cache.yamls[path] = yaml.load(this.readFile(path), {
-      schema: this.yamlSchema,
-    });
-    return this.cache.yamls[path];
-  }
-
-  readYamlString(content: string, cacheKey: string) {
-    if (this.cache.yamlStrings[cacheKey]) {
-      return this.cache.yamlStrings[cacheKey];
-    }
-    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
-      schema: this.yamlSchema,
-    });
-    return this.cache.yamlStrings[cacheKey];
-  }
-
-  getAbsoluteFilePath(path: string) {
-    path = path.replace(/^\/+/, '');
-    return join(this.root, path);
-  }
-
   walk(path: string) {
     return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
   }
@@ -133,16 +169,14 @@ export class Pod {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
     }
-    this.cache.yamlSchema = utils.createYamlSchema(this);
+
+    const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
+    try {
+      this.cache.yamlSchema = utils.createYamlSchema(this);
+    } finally {
+      timer.stop();
+    }
+
     return this.cache.yamlSchema;
-  }
-
-  get defaultLocale() {
-    return this.locale(Pod.DefaultLocale);
-  }
-
-  get locales(): Set<Locale> {
-    // TODO: Replace with amagaki.yaml?locales.
-    return new LocaleSet();
   }
 }

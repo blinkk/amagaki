@@ -1,6 +1,6 @@
+import * as fsPath from 'path';
 import express = require('express');
 import {Pod} from './pod';
-import * as fsPath from 'path';
 import {StaticRoute} from './router';
 
 export class Server {

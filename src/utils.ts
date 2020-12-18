@@ -1,9 +1,9 @@
-import {Pod} from './pod';
 import * as fs from 'fs';
 import * as fsPath from 'path';
 import * as yaml from 'js-yaml';
 import {Document} from './document';
 import {Locale} from './locale';
+import {Pod} from './pod';
 
 export interface FrontMatterResult {
   frontMatter: string | null;
@@ -149,10 +149,8 @@ export function formatBytes(bytes: number) {
   if (bytes === 0) {
     return '0 Bytes';
   }
-  // @ts-ignore
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  // @ts-ignore
-  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
 }
 
 export function getLocalizedValue(doc: Document, item: any, key: string) {

@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-import {createCommand} from 'commander';
+import * as packageData from '../package.json';
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
-import * as packageData from '../package.json';
+import {createCommand} from 'commander';
 
 export const VERSION = packageData.version;
 export const MIN_NODE_VERSION = 10;
 
 const program = createCommand();
 program.version(VERSION);
+program.option('--profile', 'profile the command');
 
 program
   .command('build [root]')
@@ -19,7 +20,7 @@ program
       return;
     }
 
-    const cmd = new BuildCommand(options);
+    const cmd = new BuildCommand(program.opts(), options);
     cmd.run(path);
   });
 
@@ -31,7 +32,7 @@ program
       return;
     }
 
-    const cmd = new ServeCommand(options);
+    const cmd = new ServeCommand(program.opts(), options);
     cmd.run(path);
   });
 

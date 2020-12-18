@@ -114,10 +114,8 @@ export function formatBytes(bytes: number) {
   if (bytes === 0) {
     return '0 Bytes';
   }
-  // @ts-ignore
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  // @ts-ignore
-  return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
 }
 
 export interface FrontMatterResult {

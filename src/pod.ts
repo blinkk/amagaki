@@ -14,12 +14,12 @@ import {Locale, LocaleSet} from './locale';
 import {TranslationString, StringOptions} from './string';
 
 export class Pod {
+  static DefaultLocale = 'en';
   builder: Builder;
+  cache: Cache;
+  env: Environment;
   root: string;
   router: Router;
-  env: Environment;
-  cache: Cache;
-  static DefaultLocale = 'en';
 
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.
@@ -36,32 +36,6 @@ export class Pod {
     this.cache = new Cache(this);
   }
 
-  locale(id: string) {
-    if (this.cache.locales[id]) {
-      return this.cache.locales[id];
-    }
-    this.cache.locales[id] = new Locale(this, id);
-    return this.cache.locales[id];
-  }
-
-  doc(path: string, locale?: Locale) {
-    locale = locale || this.defaultLocale;
-    const key = `${path}${locale.id}`;
-    if (this.cache.docs[key]) {
-      return this.cache.docs[key];
-    }
-    this.cache.docs[key] = new Document(this, path, locale);
-    return this.cache.docs[key];
-  }
-
-  staticFile(path: string) {
-    if (this.cache.staticFiles[path]) {
-      return this.cache.staticFiles[path];
-    }
-    this.cache.staticFiles[path] = new StaticFile(this, path);
-    return this.cache.staticFiles[path];
-  }
-
   collection(path: string) {
     if (this.cache.collections[path]) {
       return this.cache.collections[path];
@@ -74,25 +48,43 @@ export class Pod {
     return this.cache.collections[path];
   }
 
-  string(options: StringOptions) {
-    if (this.cache.strings[options.value]) {
-      return this.cache.strings[options.value];
-    }
-    this.cache.strings[options.value] = new TranslationString(this, options);
-    return this.cache.strings[options.value];
+  get defaultLocale() {
+    return this.locale(Pod.DefaultLocale);
   }
 
-  renderer(path: string) {
-    const rendererClass = getRenderer(path);
-    return new rendererClass(this);
+  doc(path: string, locale?: Locale) {
+    locale = locale || this.defaultLocale;
+    const key = `${path}${locale.id}`;
+    if (this.cache.docs[key]) {
+      return this.cache.docs[key];
+    }
+    this.cache.docs[key] = new Document(this, path, locale);
+    return this.cache.docs[key];
+  }
+  fileExists(path: string) {
+    return existsSync(this.getAbsoluteFilePath(path));
+  }
+
+  getAbsoluteFilePath(path: string) {
+    path = path.replace(/^\/+/, '');
+    return join(this.root, path);
+  }
+
+  locale(id: string) {
+    if (this.cache.locales[id]) {
+      return this.cache.locales[id];
+    }
+    this.cache.locales[id] = new Locale(this, id);
+    return this.cache.locales[id];
+  }
+
+  get locales(): Set<Locale> {
+    // TODO: Replace with amagaki.yaml?locales.
+    return new LocaleSet();
   }
 
   readFile(path: string) {
     return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
-  }
-
-  fileExists(path: string) {
-    return existsSync(this.getAbsoluteFilePath(path));
   }
 
   readYaml(path: string) {
@@ -115,9 +107,25 @@ export class Pod {
     return this.cache.yamlStrings[cacheKey];
   }
 
-  getAbsoluteFilePath(path: string) {
-    path = path.replace(/^\/+/, '');
-    return join(this.root, path);
+  renderer(path: string) {
+    const rendererClass = getRenderer(path);
+    return new rendererClass(this);
+  }
+
+  staticFile(path: string) {
+    if (this.cache.staticFiles[path]) {
+      return this.cache.staticFiles[path];
+    }
+    this.cache.staticFiles[path] = new StaticFile(this, path);
+    return this.cache.staticFiles[path];
+  }
+
+  string(options: StringOptions) {
+    if (this.cache.strings[options.value]) {
+      return this.cache.strings[options.value];
+    }
+    this.cache.strings[options.value] = new TranslationString(this, options);
+    return this.cache.strings[options.value];
   }
 
   walk(path: string) {
@@ -130,14 +138,5 @@ export class Pod {
     }
     this.cache.yamlSchema = utils.createYamlSchema(this);
     return this.cache.yamlSchema;
-  }
-
-  get defaultLocale() {
-    return this.locale(Pod.DefaultLocale);
-  }
-
-  get locales(): Set<Locale> {
-    // TODO: Replace with amagaki.yaml?locales.
-    return new LocaleSet();
   }
 }

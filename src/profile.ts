@@ -7,7 +7,7 @@ interface TimeParts {
   seconds: number;
 }
 
-const DEFAULT_REPORT_KEYS = [/storage\..*/, /yaml\..*/];
+const DEFAULT_REPORT_KEYS = [/file\..*/, /yaml\..*/];
 
 export class Profiler {
   private timerTypes: Record<string, TimerType>;

@@ -205,15 +205,20 @@ export class Timer {
     return this.end - this.begin;
   }
 
-  start() {
+  start(): Timer {
+    if (this.begin) {
+      throw new Error('Timer has already been started');
+    }
     this.begin = performance.now();
+    return this;
   }
 
-  stop() {
+  stop(): Timer {
     if (this.end) {
       throw new Error('Timer has already been stopped');
     }
     this.end = performance.now();
+    return this;
   }
 
   toString(): string {

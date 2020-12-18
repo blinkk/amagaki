@@ -65,7 +65,8 @@ export class Profiler {
     if (!this.timerTypes[key]) {
       this.timerTypes[key] = new TimerType(key, label, meta);
     }
-    return this.timerTypes[key].timer();
+    // Auto start the timer, but it can be called again to reset the start time.
+    return this.timerTypes[key].timer().start();
   }
 
   timersFor(key: string, label?: string, meta?: any): TimerType {
@@ -206,9 +207,6 @@ export class Timer {
   }
 
   start(): Timer {
-    if (this.begin) {
-      throw new Error('Timer has already been started');
-    }
     this.begin = performance.now();
     return this;
   }

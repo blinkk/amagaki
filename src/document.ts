@@ -132,10 +132,18 @@ export class Document {
     if (this.ext === '.md') {
       this.parts = this.initPartsFromFrontMatter();
     } else {
-      this.parts.fields = utils.localizeData(
-        this.pod.readYaml(this.path),
-        this.locale
+      const timer = this.pod.profiler.timer(
+        'document.fields.localize',
+        'Document fields localization'
       );
+      try {
+        this.parts.fields = utils.localizeData(
+          this.pod.readYaml(this.path),
+          this.locale
+        );
+      } finally {
+        timer.stop();
+      }
     }
     return this.parts.fields;
   }

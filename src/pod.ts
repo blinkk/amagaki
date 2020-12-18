@@ -12,6 +12,17 @@ import {StaticFile} from './static';
 import Cache from './cache';
 import {Locale, LocaleSet} from './locale';
 import {TranslationString, StringOptions} from './string';
+import profiler from './profile';
+
+const storageExistsTimers = profiler.timersFor(
+  'storage.exists',
+  'Storage exists'
+);
+const storageExistsFunc = storageExistsTimers.wrap(existsSync);
+const storageReadTimers = profiler.timersFor('storage.read', 'Storage read');
+const storageReadFunc = storageReadTimers.wrap(readFileSync);
+const yamlLoadTimers = profiler.timersFor('yaml.load', 'Yaml load');
+const yamlLoadFunc = yamlLoadTimers.wrap(yaml.load);
 
 export class Pod {
   static DefaultLocale = 'en';
@@ -61,8 +72,9 @@ export class Pod {
     this.cache.docs[key] = new Document(this, path, locale);
     return this.cache.docs[key];
   }
+
   fileExists(path: string) {
-    return existsSync(this.getAbsoluteFilePath(path));
+    return storageExistsFunc(this.getAbsoluteFilePath(path));
   }
 
   getAbsoluteFilePath(path: string) {
@@ -84,14 +96,14 @@ export class Pod {
   }
 
   readFile(path: string) {
-    return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+    return storageReadFunc(this.getAbsoluteFilePath(path), 'utf8');
   }
 
   readYaml(path: string) {
     if (this.cache.yamls[path]) {
       return this.cache.yamls[path];
     }
-    this.cache.yamls[path] = yaml.load(this.readFile(path), {
+    this.cache.yamls[path] = yamlLoadFunc(this.readFile(path), {
       schema: this.yamlSchema,
     });
     return this.cache.yamls[path];
@@ -101,7 +113,8 @@ export class Pod {
     if (this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
     }
-    this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+
+    this.cache.yamlStrings[cacheKey] = yamlLoadFunc(content, {
       schema: this.yamlSchema,
     });
     return this.cache.yamlStrings[cacheKey];

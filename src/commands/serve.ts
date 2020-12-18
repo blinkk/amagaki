@@ -5,13 +5,17 @@ import * as fs from 'fs';
 import Watcher from '../watcher';
 
 interface ServeOptions {
-  site: string;
-  ref?: string;
   fcd?: string;
+  ref?: string;
+  site: string;
 }
 
 export class ServeCommand {
-  constructor(private readonly options: ServeOptions) {
+  private readonly globalOptions: Record<string, any>;
+  private readonly options: ServeOptions;
+
+  constructor(globalOptions: Record<string, any>, options: ServeOptions) {
+    this.globalOptions = globalOptions;
     this.options = options;
   }
 

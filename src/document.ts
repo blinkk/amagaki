@@ -156,7 +156,7 @@ export class Document {
     if (this._body !== null) {
       return;
     }
-    const result = utils.splitFrontMatter(this.content);
+    const result = utils.splitFrontMatter(this.content || '');
     this._body = result.body;
     if (result.frontMatter === null) {
       this._fields = {};

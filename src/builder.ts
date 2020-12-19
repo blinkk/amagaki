@@ -6,8 +6,8 @@ import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
+import * as async from 'async';
 import {Route, StaticRoute} from './router';
-import {asyncify, mapLimit} from 'async';
 import {Pod} from './pod';
 
 interface Artifact {
@@ -53,14 +53,21 @@ interface BuildMetrics {
   outputSizeDocuments: number;
 }
 
+interface CreatedPath {
+  route: Route;
+  tempPath: string;
+  normalPath: string;
+  realPath: string;
+}
+
 export class Builder {
   pod: Pod;
   manifestPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
-  static DefaultNumConcurrentBuilds = 10;
-  static DefaultNumConcurrentCopies = 10;
+  static DefaultNumConcurrentBuilds = 40;
+  static DefaultNumConcurrentCopies = 1000;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -100,19 +107,22 @@ export class Builder {
     }
   }
 
-  copyFile(outputPath: string, podPath: string) {
+  copyFileAsync(outputPath: string, podPath: string) {
     Builder.ensureDirectoryExists(outputPath);
-    fs.copyFileSync(this.pod.getAbsoluteFilePath(podPath), outputPath);
+    return fs.promises.copyFile(
+      this.pod.getAbsoluteFilePath(podPath),
+      outputPath
+    );
   }
 
-  moveFile(beforePath: string, afterPath: string) {
+  moveFileAsync(beforePath: string, afterPath: string) {
     Builder.ensureDirectoryExists(afterPath);
-    fs.renameSync(beforePath, afterPath);
+    return fs.promises.rename(beforePath, afterPath);
   }
 
-  writeFile(outputPath: string, content: string) {
+  writeFileAsync(outputPath: string, content: string) {
     Builder.ensureDirectoryExists(outputPath);
-    fs.writeFileSync(outputPath, content);
+    return fs.promises.writeFile(outputPath, content);
   }
 
   deleteDirectoryRecursive(path: string) {
@@ -214,70 +224,97 @@ export class Builder {
     };
     const bar = Builder.createProgressBar();
     const artifacts: Array<Artifact> = [];
-    // TODO: Cleanly handle errors.
     const tempDirRoot = fs.mkdtempSync(
       fsPath.join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
     );
-    try {
-      bar.start(this.pod.router.routes.length, artifacts.length);
-      // Build all routes to a temporary location.
-      await mapLimit(
-        this.pod.router.routes,
-        Builder.DefaultNumConcurrentBuilds,
-        asyncify(async (route: Route) => {
-          const normalPath = Builder.normalizePath(route.url.path);
-          const tempPath = fsPath.join(
-            tempDirRoot,
-            this.outputDirectoryPodPath,
-            normalPath
-          );
-          if (route.provider.type === 'static_file') {
-            // Copy static files.
-            this.copyFile(tempPath, (route as StaticRoute).staticFile.podPath);
-            buildMetrics.numStaticRoutes += 1;
-            buildMetrics.outputSizeStaticFiles += fs.statSync(tempPath).size;
+
+    bar.start(this.pod.router.routes.length, artifacts.length);
+    const createdPaths: Array<CreatedPath> = [];
+
+    // Collect the routes and assemble the temporary directory mapping.
+    this.pod.router.routes.forEach(route => {
+      const normalPath = Builder.normalizePath(route.url.path);
+      const tempPath = fsPath.join(
+        tempDirRoot,
+        this.outputDirectoryPodPath,
+        normalPath
+      );
+      const realPath = this.pod.getAbsoluteFilePath(
+        fsPath.join(this.outputDirectoryPodPath, normalPath)
+      );
+      createdPaths.push({
+        route: route,
+        tempPath: tempPath,
+        normalPath: normalPath,
+        realPath: realPath,
+      });
+    });
+
+    // Copy all static files and build all other routes.
+    await async.eachLimit(
+      createdPaths,
+      Builder.DefaultNumConcurrentBuilds,
+      async createdPath => {
+        try {
+          // Copy the file, or build it if it's a dynamic route.
+          if (createdPath.route.provider.type === 'static_file') {
+            return this.copyFileAsync(
+              createdPath.tempPath,
+              (createdPath.route as StaticRoute).staticFile.podPath
+            );
           } else {
-            // Build (render) everything else.
-            const content = await route.build();
-            this.writeFile(tempPath, content);
-            buildMetrics.numDocumentRoutes += 1;
-            buildMetrics.outputSizeDocuments += fs.statSync(tempPath).size;
+            const content = await createdPath.route.build();
+            return this.writeFileAsync(createdPath.tempPath, content);
           }
+        } finally {
           artifacts.push({
-            tempPath: tempPath,
-            realPath: this.pod.getAbsoluteFilePath(
-              fsPath.join(this.outputDirectoryPodPath, normalPath)
-            ),
-          });
-          buildManifest.files.push({
-            path: normalPath,
-            sha: await this.getFileSha(tempPath),
+            tempPath: createdPath.tempPath,
+            realPath: createdPath.realPath,
           });
           bar.increment();
-        })
-      );
-      // Once build is complete, move files from temporary folder to destination.
-      await mapLimit(
-        artifacts,
-        Builder.DefaultNumConcurrentCopies,
-        asyncify(async (artifact: Artifact) => {
-          this.moveFile(artifact.tempPath, artifact.realPath);
-        })
-      );
-    } finally {
-      bar.stop();
-      this.writeFile(
-        this.pod.getAbsoluteFilePath(this.manifestPodPath),
-        JSON.stringify(buildManifest, null, 2)
-      );
-      this.deleteDirectoryRecursive(tempDirRoot);
-    }
+        }
+      }
+    );
+    bar.stop();
+
+    // Create the metrics for the files in parallel.
+    await async.each(createdPaths, async createdPath => {
+      // Assemble the metrics once all the files are written.
+      buildManifest.files.push({
+        path: createdPath.normalPath,
+        sha: await this.getFileSha(createdPath.tempPath),
+      });
+      return fs.promises.stat(createdPath.tempPath).then(statResult => {
+        if (createdPath.route.provider.type === 'static_file') {
+          buildMetrics.numStaticRoutes += 1;
+          buildMetrics.outputSizeStaticFiles += statResult.size;
+        } else {
+          buildMetrics.numDocumentRoutes += 1;
+          buildMetrics.outputSizeDocuments += statResult.size;
+        }
+      });
+    });
+
+    // Move files from temporary folder to destination.
+    await async.mapLimit(
+      artifacts,
+      Builder.DefaultNumConcurrentCopies,
+      async (artifact: Artifact) => {
+        return this.moveFileAsync(artifact.tempPath, artifact.realPath);
+      }
+    );
+
+    // Write the manifest and clean up.
+    await this.writeFileAsync(
+      this.pod.getAbsoluteFilePath(this.manifestPodPath),
+      JSON.stringify(buildManifest, null, 2)
+    );
+    this.deleteDirectoryRecursive(tempDirRoot);
 
     // Output build metrics.
     console.log(
       'Memory usage: '.blue + utils.formatBytes(process.memoryUsage().heapUsed)
     );
-
     if (buildMetrics.numDocumentRoutes) {
       console.log(
         'Documents: '.blue +
@@ -315,8 +352,8 @@ export class Builder {
     );
     console.log(
       'Changes: '.blue +
-        `${buildDiff.adds.length} adds `.green +
-        `${buildDiff.edits.length} edits `.yellow +
+        `${buildDiff.adds.length} adds, `.green +
+        `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
     );
   }

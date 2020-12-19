@@ -11,7 +11,7 @@
     "url": "git://github.com/blinkkcode/amagaki.git"
   },
   "engines": {
-    "node": ">=10.12.0"
+    "node": ">=10.17.0"
   },
   "scripts": {
     "dev:start": "npm run copy; npm run compile",

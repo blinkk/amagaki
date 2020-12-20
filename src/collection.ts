@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
+import {Document} from './document';
 import {Locale, LocaleSet} from './locale';
 import {Pod} from './pod';
 
@@ -72,5 +73,26 @@ export class Collection {
       );
     }
     return this.pod.locales;
+  }
+
+  /**
+   * Returns the collections documents.
+   */
+  docs() {
+    // TODO: Determine whether we want to add arguments to this such as
+    // `locale`, whether or not to include hidden documents, sort order, etc. --
+    // or if those things are better left to the template engine where this
+    // function may be called.
+    const podPaths = this.pod.walk(this.path);
+    return podPaths
+      .map(podPath => {
+        if (Document.isServable(podPath)) {
+          return this.pod.doc(podPath);
+        }
+        return null;
+      })
+      .filter((item: Document | null) => {
+        return item !== null;
+      });
   }
 }

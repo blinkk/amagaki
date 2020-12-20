@@ -134,9 +134,7 @@ export class CollectionRouteProvider extends RouteProvider {
     }
 
     podPaths.forEach(podPath => {
-      const basePath = fsPath.basename(podPath);
-      const ext = fsPath.extname(podPath);
-      if (!Document.SupportedExtensions.has(ext) || basePath.startsWith('_')) {
+      if (!Document.isServable(podPath)) {
         return;
       }
 

@@ -17,7 +17,7 @@ export class Document {
   private _fields: any; // TODO: See if we can limit this.
   private _body: string | null;
   private _content: string | null;
-  static SupportedExtensions = new Set(['.md', '.yaml']);
+  static SupportedExtensions = new Set(['.md', '.html', '.xml', '.yaml']);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
@@ -163,5 +163,15 @@ export class Document {
     } else {
       this._fields = this.pod.readYamlString(result.frontMatter, this.path);
     }
+  }
+
+  /**
+   * Returns whether a document is servable, given a pod path.
+   * @param podPath The pod path of the document.
+   */
+  static isServable(podPath: string) {
+    const basePath = fsPath.basename(podPath);
+    const ext = fsPath.extname(podPath);
+    return Document.SupportedExtensions.has(ext) && !basePath.startsWith('_');
   }
 }

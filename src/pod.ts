@@ -22,12 +22,12 @@ import {join} from 'path';
  */
 export class Pod {
   static DefaultLocale = 'en';
-  builder: Builder;
-  cache: Cache;
-  env: Environment;
+  readonly builder: Builder;
+  readonly cache: Cache;
+  readonly env: Environment;
   readonly profiler: Profiler;
-  root: string;
-  router: Router;
+  readonly root: string;
+  readonly router: Router;
 
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.

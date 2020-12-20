@@ -8,11 +8,40 @@ import {Url} from './url';
 const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
 
+/**
+ * Documents represent dynamically rendered pages. The document object controls
+ * all aspects of rendering itself, with references to things like its template
+ * renderer, its locale, and its content type. A document is defined by a
+ * content file within the pod's content directory.
+ *
+ * The structure of a document's `content` comes in two parts: `fields` and
+ * `body`. `fields` represent either a full YAML document, or YAML front matter.
+ * For Markdown and HTML-formatted documents, a document's `body` is everything
+ * below the front matter delimiter (`---`) or the entire file contents in
+ * absence of a front matter delimiter. YAML files may not have a `body`.
+ *
+ * Documents are grouped into collections. A collection is a directory within
+ * the pod's content directory. A `_collection.yaml` file defines a collection.
+ *
+ * The same document may be available in multiple locales. Each locale has its
+ * own document object (documents are instantiated with both a `podPath` and a
+ * `locale` parameter). If a `locale` parameter is not provided, the pod's
+ * default locale is used to instantiate the document. Localized documents will
+ * automatically resolve any localizable elements (such as `!a.String` YAML
+ * types or `!a.Localized` YAML types) to their correct locale.
+ *
+ * Finally, documents may or may not actually be bound to routes. In other
+ * words, a document can be a partial document and only used as a data source or
+ * input for another document, or it might just be hidden. If a document lacks a
+ * `pathFormat`, it won't be generated as an individual route. A document's
+ * `url` object is determined by its own `pathFormat` and coupled to the pod's
+ * `router`.
+ */
 export class Document {
   path: string;
+  locale: Locale;
   pod: Pod;
   renderer: Renderer;
-  locale: Locale;
   readonly ext: string;
   private _fields: any; // TODO: See if we can limit this.
   private _body: string | null;

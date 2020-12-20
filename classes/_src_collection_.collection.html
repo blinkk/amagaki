@@ -69,6 +69,19 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Collections represent groups of documents. Collections allow documents to
+							share things, such as locales, URL path formats, views, etc. A collection
+							exists as long as a <code>_collection.yaml</code> file exists within the pod&#39;s content
+							directory. If a directory exists without a <code>_collection.yaml</code>, it will look
+							up until a <code>_collection.yaml</code> is found. Arbitrary data can also be specified
+							on the collection&#39;s <code>_collection.yaml</code> fields, and then accessed from
+						documents within that collection.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -128,7 +141,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L10">src/collection.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L19">src/collection.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -153,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">_fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L10">src/collection.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L19">src/collection.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">collection<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L9">src/collection.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L18">src/collection.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L7">src/collection.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L16">src/collection.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="_src_pod_.pod.html" class="tsd-signature-type">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L8">src/collection.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L17">src/collection.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,9 +213,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L36">src/collection.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L57">src/collection.ts:57</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns whether a collection exists. A collection exists if it has a
+									<code>_collection.yaml</code> file in it.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -217,7 +236,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L49">src/collection.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L72">src/collection.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -234,7 +253,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L62">src/collection.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L85">src/collection.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_src_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_locale_.locale.html" class="tsd-signature-type">Locale</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -251,9 +270,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L45">src/collection.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L68">src/collection.ts:68</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the parent collection object.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="_src_collection_.collection.html" class="tsd-signature-type">Collection</a></h4>
 						</li>
 					</ul>
@@ -268,9 +292,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L40">src/collection.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L62">src/collection.ts:62</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the absolute parent directory path of the collection.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
@@ -288,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L20">src/collection.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L29">src/collection.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -305,16 +334,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/f80003a/src/collection.ts#L24">src/collection.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/6e83c1e/src/collection.ts#L41">src/collection.ts:41</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Finds a collection object by testing whether the given directory has a
+										<code>_collection.yaml</code> file within it, and if not, it will walk upwards until
+										one is found. If the root of the pod is reached, no collection requested
+									was located, and <code>null</code> will be returned.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>pod: <a href="_src_pod_.pod.html" class="tsd-signature-type">Pod</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A reference to the pod object.</p>
+									</div>
 								</li>
 								<li>
 									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The starting podPath to find.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_collection_.collection.html" class="tsd-signature-type">Collection</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>

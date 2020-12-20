@@ -101,6 +101,10 @@ export class Pod {
     }
   }
 
+  /**
+   * Returns the absolute file path on the file system.
+   * @param path The podPath to the file or directory.
+   */
   getAbsoluteFilePath(path: string) {
     path = path.replace(/^\/+/, '');
     return join(this.root, path);

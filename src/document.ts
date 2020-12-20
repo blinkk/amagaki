@@ -64,10 +64,21 @@ export class Document {
     return `[Document: ${this.path} (${this.locale.id})]`;
   }
 
+  /**
+   * Returns the document's collection object. If no `_collection.yaml` is found
+   * within the document's content directory, the directory structure will be
+   * walked upwards until locating a `_collection.yaml`.
+   */
   get collection() {
     return this.pod.collection(fsPath.dirname(this.path));
   }
 
+  /**
+   * Returns the default locale for the document. The default locale of a
+   * document can be specified one of three ways, in order:
+   * `$localization?defaultLocale` field within the document's fields, the
+   * collection's `_collection.yaml`, or the pod's `amagaki.yaml`.
+   */
   get defaultLocale() {
     // TODO: Allow docs and collections to override default locales.
     return this.pod.defaultLocale;
@@ -86,14 +97,32 @@ export class Document {
     return this.renderer.render(this.view, context);
   }
 
+  /**
+   * Returns the document's url object by looking it up in the pod's router. If
+   * the document has no url (i.e. if it's a partial document or if it's
+   * disabled), `undefined` is returned.
+   */
   get url(): Url | undefined {
     return this.pod.router.getUrl('doc', this);
   }
 
+  /**
+   * Returns the document's basename. A document's basename is its full filename
+   * (including extension), for example, the basename for
+   * `/content/pages/index.yaml` is `index.yaml`.
+   */
   get basename() {
     return fsPath.basename(this.path).split('.')[0];
   }
 
+  /**
+   * Returns the document's path format, which the router uses to generate the
+   * document's actual `Url` object. The path format is specified in the `$path`
+   * key of the document's fields, or if absent, inherited from the
+   * `_collection.yaml`. For localized documents, the `$localization?path` key
+   * is used instead of the `$path` key. If no `$path` or `$localization?path`
+   * is specified, the `pathFormat` is `false`.
+   */
   get pathFormat() {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
@@ -103,12 +132,7 @@ export class Document {
         (this.fields && this.fields['$path']) ||
         (this.collection && this.collection.fields['$path'])
       );
-    } else {
-      return this.pathFormatLocalized;
     }
-  }
-
-  get pathFormatLocalized() {
     return (
       (this.fields &&
         this.fields['$localization'] &&
@@ -119,6 +143,9 @@ export class Document {
     );
   }
 
+  /**
+   * Returns the filename of the template to render.
+   */
   get view() {
     if (!this.fields) {
       return null;
@@ -130,6 +157,12 @@ export class Document {
     );
   }
 
+  /**
+   * Returns the document's set of locale objects. In order, the locales are
+   * determined by the `$localization:locales` from the document's fields, or if
+   * not specified, inherited from the `_collection.yaml`, or if not specified
+   * there, then `amagaki.yaml`.
+   */
   get locales(): Set<Locale> {
     if (
       this.fields &&

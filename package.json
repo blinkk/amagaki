@@ -11,15 +11,16 @@
     "url": "git://github.com/blinkkcode/amagaki.git"
   },
   "engines": {
-    "node": ">=10.12.0"
+    "node": ">=10.17.0"
   },
   "scripts": {
-    "dev:start": "npm run copy; npm run compile",
-    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
-    "copy": "mkdir -p dist/src/static; cp src/static/* dist/src/static",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc",
+    "copy": "mkdir -p dist/src/static; cp src/static/* dist/src/static",
+    "dev:start": "npm run copy; npm run compile",
+    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
+    "docs": "typedoc --out docs src/",
     "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "nodemon": "^2.0.4",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
+    "typedoc": "^0.19.2",
     "typescript": "^3.8.3"
   },
   "dependencies": {

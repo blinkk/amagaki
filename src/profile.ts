@@ -78,7 +78,9 @@ export class Profiler {
         if (!(typeof keyExp === 'object' && keyExp.constructor !== RegExp)) {
           keyExp = new RegExp(keyExp);
         }
-        if (keyExp.test(timerKey)) {
+
+        // Show all of the timer types for now until it is easier to filter them.
+        if (keyExp.test(timerKey) || showExpandedReport) {
           this.timerTypes[timerKey].report(totalDuration, logMethod);
         }
       }

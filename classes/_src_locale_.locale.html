@@ -69,6 +69,21 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Locales provide pods with a way of generating different content for different
+							locales. Locale objects are used to instantiate documents, so that one
+							document can be available in many locales – and documents, collections, and
+						pods can each have their own sets of locales.</p>
+					</div>
+					<p>Locale objects provide a way with accessing the translations for a locale, as
+						well as managing operations around the translation process such as recording
+						strings that are missing translations. Locale objects also provide
+						information about the locale that can be used within templates, such as
+					whether the locale is a right-to-left locale.</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -99,7 +114,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_locale_.locale.html#isrtl" class="tsd-kind-icon">is<wbr>Rtl</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_locale_.locale.html#rtl" class="tsd-kind-icon">rtl</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_locale_.locale.html#translations" class="tsd-kind-icon">translations</a></li>
 							</ul>
 						</section>
@@ -127,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L15">src/locale.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L29">src/locale.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -152,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L14">src/locale.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L28">src/locale.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -162,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="_src_pod_.pod.html" class="tsd-signature-type">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L12">src/locale.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L26">src/locale.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L13">src/locale.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L27">src/locale.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">recorded<wbr>Strings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="_src_string_.translationstring.html" class="tsd-signature-type">TranslationString</a><span class="tsd-signature-symbol">, </span><a href="_src_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_src_document_.document.html" class="tsd-signature-type">Document</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L15">src/locale.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L29">src/locale.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,19 +205,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="isrtl" class="tsd-anchor"></a>
-					<h3>is<wbr>Rtl</h3>
+					<a name="rtl" class="tsd-anchor"></a>
+					<h3>rtl</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isRtl<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rtl<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L82">src/locale.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L114">src/locale.ts:114</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns whether the locale uses an RTL (right to left) language.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -216,9 +236,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L28">src/locale.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L47">src/locale.ts:47</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the translations for this locale. The translations are stored
+										within a YAML file for each locale, in a file named
+										<code>/locales/{locale}.yaml</code>. The translations are stored as a mapping of
+									source string to translation, under a <code>translations</code> key within the file.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
@@ -236,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L50">src/locale.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L81">src/locale.ts:81</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -262,16 +290,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L41">src/locale.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L72">src/locale.ts:72</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Records a missing translation string during the build process. If the
+										build looks up a translation for a source string and if the translation
+										doesn&#39;t exist, it is recorded by this function so that all missing
+										translations can be collected (and translated) later. The location of the
+										translation string (the <code>Document</code> where the missing translation string was
+										located, is also collected, so that the order of appearance and the context
+									can be bundled with the recorded strings and provided to translators.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>string: <a href="_src_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The source string that is missing a translation.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> location: <a href="_src_document_.document.html" class="tsd-signature-type">Document</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The document where the string was requested.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -288,7 +333,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L24">src/locale.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L38">src/locale.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -305,9 +350,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/0164714/src/locale.ts#L32">src/locale.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c8a0d6d/src/locale.ts#L52">src/locale.ts:52</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Normalizes a string into a <code>TranslationString</code> object.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -420,7 +470,7 @@
 								<a href="_src_locale_.locale.html#recordedstrings" class="tsd-kind-icon">recorded<wbr>Strings</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_locale_.locale.html#isrtl" class="tsd-kind-icon">is<wbr>Rtl</a>
+								<a href="_src_locale_.locale.html#rtl" class="tsd-kind-icon">rtl</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_locale_.locale.html#translations" class="tsd-kind-icon">translations</a>
@@ -443,6 +493,9 @@
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_src_locale_.localeset.html" class="tsd-kind-icon">Locale<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_src_locale_.html#rtl_regex" class="tsd-kind-icon">RTL_<wbr>REGEX</a>
 					</li>
 				</ul>
 			</nav>

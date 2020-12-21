@@ -132,9 +132,16 @@ export class Pod {
   }
 
   readFile(path: string) {
+    if (this.cache.files[path]) {
+      return this.cache.files[path];
+    }
     const timer = this.profiler.timer('file.read', 'File read');
     try {
-      return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+      this.cache.files[path] = readFileSync(
+        this.getAbsoluteFilePath(path),
+        'utf8'
+      );
+      return this.cache.files[path];
     } finally {
       timer.stop();
     }

@@ -123,10 +123,10 @@ export class Document {
     if (this._fields) {
       return this._fields;
     }
-    if (this.ext === '.md') {
-      this.initPartsFromFrontMatter(); // Set this._fields.
-    } else {
+    if (this.ext === '.yaml') {
       this._fields = this.pod.readYaml(this.path);
+    } else {
+      this.initPartsFromFrontMatter(); // Set this._fields.
     }
     return this._fields;
   }
@@ -145,7 +145,7 @@ export class Document {
     }
     if (this.ext === '.yaml') {
       this._body = '';
-    } else if (this.ext === '.md') {
+    } else {
       this.initPartsFromFrontMatter(); // Set this._body.
     }
     return this._body;

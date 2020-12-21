@@ -145,6 +145,6 @@ export function splitFrontMatter(content: string): FrontMatterResult {
   }
   return {
     frontMatter: content.slice(0, closingIndex),
-    body: content.slice(closingIndex),
+    body: content.slice(closingIndex + closingPart.length),
   };
 }

@@ -17,7 +17,13 @@ export class Document {
   private _fields: any; // TODO: See if we can limit this.
   private _body: string | null;
   private _content: string | null;
-  static SupportedExtensions = new Set(['.md', '.html', '.xml', '.yaml']);
+  static SupportedExtensions = new Set([
+    '.md',
+    '.html',
+    '.njk',
+    '.xml',
+    '.yaml',
+  ]);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
@@ -54,7 +60,10 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    return this.renderer.render(this.view, context);
+    if (this.view) {
+      return this.renderer.render(this.view, context);
+    }
+    return this.renderer.renderString(this.body as string, context);
   }
 
   get url(): Url | undefined {
@@ -91,14 +100,14 @@ export class Document {
   }
 
   get view() {
-    if (!this.fields) {
-      return null;
+    // Allows `$view: ~` which indicates the document's body is used as the view.
+    if (this.fields && this.fields['$view'] !== undefined) {
+      return this.fields['$view'];
     }
-    return (
-      this.fields['$view'] ||
-      (this.collection && this.collection.fields['$view']) ||
-      DEFAULT_VIEW
-    );
+    if (this.collection && this.collection.fields['$view'] !== undefined) {
+      return this.collection.fields['$view'];
+    }
+    return DEFAULT_VIEW;
   }
 
   get locales(): Set<Locale> {

@@ -12,7 +12,11 @@ export class Renderer {
 
   configure() {}
 
-  async render(template: string, context: any): Promise<string> {
+  async render(podPath: string, context: any): Promise<string> {
+    throw new Error();
+  }
+
+  async renderString(content: string, context: any): Promise<string> {
     throw new Error();
   }
 }
@@ -55,8 +59,12 @@ export class NunjucksRenderer extends Renderer {
     });
   }
 
-  async render(path: string, context: any): Promise<string> {
-    return this.env.render(path, context);
+  async render(podPath: string, context: any): Promise<string> {
+    return this.env.render(podPath, context);
+  }
+
+  async renderString(content: string, context: any): Promise<string> {
+    return this.env.renderString(content, context);
   }
 }
 

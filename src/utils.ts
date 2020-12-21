@@ -144,7 +144,7 @@ export function splitFrontMatter(content: string): FrontMatterResult {
     };
   }
   return {
-    frontMatter: content.slice(0, closingIndex),
-    body: content.slice(closingIndex + closingPart.length),
+    frontMatter: content.slice(0, closingIndex).trim(),
+    body: content.slice(closingIndex + closingPart.length).trim(),
   };
 }

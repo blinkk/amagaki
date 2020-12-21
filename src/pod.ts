@@ -199,7 +199,7 @@ export class Pod {
    * Returns a translation string object.
    * @param options The options of the translation string.
    */
-  string(options: StringOptionslocale?: Locale) {
+  string(options: StringOptions, locale?: Locale) {
     locale = locale || this.defaultLocale;
     if (this.cache.strings[options.value]) {
       return this.cache.strings[options.value];

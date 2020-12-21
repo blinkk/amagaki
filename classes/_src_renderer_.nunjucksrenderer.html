@@ -104,6 +104,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_src_renderer_.nunjucksrenderer.html#configure" class="tsd-kind-icon">configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_renderer_.nunjucksrenderer.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_src_renderer_.nunjucksrenderer.html#renderstring" class="tsd-kind-icon">render<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +123,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_src_renderer_.renderer.html">Renderer</a>.<a href="_src_renderer_.renderer.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/d4de4d3/src/renderer.ts#L32">src/renderer.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L36">src/renderer.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Environment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/d4de4d3/src/renderer.ts#L32">src/renderer.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L36">src/renderer.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,7 +156,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_renderer_.renderer.html">Renderer</a>.<a href="_src_renderer_.renderer.html#pod">pod</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/d4de4d3/src/renderer.ts#L7">src/renderer.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L7">src/renderer.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +174,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_renderer_.renderer.html">Renderer</a>.<a href="_src_renderer_.renderer.html#configure">configure</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/d4de4d3/src/renderer.ts#L13">src/renderer.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L13">src/renderer.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -184,20 +185,47 @@
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>podPath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_src_renderer_.renderer.html">Renderer</a>.<a href="_src_renderer_.renderer.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/d4de4d3/src/renderer.ts#L58">src/renderer.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L62">src/renderer.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<h5>podPath: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>context: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="renderstring" class="tsd-anchor"></a>
+					<h3>render<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>String<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_src_renderer_.renderer.html">Renderer</a>.<a href="_src_renderer_.renderer.html#renderstring">renderString</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/80ac295/src/renderer.ts#L66">src/renderer.ts:66</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>content: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5>context: <span class="tsd-signature-type">any</span></h5>
@@ -313,6 +341,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_src_renderer_.nunjucksrenderer.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_renderer_.nunjucksrenderer.html#renderstring" class="tsd-kind-icon">render<wbr>String</a>
 							</li>
 						</ul>
 					</li>

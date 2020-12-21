@@ -1,12 +1,9 @@
 name: 'Deploy docs to GitHub pages'
 
-# TODO: Once complete, only build docs on `main`.
-# on:
-#   push:
-#     branches:
-#       - main
-
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   docs:

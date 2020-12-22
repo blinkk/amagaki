@@ -17,6 +17,7 @@ export class Document {
   private _fields: any; // TODO: See if we can limit this.
   private _body: string | null;
   private _content: string | null;
+  static SelfReferencedView = 'self';
   static SupportedExtensions = new Set([
     '.md',
     '.html',
@@ -60,10 +61,11 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    if (this.view) {
-      return this.renderer.render(this.view, context);
+    // When `$view: self` is used, use the document's body as the template.
+    if (this.view === Document.SelfReferencedView) {
+      return this.renderer.renderString(this.body as string, context);
     }
-    return this.renderer.renderString(this.body as string, context);
+    return this.renderer.render(this.view, context);
   }
 
   get url(): Url | undefined {
@@ -100,11 +102,10 @@ export class Document {
   }
 
   get view() {
-    // Allows `$view: ~` which indicates the document's body is used as the view.
-    if (this.fields && this.fields['$view'] !== undefined) {
+    if (this.fields && this.fields['$view']) {
       return this.fields['$view'];
     }
-    if (this.collection && this.collection.fields['$view'] !== undefined) {
+    if (this.collection && this.collection.fields['$view']) {
       return this.collection.fields['$view'];
     }
     return DEFAULT_VIEW;

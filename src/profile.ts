@@ -43,6 +43,19 @@ export class Profiler {
     return minBegin;
   }
 
+  benchmarkOutput(): string {
+    const metrics = [];
+
+    for (const key of Object.keys(this.timerTypes).sort()) {
+      const timerType = this.timerTypes[key];
+      metrics.push(
+        `${key} x ${timerType.sum} ms ±0% (${timerType.length} runs sampled)`
+      );
+    }
+
+    return metrics.join('\n');
+  }
+
   report(
     keys?: Array<string> | Array<RegExp>,
     showExpandedReport = false,
@@ -154,6 +167,10 @@ export class TimerType {
       }
     }
     return minBegin;
+  }
+
+  get length(): number {
+    return this.timers.length;
   }
 
   get sum(): number {

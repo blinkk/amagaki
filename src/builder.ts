@@ -62,6 +62,7 @@ interface CreatedPath {
 }
 
 export class Builder {
+  benchmarkPodPath: string;
   pod: Pod;
   manifestPodPath: string;
   outputDirectoryPodPath: string;
@@ -83,6 +84,11 @@ export class Builder {
       this.outputDirectoryPodPath,
       '.amagaki',
       'manifest.json'
+    );
+    this.benchmarkPodPath = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.amagaki',
+      'benchmark.txt'
     );
   }
 
@@ -324,11 +330,13 @@ export class Builder {
       }
     );
 
-    // Write the manifest and clean up.
+    // Write the manifest.
     await this.writeFileAsync(
       this.pod.getAbsoluteFilePath(this.manifestPodPath),
       JSON.stringify(buildManifest, null, 2)
     );
+
+    // Clean up.
     this.deleteDirectoryRecursive(tempDirRoot);
 
     // Output build metrics.
@@ -375,6 +383,14 @@ export class Builder {
         `${buildDiff.adds.length} adds, `.green +
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
+    );
+  }
+
+  async exportBenchmark() {
+    // Write the profile benchmark.
+    await this.writeFileAsync(
+      this.pod.getAbsoluteFilePath(this.benchmarkPodPath),
+      this.pod.profiler.benchmarkOutput()
     );
   }
 }

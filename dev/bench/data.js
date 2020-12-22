@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1608675010544,
+  "lastUpdate": 1608675776650,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -63,6 +63,72 @@ window.BENCHMARK_DATA = {
           {
             "name": "yaml.schema",
             "value": 0.31580000001122244,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "committer": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "distinct": true,
+          "id": "2ccc187ca7ec2d6292498ea814041bc3719d48a6",
+          "message": "Adjust the benchmark build path.",
+          "timestamp": "2020-12-22T15:21:42-07:00",
+          "tree_id": "f1a60faec8655e22f55d4d28dd548bb0536ce76a",
+          "url": "https://github.com/blinkkcode/amagaki/commit/2ccc187ca7ec2d6292498ea814041bc3719d48a6"
+        },
+        "date": 1608675775800,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 17671.665855,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 4.506797999943956,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 130.4861539996491,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5557 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 1071.821513001807,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "21905 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 8.17594200001622,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.35452300000179093,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

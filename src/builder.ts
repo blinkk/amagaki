@@ -1,3 +1,4 @@
+import * as _colors from 'colors';
 import * as async from 'async';
 import * as cliProgress from 'cli-progress';
 import * as crypto from 'crypto';

@@ -1,12 +1,9 @@
-name: 'Build example site benchmark'
+name: Build example site benchmark
 
 on:
   push:
-    # branches:
-    # - main
-  pull_request:
-    # branches:
-    # - main
+    branches:
+    - main
 
 jobs:
   build:
@@ -39,4 +36,6 @@ jobs:
           tool: 'benchmarkjs'
           output-file-path: example/build/.amagaki/benchmark.txt
           external-data-json-path: ./cache/benchmark-data.json
-          # TODO: Enable benchmark pull request comments for all branches.
+          # Push and deploy GitHub pages branch automatically
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true

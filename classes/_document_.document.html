@@ -1,0 +1,755 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Document | @amagaki/amagaki</title>
+	<meta name="description" content="Documentation for @amagaki/amagaki">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@amagaki/amagaki</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_document_.html">&quot;document&quot;</a>
+				</li>
+				<li>
+					<a href="_document_.document.html">Document</a>
+				</li>
+			</ul>
+			<h1>Class Document</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Documents represent dynamically rendered pages. The document object controls
+							all aspects of rendering itself, with references to things like its template
+							renderer, its locale, and its content type. A document is defined by a
+						content file within the pod&#39;s content directory.</p>
+					</div>
+					<p>The structure of a document&#39;s <code>content</code> comes in two parts: <code>fields</code> and
+						<code>body</code>. <code>fields</code> represent either a full YAML document, or YAML front matter.
+						For Markdown and HTML-formatted documents, a document&#39;s <code>body</code> is everything
+						below the front matter delimiter (<code>---</code>) or the entire file contents in
+					absence of a front matter delimiter. YAML files may not have a <code>body</code>.</p>
+					<p>Documents are grouped into collections. A collection is a directory within
+					the pod&#39;s content directory. A <code>_collection.yaml</code> file defines a collection.</p>
+					<p>The same document may be available in multiple locales. Each locale has its
+						own document object (documents are instantiated with both a <code>podPath</code> and a
+						<code>locale</code> parameter). If a <code>locale</code> parameter is not provided, the pod&#39;s
+						default locale is used to instantiate the document. Localized documents will
+						automatically resolve any localizable elements (such as <code>!a.String</code> YAML
+					types or <code>!a.Localized</code> YAML types) to their correct locale.</p>
+					<p>Finally, documents may or may not actually be bound to routes. In other
+						words, a document can be a partial document and only used as a data source or
+						input for another document, or it might just be hidden. If a document lacks a
+						<code>pathFormat</code>, it won&#39;t be generated as an individual route. A document&#39;s
+						<code>url</code> object is determined by its own <code>pathFormat</code> and coupled to the pod&#39;s
+					<code>router</code>.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Document</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_document_.document.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_document_.document.html#_body" class="tsd-kind-icon">_body</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_document_.document.html#_content" class="tsd-kind-icon">_content</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_document_.document.html#_fields" class="tsd-kind-icon">_fields</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_document_.document.html#ext" class="tsd-kind-icon">ext</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_document_.document.html#locale" class="tsd-kind-icon">locale</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_document_.document.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_document_.document.html#pod" class="tsd-kind-icon">pod</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_document_.document.html#renderer" class="tsd-kind-icon">renderer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_document_.document.html#supportedextensions" class="tsd-kind-icon">Supported<wbr>Extensions</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#basename" class="tsd-kind-icon">basename</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#body" class="tsd-kind-icon">body</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#collection" class="tsd-kind-icon">collection</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#content" class="tsd-kind-icon">content</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#fields" class="tsd-kind-icon">fields</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#locales" class="tsd-kind-icon">locales</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#pathformat" class="tsd-kind-icon">path<wbr>Format</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_document_.document.html#view" class="tsd-kind-icon">view</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_document_.document.html#initpartsfromfrontmatter" class="tsd-kind-icon">init<wbr>Parts<wbr>From<wbr>Front<wbr>Matter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_document_.document.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_document_.document.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Document<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="_pod_.pod.html" class="tsd-signature-type">Pod</a>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, locale<span class="tsd-signature-symbol">: </span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_document_.document.html" class="tsd-signature-type">Document</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L49">src/document.ts:49</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pod: <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></h5>
+								</li>
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>locale: <a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_document_.document.html" class="tsd-signature-type">Document</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_body" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _body</h3>
+					<div class="tsd-signature tsd-kind-icon">_body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L47">src/document.ts:47</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_content" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _content</h3>
+					<div class="tsd-signature tsd-kind-icon">_content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L48">src/document.ts:48</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_fields" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _fields</h3>
+					<div class="tsd-signature tsd-kind-icon">_fields<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L46">src/document.ts:46</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="ext" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> ext</h3>
+					<div class="tsd-signature tsd-kind-icon">ext<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L45">src/document.ts:45</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="locale" class="tsd-anchor"></a>
+					<h3>locale</h3>
+					<div class="tsd-signature tsd-kind-icon">locale<span class="tsd-signature-symbol">:</span> <a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L42">src/document.ts:42</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="path" class="tsd-anchor"></a>
+					<h3>path</h3>
+					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L41">src/document.ts:41</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="pod" class="tsd-anchor"></a>
+					<h3>pod</h3>
+					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L43">src/document.ts:43</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="renderer" class="tsd-anchor"></a>
+					<h3>renderer</h3>
+					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <a href="_renderer_.renderer.html" class="tsd-signature-type">Renderer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L44">src/document.ts:44</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="supportedextensions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Supported<wbr>Extensions</h3>
+					<div class="tsd-signature tsd-kind-icon">Supported<wbr>Extensions<span class="tsd-signature-symbol">:</span> <a href="_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Set([&#x27;.md&#x27;, &#x27;.yaml&#x27;])</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L49">src/document.ts:49</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="basename" class="tsd-anchor"></a>
+					<h3>basename</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> basename<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L114">src/document.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the document&#39;s basename. A document&#39;s basename is its full filename
+										(including extension), for example, the basename for
+									<code>/content/pages/index.yaml</code> is <code>index.yaml</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="body" class="tsd-anchor"></a>
+					<h3>body</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> body<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L204">src/document.ts:204</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="collection" class="tsd-anchor"></a>
+					<h3>collection</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> collection<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="_collection_.collection.html" class="tsd-signature-type">Collection</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L72">src/document.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the document&#39;s collection object. If no <code>_collection.yaml</code> is found
+										within the document&#39;s content directory, the directory structure will be
+									walked upwards until locating a <code>_collection.yaml</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="_collection_.collection.html" class="tsd-signature-type">Collection</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="content" class="tsd-anchor"></a>
+					<h3>content</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> content<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L196">src/document.ts:196</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="defaultlocale" class="tsd-anchor"></a>
+					<h3>default<wbr>Locale</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> defaultLocale<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L82">src/document.ts:82</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the default locale for the document. The default locale of a
+										document can be specified one of three ways, in order:
+										<code>$localization?defaultLocale</code> field within the document&#39;s fields, the
+									collection&#39;s <code>_collection.yaml</code>, or the pod&#39;s <code>amagaki.yaml</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="fields" class="tsd-anchor"></a>
+					<h3>fields</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> fields<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L184">src/document.ts:184</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="locales" class="tsd-anchor"></a>
+					<h3>locales</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> locales<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L166">src/document.ts:166</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the document&#39;s set of locale objects. In order, the locales are
+										determined by the <code>$localization:locales</code> from the document&#39;s fields, or if
+										not specified, inherited from the <code>_collection.yaml</code>, or if not specified
+									there, then <code>amagaki.yaml</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="pathformat" class="tsd-anchor"></a>
+					<h3>path<wbr>Format</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> pathFormat<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L126">src/document.ts:126</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the document&#39;s path format, which the router uses to generate the
+										document&#39;s actual <code>Url</code> object. The path format is specified in the <code>$path</code>
+										key of the document&#39;s fields, or if absent, inherited from the
+										<code>_collection.yaml</code>. For localized documents, the <code>$localization?path</code> key
+										is used instead of the <code>$path</code> key. If no <code>$path</code> or <code>$localization?path</code>
+									is specified, the <code>pathFormat</code> is <code>false</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> url<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_url_.url.html" class="tsd-signature-type">Url</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L105">src/document.ts:105</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the document&#39;s url object by looking it up in the pod&#39;s router. If
+										the document has no url (i.e. if it&#39;s a partial document or if it&#39;s
+									disabled), <code>undefined</code> is returned.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_url_.url.html" class="tsd-signature-type">Url</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="view" class="tsd-anchor"></a>
+					<h3>view</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> view<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L149">src/document.ts:149</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the filename of the template to render.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="initpartsfromfrontmatter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> init<wbr>Parts<wbr>From<wbr>Front<wbr>Matter</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Parts<wbr>From<wbr>Front<wbr>Matter<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L216">src/document.ts:216</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="render" class="tsd-anchor"></a>
+					<h3>render</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L87">src/document.ts:87</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/document.ts#L63">src/document.ts:63</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_builder_.html">&quot;builder&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_cache_.html">&quot;cache&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_collection_.html">&quot;collection&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_build_.html">&quot;commands/build&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_global_.html">&quot;commands/global&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_serve_.html">&quot;commands/serve&quot;</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_document_.html">&quot;document&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_environment_.html">&quot;environment&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_locale_.html">&quot;locale&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_pod_.html">&quot;pod&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_profile_.html">&quot;profile&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_renderer_.html">&quot;renderer&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_router_.html">&quot;router&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_server_.html">&quot;server&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_static_.html">&quot;static&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_string_.html">&quot;string&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_url_.html">&quot;url&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_utils_.html">&quot;utils&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_watcher_.html">&quot;watcher&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_document_.document.html" class="tsd-kind-icon">Document</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_document_.document.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_document_.document.html#_body" class="tsd-kind-icon">_body</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_document_.document.html#_content" class="tsd-kind-icon">_content</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_document_.document.html#_fields" class="tsd-kind-icon">_fields</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_document_.document.html#ext" class="tsd-kind-icon">ext</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_document_.document.html#locale" class="tsd-kind-icon">locale</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_document_.document.html#path" class="tsd-kind-icon">path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_document_.document.html#pod" class="tsd-kind-icon">pod</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_document_.document.html#renderer" class="tsd-kind-icon">renderer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_document_.document.html#supportedextensions" class="tsd-kind-icon">Supported<wbr>Extensions</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#basename" class="tsd-kind-icon">basename</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#body" class="tsd-kind-icon">body</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#collection" class="tsd-kind-icon">collection</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#content" class="tsd-kind-icon">content</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#fields" class="tsd-kind-icon">fields</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#locales" class="tsd-kind-icon">locales</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#pathformat" class="tsd-kind-icon">path<wbr>Format</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#url" class="tsd-kind-icon">url</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_document_.document.html#view" class="tsd-kind-icon">view</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_document_.document.html#initpartsfromfrontmatter" class="tsd-kind-icon">init<wbr>Parts<wbr>From<wbr>Front<wbr>Matter</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_document_.document.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_document_.document.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_document_.html#default_renderer" class="tsd-kind-icon">DEFAULT_<wbr>RENDERER</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_document_.html#default_view" class="tsd-kind-icon">DEFAULT_<wbr>VIEW</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

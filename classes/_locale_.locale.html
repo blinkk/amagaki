@@ -1,0 +1,521 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Locale | @amagaki/amagaki</title>
+	<meta name="description" content="Documentation for @amagaki/amagaki">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@amagaki/amagaki</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_locale_.html">&quot;locale&quot;</a>
+				</li>
+				<li>
+					<a href="_locale_.locale.html">Locale</a>
+				</li>
+			</ul>
+			<h1>Class Locale</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Locales provide pods with a way of generating different content for different
+							locales. Locale objects are used to instantiate documents, so that one
+							document can be available in many locales – and documents, collections, and
+						pods can each have their own sets of locales.</p>
+					</div>
+					<p>Locale objects provide a way with accessing the translations for a locale, as
+						well as managing operations around the translation process such as recording
+						strings that are missing translations. Locale objects also provide
+						information about the locale that can be used within templates, such as
+					whether the locale is a right-to-left locale.</p>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Locale</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_locale_.locale.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_locale_.locale.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_locale_.locale.html#pod" class="tsd-kind-icon">pod</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_locale_.locale.html#podpath" class="tsd-kind-icon">pod<wbr>Path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_locale_.locale.html#recordedstrings" class="tsd-kind-icon">recorded<wbr>Strings</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_locale_.locale.html#rtl" class="tsd-kind-icon">rtl</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_locale_.locale.html#translations" class="tsd-kind-icon">translations</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_locale_.locale.html#gettranslation" class="tsd-kind-icon">get<wbr>Translation</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_locale_.locale.html#recordstring" class="tsd-kind-icon">record<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_locale_.locale.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_locale_.locale.html#totranslationstring" class="tsd-kind-icon">to<wbr>Translation<wbr>String</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Locale<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="_pod_.pod.html" class="tsd-signature-type">Pod</a>, id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L29">src/locale.ts:29</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pod: <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></h5>
+								</li>
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L28">src/locale.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="pod" class="tsd-anchor"></a>
+					<h3>pod</h3>
+					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L26">src/locale.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="podpath" class="tsd-anchor"></a>
+					<h3>pod<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L27">src/locale.ts:27</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="recordedstrings" class="tsd-anchor"></a>
+					<h3>recorded<wbr>Strings</h3>
+					<div class="tsd-signature tsd-kind-icon">recorded<wbr>Strings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a><span class="tsd-signature-symbol">, </span><a href="_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_document_.document.html" class="tsd-signature-type">Document</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L29">src/locale.ts:29</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="rtl" class="tsd-anchor"></a>
+					<h3>rtl</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> rtl<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L114">src/locale.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns whether the locale uses an RTL (right to left) language.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="translations" class="tsd-anchor"></a>
+					<h3>translations</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> translations<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L47">src/locale.ts:47</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the translations for this locale. The translations are stored
+										within a YAML file for each locale, in a file named
+										<code>/locales/{locale}.yaml</code>. The translations are stored as a mapping of
+									source string to translation, under a <code>translations</code> key within the file.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="gettranslation" class="tsd-anchor"></a>
+					<h3>get<wbr>Translation</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Translation<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a>, location<span class="tsd-signature-symbol">?: </span><a href="_document_.document.html" class="tsd-signature-type">Document</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L81">src/locale.ts:81</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> location: <a href="_document_.document.html" class="tsd-signature-type">Document</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="recordstring" class="tsd-anchor"></a>
+					<h3>record<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">record<wbr>String<span class="tsd-signature-symbol">(</span>string<span class="tsd-signature-symbol">: </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a>, location<span class="tsd-signature-symbol">?: </span><a href="_document_.document.html" class="tsd-signature-type">Document</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L72">src/locale.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Records a missing translation string during the build process. If the
+										build looks up a translation for a source string and if the translation
+										doesn&#39;t exist, it is recorded by this function so that all missing
+										translations can be collected (and translated) later. The location of the
+										translation string (the <code>Document</code> where the missing translation string was
+										located, is also collected, so that the order of appearance and the context
+									can be bundled with the recorded strings and provided to translators.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>string: <a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The source string that is missing a translation.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> location: <a href="_document_.document.html" class="tsd-signature-type">Document</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The document where the string was requested.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L38">src/locale.ts:38</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="totranslationstring" class="tsd-anchor"></a>
+					<h3>to<wbr>Translation<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Translation<wbr>String<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/c133510/src/locale.ts#L52">src/locale.ts:52</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Normalizes a string into a <code>TranslationString</code> object.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_string_.translationstring.html" class="tsd-signature-type">TranslationString</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_builder_.html">&quot;builder&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_cache_.html">&quot;cache&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_collection_.html">&quot;collection&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_build_.html">&quot;commands/build&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_global_.html">&quot;commands/global&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_commands_serve_.html">&quot;commands/serve&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_document_.html">&quot;document&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_environment_.html">&quot;environment&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_locale_.html">&quot;locale&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_pod_.html">&quot;pod&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_profile_.html">&quot;profile&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_renderer_.html">&quot;renderer&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_router_.html">&quot;router&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_server_.html">&quot;server&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_static_.html">&quot;static&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_string_.html">&quot;string&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_url_.html">&quot;url&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_utils_.html">&quot;utils&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_watcher_.html">&quot;watcher&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_locale_.locale.html" class="tsd-kind-icon">Locale</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_locale_.locale.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_locale_.locale.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_locale_.locale.html#pod" class="tsd-kind-icon">pod</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_locale_.locale.html#podpath" class="tsd-kind-icon">pod<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_locale_.locale.html#recordedstrings" class="tsd-kind-icon">recorded<wbr>Strings</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_locale_.locale.html#rtl" class="tsd-kind-icon">rtl</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_locale_.locale.html#translations" class="tsd-kind-icon">translations</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_locale_.locale.html#gettranslation" class="tsd-kind-icon">get<wbr>Translation</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_locale_.locale.html#recordstring" class="tsd-kind-icon">record<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_locale_.locale.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_locale_.locale.html#totranslationstring" class="tsd-kind-icon">to<wbr>Translation<wbr>String</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_locale_.localeset.html" class="tsd-kind-icon">Locale<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_locale_.html#rtl_regex" class="tsd-kind-icon">RTL_<wbr>REGEX</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

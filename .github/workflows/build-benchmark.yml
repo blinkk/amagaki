@@ -36,4 +36,4 @@ jobs:
         with:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
-          output-file-path: .amagaki/benchmark.txt
+          output-file-path: example/.amagaki/benchmark.txt

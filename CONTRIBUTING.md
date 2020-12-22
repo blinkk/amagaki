@@ -68,6 +68,8 @@ Add support for localized documents
 
 - Avoid merge commits. Use the "rebase and merge" strategy or "squash and merge"
   strategy (preferred for larger features or commits).
+- Preserve the PR# in commit message subjects so the relevant discussion can be
+  found later.
 - Commits that can be merged directly to `main`:
   - Comments/documentation
   - Implementing functionality that has already been scaffolded

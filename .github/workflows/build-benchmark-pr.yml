@@ -52,7 +52,7 @@ jobs:
         with:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
-          output-file-path: example/build/.amagaki/benchmark.txt
+          output-file-path: benchmark/build/.amagaki/benchmark.txt
           external-data-json-path: cache/benchmark-data.json
           # PR commenting and failure.
           github-token: ${{ secrets.GITHUB_TOKEN }}

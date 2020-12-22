@@ -390,7 +390,7 @@ export class Builder {
     // Write the profile benchmark.
     await this.writeFileAsync(
       this.pod.getAbsoluteFilePath(this.benchmarkPodPath),
-      this.pod.profiler.benchmarkOutput()
+      this.pod.profiler.benchmarkOutput
     );
   }
 }

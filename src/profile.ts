@@ -43,7 +43,7 @@ export class Profiler {
     return minBegin;
   }
 
-  benchmarkOutput(): string {
+  get benchmarkOutput(): string {
     const metrics = [];
 
     for (const key of Object.keys(this.timerTypes).sort()) {

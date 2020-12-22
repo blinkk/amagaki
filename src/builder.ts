@@ -108,6 +108,18 @@ export class Builder {
     }
   }
 
+  static formatProgressBarTime(t: number) {
+    const s = t / 1000;
+    if (s > 3600) {
+      return Math.floor(s / 3600) + 'h ' + Math.round((s % 3600) / 60) + 'm';
+    } else if (s > 60) {
+      return Math.floor(s / 60) + 'm ' + Math.round(s % 60) + 's';
+    } else if (s > 10) {
+      return s.toFixed(1) + 's';
+    }
+    return s.toFixed(2) + 's';
+  }
+
   copyFileAsync(outputPath: string, podPath: string) {
     Builder.ensureDirectoryExists(outputPath);
     return fs.promises.copyFile(
@@ -202,7 +214,7 @@ export class Builder {
       {
         format:
           'Building ({value}/{total}): '.green +
-          '{bar} Total: {duration_formatted}',
+          '{bar} Total: {customDuration}',
       },
       cliProgress.Presets.shades_classic
     );
@@ -224,12 +236,15 @@ export class Builder {
       outputSizeStaticFiles: 0,
     };
     const bar = Builder.createProgressBar();
+    const startTime = new Date().getTime();
     const artifacts: Array<Artifact> = [];
     const tempDirRoot = fs.mkdtempSync(
       fsPath.join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
     );
 
-    bar.start(this.pod.router.routes.length, artifacts.length);
+    bar.start(this.pod.router.routes.length, artifacts.length, {
+      customDuration: Builder.formatProgressBarTime(0),
+    });
     const createdPaths: Array<CreatedPath> = [];
 
     // Collect the routes and assemble the temporary directory mapping.
@@ -272,7 +287,11 @@ export class Builder {
             tempPath: createdPath.tempPath,
             realPath: createdPath.realPath,
           });
-          bar.increment();
+          bar.increment({
+            customDuration: Builder.formatProgressBarTime(
+              new Date().getTime() - startTime
+            ),
+          });
         }
       }
     );

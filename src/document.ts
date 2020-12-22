@@ -10,7 +10,7 @@ const DEFAULT_VIEW = '/views/base.njk';
 
 interface DocumentParts {
   body?: string | null;
-  fields?: any | null; // TODO: See if we can limit this.
+  fields?: any;
 }
 
 /**
@@ -49,7 +49,7 @@ export class Document {
   renderer: Renderer;
   readonly ext: string;
   private parts: DocumentParts;
-  private _content: string | null;
+  private _content?: string | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
 
   constructor(pod: Pod, path: string, locale: Locale) {
@@ -58,12 +58,7 @@ export class Document {
     this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
-
-    this.parts = {
-      body: null,
-      fields: null,
-    };
-    this._content = null;
+    this.parts = {};
   }
 
   toString() {
@@ -152,9 +147,11 @@ export class Document {
   /**
    * Returns the filename of the template to render.
    */
-  get view() {
+  get view(): string {
     if (!this.fields) {
-      return null;
+      return (
+        (this.collection && this.collection.fields['$view']) || DEFAULT_VIEW
+      );
     }
     return (
       this.fields['$view'] ||
@@ -231,20 +228,19 @@ export class Document {
   }
 
   private initPartsFromFrontMatter(): DocumentParts {
-    // If the body value is not null, assume the front matter has been split.
-    if (this.parts.body !== null) {
+    // If the body value is not undefined, assume the front matter has been split.
+    if (this.parts.body !== undefined) {
       return this.parts;
     }
     const result = utils.splitFrontMatter(this.content);
     return {
       body: result.body || null,
-      fields:
-        result.frontMatter === null
-          ? {}
-          : utils.localizeData(
-              this.pod.readYamlString(result.frontMatter, this.path),
-              this.locale
-            ),
+      fields: result.frontMatter
+        ? utils.localizeData(
+            this.pod.readYamlString(result.frontMatter, this.path),
+            this.locale
+          )
+        : {},
     };
   }
 }

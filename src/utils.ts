@@ -6,8 +6,8 @@ import {Locale} from './locale';
 import {Pod} from './pod';
 
 export interface FrontMatterResult {
-  frontMatter: string | null;
-  body: string | null;
+  frontMatter?: string;
+  body?: string;
 }
 
 export class DataType {
@@ -198,26 +198,32 @@ export function localizeData(data: any, locale: Locale): any {
   return data;
 }
 
-export function splitFrontMatter(content: string): FrontMatterResult {
+export function splitFrontMatter(content?: string): FrontMatterResult {
+  if (!content) {
+    return {};
+  }
+
   const openingPart = '---\n';
   const closingPart = '\n---';
+
   // No opening part present, assume the whole file is not front matter.
   if (!content.startsWith(openingPart)) {
     return {
-      frontMatter: null,
       body: content,
     };
   }
+
   // Strip the opening part.
   content = content.slice(openingPart.length);
   const closingIndex = content.indexOf(closingPart);
+
   // No closing part present, assume the whole file is front matter.
   if (closingIndex === -1) {
     return {
       frontMatter: content,
-      body: null,
     };
   }
+
   return {
     frontMatter: content.slice(0, closingIndex),
     body: content.slice(closingIndex),

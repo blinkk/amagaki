@@ -21,6 +21,7 @@ jobs:
           path: |
             ~/.npm
             **/node_modules
+            ./cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -37,4 +38,5 @@ jobs:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
           output-file-path: example/build/.amagaki/benchmark.txt
+          external-data-json-path: ./cache/benchmark-data.json
           # TODO: Enable benchmark pull request comments for all branches.

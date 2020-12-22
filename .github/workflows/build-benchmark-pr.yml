@@ -1,4 +1,4 @@
-name: Build example site benchmark
+name: Benchmark build
 
 on:
   push:
@@ -10,25 +10,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Checkout benchmark repo
+        uses: actions/checkout@v2
+        with:
+          repository: blinkkcode/amagaki-benchmark
+          path: benchmark
       - name: Cache node modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-node-modules-bm-pr
         with:
           path: |
             ~/.npm
-            **/node_modules
-            ./cache
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Build example site
+      - name: Cache benchmark node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-benchmark-bm-pr
+        with:
+          path: |
+            ~/.npm
+            benchmark/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('benchmark/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Build amagaki
         run: |
                 npm install
                 npm run dev:start
-                node ./dist/src/index.js build example
+                cd benchmark
+                npm install
+                node ../dist/src/index.js build
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
         with:

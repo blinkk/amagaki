@@ -1,9 +1,9 @@
-name: Build example site benchmark
+name: Benchmark build to GitHub pages
 
 on:
   push:
-    # branches:
-    # - main
+    branches:
+    - main
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-node-modules-bm
         with:
           path: |
             ~/.npm
@@ -31,7 +31,7 @@ jobs:
       - name: Cache benchmark node modules
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules-benchmark
+          cache-name: cache-node-modules-benchmark-bm
         with:
           path: |
             ~/.npm

@@ -51,7 +51,7 @@ jobs:
         with:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
-          output-file-path: example/build/.amagaki/benchmark.txt
+          output-file-path: benchmark/build/.amagaki/benchmark.txt
           # Push and deploy GitHub pages branch automatically
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true

@@ -7,7 +7,7 @@ interface TimeParts {
   seconds: number;
 }
 
-const DEFAULT_REPORT_KEYS = [/file\..*/, /yaml\..*/];
+const DEFAULT_REPORT_KEYS = [/document\..*/, /file\..*/, /yaml\..*/];
 const DEFAULT_THRESHOLD = 0.2;
 
 export class Profiler {

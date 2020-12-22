@@ -199,11 +199,16 @@ export class Pod {
    * Returns a translation string object.
    * @param options The options of the translation string.
    */
-  string(options: StringOptions) {
+  string(options: StringOptions, locale?: Locale) {
+    locale = locale || this.defaultLocale;
     if (this.cache.strings[options.value]) {
       return this.cache.strings[options.value];
     }
-    this.cache.strings[options.value] = new TranslationString(this, options);
+    this.cache.strings[options.value] = new TranslationString(
+      this,
+      options,
+      locale
+    );
     return this.cache.strings[options.value];
   }
 

@@ -51,9 +51,12 @@ export class Locale {
   /** Normalizes a string into a `TranslationString` object. */
   toTranslationString(value: string | TranslationString) {
     if (typeof value === 'string') {
-      return this.pod.string({
-        value: value as string,
-      });
+      return this.pod.string(
+        {
+          value: value as string,
+        },
+        this
+      );
     }
     return value;
   }
@@ -84,10 +87,12 @@ export class Locale {
     }
 
     const string = this.toTranslationString(value);
+
+    this.recordString(string, location);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
-      this.recordString(string, location);
-      return value;
+      return string.value;
     }
+
     // Check for the translation of the preferred value and return it. This
     // permits specification of a "preferred" string, for instances where some
     // locales may have translations and others may not. Usually, this is useful
@@ -98,16 +103,16 @@ export class Locale {
       if (preferredValue) {
         return preferredValue;
       }
-      // Collect the string because the preferred translation is missing.
-      this.recordString(string, location);
     }
+
+    // Collect the string because the preferred translation is missing.
     const foundValue = this.translations[string.value];
     if (foundValue) {
       return foundValue;
     }
-    this.recordString(string, location);
+
     // No translation was found at all, fall back to the source string.
-    return value;
+    return string.value;
   }
 
   /** Returns whether the locale uses an RTL (right to left) language. */

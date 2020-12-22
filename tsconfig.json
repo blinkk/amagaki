@@ -6,12 +6,21 @@
       "outDir": "dist",
       "resolveJsonModule": true,
       "types": [
-        "mocha",
         "node"
       ]
     },
     "include": [
       "src/**/*.ts",
       "test/**/*.ts"
-    ]
+    ],
+    "typedocOptions": {
+      "excludeProtected": true,
+      "excludeExternals": true,
+      "src": [
+        "./src/**/*.ts"
+      ],
+      "exclude": [
+        "./src/*.test.ts",
+      ],
+    }
   }

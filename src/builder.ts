@@ -1,3 +1,5 @@
+import * as _colors from 'colors';
+import * as async from 'async';
 import * as cliProgress from 'cli-progress';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
@@ -6,7 +8,6 @@ import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
-import * as async from 'async';
 import {Route, StaticRoute} from './router';
 import {Pod} from './pod';
 

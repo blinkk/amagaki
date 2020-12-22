@@ -64,6 +64,25 @@ Keep the above in mind when adding features to Amagaki!
 Add support for localized documents
 ```
 
+## Pull request flow
+
+- Avoid merge commits. Use the "rebase and merge" strategy or "squash and merge"
+  strategy (preferred for larger features or commits).
+- Preserve the PR# in commit message subjects so the relevant discussion can be
+  found later.
+- Commits that can be merged directly to `main`:
+  - Comments/documentation
+  - Implementing functionality that has already been scaffolded
+  - Tests
+  - Code style fixes/improvements
+  - Cleanup or removal of dead code
+- Commits that should be sent via pull requests:
+  - Designing new user-facing core features
+  - Reworking the overall structure of several files or the internals of data structures
+- When desinging new user-facing core features, send a draft pull request early
+  so there is visibility into the development and rationale, and so that
+  feedback can be provided.
+
 ## Development workflow
 
 ### Getting started

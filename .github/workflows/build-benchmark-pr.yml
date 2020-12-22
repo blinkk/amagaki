@@ -35,6 +35,7 @@ jobs:
         with:
           path: |
             ~/.npm
+            cache
             benchmark/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('benchmark/package-lock.json') }}
           restore-keys: |
@@ -52,7 +53,7 @@ jobs:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
           output-file-path: example/build/.amagaki/benchmark.txt
-          external-data-json-path: ./cache/benchmark-data.json
+          external-data-json-path: cache/benchmark-data.json
           # PR commenting and failure.
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fail-on-alert: true

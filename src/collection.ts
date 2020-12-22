@@ -4,6 +4,15 @@ import {Document} from './document';
 import {Locale, LocaleSet} from './locale';
 import {Pod} from './pod';
 
+/**
+ * Collections represent groups of documents. Collections allow documents to
+ * share things, such as locales, URL path formats, views, etc. A collection
+ * exists as long as a `_collection.yaml` file exists within the pod's content
+ * directory. If a directory exists without a `_collection.yaml`, it will look
+ * up until a `_collection.yaml` is found. Arbitrary data can also be specified
+ * on the collection's `_collection.yaml` fields, and then accessed from
+ * documents within that collection.
+ */
 export class Collection {
   path: string;
   pod: Pod;
@@ -22,6 +31,14 @@ export class Collection {
     return `[Collection: ${this.path}]`;
   }
 
+  /**
+   * Finds a collection object by testing whether the given directory has a
+   * `_collection.yaml` file within it, and if not, it will walk upwards until
+   * one is found. If the root of the pod is reached, no collection requested
+   * was located, and `null` will be returned.
+   * @param pod A reference to the pod object.
+   * @param path The starting podPath to find.
+   */
   static find(pod: Pod, path: string): Collection | null {
     const collection = new Collection(pod, path);
     if (collection.exists) {
@@ -34,15 +51,21 @@ export class Collection {
     return Collection.find(pod, collection.parentPath);
   }
 
+  /**
+   * Returns whether a collection exists. A collection exists if it has a
+   * `_collection.yaml` file in it.
+   */
   get exists() {
     return this.pod.fileExists(this.collectionPath);
   }
 
+  /** Returns the absolute parent directory path of the collection. */
   get parentPath() {
     const absPath = this.pod.getAbsoluteFilePath(fsPath.join(this.path, '..'));
     return fs.realpathSync(absPath).replace(this.pod.root, '');
   }
 
+  /** Returns the parent collection object. */
   get parent() {
     return this.pod.collection(this.parentPath);
   }

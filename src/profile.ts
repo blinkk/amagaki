@@ -7,7 +7,7 @@ interface TimeParts {
   seconds: number;
 }
 
-const DEFAULT_REPORT_KEYS = [/file\..*/, /yaml\..*/];
+const DEFAULT_REPORT_KEYS = [/document\..*/, /file\..*/, /yaml\..*/];
 const DEFAULT_THRESHOLD = 0.2;
 
 export class Profiler {
@@ -41,6 +41,19 @@ export class Profiler {
       }
     }
     return minBegin;
+  }
+
+  get benchmarkOutput(): string {
+    const metrics = [];
+
+    for (const key of Object.keys(this.timerTypes).sort()) {
+      const timerType = this.timerTypes[key];
+      metrics.push(
+        `${key} x ${timerType.sum} ms ±0% (${timerType.length} runs sampled)`
+      );
+    }
+
+    return metrics.join('\n');
   }
 
   report(
@@ -78,7 +91,9 @@ export class Profiler {
         if (!(typeof keyExp === 'object' && keyExp.constructor !== RegExp)) {
           keyExp = new RegExp(keyExp);
         }
-        if (keyExp.test(timerKey)) {
+
+        // Show all of the timer types for now until it is easier to filter them.
+        if (keyExp.test(timerKey) || showExpandedReport) {
           this.timerTypes[timerKey].report(totalDuration, logMethod);
         }
       }
@@ -152,6 +167,10 @@ export class TimerType {
       }
     }
     return minBegin;
+  }
+
+  get length(): number {
+    return this.timers.length;
   }
 
   get sum(): number {

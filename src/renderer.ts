@@ -55,6 +55,9 @@ export class NunjucksRenderer extends Renderer {
       return utils.formatBytes(value);
     });
     this.env.addFilter('markdown', value => {
+      if (!value) {
+        return '';
+      }
       return marked(value);
     });
   }

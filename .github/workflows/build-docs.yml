@@ -1,9 +1,12 @@
-name: 'Build example site'
+name: 'Deploy docs to GitHub pages'
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,8 +23,12 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Build example site
+      - name: Build docs
         run: |
-                npm install
-                npm run dev:start
-                node ./dist/src/index.js build example
+                npm install --dev
+                npm run docs
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs

@@ -14,6 +14,10 @@ export class StaticFile {
     return `[StaticFile: ${this.podPath}]`;
   }
 
+  /**
+   * Returns the url for the static file by looking it up from the router. If
+   * the static file doesn't have a serving URL, `undefined` is returned.
+   */
   get url(): Url | undefined {
     return this.pod.router.getUrl('static_file', this);
   }

@@ -135,3 +135,7 @@ A few proposed naming changes (TBD?):
 - `!g.doc`, `!g.static`, `!g.yaml`, etc. are now `!a.Doc`, `!a.Static`, `!a.Content`
 - `!g.string` is now `!a.String` which is similar but has more features
 - `.grow/index.proto.json` is now `.amagaki/build.json` (the `files`, `commit`, and `branch` values are preserved. the `deployed` key is changed to `built` and the `author` key is removed as it is a duplicate of the `commit.author` value)
+
+## Benchmarks
+
+You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki benchmark](https://github.com/blinkkcode/amagaki-benchmark) test repository.

@@ -1,0 +1,60 @@
+name: Benchmark build
+
+on:
+  push:
+    branches-ignore:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout benchmark repo
+        uses: actions/checkout@v2
+        with:
+          repository: blinkkcode/amagaki-benchmark
+          path: benchmark
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-bm-pr
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Cache benchmark node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-benchmark-bm-pr
+        with:
+          path: |
+            ~/.npm
+            cache
+            benchmark/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('benchmark/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Build amagaki
+        run: |
+                npm install
+                npm run dev:start
+                cd benchmark
+                npm install
+                node ../dist/src/index.js build
+      - name: Store benchmark result
+        uses: rhysd/github-action-benchmark@v1
+        with:
+          name: Amagaki profiling benchmark
+          tool: 'benchmarkjs'
+          output-file-path: benchmark/build/.amagaki/benchmark.txt
+          external-data-json-path: cache/benchmark-data.json
+          # PR commenting and failure.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fail-on-alert: true
+          comment-on-alert: true

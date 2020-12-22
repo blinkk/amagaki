@@ -25,5 +25,6 @@ export class BuildCommand {
     }
 
     pod.profiler.report([], this.globalOptions.profile);
+    await pod.builder.exportBenchmark();
   }
 }

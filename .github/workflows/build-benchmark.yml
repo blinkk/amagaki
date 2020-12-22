@@ -36,5 +36,5 @@ jobs:
         with:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
-          output-file-path: example/.amagaki/benchmark.txt
+          output-file-path: example/build/.amagaki/benchmark.txt
           # TODO: Enable benchmark pull request comments for all branches.

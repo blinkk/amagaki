@@ -67,8 +67,9 @@ export class Builder {
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
-  static DefaultNumConcurrentBuilds = 40;
-  static DefaultNumConcurrentCopies = 1000;
+  static NumConcurrentBuilds = 40;
+  static NumConcurrentCopies = 2000;
+  static ShowMoveProgressBarThreshold = 1000;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -209,11 +210,11 @@ export class Builder {
     return buildDiffPaths;
   }
 
-  static createProgressBar() {
+  static createProgressBar(label: string) {
     return new cliProgress.SingleBar(
       {
         format:
-          'Building ({value}/{total}): '.green +
+          `${label} ({value}/{total}): `.green +
           '{bar} Total: {customDuration}',
       },
       cliProgress.Presets.shades_classic
@@ -235,7 +236,7 @@ export class Builder {
       outputSizeDocuments: 0,
       outputSizeStaticFiles: 0,
     };
-    const bar = Builder.createProgressBar();
+    const bar = Builder.createProgressBar('Building');
     const startTime = new Date().getTime();
     const artifacts: Array<Artifact> = [];
     const tempDirRoot = fs.mkdtempSync(
@@ -269,7 +270,7 @@ export class Builder {
     // Copy all static files and build all other routes.
     await async.eachLimit(
       createdPaths,
-      Builder.DefaultNumConcurrentBuilds,
+      Builder.NumConcurrentBuilds,
       async createdPath => {
         try {
           // Copy the file, or build it if it's a dynamic route.
@@ -297,32 +298,58 @@ export class Builder {
     );
     bar.stop();
 
-    // Create the metrics for the files in parallel.
-    await async.each(createdPaths, async createdPath => {
-      // Assemble the metrics once all the files are written.
-      buildManifest.files.push({
-        path: createdPath.normalPath,
-        sha: await this.getFileSha(createdPath.tempPath),
+    // Moving files is pretty fast, but when the number of files is sufficiently
+    // large, we want to communicate progress to the user with the progress bar.
+    // If less than X files need to be moved, don't show the progress bar,
+    // because the operation completes quickly enough.
+    const moveBar = Builder.createProgressBar('  Moving'); // Pad the label so it lines up with "Building".
+    const showMoveProgressBar =
+      artifacts.length >= Builder.ShowMoveProgressBarThreshold;
+    const moveStartTime = new Date().getTime();
+    if (showMoveProgressBar) {
+      moveBar.start(artifacts.length, 0, {
+        customDuration: Builder.formatProgressBarTime(0),
       });
-      return fs.promises.stat(createdPath.tempPath).then(statResult => {
-        if (createdPath.route.provider.type === 'static_file') {
-          buildMetrics.numStaticRoutes += 1;
-          buildMetrics.outputSizeStaticFiles += statResult.size;
-        } else {
-          buildMetrics.numDocumentRoutes += 1;
-          buildMetrics.outputSizeDocuments += statResult.size;
-        }
-      });
-    });
+    }
 
-    // Move files from temporary folder to destination.
     await async.mapLimit(
-      artifacts,
-      Builder.DefaultNumConcurrentCopies,
-      async (artifact: Artifact) => {
-        return this.moveFileAsync(artifact.tempPath, artifact.realPath);
+      createdPaths,
+      Builder.NumConcurrentCopies,
+      async createdPath => {
+        // Start by building the manifest (and getting file shas).
+        buildManifest.files.push({
+          path: createdPath.normalPath,
+          sha: await this.getFileSha(createdPath.tempPath),
+        });
+        return Promise.all([
+          // Then, update the metrics by getting file sizes.
+          fs.promises.stat(createdPath.tempPath).then(statResult => {
+            if (createdPath.route.provider.type === 'static_file') {
+              buildMetrics.numStaticRoutes += 1;
+              buildMetrics.outputSizeStaticFiles += statResult.size;
+            } else {
+              buildMetrics.numDocumentRoutes += 1;
+              buildMetrics.outputSizeDocuments += statResult.size;
+            }
+          }),
+          // Finally, move the files from the temporary to final locations.
+          this.moveFileAsync(createdPath.tempPath, createdPath.realPath),
+        ]).then(() => {
+          // When done with each file step, increment the progress bar.
+          if (showMoveProgressBar) {
+            moveBar.increment({
+              customDuration: Builder.formatProgressBarTime(
+                new Date().getTime() - moveStartTime
+              ),
+            });
+          }
+        });
       }
     );
+
+    if (showMoveProgressBar) {
+      moveBar.stop();
+    }
 
     // Write the manifest and clean up.
     await this.writeFileAsync(

@@ -8,6 +8,11 @@ import {createCommand} from 'commander';
 export const VERSION = packageData.version;
 export const MIN_NODE_VERSION = 10;
 
+// Make sure that unhandled promises causes the command to fail.
+process.on('unhandledRejection', up => {
+  throw up;
+});
+
 const program = createCommand();
 program.version(VERSION);
 program.option('--profile', 'profile the command');

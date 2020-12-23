@@ -17,6 +17,7 @@ export class BuildCommand {
 
   async run(path = './') {
     const pod = new Pod(fs.realpathSync(path));
+    await pod.setup();
     const timer = pod.profiler.timer('command.build', 'Build command');
     try {
       await pod.builder.export();

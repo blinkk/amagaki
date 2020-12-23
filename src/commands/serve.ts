@@ -22,6 +22,7 @@ export class ServeCommand {
 
   async run(path = './') {
     const pod = new Pod(fs.realpathSync(path));
+    await pod.setup();
     const watcher = new Watcher(pod);
     const app = createApp(pod);
     const PORT = process.env.PORT || 8080;

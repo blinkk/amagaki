@@ -1,6 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
+import {Renderer, getRenderer} from './renderer';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
 import {Builder} from './builder';
@@ -8,11 +9,32 @@ import Cache from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import Plugins from './plugins';
 import {Profiler} from './profile';
 import {Router} from './router';
 import {StaticFile} from './static';
-import {getRenderer} from './renderer';
 import {join} from 'path';
+
+export interface LocalizationConfig {
+  default_locale?: string;
+  locales?: Array<string>;
+}
+
+export interface PluginConfig {
+  key: string;
+}
+
+export interface RouteConfig {
+  path: string;
+  static_dir: string;
+}
+
+export interface PodConfig {
+  name: string;
+  localization?: LocalizationConfig;
+  plugins?: Array<PluginConfig>;
+  routes?: Array<RouteConfig>;
+}
 
 /**
  * Pods are the "command center" for all operations within a site. Pods hold
@@ -22,10 +44,13 @@ import {join} from 'path';
  */
 export class Pod {
   static DefaultLocale = 'en';
+  static DefaultConfigFile = 'amagaki.yaml';
   readonly builder: Builder;
   readonly cache: Cache;
+  _config?: PodConfig;
   readonly env: Environment;
   readonly profiler: Profiler;
+  readonly plugins: Plugins;
   readonly root: string;
   readonly router: Router;
 
@@ -34,6 +59,7 @@ export class Pod {
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
     this.profiler = new Profiler();
+    this.plugins = new Plugins(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -62,6 +88,17 @@ export class Pod {
     }
     this.cache.collections[path] = collection;
     return this.cache.collections[path];
+  }
+
+  /**
+   * Returns the config from the `amagaki.yaml` file.
+   */
+  get config() {
+    if (this._config) {
+      return this._config;
+    }
+    this._config = this.readYaml(Pod.DefaultConfigFile) as PodConfig;
+    return this._config;
   }
 
   /**
@@ -178,9 +215,19 @@ export class Pod {
    * Returns a template renderer used for a template engine.
    * @param path The renderer's file extension, without a leading dot. Example: "njk".
    */
-  renderer(path: string) {
+  renderer(path: string): Renderer {
     const rendererClass = getRenderer(path);
-    return new rendererClass(this);
+    const renderer = new rendererClass(this);
+    this.plugins.trigger('rendererCreate', renderer);
+    return renderer;
+  }
+
+  /**
+   * Some setup operations on the pod need to be setup in an async manner to prevent
+   * issues with unfinished promises.
+   */
+  async setup() {
+    await this.plugins.registerPlugins(this.config.plugins);
   }
 
   /**

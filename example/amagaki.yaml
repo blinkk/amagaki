@@ -8,6 +8,9 @@ localization:
   - it
   - ja
 
+plugins:
+- key: example
+
 routes:
 - path: /static/*
   static_dir: /source/static/

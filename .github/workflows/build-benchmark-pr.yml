@@ -44,7 +44,9 @@ jobs:
         run: |
                 npm install
                 npm run dev:start
-                node dist/src/index.js build benchmark
+                cd benchmark
+                npm install
+                node ../dist/src/index.js build
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
         with:

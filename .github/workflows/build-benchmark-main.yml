@@ -2,8 +2,8 @@ name: Benchmark build to GitHub pages
 
 on:
   push:
-    branches:
-    - main
+    # branches:
+    # - main
 
 jobs:
   build:
@@ -43,9 +43,7 @@ jobs:
         run: |
                 npm install
                 npm run dev:start
-                cd benchmark
-                npm install
-                node ../dist/src/index.js build
+                node dist/src/index.js build benchmark
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
         with:

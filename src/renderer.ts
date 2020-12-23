@@ -2,6 +2,7 @@ import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
 import {Pod} from './pod';
 import marked from 'marked';
+import render from 'preact-render-to-string';
 
 export class Renderer {
   pod: Pod;
@@ -22,11 +23,21 @@ export function getRenderer(path: string) {
     return NunjucksRenderer;
   } else if (path.endsWith('.js')) {
     return JavaScriptRenderer;
-  } // TODO: Raise if no renderer available.
+  } else if (path.endsWith('.tsx')) {
+    return PreactRenderer;
+  }
+  // TODO: Raise if no renderer available.
   return NunjucksRenderer;
 }
 
 export class JavaScriptRenderer extends Renderer {}
+
+export class PreactRenderer extends Renderer {
+  async render(template: string, context: any): Promise<string> {
+    const content = this.pod.readFile(template);
+    return render(content);
+  }
+}
 
 export class NunjucksRenderer extends Renderer {
   env: nunjucks.Environment;

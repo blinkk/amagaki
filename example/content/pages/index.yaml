@@ -1,6 +1,7 @@
 $path: /
 $localization:
   path: /intl/${doc.locale.id}/
+$view: /views/base.tsx
 title: Home
 description: Page description
 partials:

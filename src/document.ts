@@ -46,19 +46,19 @@ export class Document {
   path: string;
   locale: Locale;
   pod: Pod;
-  renderer: Renderer;
   readonly ext: string;
   private parts: DocumentParts;
   private _content?: string | null;
+  private _renderer: Renderer | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
-    this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
     this.parts = {};
+    this._renderer = null;
   }
 
   toString() {
@@ -85,6 +85,16 @@ export class Document {
     return this.pod.defaultLocale;
   }
 
+  get renderer() {
+    if (this._renderer) {
+      return this._renderer;
+    }
+    if (this.view) {
+      this._renderer = this.pod.renderer(this.view);
+    }
+    return this._renderer;
+  }
+
   async render(): Promise<string> {
     const context = {
       process: process,
@@ -95,7 +105,11 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    return this.renderer.render(this.view, context);
+    if (this.renderer) {
+      return this.renderer.render(this.view, context);
+    } else {
+      throw new Error('No renderer found.');
+    }
   }
 
   /**

@@ -50,6 +50,8 @@
     "eslint-plugin-sort-class-members": "^1.9.0",
     "gts": "^2.0.2",
     "nodemon": "^2.0.4",
+    "preact": "^10.5.7",
+    "preact-render-to-string": "^5.1.12",
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
     "typedoc": "^0.19.2",

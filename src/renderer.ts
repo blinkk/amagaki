@@ -1,5 +1,6 @@
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
+
 import {Pod} from './pod';
 import marked from 'marked';
 
@@ -10,23 +11,10 @@ export class Renderer {
     this.pod = pod;
   }
 
-  configure() {}
-
   async render(template: string, context: any): Promise<string> {
     throw new Error();
   }
 }
-
-export function getRenderer(path: string) {
-  if (path.endsWith('.njk')) {
-    return NunjucksRenderer;
-  } else if (path.endsWith('.js')) {
-    return JavaScriptRenderer;
-  } // TODO: Raise if no renderer available.
-  return NunjucksRenderer;
-}
-
-export class JavaScriptRenderer extends Renderer {}
 
 export class NunjucksRenderer extends Renderer {
   env: nunjucks.Environment;

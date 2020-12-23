@@ -1,6 +1,8 @@
 import * as fsPath from 'path';
 import * as utils from './utils';
+
 import {Locale, LocaleSet} from './locale';
+
 import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
@@ -46,16 +48,15 @@ export class Document {
   path: string;
   locale: Locale;
   pod: Pod;
-  renderer: Renderer;
   readonly ext: string;
   private parts: DocumentParts;
   private _content?: string | null;
+  private _renderer?: Renderer | null;
   static SupportedExtensions = new Set(['.md', '.yaml']);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
-    this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
     this.parts = {};
@@ -95,7 +96,11 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    return this.renderer.render(this.view, context);
+    const renderer = this.renderer;
+    if (!renderer) {
+      throw Error(`No renderer found, can't render: ${this}`);
+    }
+    return (this.renderer as Renderer).render(this.view, context);
   }
 
   /**
@@ -182,6 +187,18 @@ export class Document {
       return this.collection.locales;
     }
     return this.pod.locales;
+  }
+
+  get renderer() {
+    // Document has no view, is not renderable.
+    if (!this.view) {
+      return null;
+    }
+    const renderer = this.pod.plugins.renderers[fsPath.extname(this.view)];
+    if (!renderer) {
+      throw Error(`No renderer found for: ${this.view}`);
+    }
+    return renderer;
   }
 
   get fields() {

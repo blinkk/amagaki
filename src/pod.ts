@@ -1,18 +1,21 @@
+import * as fs from 'fs';
+import * as fsPath from 'path';
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
+
 import {Locale, LocaleSet} from './locale';
 import {StringOptions, TranslationString} from './string';
-import {existsSync, readFileSync} from 'fs';
+
 import {Builder} from './builder';
 import Cache from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import {NunjucksRenderer} from './renderer';
+import {PluginManager} from './plugin';
 import {Profiler} from './profile';
 import {Router} from './router';
 import {StaticFile} from './static';
-import {getRenderer} from './renderer';
-import {join} from 'path';
 
 /**
  * Pods are the "command center" for all operations within a site. Pods hold
@@ -26,6 +29,7 @@ export class Pod {
   readonly cache: Cache;
   readonly env: Environment;
   readonly profiler: Profiler;
+  readonly plugins: PluginManager;
   readonly root: string;
   readonly router: Router;
 
@@ -33,8 +37,9 @@ export class Pod {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = root;
-    this.profiler = new Profiler();
     this.builder = new Builder(this);
+    this.plugins = new PluginManager(this);
+    this.profiler = new Profiler();
     this.router = new Router(this);
     this.env = new Environment({
       host: 'localhost',
@@ -43,6 +48,19 @@ export class Pod {
       dev: true,
     });
     this.cache = new Cache(this);
+
+    // Nunjucks is an inbuilt renderer.
+    this.plugins.addRenderer('.njk', NunjucksRenderer);
+
+    // Check if `amagaki.js` exists. If it does, import it and run it. Running
+    // the plugin runner will allow the plugin manager to attach plugins.
+    const pluginRunnerPath = this.getAbsoluteFilePath('amagaki.js');
+    fs.access(pluginRunnerPath, fs.constants.F_OK, err => {
+      if (!err) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        require(pluginRunnerPath)(this);
+      }
+    });
   }
 
   /**
@@ -95,7 +113,7 @@ export class Pod {
   fileExists(path: string) {
     const timer = this.profiler.timer('file.exists', 'File exists');
     try {
-      return existsSync(this.getAbsoluteFilePath(path));
+      return fs.existsSync(this.getAbsoluteFilePath(path));
     } finally {
       timer.stop();
     }
@@ -107,7 +125,7 @@ export class Pod {
    */
   getAbsoluteFilePath(path: string) {
     path = path.replace(/^\/+/, '');
-    return join(this.root, path);
+    return fsPath.join(this.root, path);
   }
 
   /**
@@ -134,7 +152,7 @@ export class Pod {
   readFile(path: string) {
     const timer = this.profiler.timer('file.read', 'File read');
     try {
-      return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+      return fs.readFileSync(this.getAbsoluteFilePath(path), 'utf8');
     } finally {
       timer.stop();
     }
@@ -172,15 +190,6 @@ export class Pod {
     }
 
     return this.cache.yamlStrings[cacheKey];
-  }
-
-  /**
-   * Returns a template renderer used for a template engine.
-   * @param path The renderer's file extension, without a leading dot. Example: "njk".
-   */
-  renderer(path: string) {
-    const rendererClass = getRenderer(path);
-    return new rendererClass(this);
   }
 
   /**

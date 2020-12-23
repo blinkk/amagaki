@@ -125,6 +125,7 @@ To unlink (the order is important):
 - When using VSCode, we recommend the following extensions (see below).
 
 ```
+amatiasq.sort-imports
 dbaeumer.vscode-eslint
 ```
 

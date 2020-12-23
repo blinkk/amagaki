@@ -2,8 +2,8 @@ name: Benchmark build to GitHub pages
 
 on:
   push:
-    # branches:
-    # - main
+    branches:
+    - main
 
 jobs:
   build:

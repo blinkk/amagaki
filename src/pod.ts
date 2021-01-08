@@ -5,6 +5,7 @@ import {Renderer, getRenderer} from './renderer';
 import Router, {StaticDirConfig, StaticDirectoryRouteProivder} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
+import {join, resolve} from 'path';
 import {Builder} from './builder';
 import Cache from './cache';
 import {Collection} from './collection';
@@ -13,7 +14,6 @@ import {Environment} from './environment';
 import Plugins from './plugins';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
-import {join} from 'path';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -47,7 +47,7 @@ export default class Pod {
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
-    this.root = root;
+    this.root = resolve(root);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);
     this.builder = new Builder(this);

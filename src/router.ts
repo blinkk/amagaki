@@ -187,11 +187,7 @@ export class StaticDirectoryRouteProivder extends RouteProvider {
     const cleanPath = cleanBasePath(this.config.path);
     podPaths.forEach(podPath => {
       const subPath = podPath.slice(this.config.staticDir.length);
-      const route = new StaticRoute(
-        this,
-        podPath,
-        joinPaths(cleanPath, subPath)
-      );
+      const route = new StaticRoute(this, podPath, `${cleanPath}/${subPath}`);
       routes.push(route);
       this.urlMap.set(route.staticFile, route.url);
     });
@@ -317,8 +313,4 @@ function cleanBasePath(path: string): string {
   }
 
   return path;
-}
-
-function joinPaths(basePath: string, subPath: string, separator = '/'): string {
-  return [basePath, subPath].join(separator);
 }

@@ -80,9 +80,9 @@ export class Profiler {
 
     // Show the timers that match the key expressions.
     if (!keys || keys.length === 0) {
-      keys = Object.keys(this.timerTypes);
       // TODO: Control the keys that get reported to important metrics.
       // keys = DEFAULT_REPORT_KEYS;
+      keys = Object.keys(this.timerTypes);
     }
     for (const timerKey of Object.keys(this.timerTypes).sort()) {
       if (shownTimerKeys.includes(timerKey)) {
@@ -90,12 +90,10 @@ export class Profiler {
       }
 
       for (let keyExp of keys) {
-        // TODO: use datatype class.
         if (!DataType.isRegExp(keyExp)) {
           keyExp = new RegExp(keyExp);
         }
 
-        // Show all of the timer types for now until it is easier to filter them.
         if ((keyExp as RegExp).test(timerKey)) {
           this.timerTypes[timerKey].report(totalDuration, logMethod);
           break;

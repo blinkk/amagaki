@@ -5,9 +5,11 @@ class ExamplePlugin {
   }
 
   onRendererCreate(renderer) {
-    renderer.env.addFilter('testPluginFilter', value => {
-      return `${value}--TESTING`;
-    });
+    if (renderer.kind === 'nunjucks') {
+      renderer.env.addFilter('testPluginFilter', value => {
+        return `${value}--TESTING`;
+      });
+    }
   }
 }
 

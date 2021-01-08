@@ -1,7 +1,8 @@
 class ExamplePlugin {
-  constructor(pod, config) {
+  constructor(pod) {
     this.pod = pod;
-    this.config = config;
+    this.key = 'example';
+    this.name = 'Example';
   }
 
   onRendererCreate(renderer) {
@@ -13,7 +14,4 @@ class ExamplePlugin {
   }
 }
 
-module.exports = {
-  default: ExamplePlugin,
-  plugin: ExamplePlugin,
-};
+module.exports = ExamplePlugin;

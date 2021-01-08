@@ -1,4 +1,4 @@
-const examplePlugin = require('./plugins/example/plugin');
+const ExamplePlugin = require('./plugins/example/plugin');
 
 module.exports = function (pod) {
   pod.metadata = {
@@ -17,9 +17,5 @@ module.exports = function (pod) {
     },
   ];
 
-  pod.plugins.registerPlugin(
-    new examplePlugin.default(pod, {
-      key: 'example',
-    })
-  );
+  pod.plugins.registerPlugin(new ExamplePlugin(pod));
 };

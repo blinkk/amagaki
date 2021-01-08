@@ -1,11 +1,8 @@
 import Pod from './pod';
 
-export interface PluginConfig {
-  key: string;
-}
-
 export interface PluginComponent {
-  config: PluginConfig;
+  key: string;
+  name: string;
   [x: string]: any;
 }
 
@@ -37,7 +34,7 @@ export default class Plugins {
   trigger(eventName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
       `plugins.trigger.${eventName}`,
-      `Plugins trigger: ${eventName}`,
+      `Trigger: ${eventName}`,
       {
         trigger: eventName,
       }
@@ -51,11 +48,11 @@ export default class Plugins {
       for (const plugin of this.plugins) {
         if (plugin[triggerHandlerName]) {
           const pluginTimer = this.pod.profiler.timer(
-            `plugins.trigger.${eventName}.${plugin.config.key}`,
-            `Plugins trigger: ${eventName}.${plugin.config.key}`,
+            `plugins.trigger.${eventName}.${plugin.key}`,
+            `${plugin.name} plugin trigger: ${eventName}`,
             {
               trigger: eventName,
-              plugin: plugin.config.key,
+              plugin: plugin.key,
             }
           );
           try {

@@ -5,14 +5,17 @@ import {Renderer} from './renderer';
 export interface PluginComponent {
   key: string;
   name: string;
-  createYamlTypes?: (customTypes: CustomYamlTypes) => void;
   createRenderer?: (renderer: Renderer) => void;
+  createYamlTypes?: (customTypes: CustomYamlTypes) => void;
   [x: string]: any; // Allows for referencing arbitrary indexes.
 }
 
+export interface PluginConstructor {
+  new (pod: Pod, config: Record<string, any>): PluginComponent;
+}
+
 export default class Plugins {
-  static DefaultPluginsDir = 'plugins';
-  static DefaultPluginsFilename = 'plugin.js';
+  static HookPostfix = 'Hook';
 
   readonly pod: Pod;
   readonly plugins: Array<PluginComponent>;
@@ -25,8 +28,8 @@ export default class Plugins {
   /**
    * Register a new plugin.
    */
-  registerPlugin(plugin: PluginComponent) {
-    this.plugins.push(plugin);
+  register(PluginClass: PluginConstructor, config: Record<string, any>) {
+    this.plugins.push(new PluginClass(this.pod, config));
   }
 
   /**
@@ -44,9 +47,11 @@ export default class Plugins {
       }
     );
 
+    const eventMethodName = `${eventName}${Plugins.HookPostfix}`;
+
     try {
       for (const plugin of this.plugins) {
-        if (plugin[eventName]) {
+        if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
             `plugins.trigger.${eventName}.${plugin.key}`,
             `${plugin.name} plugin trigger: ${eventName}`,
@@ -56,7 +61,7 @@ export default class Plugins {
             }
           );
           try {
-            plugin[eventName](...args);
+            plugin[eventMethodName](...args);
           } finally {
             pluginTimer.stop();
           }

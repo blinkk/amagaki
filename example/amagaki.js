@@ -17,5 +17,5 @@ module.exports = function (pod) {
     ],
   });
 
-  pod.plugins.registerPlugin(new ExamplePlugin(pod));
+  pod.plugins.register(ExamplePlugin, {});
 };

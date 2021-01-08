@@ -1,11 +1,12 @@
 class ExamplePlugin {
-  constructor(pod) {
+  constructor(pod, config) {
     this.pod = pod;
+    this.config = config;
     this.key = 'example';
     this.name = 'Example';
   }
 
-  createRenderer(renderer) {
+  createRendererHook(renderer) {
     if (renderer.kind === 'nunjucks') {
       renderer.env.addFilter('testPluginFilter', value => {
         return `${value}--TESTING`;

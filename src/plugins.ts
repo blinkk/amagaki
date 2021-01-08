@@ -9,10 +9,6 @@ export interface PluginComponent {
   [x: string]: any;
 }
 
-export interface PluginConstructor {
-  new (pod: Pod, config: PluginConfig): PluginComponent;
-}
-
 export default class Plugins {
   static DefaultPluginsDir = 'plugins';
   static DefaultPluginsFilename = 'plugin.js';
@@ -28,8 +24,8 @@ export default class Plugins {
   /**
    * Register a new plugin.
    */
-  registerPlugin(pluginConfig: PluginConfig, PluginClass: PluginConstructor) {
-    this.plugins.push(new PluginClass(this.pod, pluginConfig));
+  registerPlugin(plugin: PluginComponent) {
+    this.plugins.push(plugin);
   }
 
   /**

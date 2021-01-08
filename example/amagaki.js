@@ -18,9 +18,8 @@ module.exports = function (pod) {
   ];
 
   pod.plugins.registerPlugin(
-    {
+    new examplePlugin.default(pod, {
       key: 'example',
-    },
-    examplePlugin.default
+    })
   );
 };

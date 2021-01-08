@@ -31,11 +31,6 @@ export interface PodConfig {
   staticRoutes?: Array<StaticDirConfig>;
 }
 
-export const defaultLocalization: LocalizationConfig = {
-  defaultLocale: 'en',
-  locales: ['en'],
-};
-
 /**
  * Pods are the "command center" for all operations within a site. Pods hold
  * references to things like the build environment, template engines, file
@@ -43,7 +38,10 @@ export const defaultLocalization: LocalizationConfig = {
  * the different elements of a site and operating on them.
  */
 export default class Pod {
-  static DefaultLocale = 'en';
+  static DefaultLocalization: LocalizationConfig = {
+    defaultLocale: 'en',
+    locales: ['en'],
+  };
   static DefaultConfigFile = 'amagaki.js';
   readonly builder: Builder;
   readonly cache: Cache;
@@ -119,10 +117,13 @@ export default class Pod {
 
   /**
    * Returns the default locale for the pod. The default locale can be
-   * overwritten in `amagaki.yaml`.
+   * overwritten in `amagaki.js`.
    */
   get defaultLocale() {
-    return this.locale(Pod.DefaultLocale);
+    return this.locale(
+      this.localization.defaultLocale ||
+        (Pod.DefaultLocalization.defaultLocale as string)
+    );
   }
 
   /**
@@ -187,7 +188,7 @@ export default class Pod {
    * Returns the pod's global localization configuration.
    */
   get localization(): LocalizationConfig {
-    return this.config.localization || defaultLocalization;
+    return this.config.localization || Pod.DefaultLocalization;
   }
 
   /**

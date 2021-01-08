@@ -1,3 +1,4 @@
+import {DataType} from './utils';
 import {performance} from 'perf_hooks';
 
 interface TimeParts {
@@ -90,14 +91,14 @@ export class Profiler {
 
       for (let keyExp of keys) {
         // TODO: use datatype class.
-        if (!(typeof keyExp === 'object' && keyExp.constructor !== RegExp)) {
+        if (!DataType.isRegExp(keyExp)) {
           keyExp = new RegExp(keyExp);
         }
 
         // Show all of the timer types for now until it is easier to filter them.
-        if (keyExp.test(timerKey)) {
+        if ((keyExp as RegExp).test(timerKey)) {
           this.timerTypes[timerKey].report(totalDuration, logMethod);
-          continue;
+          break;
         }
       }
     }

@@ -74,6 +74,16 @@ export default class Router {
     this.providers[provider.type] = provider;
   }
 
+  /**
+   * Used for setting static directory routes configuration.
+   * @param routeConfigs The configurations for the route definition.
+   */
+  addStaticDirectoryRoutes(routeConfigs: Array<StaticDirConfig>) {
+    for (const routeConfig of routeConfigs) {
+      this.addProvider(new StaticDirectoryRouteProivder(this, routeConfig));
+    }
+  }
+
   getUrl(type: string, item: Document | StaticFile) {
     const provider = this.providers[type];
     if (!provider) {

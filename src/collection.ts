@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
 import {Locale, LocaleSet} from './locale';
-import {Pod} from './pod';
+import Pod from './pod';
 
 /**
  * Collections represent groups of documents. Collections allow documents to

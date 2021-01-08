@@ -1,6 +1,6 @@
 import * as events from 'events';
 import * as fs from 'fs';
-import {Pod} from './pod';
+import Pod from './pod';
 
 export default class Watcher extends events.EventEmitter {
   pod: Pod;

@@ -1,6 +1,6 @@
 import * as nunjucks from 'nunjucks';
 import * as utils from './utils';
-import {Pod} from './pod';
+import Pod from './pod';
 import marked from 'marked';
 
 export class Renderer {

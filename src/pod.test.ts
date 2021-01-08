@@ -1,5 +1,5 @@
 import {ExecutionContext} from 'ava';
-import {Pod} from './pod';
+import Pod from './pod';
 import test from 'ava';
 
 test('Pod collection', (t: ExecutionContext) => {

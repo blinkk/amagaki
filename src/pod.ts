@@ -2,6 +2,7 @@ import * as utils from './utils';
 import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
 import {Renderer, getRenderer} from './renderer';
+import Router, {StaticDirConfig, StaticDirectoryRouteProivder} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
 import {Builder} from './builder';
@@ -11,29 +12,17 @@ import {Document} from './document';
 import {Environment} from './environment';
 import Plugins from './plugins';
 import {Profiler} from './profile';
-import {Router} from './router';
 import {StaticFile} from './static';
 import {join} from 'path';
 
 export interface LocalizationConfig {
-  default_locale?: string;
+  defaultLocale?: string;
   locales?: Array<string>;
 }
 
-export interface PluginConfig {
-  key: string;
-}
-
-export interface RouteConfig {
-  path: string;
-  static_dir: string;
-}
-
-export interface PodConfig {
+export interface PodMetadata {
   name: string;
-  localization?: LocalizationConfig;
-  plugins?: Array<PluginConfig>;
-  routes?: Array<RouteConfig>;
+  [x: string]: any;
 }
 
 /**
@@ -42,13 +31,14 @@ export interface PodConfig {
  * system accessors, routes, etc. Pods provide an interaction model for accessing
  * the different elements of a site and operating on them.
  */
-export class Pod {
+export default class Pod {
   static DefaultLocale = 'en';
-  static DefaultConfigFile = 'amagaki.yaml';
+  static DefaultConfigFile = 'amagaki.js';
   readonly builder: Builder;
   readonly cache: Cache;
-  _config?: PodConfig;
   readonly env: Environment;
+  localization: LocalizationConfig;
+  metadata: PodMetadata;
   readonly profiler: Profiler;
   readonly plugins: Plugins;
   readonly root: string;
@@ -68,7 +58,22 @@ export class Pod {
       scheme: 'http',
       dev: true,
     });
+    this.metadata = {
+      name: 'Amagaki pod',
+    };
+    this.localization = {
+      defaultLocale: 'en',
+      locales: ['en'],
+    };
     this.cache = new Cache(this);
+
+    // Setup the pod using the amagaki.js file.
+    if (this.fileExists(Pod.DefaultConfigFile)) {
+      const configFilename = this.getAbsoluteFilePath(Pod.DefaultConfigFile);
+      // tslint:disable-next-line
+      const amagakiConfigFunc: Function = require(configFilename);
+      amagakiConfigFunc(this);
+    }
   }
 
   /**
@@ -88,17 +93,6 @@ export class Pod {
     }
     this.cache.collections[path] = collection;
     return this.cache.collections[path];
-  }
-
-  /**
-   * Returns the config from the `amagaki.yaml` file.
-   */
-  get config() {
-    if (this._config) {
-      return this._config;
-    }
-    this._config = this.readYaml(Pod.DefaultConfigFile) as PodConfig;
-    return this._config;
   }
 
   /**
@@ -223,14 +217,6 @@ export class Pod {
   }
 
   /**
-   * Some setup operations on the pod need to be setup in an async manner to prevent
-   * issues with unfinished promises.
-   */
-  async setup() {
-    await this.plugins.registerPlugins(this.config.plugins);
-  }
-
-  /**
    * Returns a static file object.
    * @param path The podPath to the static file.
    */
@@ -240,6 +226,19 @@ export class Pod {
     }
     this.cache.staticFiles[path] = new StaticFile(this, path);
     return this.cache.staticFiles[path];
+  }
+
+  /**
+   * Used for setting static directory routes configuration.
+   * @param routeConfigs The configurations for the route definition.
+   */
+  set staticRoutes(routeConfigs: Array<StaticDirConfig>) {
+    // Add static dir routes.
+    for (const routeConfig of routeConfigs) {
+      this.router.addProvider(
+        new StaticDirectoryRouteProivder(this.router, routeConfig)
+      );
+    }
   }
 
   /**

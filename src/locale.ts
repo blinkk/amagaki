@@ -1,5 +1,5 @@
 import {Document} from './document';
-import {Pod} from './pod';
+import Pod from './pod';
 import {TranslationString} from './string';
 
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;

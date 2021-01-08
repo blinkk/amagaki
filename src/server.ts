@@ -1,6 +1,6 @@
 import * as fsPath from 'path';
 import express = require('express');
-import {Pod} from './pod';
+import Pod from './pod';
 import {StaticRoute} from './router';
 
 export class Server {
@@ -18,7 +18,7 @@ export function createApp(pod: Pod) {
         .sendFile(fsPath.join(__dirname, './static/', 'error-no-route.html'));
       return;
     }
-    if (route.provider.type === 'static_file') {
+    if (route.provider.type === 'static_dir') {
       res.sendFile(
         pod.getAbsoluteFilePath((route as StaticRoute).staticFile.podPath)
       );

@@ -9,7 +9,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 import {Route, StaticRoute} from './router';
-import {Pod} from './pod';
+import Pod from './pod';
 
 interface Artifact {
   tempPath: string;
@@ -280,7 +280,7 @@ export class Builder {
       async createdPath => {
         try {
           // Copy the file, or build it if it's a dynamic route.
-          if (createdPath.route.provider.type === 'static_file') {
+          if (createdPath.route.provider.type === 'static_dir') {
             return this.copyFileAsync(
               createdPath.tempPath,
               (createdPath.route as StaticRoute).staticFile.podPath
@@ -330,7 +330,7 @@ export class Builder {
         return Promise.all([
           // Then, update the metrics by getting file sizes.
           fs.promises.stat(createdPath.tempPath).then(statResult => {
-            if (createdPath.route.provider.type === 'static_file') {
+            if (createdPath.route.provider.type === 'static_dir') {
               buildMetrics.numStaticRoutes += 1;
               buildMetrics.outputSizeStaticFiles += statResult.size;
             } else {

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import {GlobalOptions} from './global';
-import {Pod} from '../pod';
+import Pod from '../pod';
 
 interface BuildOptions {
   outputDirectory?: string;
@@ -17,7 +17,6 @@ export class BuildCommand {
 
   async run(path = './') {
     const pod = new Pod(fs.realpathSync(path));
-    await pod.setup();
     const timer = pod.profiler.timer('command.build', 'Build command');
     try {
       await pod.builder.export();

@@ -1,12 +1,24 @@
-import {PluginConfig, Pod} from './pod';
-import {join} from 'path';
+import Pod from './pod';
+
+export interface PluginConfig {
+  key: string;
+}
+
+export interface PluginComponent {
+  config: PluginConfig;
+  [x: string]: any;
+}
+
+export interface PluginConstructor {
+  new (pod: Pod, config: PluginConfig): PluginComponent;
+}
 
 export default class Plugins {
   static DefaultPluginsDir = 'plugins';
   static DefaultPluginsFilename = 'plugin.js';
 
   readonly pod: Pod;
-  readonly plugins: any[];
+  readonly plugins: Array<PluginComponent>;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -14,36 +26,18 @@ export default class Plugins {
   }
 
   /**
-   * Register plugins based on a plugin configuration. Normally from the amagaki.yaml file.
+   * Register a new plugin.
    */
-  async registerPlugins(pluginConfigs?: Array<PluginConfig>) {
-    if (!pluginConfigs) {
-      return;
-    }
-
-    for (const pluginConfig of pluginConfigs) {
-      const localePluginPath = join(
-        Plugins.DefaultPluginsDir,
-        pluginConfig.key,
-        Plugins.DefaultPluginsFilename
-      );
-
-      // Check for local plugin definition.
-      if (this.pod.fileExists(localePluginPath)) {
-        const pluginImport = await import(
-          this.pod.getAbsoluteFilePath(localePluginPath)
-        );
-        const PluginClass =
-          pluginImport.plugin || pluginImport.default || pluginImport;
-
-        this.plugins.push(new PluginClass(this.pod, pluginConfig));
-        continue;
-      }
-
-      // TODO: Check for plugin in the node_modules.
-    }
+  registerPlugin(pluginConfig: PluginConfig, PluginClass: PluginConstructor) {
+    this.plugins.push(new PluginClass(this.pod, pluginConfig));
   }
 
+  /**
+   * Triggers an event handler on each of the registered plugins passing along
+   * the provided arguments.
+   * @param eventName Name of the event being triggered.
+   * @param args Any arguments that need to be passed to the triggered event handler.
+   */
   trigger(eventName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
       `plugins.trigger.${eventName}`,

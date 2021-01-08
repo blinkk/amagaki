@@ -3,7 +3,7 @@ import * as fsPath from 'path';
 import * as yaml from 'js-yaml';
 import {Document} from './document';
 import {Locale} from './locale';
-import {Pod} from './pod';
+import Pod from './pod';
 
 export interface FrontMatterResult {
   frontMatter?: string;

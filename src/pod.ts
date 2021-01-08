@@ -248,7 +248,7 @@ export default class Pod {
   renderer(path: string): Renderer {
     const rendererClass = getRenderer(path);
     const renderer = new rendererClass(this);
-    this.plugins.trigger('rendererCreate', renderer);
+    this.plugins.trigger('createRenderer', renderer);
     return renderer;
   }
 

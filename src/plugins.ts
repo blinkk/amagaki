@@ -1,9 +1,13 @@
+import {CustomYamlTypes} from './utils';
 import Pod from './pod';
+import {Renderer} from './renderer';
 
 export interface PluginComponent {
   key: string;
   name: string;
-  [x: string]: any;
+  createYamlTypes?: (customTypes: CustomYamlTypes) => void;
+  createRenderer?: (renderer: Renderer) => void;
+  [x: string]: any; // Allows for referencing arbitrary indexes.
 }
 
 export default class Plugins {
@@ -41,12 +45,8 @@ export default class Plugins {
     );
 
     try {
-      const triggerHandlerName = `on${eventName
-        .charAt(0)
-        .toUpperCase()}${eventName.slice(1)}`;
-
       for (const plugin of this.plugins) {
-        if (plugin[triggerHandlerName]) {
+        if (plugin[eventName]) {
           const pluginTimer = this.pod.profiler.timer(
             `plugins.trigger.${eventName}.${plugin.key}`,
             `${plugin.name} plugin trigger: ${eventName}`,
@@ -56,7 +56,7 @@ export default class Plugins {
             }
           );
           try {
-            plugin[triggerHandlerName](...args);
+            plugin[eventName](...args);
           } finally {
             pluginTimer.stop();
           }

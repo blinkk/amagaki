@@ -248,7 +248,7 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
   return files;
 }
 
-class CustomYamlTypes {
+export class CustomYamlTypes {
   types: Array<yaml.Type>;
 
   constructor() {

@@ -2,8 +2,6 @@ class ExamplePlugin {
   constructor(pod, config) {
     this.pod = pod;
     this.config = config;
-    this.key = 'example';
-    this.name = 'Example';
   }
 
   createRendererHook(renderer) {

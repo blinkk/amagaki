@@ -7,16 +7,6 @@ import {Renderer} from './renderer';
  */
 export interface PluginComponent {
   /**
-   * Key to uniquely identify the plugin. Should be alpha-numeric and start with a
-   * lowercase letter.
-   */
-  key: string;
-  /**
-   * Name to identify the plugin. Used when providing console logs and profiling
-   * reports for the plugin.
-   */
-  name: string;
-  /**
    * Hook for manipulating the renderer after it is initially created.
    */
   createRendererHook?: (renderer: Renderer) => void;
@@ -50,12 +40,12 @@ export class Plugins {
   }
 
   /**
-   * Retrieve the first instance of a plugin if it exists.
-   * @param key Plugin key for locating existing plugin.
+   * Retrieve the first instance of a plugin by class name if it exists.
+   * @param name Plugin class name for locating existing plugin.
    */
-  get(key: string): PluginComponent | null {
+  get(name: string): PluginComponent | null {
     for (const plugin of this.plugins) {
-      if (plugin.key === key) {
+      if (plugin.constructor.name === name) {
         return plugin;
       }
     }
@@ -93,11 +83,11 @@ export class Plugins {
       for (const plugin of this.plugins) {
         if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
-            `plugins.trigger.${hookName}.${plugin.key}`,
-            `${plugin.name} plugin trigger: ${hookName}`,
+            `plugins.trigger.${hookName}.${plugin.constructor.name}`,
+            `${plugin.constructor.name} plugin trigger: ${hookName}`,
             {
               trigger: hookName,
-              plugin: plugin.key,
+              plugin: plugin.constructor.name,
             }
           );
           try {

@@ -5,11 +5,9 @@ import marked from 'marked';
 
 export class Renderer {
   pod: Pod;
-  kind: string;
 
   constructor(pod: Pod) {
     this.pod = pod;
-    this.kind = 'unknown';
   }
 
   configure() {}
@@ -31,7 +29,6 @@ export function getRenderer(path: string) {
 export class JavaScriptRenderer extends Renderer {
   constructor(pod: Pod) {
     super(pod);
-    this.kind = 'javascript';
   }
 }
 
@@ -40,7 +37,6 @@ export class NunjucksRenderer extends Renderer {
 
   constructor(pod: Pod) {
     super(pod);
-    this.kind = 'nunjucks';
     const loader = new NunjucksPodLoader(this.pod);
     this.env = new nunjucks.Environment([loader], {
       autoescape: true,

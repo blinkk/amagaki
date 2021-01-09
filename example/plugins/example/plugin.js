@@ -5,7 +5,7 @@ class ExamplePlugin {
   }
 
   createRendererHook(renderer) {
-    if (renderer.kind === 'nunjucks') {
+    if (renderer.constructor.name === 'NunjucksRenderer') {
       renderer.env.addFilter('testPluginFilter', value => {
         return `${value}--TESTING`;
       });

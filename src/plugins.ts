@@ -3,7 +3,7 @@ import Pod from './pod';
 import {Renderer} from './renderer';
 
 /**
- * Plugin interface for defining plugins to work with amagaki.
+ * Interface for defining plugins to work with amagaki.
  */
 export interface PluginComponent {
   /**
@@ -32,6 +32,12 @@ export interface PluginConstructor {
   new (pod: Pod, config: Record<string, any>): PluginComponent;
 }
 
+/**
+ * Plugins allow for extending out the functionality of Amagaki.
+ *
+ * The plugins class allow for registering new plugins and triggering
+ * hooks from within Amagaki to allow plugin interaction.
+ */
 export default class Plugins {
   static HookPostfix = 'Hook';
 
@@ -45,36 +51,38 @@ export default class Plugins {
 
   /**
    * Register a new plugin.
+   * @param PluginClass Class for the plugin.
+   * @param config Configuration object passed to the new plugin instance.
    */
   register(PluginClass: PluginConstructor, config: Record<string, any>) {
     this.plugins.push(new PluginClass(this.pod, config));
   }
 
   /**
-   * Triggers an event handler on each of the registered plugins passing along
+   * Triggers a hook handler on each of the registered plugins passing along
    * the provided arguments.
-   * @param eventName Name of the event being triggered.
+   * @param hookName Name of the hook being triggered.
    * @param args Any arguments that need to be passed to the triggered event handler.
    */
-  trigger(eventName: string, ...args: any[]) {
+  trigger(hookName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
-      `plugins.trigger.${eventName}`,
-      `Trigger: ${eventName}`,
+      `plugins.trigger.${hookName}`,
+      `Trigger: ${hookName}`,
       {
-        trigger: eventName,
+        trigger: hookName,
       }
     );
 
-    const eventMethodName = `${eventName}${Plugins.HookPostfix}`;
+    const eventMethodName = `${hookName}${Plugins.HookPostfix}`;
 
     try {
       for (const plugin of this.plugins) {
         if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
-            `plugins.trigger.${eventName}.${plugin.key}`,
-            `${plugin.name} plugin trigger: ${eventName}`,
+            `plugins.trigger.${hookName}.${plugin.key}`,
+            `${plugin.name} plugin trigger: ${hookName}`,
             {
-              trigger: eventName,
+              trigger: hookName,
               plugin: plugin.key,
             }
           );

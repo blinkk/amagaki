@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import {GlobalOptions} from './global';
-import Pod from '../pod';
+import {Pod} from '../pod';
 
 interface BuildOptions {
   outputDirectory?: string;

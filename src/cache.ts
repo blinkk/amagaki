@@ -2,12 +2,12 @@ import * as yaml from 'js-yaml';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Locale} from './locale';
-import Pod from './pod';
+import {Pod} from './pod';
 import {Route} from './router';
 import {StaticFile} from './static';
 import {TranslationString} from './string';
 
-export default class Cache {
+export class Cache {
   pod: Pod;
   collections!: Record<string, Collection>;
   docs!: Record<string, Document>;

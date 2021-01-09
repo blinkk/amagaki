@@ -1,5 +1,5 @@
 import {CustomYamlTypes} from './utils';
-import Pod from './pod';
+import {Pod} from './pod';
 import {Renderer} from './renderer';
 
 /**
@@ -38,7 +38,7 @@ export interface PluginConstructor {
  * The plugins class allow for registering new plugins and triggering
  * hooks from within Amagaki to allow plugin interaction.
  */
-export default class Plugins {
+export class Plugins {
   static HookPostfix = 'Hook';
 
   readonly pod: Pod;

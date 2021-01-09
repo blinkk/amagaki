@@ -1,7 +1,7 @@
 import * as fsPath from 'path';
 import * as utils from './utils';
 import {Locale, LocaleSet} from './locale';
-import Pod from './pod';
+import {Pod} from './pod';
 import {Renderer} from './renderer';
 import {Url} from './url';
 

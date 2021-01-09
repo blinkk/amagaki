@@ -1,4 +1,4 @@
-import Pod from './pod';
+import {Pod} from './pod';
 import {Url} from './url';
 
 export class StaticFile {

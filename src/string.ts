@@ -1,5 +1,5 @@
 import {Locale} from './locale';
-import Pod from './pod';
+import {Pod} from './pod';
 
 export interface StringOptions {
   prefer?: string;

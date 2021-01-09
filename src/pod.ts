@@ -2,16 +2,16 @@ import * as utils from './utils';
 import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
 import {Renderer, getRenderer} from './renderer';
-import Router, {StaticDirConfig} from './router';
+import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
 import {Builder} from './builder';
-import Cache from './cache';
+import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
-import Plugins from './plugins';
+import {Plugins} from './plugins';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
 
@@ -37,7 +37,7 @@ export interface PodConfig {
  * system accessors, routes, etc. Pods provide an interaction model for accessing
  * the different elements of a site and operating on them.
  */
-export default class Pod {
+export class Pod {
   static DefaultLocalization: LocalizationConfig = {
     defaultLocale: 'en',
     locales: ['en'],

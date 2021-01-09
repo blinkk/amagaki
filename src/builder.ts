@@ -9,7 +9,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 import {Route, StaticRoute} from './router';
-import Pod from './pod';
+import {Pod} from './pod';
 
 interface Artifact {
   tempPath: string;

@@ -2,7 +2,7 @@ import * as fsPath from 'path';
 import * as utils from './utils';
 import {Document} from './document';
 import {Locale} from './locale';
-import Pod from './pod';
+import {Pod} from './pod';
 import {StaticFile} from './static';
 import {Url} from './url';
 
@@ -11,7 +11,7 @@ export interface StaticDirConfig {
   staticDir: string;
 }
 
-export default class Router {
+export class Router {
   pod: Pod;
   providers: Record<string, RouteProvider>;
 

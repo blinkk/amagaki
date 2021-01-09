@@ -5,8 +5,8 @@ import {Renderer} from './renderer';
 export interface PluginComponent {
   key: string;
   name: string;
-  createRenderer?: (renderer: Renderer) => void;
-  createYamlTypes?: (customTypes: CustomYamlTypes) => void;
+  createRendererHook?: (renderer: Renderer) => void;
+  createYamlTypesHook?: (customTypes: CustomYamlTypes) => void;
   [x: string]: any; // Allows for referencing arbitrary indexes.
 }
 

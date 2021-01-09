@@ -50,6 +50,20 @@ export default class Plugins {
   }
 
   /**
+   * Retrieve the first instance of a plugin if it exists.
+   * @param key Plugin key for locating existing plugin.
+   */
+  get(key: string): PluginComponent | null {
+    for (const plugin of this.plugins) {
+      if (plugin.key === key) {
+        return plugin;
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Register a new plugin.
    * @param PluginClass Class for the plugin.
    * @param config Configuration object passed to the new plugin instance.

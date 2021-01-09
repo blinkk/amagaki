@@ -26,11 +26,7 @@ export function getRenderer(path: string) {
   return NunjucksRenderer;
 }
 
-export class JavaScriptRenderer extends Renderer {
-  constructor(pod: Pod) {
-    super(pod);
-  }
-}
+export class JavaScriptRenderer extends Renderer {}
 
 export class NunjucksRenderer extends Renderer {
   env: nunjucks.Environment;

@@ -1,4 +1,4 @@
-const ExamplePlugin = require('./plugins/example/plugin');
+const ExamplePlugin = require('./plugins/example');
 
 module.exports = function (pod) {
   pod.configure({

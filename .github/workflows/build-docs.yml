@@ -46,8 +46,9 @@ jobs:
                 npm run docs
 
                 # Preserve benchmark files.
-                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json --output benchmark/data.json
-                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html --output benchmark/index.html
+                mkdir -p docs/benchmark
+                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json --output docs/benchmark/data.json
+                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html --output docs/benchmark/index.html
 
                 # Build the benchmark repository.
                 cd amagaki-benchmark

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ServeOptions | @amagaki/amagaki</title>
+	<title>PluginConstructor | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_commands_serve_.html">&quot;commands/serve&quot;</a>
+					<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
 				</li>
 				<li>
-					<a href="_commands_serve_.serveoptions.html">ServeOptions</a>
+					<a href="_plugins_.pluginconstructor.html">PluginConstructor</a>
 				</li>
 			</ul>
-			<h1>Interface ServeOptions</h1>
+			<h1>Interface PluginConstructor</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ServeOptions</span>
+						<span class="target">PluginConstructor</span>
 					</li>
 				</ul>
 			</section>
@@ -79,48 +79,42 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Properties</h3>
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_commands_serve_.serveoptions.html#fcd" class="tsd-kind-icon">fcd</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_commands_serve_.serveoptions.html#ref" class="tsd-kind-icon">ref</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_commands_serve_.serveoptions.html#site" class="tsd-kind-icon">site</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-interface"><a href="_plugins_.pluginconstructor.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="fcd" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fcd</h3>
-					<div class="tsd-signature tsd-kind-icon">fcd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/commands/serve.ts#L9">src/commands/serve.ts:9</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="ref" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ref</h3>
-					<div class="tsd-signature tsd-kind-icon">ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/commands/serve.ts#L10">src/commands/serve.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="site" class="tsd-anchor"></a>
-					<h3>site</h3>
-					<div class="tsd-signature tsd-kind-icon">site<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/commands/serve.ts#L11">src/commands/serve.ts:11</a></li>
-						</ul>
-					</aside>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-interface">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Plugin<wbr>Constructor<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="../classes/_pod_.pod.html" class="tsd-signature-type">Pod</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/plugins.ts#L21">src/plugins.ts:21</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>pod: <a href="../classes/_pod_.pod.html" class="tsd-signature-type">Pod</a></h5>
+								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -145,7 +139,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_commands_global_.html">&quot;commands/global&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_commands_serve_.html">&quot;commands/serve&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -160,7 +154,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_locale_.html">&quot;locale&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -198,21 +192,18 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_commands_serve_.servecommand.html" class="tsd-kind-icon">Serve<wbr>Command</a>
+						<a href="../classes/_plugins_.plugins.html" class="tsd-kind-icon">Plugins</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_plugins_.plugincomponent.html" class="tsd-kind-icon">Plugin<wbr>Component</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_commands_serve_.serveoptions.html" class="tsd-kind-icon">Serve<wbr>Options</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="_plugins_.pluginconstructor.html" class="tsd-kind-icon">Plugin<wbr>Constructor</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_commands_serve_.serveoptions.html#fcd" class="tsd-kind-icon">fcd</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_commands_serve_.serveoptions.html#ref" class="tsd-kind-icon">ref</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_commands_serve_.serveoptions.html#site" class="tsd-kind-icon">site</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-interface">
+								<a href="_plugins_.pluginconstructor.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 						</ul>
 					</li>
@@ -233,7 +224,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

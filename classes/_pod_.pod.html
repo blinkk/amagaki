@@ -100,18 +100,22 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#builder" class="tsd-kind-icon">builder</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#cache" class="tsd-kind-icon">cache</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#env" class="tsd-kind-icon">env</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#plugins" class="tsd-kind-icon">plugins</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#profiler" class="tsd-kind-icon">profiler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#root" class="tsd-kind-icon">root</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#router" class="tsd-kind-icon">router</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_pod_.pod.html#defaultlocale" class="tsd-kind-icon">Default<wbr>Locale</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_pod_.pod.html#defaultconfigfile" class="tsd-kind-icon">Default<wbr>Config<wbr>File</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#defaultlocale-1" class="tsd-kind-icon">default<wbr>Locale</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#locales" class="tsd-kind-icon">locales</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#localization" class="tsd-kind-icon">localization</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#meta" class="tsd-kind-icon">meta</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_pod_.pod.html#yamlschema" class="tsd-kind-icon">yaml<wbr>Schema</a></li>
 							</ul>
 						</section>
@@ -119,6 +123,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#collection" class="tsd-kind-icon">collection</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#configure" class="tsd-kind-icon">configure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#doc" class="tsd-kind-icon">doc</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#fileexists" class="tsd-kind-icon">file<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#getabsolutefilepath" class="tsd-kind-icon">get<wbr>Absolute<wbr>File<wbr>Path</a></li>
@@ -130,6 +135,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#staticfile" class="tsd-kind-icon">static<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#string" class="tsd-kind-icon">string</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#walk" class="tsd-kind-icon">walk</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static"><a href="_pod_.pod.html#defaultlocalization" class="tsd-kind-icon">Default<wbr>Localization</a></li>
 							</ul>
 						</section>
 					</div>
@@ -147,7 +158,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L30">src/pod.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L53">src/pod.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -169,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">builder<span class="tsd-signature-symbol">:</span> <a href="_builder_.builder.html" class="tsd-signature-type">Builder</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L25">src/pod.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L46">src/pod.ts:46</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +190,17 @@
 					<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <a href="_cache_.cache.html" class="tsd-signature-type">Cache</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L26">src/pod.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L47">src/pod.ts:47</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pod_.podconfig.html" class="tsd-signature-type">PodConfig</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L48">src/pod.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -189,7 +210,17 @@
 					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <a href="_environment_.environment.html" class="tsd-signature-type">Environment</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L27">src/pod.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L49">src/pod.ts:49</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="plugins" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> plugins</h3>
+					<div class="tsd-signature tsd-kind-icon">plugins<span class="tsd-signature-symbol">:</span> <a href="_plugins_.plugins.html" class="tsd-signature-type">Plugins</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L51">src/pod.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -199,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">profiler<span class="tsd-signature-symbol">:</span> <a href="_profile_.profiler.html" class="tsd-signature-type">Profiler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L28">src/pod.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L50">src/pod.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -209,7 +240,7 @@
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L29">src/pod.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L52">src/pod.ts:52</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -219,17 +250,17 @@
 					<div class="tsd-signature tsd-kind-icon">router<span class="tsd-signature-symbol">:</span> <a href="_router_.router.html" class="tsd-signature-type">Router</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L30">src/pod.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L53">src/pod.ts:53</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="defaultlocale" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Default<wbr>Locale</h3>
-					<div class="tsd-signature tsd-kind-icon">Default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;en&quot;</span></div>
+					<a name="defaultconfigfile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Default<wbr>Config<wbr>File</h3>
+					<div class="tsd-signature tsd-kind-icon">Default<wbr>Config<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;amagaki.js&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L24">src/pod.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L45">src/pod.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +268,7 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="defaultlocale-1" class="tsd-anchor"></a>
+					<a name="defaultlocale" class="tsd-anchor"></a>
 					<h3>default<wbr>Locale</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> defaultLocale<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></li>
@@ -246,13 +277,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L71">src/pod.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L122">src/pod.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Returns the default locale for the pod. The default locale can be
-									overwritten in <code>amagaki.yaml</code>.</p>
+									overwritten in <code>amagaki.js</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_locale_.locale.html" class="tsd-signature-type">Locale</a></h4>
@@ -269,16 +300,60 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L129">src/pod.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L183">src/pod.ts:183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Returns a set of the pod&#39;s global locales. Global locales are defined in
-									<code>amagaki.yaml</code>.</p>
+									<code>amagaki.js</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="_locale_.localeset.html#set" class="tsd-signature-type">Set</a><span class="tsd-signature-symbol">&lt;</span><a href="_locale_.locale.html" class="tsd-signature-type">Locale</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="localization" class="tsd-anchor"></a>
+					<h3>localization</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> localization<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_pod_.localizationconfig.html" class="tsd-signature-type">LocalizationConfig</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L190">src/pod.ts:190</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the pod&#39;s global localization configuration.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_pod_.localizationconfig.html" class="tsd-signature-type">LocalizationConfig</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="meta" class="tsd-anchor"></a>
+					<h3>meta</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> meta<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_pod_.metadataconfig.html" class="tsd-signature-type">MetadataConfig</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L197">src/pod.ts:197</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the meta information from the pod config.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_pod_.metadataconfig.html" class="tsd-signature-type">MetadataConfig</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -292,7 +367,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L228">src/pod.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L297">src/pod.ts:297</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -318,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L55">src/pod.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L92">src/pod.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -343,6 +418,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="configure" class="tsd-anchor"></a>
+					<h3>configure</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">configure<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/_pod_.podconfig.html" class="tsd-signature-type">PodConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L109">src/pod.ts:109</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Configures a configuration update on the pod based on the provided
+									config. Should only be called once on a pod.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/_pod_.podconfig.html" class="tsd-signature-type">PodConfig</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Pod configuration value.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="doc" class="tsd-anchor"></a>
 					<h3>doc</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -352,7 +459,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L81">src/pod.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L135">src/pod.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -390,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L95">src/pod.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L149">src/pod.ts:149</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -421,7 +528,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L108">src/pod.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L162">src/pod.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -452,7 +559,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L117">src/pod.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L171">src/pod.ts:171</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -483,7 +590,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L134">src/pod.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L201">src/pod.ts:201</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -506,7 +613,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L143">src/pod.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L210">src/pod.ts:210</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -529,7 +636,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L160">src/pod.ts:160</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L227">src/pod.ts:227</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -549,13 +656,13 @@
 					<a name="renderer" class="tsd-anchor"></a>
 					<h3>renderer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_renderer_.javascriptrenderer.html" class="tsd-signature-type">JavaScriptRenderer</a></li>
+						<li class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_renderer_.renderer.html" class="tsd-signature-type">Renderer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L181">src/pod.ts:181</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L248">src/pod.ts:248</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -572,7 +679,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_renderer_.javascriptrenderer.html" class="tsd-signature-type">JavaScriptRenderer</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_renderer_.renderer.html" class="tsd-signature-type">Renderer</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -586,7 +693,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L190">src/pod.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L259">src/pod.ts:259</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -617,7 +724,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L202">src/pod.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L271">src/pod.ts:271</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -651,7 +758,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/25cc395/src/pod.ts#L220">src/pod.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L289">src/pod.ts:289</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -671,6 +778,39 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+					<a name="defaultlocalization" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Default<wbr>Localization</h3>
+					<div class="tsd-signature tsd-kind-icon">Default<wbr>Localization<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L41">src/pod.ts:41</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="defaultlocalization.defaultlocale-1" class="tsd-anchor"></a>
+						<h3>default<wbr>Locale</h3>
+						<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;en&quot;</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L42">src/pod.ts:42</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="defaultlocalization.locales-1" class="tsd-anchor"></a>
+						<h3>locales</h3>
+						<div class="tsd-signature tsd-kind-icon">locales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [&#x27;en&#x27;]</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/ec40a68/src/pod.ts#L43">src/pod.ts:43</a></li>
+							</ul>
+						</aside>
+					</section>
 				</section>
 			</section>
 		</div>
@@ -709,6 +849,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_locale_.html">&quot;locale&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_pod_.html">&quot;pod&quot;</a>
@@ -759,7 +902,13 @@
 								<a href="_pod_.pod.html#cache" class="tsd-kind-icon">cache</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_pod_.pod.html#config" class="tsd-kind-icon">config</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_pod_.pod.html#env" class="tsd-kind-icon">env</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_pod_.pod.html#plugins" class="tsd-kind-icon">plugins</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_pod_.pod.html#profiler" class="tsd-kind-icon">profiler</a>
@@ -771,19 +920,28 @@
 								<a href="_pod_.pod.html#router" class="tsd-kind-icon">router</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="_pod_.pod.html#defaultlocale" class="tsd-kind-icon">Default<wbr>Locale</a>
+								<a href="_pod_.pod.html#defaultconfigfile" class="tsd-kind-icon">Default<wbr>Config<wbr>File</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_pod_.pod.html#defaultlocale-1" class="tsd-kind-icon">default<wbr>Locale</a>
+								<a href="_pod_.pod.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_pod_.pod.html#locales" class="tsd-kind-icon">locales</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pod_.pod.html#localization" class="tsd-kind-icon">localization</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_pod_.pod.html#meta" class="tsd-kind-icon">meta</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_pod_.pod.html#yamlschema" class="tsd-kind-icon">yaml<wbr>Schema</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_pod_.pod.html#collection" class="tsd-kind-icon">collection</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_pod_.pod.html#configure" class="tsd-kind-icon">configure</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_pod_.pod.html#doc" class="tsd-kind-icon">doc</a>
@@ -818,10 +976,22 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_pod_.pod.html#walk" class="tsd-kind-icon">walk</a>
 							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
+								<a href="_pod_.pod.html#defaultlocalization" class="tsd-kind-icon">Default<wbr>Localization</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_pod_.localizationconfig.html" class="tsd-kind-icon">Localization<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_pod_.metadataconfig.html" class="tsd-kind-icon">Metadata<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_pod_.podconfig.html" class="tsd-kind-icon">Pod<wbr>Config</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

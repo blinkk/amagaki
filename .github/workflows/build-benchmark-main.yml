@@ -2,7 +2,7 @@ name: Benchmark build to GitHub pages
 
 on:
   push:
-    branches:
+    branches-ignore:
     - main
 
 jobs:

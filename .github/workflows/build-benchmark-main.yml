@@ -55,4 +55,6 @@ jobs:
           # Push and deploy GitHub pages branch automatically
           benchmark-data-dir-path: benchmark
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
+          auto-push: false
+      - name: Push benchmark result
+        run: git add benchmark/ && git -c user.name=github-action-benchmark -c user.email=github@users.noreply.github.com commit -m add Amagaki profiling benchmark && git push

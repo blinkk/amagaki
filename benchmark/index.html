@@ -243,7 +243,7 @@
         renderAllChars(init()); // Start
       };
 
-      request
+      superagent
         .get('data.json')
         .set('Accept', 'application/json')
         .then(res => {

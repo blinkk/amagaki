@@ -100,11 +100,11 @@
     <footer>
       <div class="small">Powered by <a rel="noopener" href="https://github.com/marketplace/actions/continuous-benchmark">github-action-benchmark</a></div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-    <script src="data.js"></script>
     <script id="main-script">
       'use strict';
-      (function() {
+      function initCharts(data) {
         // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
         const toolColors = {
           cargo: '#dea584',
@@ -132,7 +132,6 @@
             }
             return map;
           }
-          const data = window.BENCHMARK_DATA;
           // Render header
           document.getElementById('last-update').textContent = new Date(data.lastUpdate).toString();
           const repoLink = document.getElementById('repository-link');
@@ -242,7 +241,14 @@
           }
         }
         renderAllChars(init()); // Start
-      })();
+      };
+
+      request
+        .get('data.json')
+        .set('Accept', 'application/json')
+        .then(res => {
+          initCharts(res.body)
+        });
     </script>
   </body>
 </html>

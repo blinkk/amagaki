@@ -45,20 +45,14 @@ jobs:
                 # Build the docs into docs/
                 npm run docs
 
+                # Preserve benchmark files.
+                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json --output benchmark/data.json
+                curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html --output benchmark/index.html
+
                 # Build the benchmark repository.
                 cd amagaki-benchmark
                 npm install
                 node ../dist/src/index.js build
-      - uses: suisei-cn/actions-download-file@v1
-        name: Preserve benchmark data file.
-        with:
-          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json"
-          target: docs/benchmark/
-      - uses: suisei-cn/actions-download-file@v1
-        name: Preserve benchmark index file.
-        with:
-          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html"
-          target: docs/benchmark/
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:

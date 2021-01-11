@@ -49,6 +49,11 @@ jobs:
                 cd amagaki-benchmark
                 npm install
                 node ../dist/src/index.js build
+      - uses: suisei-cn/actions-download-file@v1
+        name: Preserve benchmark index file.
+        with:
+          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json"
+          target: docs/benchmark/
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:

@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610396808716,
+  "lastUpdate": 1610397313869,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -77,6 +77,86 @@
           {
             "name": "yaml.schema",
             "value": 0.4198120003566146,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "committer": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "distinct": true,
+          "id": "a393f6a7481229f95def66f53569fa70ac18abd1",
+          "message": "Download the existing data before processing the benchmark data.",
+          "timestamp": "2021-01-11T13:33:54-07:00",
+          "tree_id": "7481eb0d7bb6a562a890b19f0f47a1220cfc7b05",
+          "url": "https://github.com/blinkkcode/amagaki/commit/a393f6a7481229f95def66f53569fa70ac18abd1"
+        },
+        "date": 1610397313868,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 18507.766504999992,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 4.067640000008396,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 104.63263100032054,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 882.2326320003631,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "21905 samples"
+          },
+          {
+            "name": "plugins.trigger.createRenderer",
+            "value": 6.435481999767944,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5450 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes",
+            "value": 0.005200999992666766,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 7.499012000000221,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.3725410000042757,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

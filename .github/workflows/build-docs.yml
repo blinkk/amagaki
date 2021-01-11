@@ -34,9 +34,9 @@ jobs:
           cache-name: cache-node-modules-bm
         with:
           path: amagaki-benchmark/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
+          key: ${{ runner.os }}-build-bm-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-bm-${{ env.cache-name }}-
       - name: Build docs and benchmark build
         run: |
                 npm install --dev
@@ -49,7 +49,7 @@ jobs:
                 cd amagaki-benchmark
                 npm install
                 node ../dist/src/index.js build
-      - name: Process benchmark result
+      - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:
           name: Amagaki profiling benchmark
@@ -58,6 +58,11 @@ jobs:
           # Push and deploy GitHub pages branch automatically
           benchmark-data-dir-path: docs/benchmark
           external-data-json-path: docs/benchmark/data.js
+      - uses: suisei-cn/actions-download-file@v1
+        name: Preserve benchmark index file.
+        with:
+          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html"
+          target: docs/benchmark/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

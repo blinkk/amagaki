@@ -41,7 +41,11 @@ jobs:
         run: |
                 npm install --dev
                 npm run dev:start
+
+                # Build the docs into docs/
                 npm run docs
+
+                # Build the benchmark repository.
                 cd amagaki-benchmark
                 npm install
                 node ../dist/src/index.js build
@@ -53,8 +57,7 @@ jobs:
           output-file-path: amagaki-benchmark/build/.amagaki/benchmark.txt
           # Push and deploy GitHub pages branch automatically
           benchmark-data-dir-path: docs/benchmark
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: false
+          external-data-json-path: docs/benchmark/data.js
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

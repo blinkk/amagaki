@@ -6,6 +6,11 @@ import {Pod} from './pod';
 import {StaticFile} from './static';
 import {Url} from './url';
 
+export interface StaticDirConfig {
+  path: string;
+  staticDir: string;
+}
+
 export class Router {
   pod: Pod;
   providers: Record<string, RouteProvider>;
@@ -16,8 +21,11 @@ export class Router {
     [
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
-      new StaticFileRouteProivder(this),
-      new StaticDirectoryRouteProivder(this),
+      // Default static directory serving.
+      new StaticDirectoryRouteProivder(this, {
+        path: '/static/',
+        staticDir: '/source/static/',
+      }),
     ].forEach(provider => {
       this.addProvider(provider);
     });
@@ -64,6 +72,16 @@ export class Router {
 
   addProvider(provider: RouteProvider) {
     this.providers[provider.type] = provider;
+  }
+
+  /**
+   * Used for setting static directory routes configuration.
+   * @param routeConfigs The configurations for the route definition.
+   */
+  addStaticDirectoryRoutes(routeConfigs: Array<StaticDirConfig>) {
+    for (const routeConfig of routeConfigs) {
+      this.addProvider(new StaticDirectoryRouteProivder(this, routeConfig));
+    }
   }
 
   getUrl(type: string, item: Document | StaticFile) {
@@ -154,30 +172,26 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 }
 
-export class StaticFileRouteProivder extends RouteProvider {
-  static DefaultStaticFolder = '/source/static/';
+export class StaticDirectoryRouteProivder extends RouteProvider {
+  config: StaticDirConfig;
 
-  constructor(router: Router) {
+  constructor(router: Router, config: StaticDirConfig) {
     super(router);
-    this.type = 'static_file';
+    this.type = 'static_dir';
+    this.config = config;
   }
 
   get routes(): Array<Route> {
-    const podPaths = this.pod.walk(StaticFileRouteProivder.DefaultStaticFolder);
+    const podPaths = this.pod.walk(this.config.staticDir);
     const routes: Array<Route> = [];
+    const cleanPath = cleanBasePath(this.config.path);
     podPaths.forEach(podPath => {
-      const route = new StaticRoute(this, podPath);
+      const subPath = podPath.slice(this.config.staticDir.length);
+      const route = new StaticRoute(this, podPath, `${cleanPath}/${subPath}`);
       routes.push(route);
       this.urlMap.set(route.staticFile, route.url);
     });
     return routes;
-  }
-}
-
-export class StaticDirectoryRouteProivder extends RouteProvider {
-  constructor(router: Router) {
-    super(router);
-    this.type = 'static_dir';
   }
 }
 
@@ -266,10 +280,12 @@ export class DocumentRoute extends Route {
 
 export class StaticRoute extends Route {
   podPath: string;
+  servingPath: string;
 
-  constructor(provider: RouteProvider, podPath: string) {
+  constructor(provider: RouteProvider, podPath: string, servingPath?: string) {
     super(provider);
     this.podPath = podPath;
+    this.servingPath = servingPath || podPath;
   }
 
   toString() {
@@ -281,7 +297,20 @@ export class StaticRoute extends Route {
   }
 
   get urlPath() {
-    // TODO: Replace with serving path defined in amagaki.yaml.
-    return `/static${this.podPath}`;
+    return this.servingPath;
   }
+}
+
+function cleanBasePath(path: string): string {
+  path = path.trim();
+
+  if (!path.startsWith('/')) {
+    path = `/${path}`;
+  }
+
+  while (path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+
+  return path;
 }

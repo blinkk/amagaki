@@ -141,7 +141,12 @@ export function createYamlSchema(pod: Pod) {
       return string;
     },
   });
-  return yaml.Schema.create([docType, staticType, stringType, yamlType]);
+
+  const builtInTypes = [docType, staticType, stringType, yamlType];
+  const customTypes = new CustomYamlTypes();
+  pod.plugins.trigger('createYamlTypes', customTypes);
+
+  return yaml.Schema.create(builtInTypes.concat(customTypes.types));
 }
 
 export function formatBytes(bytes: number) {
@@ -241,4 +246,16 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
     }
   });
   return files;
+}
+
+export class CustomYamlTypes {
+  types: Array<yaml.Type>;
+
+  constructor() {
+    this.types = [];
+  }
+
+  addType(yamlType: yaml.Type) {
+    this.types.push(yamlType);
+  }
 }

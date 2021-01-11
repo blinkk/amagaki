@@ -1,18 +1,35 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
+import {Renderer, getRenderer} from './renderer';
+import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
+import {join, resolve} from 'path';
 import {Builder} from './builder';
-import Cache from './cache';
+import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import {Plugins} from './plugins';
 import {Profiler} from './profile';
-import {Router} from './router';
 import {StaticFile} from './static';
-import {getRenderer} from './renderer';
-import {join} from 'path';
+
+export interface LocalizationConfig {
+  defaultLocale?: string;
+  locales?: Array<string>;
+}
+
+export interface MetadataConfig {
+  name: string;
+  [x: string]: any;
+}
+
+export interface PodConfig {
+  meta: MetadataConfig;
+  localization?: LocalizationConfig;
+  staticRoutes?: Array<StaticDirConfig>;
+}
 
 /**
  * Pods are the "command center" for all operations within a site. Pods hold
@@ -21,19 +38,26 @@ import {join} from 'path';
  * the different elements of a site and operating on them.
  */
 export class Pod {
-  static DefaultLocale = 'en';
+  static DefaultLocalization: LocalizationConfig = {
+    defaultLocale: 'en',
+    locales: ['en'],
+  };
+  static DefaultConfigFile = 'amagaki.js';
   readonly builder: Builder;
   readonly cache: Cache;
+  config: PodConfig;
   readonly env: Environment;
   readonly profiler: Profiler;
+  readonly plugins: Plugins;
   readonly root: string;
   readonly router: Router;
 
   constructor(root: string) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
-    this.root = root;
+    this.root = resolve(root);
     this.profiler = new Profiler();
+    this.plugins = new Plugins(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -42,7 +66,20 @@ export class Pod {
       scheme: 'http',
       dev: true,
     });
+    this.config = {
+      meta: {
+        name: 'Amagaki pod',
+      },
+    };
     this.cache = new Cache(this);
+
+    // Setup the pod using the amagaki.js file.
+    if (this.fileExists(Pod.DefaultConfigFile)) {
+      const configFilename = this.getAbsoluteFilePath(Pod.DefaultConfigFile);
+      // tslint:disable-next-line
+      const amagakiConfigFunc: Function = require(configFilename);
+      amagakiConfigFunc(this);
+    }
   }
 
   /**
@@ -65,11 +102,28 @@ export class Pod {
   }
 
   /**
+   * Configures a configuration update on the pod based on the provided
+   * config. Should only be called once on a pod.
+   * @param config Pod configuration value.
+   */
+  configure(config: PodConfig) {
+    // TODO: Validate the configuration.
+    this.config = config;
+
+    if (this.config.staticRoutes) {
+      this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
+    }
+  }
+
+  /**
    * Returns the default locale for the pod. The default locale can be
-   * overwritten in `amagaki.yaml`.
+   * overwritten in `amagaki.js`.
    */
   get defaultLocale() {
-    return this.locale(Pod.DefaultLocale);
+    return this.locale(
+      this.localization.defaultLocale ||
+        (Pod.DefaultLocalization.defaultLocale as string)
+    );
   }
 
   /**
@@ -124,11 +178,24 @@ export class Pod {
 
   /**
    * Returns a set of the pod's global locales. Global locales are defined in
-   * `amagaki.yaml`.
+   * `amagaki.js`.
    */
   get locales(): Set<Locale> {
-    // TODO: Replace with amagaki.yaml?locales.
-    return new LocaleSet();
+    return new LocaleSet(this.localization.locales);
+  }
+
+  /**
+   * Returns the pod's global localization configuration.
+   */
+  get localization(): LocalizationConfig {
+    return this.config.localization || Pod.DefaultLocalization;
+  }
+
+  /**
+   * Returns the meta information from the pod config.
+   */
+  get meta(): MetadataConfig {
+    return this.config.meta;
   }
 
   readFile(path: string) {
@@ -178,9 +245,11 @@ export class Pod {
    * Returns a template renderer used for a template engine.
    * @param path The renderer's file extension, without a leading dot. Example: "njk".
    */
-  renderer(path: string) {
+  renderer(path: string): Renderer {
     const rendererClass = getRenderer(path);
-    return new rendererClass(this);
+    const renderer = new rendererClass(this);
+    this.plugins.trigger('createRenderer', renderer);
+    return renderer;
   }
 
   /**

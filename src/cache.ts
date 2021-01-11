@@ -7,7 +7,7 @@ import {Route} from './router';
 import {StaticFile} from './static';
 import {TranslationString} from './string';
 
-export default class Cache {
+export class Cache {
   pod: Pod;
   collections!: Record<string, Collection>;
   docs!: Record<string, Document>;

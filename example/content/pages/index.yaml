@@ -10,7 +10,7 @@ partials:
     value: Welcome to Amagaki
   body: Sunt elit et aute commodo id. Esse quis cupidatat reprehenderit qui eiusmod sit proident sit tempor aliquip eu. Irure reprehenderit magna duis mollit nostrud aute dolore nulla adipisicing nisi. Excepteur sunt sint duis do proident do nulla veniam incididunt magna velit eiusmod sunt occaecat.
   buttons:
-  - label: Learn more
+  - label: !a.Foo Learn more
     url: https://example.com
 - partial: spacer
   options:

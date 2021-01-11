@@ -2,7 +2,7 @@ import * as _colors from 'colors';
 import * as fs from 'fs';
 import {GlobalOptions} from './global';
 import {Pod} from '../pod';
-import Watcher from '../watcher';
+import {Watcher} from '../watcher';
 import {createApp} from '../server';
 
 interface ServeOptions {

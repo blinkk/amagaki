@@ -37,14 +37,15 @@ jobs:
           key: ${{ runner.os }}-build-bm-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-bm-${{ env.cache-name }}-
-      - name: Build docs and benchmark build
+      - name: Build docs
         run: |
                 npm install --dev
                 npm run dev:start
 
                 # Build the docs into docs/
                 npm run docs
-
+      - name: Build benchmark build
+        run: |
                 # Preserve benchmark files.
                 mkdir -p docs/benchmark
                 curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json --output docs/benchmark/data.json

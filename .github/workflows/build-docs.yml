@@ -55,9 +55,9 @@ jobs:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
           output-file-path: amagaki-benchmark/build/.amagaki/benchmark.txt
-          # Push and deploy GitHub pages branch automatically
+          # Output the processed data to the benchmark directory.
           benchmark-data-dir-path: docs/benchmark
-          external-data-json-path: docs/benchmark/data.js
+          external-data-json-path: docs/benchmark/data.json
       - uses: suisei-cn/actions-download-file@v1
         name: Preserve benchmark index file.
         with:

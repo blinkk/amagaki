@@ -50,9 +50,14 @@ jobs:
                 npm install
                 node ../dist/src/index.js build
       - uses: suisei-cn/actions-download-file@v1
-        name: Preserve benchmark index file.
+        name: Preserve benchmark data file.
         with:
           url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json"
+          target: docs/benchmark/
+      - uses: suisei-cn/actions-download-file@v1
+        name: Preserve benchmark index file.
+        with:
+          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html"
           target: docs/benchmark/
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
@@ -63,11 +68,6 @@ jobs:
           # Output the processed data to the benchmark directory.
           benchmark-data-dir-path: docs/benchmark
           external-data-json-path: docs/benchmark/data.json
-      - uses: suisei-cn/actions-download-file@v1
-        name: Preserve benchmark index file.
-        with:
-          url: "https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html"
-          target: docs/benchmark/
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

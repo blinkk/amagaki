@@ -2,7 +2,7 @@ name: 'Deploy docs and benchmarks to GitHub pages'
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:

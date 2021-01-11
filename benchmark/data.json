@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610394617079,
+  "lastUpdate": 1610396808716,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -16,67 +16,67 @@
             "username": "Zoramite"
           },
           "distinct": true,
-          "id": "8945563f6adc14f4658b481920c2ea3d1b169632",
-          "message": "Updating where the benchmark data is stored.",
-          "timestamp": "2021-01-11T12:49:11-07:00",
-          "tree_id": "eb33095ca92ce4c963aa3bc6d8a579763878dae9",
-          "url": "https://github.com/blinkkcode/amagaki/commit/8945563f6adc14f4658b481920c2ea3d1b169632"
+          "id": "828101e0157227a0e5721125a65848609e3a92c0",
+          "message": "Fixing the output file to be a json for use in the index.",
+          "timestamp": "2021-01-11T13:25:09-07:00",
+          "tree_id": "9199d9db795ae7744132a277c10ac6b8f5c52531",
+          "url": "https://github.com/blinkkcode/amagaki/commit/828101e0157227a0e5721125a65848609e3a92c0"
         },
-        "date": 1610394617078,
+        "date": 1610396808715,
         "tool": "benchmarkjs",
         "benches": [
           {
             "name": "command.build",
-            "value": 13986.152025999996,
+            "value": 18407.53072499996,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "document.fields.localize",
-            "value": 2.9456100000534207,
+            "value": 4.237913997843862,
             "range": "±0%",
             "unit": "ms",
             "extra": "34 samples"
           },
           {
             "name": "file.exists",
-            "value": 91.51626100065187,
+            "value": 121.7165290247649,
             "range": "±0%",
             "unit": "ms",
             "extra": "5558 samples"
           },
           {
             "name": "file.read",
-            "value": 769.5463940003683,
+            "value": 1041.0532269533724,
             "range": "±0%",
             "unit": "ms",
             "extra": "21905 samples"
           },
           {
             "name": "plugins.trigger.createRenderer",
-            "value": 4.473611000095843,
+            "value": 6.4607889908365905,
             "range": "±0%",
             "unit": "ms",
             "extra": "5450 samples"
           },
           {
             "name": "plugins.trigger.createYamlTypes",
-            "value": 0.003500000006170012,
+            "value": 0.004999999888241291,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "yaml.load",
-            "value": 5.586521000004723,
+            "value": 9.3832550002262,
             "range": "±0%",
             "unit": "ms",
             "extra": "9 samples"
           },
           {
             "name": "yaml.schema",
-            "value": 0.3280019999947399,
+            "value": 0.4198120003566146,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

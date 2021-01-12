@@ -343,7 +343,7 @@ export class ProfileReport {
       shownTimerKeys.add(timerKey);
     }
     reportOutput += this.sectionToString(
-      'Hook timers',
+      'Hooks',
       filteredTimerTypes,
       (timerKey: string, timerType: TimerType, label: string) => {
         // Indent the plugin hook information.

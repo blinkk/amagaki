@@ -69,14 +69,12 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.env = new nunjucks.Environment([loader], {
       autoescape: true,
     });
-    this.env.addFilter('t', function (value) {
+    this.env.addFilter('t', function (this: any, value) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
-      // @ts-ignore
       return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);
     });
-    this.env.addFilter('localize', function (parent, key) {
+    this.env.addFilter('localize', function (this: any, parent, key) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
-      // @ts-ignore
       return getLocalizedValue(this.ctx.doc, parent, key);
     });
     this.env.addFilter('formatBytes', value => {

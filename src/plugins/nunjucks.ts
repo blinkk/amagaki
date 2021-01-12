@@ -32,10 +32,7 @@ export class NunjucksPlugin implements PluginComponent {
     this.shortcutGlobals[globalName] = globalMethod;
   }
 
-  createTemplateEngineHook(
-    templateEngine: TemplateEngineComponent,
-    extension: string
-  ) {
+  createTemplateEngineHook(templateEngine: TemplateEngineComponent) {
     if (templateEngine.constructor.name === 'NunjucksTemplateEngine') {
       // Add in the shortcut filters.
       for (const key of Object.keys(this.shortcutFilters)) {
@@ -69,6 +66,8 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.env = new nunjucks.Environment([loader], {
       autoescape: true,
     });
+
+    // Add the built-in filters.
     this.env.addFilter('t', function (this: any, value) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
       return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);

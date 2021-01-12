@@ -17,7 +17,7 @@ export interface PluginComponent {
   ) => void;
   /**
    * Hook for defining custom yaml types for the yaml schema.
-   * @see {@link CustomYamlTypes} for adding custom yaml types.
+   * @see {@link YamlTypeManager} for adding custom yaml types.
    */
   createYamlTypesHook?: (yamlTypeManager: YamlTypeManager) => void;
   /**

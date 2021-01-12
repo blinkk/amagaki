@@ -20,7 +20,12 @@ export interface PluginComponent {
    * @see {@link CustomYamlTypes} for adding custom yaml types.
    */
   createYamlTypesHook?: (yamlTypeManager: YamlTypeManager) => void;
-  [x: string]: any; // Allows for referencing arbitrary indexes.
+  /**
+   * Plugins can define any other properties and methods.
+   *
+   * Methods ending in `Hook` are reserved for future plugin hook handlers.
+   */
+  [x: string]: any;
 }
 
 export interface PluginConstructor {

@@ -20,14 +20,6 @@ export interface PluginComponent {
     extension: string
   ) => void;
   /**
-   * Hook for managing the available template engines for rendering.
-   *
-   * Used for associating new template engines with file extensions.
-   */
-  createTemplateEngineManagerHook?: (
-    templateEngineManager: TemplateEngineManager
-  ) => void;
-  /**
    * Hook for defining custom yaml types for the yaml schema.
    * @see {@link CustomYamlTypes} for adding custom yaml types.
    */

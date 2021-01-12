@@ -101,11 +101,13 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#builder" class="tsd-kind-icon">builder</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#cache" class="tsd-kind-icon">cache</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#engines" class="tsd-kind-icon">engines</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#env" class="tsd-kind-icon">env</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#plugins" class="tsd-kind-icon">plugins</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#profiler" class="tsd-kind-icon">profiler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#root" class="tsd-kind-icon">root</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_pod_.pod.html#router" class="tsd-kind-icon">router</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_pod_.pod.html#builtinplugins" class="tsd-kind-icon">Built<wbr>InPlugins</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_pod_.pod.html#defaultconfigfile" class="tsd-kind-icon">Default<wbr>Config<wbr>File</a></li>
 							</ul>
 						</section>
@@ -131,7 +133,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#readfile" class="tsd-kind-icon">read<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#readyaml" class="tsd-kind-icon">read<wbr>Yaml</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#readyamlstring" class="tsd-kind-icon">read<wbr>Yaml<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#renderer" class="tsd-kind-icon">renderer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#staticfile" class="tsd-kind-icon">static<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#string" class="tsd-kind-icon">string</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_pod_.pod.html#walk" class="tsd-kind-icon">walk</a></li>
@@ -158,7 +159,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L53">src/pod.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L60">src/pod.ts:60</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -180,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">builder<span class="tsd-signature-symbol">:</span> <a href="_builder_.builder.html" class="tsd-signature-type">Builder</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L46">src/pod.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L52">src/pod.ts:52</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -190,7 +191,7 @@
 					<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <a href="_cache_.cache.html" class="tsd-signature-type">Cache</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L47">src/pod.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L53">src/pod.ts:53</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +201,17 @@
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_pod_.podconfig.html" class="tsd-signature-type">PodConfig</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L48">src/pod.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L54">src/pod.ts:54</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="engines" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> engines</h3>
+					<div class="tsd-signature tsd-kind-icon">engines<span class="tsd-signature-symbol">:</span> <a href="_templateengine_.templateenginemanager.html" class="tsd-signature-type">TemplateEngineManager</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L55">src/pod.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -210,7 +221,7 @@
 					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <a href="_environment_.environment.html" class="tsd-signature-type">Environment</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L49">src/pod.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L56">src/pod.ts:56</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +231,7 @@
 					<div class="tsd-signature tsd-kind-icon">plugins<span class="tsd-signature-symbol">:</span> <a href="_plugins_.plugins.html" class="tsd-signature-type">Plugins</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L51">src/pod.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L58">src/pod.ts:58</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -230,7 +241,7 @@
 					<div class="tsd-signature tsd-kind-icon">profiler<span class="tsd-signature-symbol">:</span> <a href="_profile_.profiler.html" class="tsd-signature-type">Profiler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L50">src/pod.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L57">src/pod.ts:57</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -240,7 +251,7 @@
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L52">src/pod.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L59">src/pod.ts:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -250,7 +261,17 @@
 					<div class="tsd-signature tsd-kind-icon">router<span class="tsd-signature-symbol">:</span> <a href="_router_.router.html" class="tsd-signature-type">Router</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L53">src/pod.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L60">src/pod.ts:60</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="builtinplugins" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Built<wbr>InPlugins</h3>
+					<div class="tsd-signature tsd-kind-icon">Built<wbr>InPlugins<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_plugins_.pluginconstructor.html" class="tsd-signature-type">PluginConstructor</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = [NunjucksPlugin,YamlPlugin,]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L43">src/pod.ts:43</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -260,7 +281,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Config<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;amagaki.js&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L45">src/pod.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L51">src/pod.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -277,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L122">src/pod.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L137">src/pod.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -300,7 +321,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L183">src/pod.ts:183</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L198">src/pod.ts:198</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -323,7 +344,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L190">src/pod.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L205">src/pod.ts:205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -345,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L197">src/pod.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L212">src/pod.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -367,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L297">src/pod.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L301">src/pod.ts:301</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,7 +414,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L92">src/pod.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L107">src/pod.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -427,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L109">src/pod.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L124">src/pod.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -459,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L135">src/pod.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L150">src/pod.ts:150</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -497,7 +518,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L149">src/pod.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L164">src/pod.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -528,7 +549,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L162">src/pod.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L177">src/pod.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -559,7 +580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L171">src/pod.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L186">src/pod.ts:186</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,7 +611,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L201">src/pod.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L216">src/pod.ts:216</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -613,7 +634,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L210">src/pod.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L225">src/pod.ts:225</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -636,7 +657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L227">src/pod.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L242">src/pod.ts:242</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -653,37 +674,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="renderer" class="tsd-anchor"></a>
-					<h3>renderer</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_renderer_.renderer.html" class="tsd-signature-type">Renderer</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L248">src/pod.ts:248</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a template renderer used for a template engine.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>path: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The renderer&#39;s file extension, without a leading dot. Example: &quot;njk&quot;.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_renderer_.renderer.html" class="tsd-signature-type">Renderer</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="staticfile" class="tsd-anchor"></a>
 					<h3>static<wbr>File</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -693,7 +683,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L259">src/pod.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L263">src/pod.ts:263</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -724,7 +714,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L271">src/pod.ts:271</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L275">src/pod.ts:275</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -758,7 +748,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L289">src/pod.ts:289</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L293">src/pod.ts:293</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -788,7 +778,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Localization<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L41">src/pod.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L47">src/pod.ts:47</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -797,7 +787,7 @@
 						<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;en&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L42">src/pod.ts:42</a></li>
+								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L48">src/pod.ts:48</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -807,7 +797,7 @@
 						<div class="tsd-signature tsd-kind-icon">locales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [&#x27;en&#x27;]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8ea3812/src/pod.ts#L43">src/pod.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L49">src/pod.ts:49</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -853,14 +843,17 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugins_nunjucks_.html">&quot;plugins/nunjucks&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_plugins_yaml_.html">&quot;plugins/yaml&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_pod_.html">&quot;pod&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_profile_.html">&quot;profile&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_renderer_.html">&quot;renderer&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_router_.html">&quot;router&quot;</a>
@@ -873,6 +866,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_string_.html">&quot;string&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_templateengine_.html">&quot;template<wbr>Engine&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_url_.html">&quot;url&quot;</a>
@@ -905,6 +901,9 @@
 								<a href="_pod_.pod.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_pod_.pod.html#engines" class="tsd-kind-icon">engines</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_pod_.pod.html#env" class="tsd-kind-icon">env</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -918,6 +917,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_pod_.pod.html#router" class="tsd-kind-icon">router</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_pod_.pod.html#builtinplugins" class="tsd-kind-icon">Built<wbr>InPlugins</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="_pod_.pod.html#defaultconfigfile" class="tsd-kind-icon">Default<wbr>Config<wbr>File</a>
@@ -963,9 +965,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_pod_.pod.html#readyamlstring" class="tsd-kind-icon">read<wbr>Yaml<wbr>String</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_pod_.pod.html#renderer" class="tsd-kind-icon">renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_pod_.pod.html#staticfile" class="tsd-kind-icon">static<wbr>File</a>

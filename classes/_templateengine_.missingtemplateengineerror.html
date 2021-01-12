@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>LocalizationConfig | @amagaki/amagaki</title>
+	<title>MissingTemplateEngineError | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_pod_.html">&quot;pod&quot;</a>
+					<a href="../modules/_templateengine_.html">&quot;templateEngine&quot;</a>
 				</li>
 				<li>
-					<a href="_pod_.localizationconfig.html">LocalizationConfig</a>
+					<a href="_templateengine_.missingtemplateengineerror.html">MissingTemplateEngineError</a>
 				</li>
 			</ul>
-			<h1>Interface LocalizationConfig</h1>
+			<h1>Class MissingTemplateEngineError</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">LocalizationConfig</span>
+						<a href="_templateengine_.invalidextensionerror.html#error" class="tsd-signature-type">Error</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">MissingTemplateEngineError</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +87,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pod_.localizationconfig.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pod_.localizationconfig.html#locales" class="tsd-kind-icon">locales</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_templateengine_.missingtemplateengineerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_templateengine_.missingtemplateengineerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_templateengine_.missingtemplateengineerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_templateengine_.missingtemplateengineerror.html#error" class="tsd-kind-icon">Error</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,23 +98,46 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="defaultlocale" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Locale</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_templateengine_.invalidextensionerror.html">InvalidExtensionError</a>.<a href="_templateengine_.invalidextensionerror.html#message">message</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L21">src/pod.ts:21</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:974</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="locales" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> locales</h3>
-					<div class="tsd-signature tsd-kind-icon">locales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_templateengine_.invalidextensionerror.html">InvalidExtensionError</a>.<a href="_templateengine_.invalidextensionerror.html#name">name</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:973</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_templateengine_.invalidextensionerror.html">InvalidExtensionError</a>.<a href="_templateengine_.invalidextensionerror.html#stack">stack</a></p>
+						<ul>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:975</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/pod.ts#L22">src/pod.ts:22</a></li>
+							<li>Defined in node_modules/typescript/lib/lib.es5.d.ts:984</li>
 						</ul>
 					</aside>
 				</section>
@@ -158,7 +188,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_plugins_yaml_.html">&quot;plugins/yaml&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_pod_.html">&quot;pod&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -176,7 +206,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_string_.html">&quot;string&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_templateengine_.html">&quot;template<wbr>Engine&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -193,28 +223,37 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_pod_.pod.html" class="tsd-kind-icon">Pod</a>
+						<a href="_templateengine_.invalidextensionerror.html" class="tsd-kind-icon">Invalid<wbr>Extension<wbr>Error</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_pod_.localizationconfig.html" class="tsd-kind-icon">Localization<wbr>Config</a>
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_templateengine_.missingtemplateengineerror.html" class="tsd-kind-icon">Missing<wbr>Template<wbr>Engine<wbr>Error</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pod_.localizationconfig.html#defaultlocale" class="tsd-kind-icon">default<wbr>Locale</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_templateengine_.missingtemplateengineerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_pod_.localizationconfig.html#locales" class="tsd-kind-icon">locales</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_templateengine_.missingtemplateengineerror.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="_templateengine_.missingtemplateengineerror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_templateengine_.missingtemplateengineerror.html#error" class="tsd-kind-icon">Error</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_pod_.metadataconfig.html" class="tsd-kind-icon">Metadata<wbr>Config</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_templateengine_.templateenginemanager.html" class="tsd-kind-icon">Template<wbr>Engine<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_pod_.podconfig.html" class="tsd-kind-icon">Pod<wbr>Config</a>
+						<a href="../interfaces/_templateengine_.templateenginecomponent.html" class="tsd-kind-icon">Template<wbr>Engine<wbr>Component</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_templateengine_.templateengineconstructor.html" class="tsd-kind-icon">Template<wbr>Engine<wbr>Constructor</a>
 					</li>
 				</ul>
 			</nav>
@@ -230,12 +269,17 @@
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

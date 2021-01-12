@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610398471624,
+  "lastUpdate": 1610415263050,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -477,6 +477,100 @@
           {
             "name": "yaml.schema",
             "value": 0.34181000001262873,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "7e4a5e30833a7ab93062f198cbce41df2c9e5564",
+          "message": "Convert from `Renderer` to `TemplateEngine`. (#28)\n\nAdd a template engine manager and move the built-in template engines into build-in plugins.\r\n\r\nMoved the yaml custom types into a built-in yaml plugin.\r\n\r\nAdd a shortcut method for adding custom yaml types, nunjucks filters, and nunjucks globals\r\n\r\nConsolidated the yaml operations.",
+          "timestamp": "2021-01-11T18:32:27-07:00",
+          "tree_id": "ab12b0725894ec0db176d57ff236e580c169439c",
+          "url": "https://github.com/blinkkcode/amagaki/commit/7e4a5e30833a7ab93062f198cbce41df2c9e5564"
+        },
+        "date": 1610415263049,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 5692.767913999967,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 4.010067000985146,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 109.22791900136508,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 1.4874609999824315,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "19 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine",
+            "value": 0.08420400018803775,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine.NunjucksPlugin",
+            "value": 0.06190299987792969,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes",
+            "value": 0.20950899994932115,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes.YamlPlugin",
+            "value": 0.18580799992196262,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 7.849626999814063,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.5610230001620948,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

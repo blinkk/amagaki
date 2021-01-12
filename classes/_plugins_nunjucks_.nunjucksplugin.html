@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Plugins | @amagaki/amagaki</title>
+	<title>NunjucksPlugin | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
+					<a href="../modules/_plugins_nunjucks_.html">&quot;plugins/nunjucks&quot;</a>
 				</li>
 				<li>
-					<a href="_plugins_.plugins.html">Plugins</a>
+					<a href="_plugins_nunjucks_.nunjucksplugin.html">NunjucksPlugin</a>
 				</li>
 			</ul>
-			<h1>Class Plugins</h1>
+			<h1>Class NunjucksPlugin</h1>
 		</div>
 	</div>
 </header>
@@ -70,18 +70,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Plugins allow for extending out the functionality of Amagaki.</p>
+						<p>Plugin providing support for the nunjucks template engine.</p>
 					</div>
-					<p>The plugins class allow for registering new plugins and triggering
-					hooks from within Amagaki to allow plugin interaction.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Plugins</span>
+						<span class="target">NunjucksPlugin</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -91,23 +95,24 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_plugins_.plugins.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_plugins_.plugins.html#plugins" class="tsd-kind-icon">plugins</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_plugins_.plugins.html#pod" class="tsd-kind-icon">pod</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_plugins_.plugins.html#hookpostfix" class="tsd-kind-icon">Hook<wbr>Postfix</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#pod" class="tsd-kind-icon">pod</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_plugins_nunjucks_.nunjucksplugin.html#shortcutfilters" class="tsd-kind-icon">shortcut<wbr>Filters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_plugins_nunjucks_.nunjucksplugin.html#shortcutglobals" class="tsd-kind-icon">shortcut<wbr>Globals</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_.plugins.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_.plugins.html#register" class="tsd-kind-icon">register</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_.plugins.html#trigger" class="tsd-kind-icon">trigger</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#addfilter" class="tsd-kind-icon">add<wbr>Filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#addglobal" class="tsd-kind-icon">add<wbr>Global</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_plugins_nunjucks_.nunjucksplugin.html#createtemplateenginehook" class="tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook</a></li>
 							</ul>
 						</section>
 					</div>
@@ -119,13 +124,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Plugins<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="_pod_.pod.html" class="tsd-signature-type">Pod</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_plugins_.plugins.html" class="tsd-signature-type">Plugins</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Nunjucks<wbr>Plugin<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="_pod_.pod.html" class="tsd-signature-type">Pod</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_plugins_nunjucks_.nunjucksplugin.html" class="tsd-signature-type">NunjucksPlugin</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L45">src/plugins.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L15">src/plugins/nunjucks.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -133,8 +138,11 @@
 								<li>
 									<h5>pod: <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></h5>
 								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_plugins_.plugins.html" class="tsd-signature-type">Plugins</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_plugins_nunjucks_.nunjucksplugin.html" class="tsd-signature-type">NunjucksPlugin</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -142,32 +150,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="plugins" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> plugins</h3>
-					<div class="tsd-signature tsd-kind-icon">plugins<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L45">src/plugins.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L12">src/plugins/nunjucks.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="pod" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> pod</h3>
+					<h3>pod</h3>
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="_pod_.pod.html" class="tsd-signature-type">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L44">src/plugins.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L13">src/plugins/nunjucks.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="hookpostfix" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Hook<wbr>Postfix</h3>
-					<div class="tsd-signature tsd-kind-icon">Hook<wbr>Postfix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;Hook&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="shortcutfilters" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> shortcut<wbr>Filters</h3>
+					<div class="tsd-signature tsd-kind-icon">shortcut<wbr>Filters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L42">src/plugins.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L14">src/plugins/nunjucks.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="shortcutglobals" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> shortcut<wbr>Globals</h3>
+					<div class="tsd-signature tsd-kind-icon">shortcut<wbr>Globals<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L15">src/plugins/nunjucks.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,67 +193,25 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="get" class="tsd-anchor"></a>
-					<h3>get</h3>
+					<a name="addfilter" class="tsd-anchor"></a>
+					<h3>add<wbr>Filter</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Filter<span class="tsd-signature-symbol">(</span>filterName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, filterMethod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L56">src/plugins.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L27">src/plugins/nunjucks.ts:27</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Retrieve the first instance of a plugin by class name if it exists.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>name: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Plugin class name for locating existing plugin.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_plugins_.plugincomponent.html" class="tsd-signature-type">PluginComponent</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="register" class="tsd-anchor"></a>
-					<h3>register</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">register<span class="tsd-signature-symbol">(</span>PluginClass<span class="tsd-signature-symbol">: </span><a href="../interfaces/_plugins_.pluginconstructor.html" class="tsd-signature-type">PluginConstructor</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L71">src/plugins.ts:71</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Register a new plugin.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>PluginClass: <a href="../interfaces/_plugins_.pluginconstructor.html" class="tsd-signature-type">PluginConstructor</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Class for the plugin.</p>
-									</div>
+									<h5>filterName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>config: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Configuration object passed to the new plugin instance.</p>
-									</div>
+									<h5>filterMethod: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -243,37 +219,51 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="trigger" class="tsd-anchor"></a>
-					<h3>trigger</h3>
+					<a name="addglobal" class="tsd-anchor"></a>
+					<h3>add<wbr>Global</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">trigger<span class="tsd-signature-symbol">(</span>hookName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Global<span class="tsd-signature-symbol">(</span>globalName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, globalMethod<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins.ts#L81">src/plugins.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L31">src/plugins/nunjucks.ts:31</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Triggers a hook handler on each of the registered plugins passing along
-									the provided arguments.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>hookName: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Name of the hook being triggered.</p>
-									</div>
+									<h5>globalName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Any arguments that need to be passed to the triggered event handler.</p>
-									</div>
+									<h5>globalMethod: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="createtemplateenginehook" class="tsd-anchor"></a>
+					<h3>create<wbr>Template<wbr>Engine<wbr>Hook</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook<span class="tsd-signature-symbol">(</span>templateEngine<span class="tsd-signature-symbol">: </span><a href="../interfaces/_templateengine_.templateenginecomponent.html" class="tsd-signature-type">TemplateEngineComponent</a>, extension<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/plugins/nunjucks.ts#L35">src/plugins/nunjucks.ts:35</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>templateEngine: <a href="../interfaces/_templateengine_.templateenginecomponent.html" class="tsd-signature-type">TemplateEngineComponent</a></h5>
+								</li>
+								<li>
+									<h5>extension: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -318,10 +308,10 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_locale_.html">&quot;locale&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_plugins_.html">&quot;plugins&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_plugins_nunjucks_.html">&quot;plugins/nunjucks&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -364,38 +354,41 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="_plugins_.plugins.html" class="tsd-kind-icon">Plugins</a>
+						<a href="_plugins_nunjucks_.nunjucksplugin.html" class="tsd-kind-icon">Nunjucks<wbr>Plugin</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#plugins" class="tsd-kind-icon">plugins</a>
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#pod" class="tsd-kind-icon">pod</a>
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#pod" class="tsd-kind-icon">pod</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="_plugins_.plugins.html#hookpostfix" class="tsd-kind-icon">Hook<wbr>Postfix</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#shortcutfilters" class="tsd-kind-icon">shortcut<wbr>Filters</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#get" class="tsd-kind-icon">get</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#register" class="tsd-kind-icon">register</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#shortcutglobals" class="tsd-kind-icon">shortcut<wbr>Globals</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_plugins_.plugins.html#trigger" class="tsd-kind-icon">trigger</a>
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#addfilter" class="tsd-kind-icon">add<wbr>Filter</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#addglobal" class="tsd-kind-icon">add<wbr>Global</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_plugins_nunjucks_.nunjucksplugin.html#createtemplateenginehook" class="tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_plugins_.plugincomponent.html" class="tsd-kind-icon">Plugin<wbr>Component</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_plugins_nunjucks_.nunjuckspodloader.html" class="tsd-kind-icon">Nunjucks<wbr>Pod<wbr>Loader</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_plugins_.pluginconstructor.html" class="tsd-kind-icon">Plugin<wbr>Constructor</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_plugins_nunjucks_.nunjuckstemplateengine.html" class="tsd-kind-icon">Nunjucks<wbr>Template<wbr>Engine</a>
 					</li>
 				</ul>
 			</nav>
@@ -421,7 +414,7 @@
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 			</ul>
 		</div>
 	</div>

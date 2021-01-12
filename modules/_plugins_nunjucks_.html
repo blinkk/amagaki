@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;profile&quot; | @amagaki/amagaki</title>
+	<title>&quot;plugins/nunjucks&quot; | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_profile_.html">&quot;profile&quot;</a>
+					<a href="_plugins_nunjucks_.html">&quot;plugins/nunjucks&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;profile&quot;</h1>
+			<h1>Module &quot;plugins/nunjucks&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,80 +71,12 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_profile_.profiler.html" class="tsd-kind-icon">Profiler</a></li>
-								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_profile_.timer.html" class="tsd-kind-icon">Timer</a></li>
-								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_profile_.timertype.html" class="tsd-kind-icon">Timer<wbr>Type</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/_profile_.timeparts.html" class="tsd-kind-icon">Time<wbr>Parts</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_profile_.html#default_report_keys" class="tsd-kind-icon">DEFAULT_<wbr>REPORT_<wbr>KEYS</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported"><a href="_profile_.html#default_threshold" class="tsd-kind-icon">DEFAULT_<wbr>THRESHOLD</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_profile_.html#timeformat" class="tsd-kind-icon">time<wbr>Format</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_plugins_nunjucks_.nunjucksplugin.html" class="tsd-kind-icon">Nunjucks<wbr>Plugin</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_plugins_nunjucks_.nunjuckspodloader.html" class="tsd-kind-icon">Nunjucks<wbr>Pod<wbr>Loader</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_plugins_nunjucks_.nunjuckstemplateengine.html" class="tsd-kind-icon">Nunjucks<wbr>Template<wbr>Engine</a></li>
 							</ul>
 						</section>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="default_report_keys" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> DEFAULT_<wbr>REPORT_<wbr>KEYS</h3>
-					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>REPORT_<wbr>KEYS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [/document\..*/, /file\..*/, /yaml\..*/]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/profile.ts#L11">src/profile.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-					<a name="default_threshold" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> DEFAULT_<wbr>THRESHOLD</h3>
-					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>THRESHOLD<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0.2</span><span class="tsd-signature-symbol"> = 0.2</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/profile.ts#L12">src/profile.ts:12</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="timeformat" class="tsd-anchor"></a>
-					<h3>time<wbr>Format</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">time<wbr>Format<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7e4a5e3/src/profile.ts#L254">src/profile.ts:254</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>value: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -187,7 +119,7 @@
 					<li class=" tsd-kind-module">
 						<a href="_plugins_.html">&quot;plugins&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="_plugins_nunjucks_.html">&quot;plugins/nunjucks&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -196,7 +128,7 @@
 					<li class=" tsd-kind-module">
 						<a href="_pod_.html">&quot;pod&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="_profile_.html">&quot;profile&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -228,25 +160,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_profile_.profiler.html" class="tsd-kind-icon">Profiler</a>
+						<a href="../classes/_plugins_nunjucks_.nunjucksplugin.html" class="tsd-kind-icon">Nunjucks<wbr>Plugin</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_plugins_nunjucks_.nunjuckspodloader.html" class="tsd-kind-icon">Nunjucks<wbr>Pod<wbr>Loader</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_profile_.timer.html" class="tsd-kind-icon">Timer</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_profile_.timertype.html" class="tsd-kind-icon">Timer<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../interfaces/_profile_.timeparts.html" class="tsd-kind-icon">Time<wbr>Parts</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_profile_.html#default_report_keys" class="tsd-kind-icon">DEFAULT_<wbr>REPORT_<wbr>KEYS</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_profile_.html#default_threshold" class="tsd-kind-icon">DEFAULT_<wbr>THRESHOLD</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_profile_.html#timeformat" class="tsd-kind-icon">time<wbr>Format</a>
+						<a href="../classes/_plugins_nunjucks_.nunjuckstemplateengine.html" class="tsd-kind-icon">Nunjucks<wbr>Template<wbr>Engine</a>
 					</li>
 				</ul>
 			</nav>

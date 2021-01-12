@@ -75,7 +75,7 @@ export class Pod {
     };
     this.cache = new Cache(this);
 
-    // Register built-in plugins before the amagaki.js config to be consistent
+    // Register built-in plugins before the amagaki.js config to be consistent with
     // external plugin hooks and allow external plugins to work with the built-in
     // plugins.
     for (const BuiltInPlugin of BUILT_IN_PLUGINS) {

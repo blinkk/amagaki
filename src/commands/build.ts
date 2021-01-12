@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import {GlobalOptions} from './global';
 import {Pod} from '../pod';
+import {ProfileReport} from '../profile';
 
 interface BuildOptions {
   outputDirectory?: string;
@@ -24,7 +25,9 @@ export class BuildCommand {
       timer.stop();
     }
 
-    pod.profiler.report([], this.globalOptions.profile);
+    const report = new ProfileReport(pod.profiler);
+    report.output(this.globalOptions.profile);
+
     await pod.builder.exportBenchmark();
   }
 }

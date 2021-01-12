@@ -94,7 +94,7 @@ export class Plugins {
         if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
             `plugins.trigger.${hookName}.${plugin.constructor.name}`,
-            `${plugin.constructor.name} hook: ${hookName}`,
+            `${plugin.constructor.name}`,
             {
               trigger: hookName,
               plugin: plugin.constructor.name,

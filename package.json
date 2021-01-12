@@ -56,8 +56,10 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@types/cli-table": "^0.3.0",
     "async": "^3.2.0",
     "cli-progress": "^3.8.2",
+    "cli-table": "^0.3.4",
     "commander": "^5.1.0",
     "express": "^4.17.1",
     "js-yaml": "^3.14.1",

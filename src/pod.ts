@@ -1,7 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
-import {BUILT_IN_PLUGINS, Plugins} from './plugins';
 import {Locale, LocaleSet} from './locale';
+import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
@@ -11,9 +11,11 @@ import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
+import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
 import {TemplateEngineManager} from './templateEngine';
+import {YamlPlugin} from './plugins/yaml';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -38,6 +40,10 @@ export interface PodConfig {
  * the different elements of a site and operating on them.
  */
 export class Pod {
+  static BuiltInPlugins: Array<PluginConstructor> = [
+    NunjucksPlugin,
+    YamlPlugin,
+  ];
   static DefaultLocalization: LocalizationConfig = {
     defaultLocale: 'en',
     locales: ['en'],
@@ -78,7 +84,7 @@ export class Pod {
     // Register built-in plugins before the amagaki.js config to be consistent with
     // external plugin hooks and allow external plugins to work with the built-in
     // plugins.
-    for (const BuiltInPlugin of BUILT_IN_PLUGINS) {
+    for (const BuiltInPlugin of Pod.BuiltInPlugins) {
       this.plugins.register(BuiltInPlugin, {});
     }
 

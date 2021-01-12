@@ -1,10 +1,6 @@
-import {TemplateEngineComponent, TemplateEngineManager} from './templateEngine';
 import {CustomYamlTypes} from './utils';
-import {NunjucksPlugin} from './plugins/nunjucks';
 import {Pod} from './pod';
-import {YamlPlugin} from './plugins/yaml';
-
-export const BUILT_IN_PLUGINS = [NunjucksPlugin, YamlPlugin];
+import {TemplateEngineComponent} from './templateEngine';
 
 /**
  * Interface for defining plugins to work with amagaki.

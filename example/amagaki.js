@@ -30,12 +30,8 @@ module.exports = function (pod) {
   yamlPlugin.addType(
     new yaml.Type('!a.Bar', {
       kind: 'scalar',
-      resolve: () => {
-        return true;
-      },
-      construct: value => {
-        return `Bar: ${value}`;
-      },
+      resolve: () => true,
+      construct: value => `Bar: ${value}`,
       represent: value => value,
     })
   );

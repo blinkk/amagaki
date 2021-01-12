@@ -9,10 +9,17 @@ import {Pod} from '../pod';
 export class YamlPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
+  private shortcutTypes: Array<yaml.Type>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
     this.config = config;
+    this.shortcutTypes = [];
+  }
+
+  // Shortcut for adding custom yaml types without creating a full plugin.
+  addType(type: yaml.Type) {
+    this.shortcutTypes.push(type);
   }
 
   createYamlTypesHook(customTypes: CustomYamlTypes) {
@@ -93,5 +100,9 @@ export class YamlPlugin implements PluginComponent {
         },
       })
     );
+
+    for (const shortcutType of this.shortcutTypes) {
+      customTypes.addType(shortcutType);
+    }
   }
 }

@@ -1,4 +1,5 @@
 const ExamplePlugin = require('./plugins/example');
+const yaml = require('js-yaml');
 
 module.exports = function (pod) {
   pod.configure({
@@ -18,4 +19,19 @@ module.exports = function (pod) {
   });
 
   pod.plugins.register(ExamplePlugin, {});
+
+  // Shortcut method for adding custom yaml types.
+  const yamlPlugin = pod.plugins.get('YamlPlugin');
+  yamlPlugin.addType(
+    new yaml.Type('!a.Bar', {
+      kind: 'scalar',
+      resolve: () => {
+        return true;
+      },
+      construct: value => {
+        return `Bar: ${value}`;
+      },
+      represent: value => value,
+    })
+  );
 };

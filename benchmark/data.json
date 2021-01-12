@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610415263050,
+  "lastUpdate": 1610416676730,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -571,6 +571,100 @@
           {
             "name": "yaml.schema",
             "value": 0.5610230001620948,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "committer": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "distinct": true,
+          "id": "3c00c4aec9a255c155ce7e0ada2fff38e7567051",
+          "message": "Fix doc reference to the yaml type manager.",
+          "timestamp": "2021-01-11T18:56:57-07:00",
+          "tree_id": "93fe7540ed39a54de2da6d829c374e0b18619a36",
+          "url": "https://github.com/blinkkcode/amagaki/commit/3c00c4aec9a255c155ce7e0ada2fff38e7567051"
+        },
+        "date": 1610416676729,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 5068.092476000005,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 3.6601050000317628,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 73.30978000008326,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 1.3068019999773242,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "19 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine",
+            "value": 0.07989999999699648,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine.NunjucksPlugin",
+            "value": 0.05789999999979045,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes",
+            "value": 0.2658999999985099,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes.YamlPlugin",
+            "value": 0.24360000000160653,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 7.179010000007111,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.5824010000069393,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

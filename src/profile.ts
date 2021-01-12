@@ -334,9 +334,6 @@ export class ProfileReport {
 
     // Show hook timers.
     filteredTimerTypes = this.filter((timerKey: string) => {
-      if (shownTimerKeys.has(timerKey)) {
-        return false;
-      }
       return ProfileReport.HOOK_REPORT_REGEX.test(timerKey);
     });
     for (const timerKey of Object.keys(filteredTimerTypes)) {

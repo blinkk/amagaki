@@ -1,7 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
+import {BUILT_IN_PLUGINS, Plugins} from './plugins';
 import {Locale, LocaleSet} from './locale';
-import {Renderer, getRenderer} from './renderer';
 import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {existsSync, readFileSync} from 'fs';
@@ -11,9 +11,9 @@ import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
-import {Plugins} from './plugins';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
+import {TemplateEngineManager} from './templateEngine';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -46,6 +46,7 @@ export class Pod {
   readonly builder: Builder;
   readonly cache: Cache;
   config: PodConfig;
+  readonly engines: TemplateEngineManager;
   readonly env: Environment;
   readonly profiler: Profiler;
   readonly plugins: Plugins;
@@ -58,6 +59,7 @@ export class Pod {
     this.root = resolve(root);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);
+    this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -72,6 +74,13 @@ export class Pod {
       },
     };
     this.cache = new Cache(this);
+
+    // Register built-in plugins before the amagaki.js config to be consistent
+    // external plugin hooks and allow external plugins to work with the built-in
+    // plugins.
+    for (const BuiltInPlugin of BUILT_IN_PLUGINS) {
+      this.plugins.register(BuiltInPlugin, {});
+    }
 
     // Setup the pod using the amagaki.js file.
     if (this.fileExists(Pod.DefaultConfigFile)) {
@@ -239,17 +248,6 @@ export class Pod {
     }
 
     return this.cache.yamlStrings[cacheKey];
-  }
-
-  /**
-   * Returns a template renderer used for a template engine.
-   * @param path The renderer's file extension, without a leading dot. Example: "njk".
-   */
-  renderer(path: string): Renderer {
-    const rendererClass = getRenderer(path);
-    const renderer = new rendererClass(this);
-    this.plugins.trigger('createRenderer', renderer);
-    return renderer;
   }
 
   /**

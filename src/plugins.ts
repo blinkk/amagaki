@@ -1,15 +1,32 @@
+import {TemplateEngineComponent, TemplateEngineManager} from './templateEngine';
 import {CustomYamlTypes} from './utils';
+import {NunjucksPlugin} from './plugins/nunjucks';
 import {Pod} from './pod';
-import {Renderer} from './renderer';
+import {YamlPlugin} from './plugins/yaml';
+
+export const BUILT_IN_PLUGINS = [NunjucksPlugin, YamlPlugin];
 
 /**
  * Interface for defining plugins to work with amagaki.
  */
 export interface PluginComponent {
   /**
-   * Hook for manipulating the renderer after it is initially created.
+   * Hook for manipulating the template engine after it is initially created.
+   *
+   * Used for creating template filters, globals, macros, etc.
    */
-  createRendererHook?: (renderer: Renderer) => void;
+  createTemplateEngineHook?: (
+    templateEngine: TemplateEngineComponent,
+    extension: string
+  ) => void;
+  /**
+   * Hook for managing the available template engines for rendering.
+   *
+   * Used for associating new template engines with file extensions.
+   */
+  createTemplateEngineManagerHook?: (
+    templateEngineManager: TemplateEngineManager
+  ) => void;
   /**
    * Hook for defining custom yaml types for the yaml schema.
    * @see {@link CustomYamlTypes} for adding custom yaml types.

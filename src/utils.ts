@@ -74,79 +74,9 @@ export function basename(path: string) {
 }
 
 export function createYamlSchema(pod: Pod) {
-  // TODO: Expose YAML schemas for sites to register additional types.
-  const docType = new yaml.Type('!a.Doc', {
-    kind: 'scalar',
-    resolve: data => {
-      // TODO: Validate this is in the content folder.
-      return data !== null && data.startsWith('/');
-    },
-    construct: podPath => {
-      return pod.doc(podPath);
-    },
-    represent: doc => {
-      return doc;
-    },
-  });
-  const staticType = new yaml.Type('!a.Static', {
-    kind: 'scalar',
-    resolve: data => {
-      // TODO: Add more validation?
-      return data !== null && data.startsWith('/');
-    },
-    construct: podPath => {
-      return pod.staticFile(podPath);
-    },
-    represent: staticFile => {
-      return staticFile;
-    },
-  });
-  const stringType = new yaml.Type('!a.String', {
-    kind: 'mapping',
-    resolve: data => {
-      return (
-        typeof data === 'string' ||
-        (typeof data === 'object' && 'value' in data)
-      );
-    },
-    construct: value => {
-      return pod.string(value);
-    },
-    represent: string => {
-      return string;
-    },
-  });
-  const yamlType = new yaml.Type('!a.Yaml', {
-    kind: 'scalar',
-    resolve: data => {
-      // TODO: Add more validation?
-      return data !== null && data.startsWith('/');
-    },
-    construct: value => {
-      // value can be: /content/partials/base.yaml
-      // value can be: /content/partials/base.yaml?foo
-      // value can be: /content/partials/base.yaml?foo.bar.baz
-      const parts = value.split('?');
-      const podPath = parts[0];
-      const result = pod.readYaml(podPath);
-      if (parts.length > 1) {
-        const query = parts[1].split('.');
-        // TODO: Implement nested lookups.
-        return result[query[0]];
-      } else {
-        return result;
-      }
-    },
-    represent: string => {
-      return string;
-    },
-  });
-
-  const builtInTypes = [docType, staticType, stringType, yamlType];
   const customTypes = new CustomYamlTypes();
   pod.plugins.trigger('createYamlTypes', customTypes);
-
-  return yaml.Schema.create(builtInTypes.concat(customTypes.types));
+  return yaml.Schema.create(customTypes.types);
 }
 
 export function formatBytes(bytes: number) {

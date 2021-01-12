@@ -1,38 +1,35 @@
 import * as nunjucks from 'nunjucks';
-import * as utils from './utils';
-import {Pod} from './pod';
+import {formatBytes, getLocalizedValue} from '../utils';
+import {PluginComponent} from '../plugins';
+import {Pod} from '../pod';
+import {TemplateEngineComponent} from '../templateEngine';
 import marked from 'marked';
 
-export class Renderer {
+/**
+ * Plugin providing support for the nunjucks template engine.
+ */
+export class NunjucksPlugin implements PluginComponent {
+  config: Record<string, any>;
+  pod: Pod;
+
+  constructor(pod: Pod, config: Record<string, any>) {
+    this.pod = pod;
+    this.config = config;
+
+    // Associate the engine during creation of pod.
+    this.pod.engines.associate('.njk', NunjucksTemplateEngine);
+  }
+}
+
+/**
+ * Template engine providing support for the nunjucks templating.
+ */
+export class NunjucksTemplateEngine implements TemplateEngineComponent {
+  env: nunjucks.Environment;
   pod: Pod;
 
   constructor(pod: Pod) {
     this.pod = pod;
-  }
-
-  configure() {}
-
-  async render(template: string, context: any): Promise<string> {
-    throw new Error();
-  }
-}
-
-export function getRenderer(path: string) {
-  if (path.endsWith('.njk')) {
-    return NunjucksRenderer;
-  } else if (path.endsWith('.js')) {
-    return JavaScriptRenderer;
-  } // TODO: Raise if no renderer available.
-  return NunjucksRenderer;
-}
-
-export class JavaScriptRenderer extends Renderer {}
-
-export class NunjucksRenderer extends Renderer {
-  env: nunjucks.Environment;
-
-  constructor(pod: Pod) {
-    super(pod);
     const loader = new NunjucksPodLoader(this.pod);
     this.env = new nunjucks.Environment([loader], {
       autoescape: true,
@@ -45,10 +42,10 @@ export class NunjucksRenderer extends Renderer {
     this.env.addFilter('localize', function (parent, key) {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
       // @ts-ignore
-      return utils.getLocalizedValue(this.ctx.doc, parent, key);
+      return getLocalizedValue(this.ctx.doc, parent, key);
     });
     this.env.addFilter('formatBytes', value => {
-      return utils.formatBytes(value);
+      return formatBytes(value);
     });
     this.env.addFilter('markdown', value => {
       if (!value) {
@@ -63,6 +60,9 @@ export class NunjucksRenderer extends Renderer {
   }
 }
 
+/**
+ * Loader for loading files from the pod for the nunjucks template engine.
+ */
 class NunjucksPodLoader extends nunjucks.Loader {
   pod: Pod;
 

@@ -6,9 +6,9 @@ class ExamplePlugin {
     this.config = config;
   }
 
-  createRendererHook(renderer) {
-    if (renderer.constructor.name === 'NunjucksRenderer') {
-      renderer.env.addFilter('testPluginFilter', value => {
+  createTemplateEngineHook(templateEngine, extension) {
+    if (templateEngine.constructor.name === 'NunjucksTemplateEngine') {
+      templateEngine.env.addFilter('testPluginFilter', value => {
         return `${value}--TESTING`;
       });
     }

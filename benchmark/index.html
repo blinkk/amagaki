@@ -83,21 +83,19 @@
         max-width: 1000px;
       }
     </style>
-    <title>Benchmarks</title>
+    <title>Amagaki Benchmarks</title>
   </head>
   <body>
-    <header id="header">
-      <div class="header-item">
-        <strong class="header-label">Last Update:</strong>
-        <span id="last-update"></span>
-      </div>
-      <div class="header-item">
-        <strong class="header-label">Repository:</strong>
-        <a id="repository-link" rel="noopener"></a>
-      </div>
-    </header>
     <main id="main"></main>
     <footer>
+      <div class="footer-item">
+        <strong class="footer-label">Repository:</strong>
+        <a id="repository-link" rel="noopener"></a>
+      </div>
+      <div class="footer-item">
+        <strong class="footer-label">Last Update:</strong>
+        <span id="last-update"></span>
+      </div>
       <div class="small">Powered by <a rel="noopener" href="https://github.com/marketplace/actions/continuous-benchmark">github-action-benchmark</a></div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
@@ -115,6 +113,7 @@
           catch2: '#f34b7d',
           _: '#333333'
         };
+
         function init() {
           function collectBenchesPerTestCase(entries) {
             const map = new Map();
@@ -132,11 +131,13 @@
             }
             return map;
           }
-          // Render header
+
+          // Render footer
           document.getElementById('last-update').textContent = new Date(data.lastUpdate).toString();
           const repoLink = document.getElementById('repository-link');
           repoLink.href = data.repoUrl;
           repoLink.textContent = data.repoUrl;
+
           // Prepare data points for charts
           return Object.keys(data.entries).map(name => ({
             name,

@@ -8,16 +8,6 @@ interface TimeParts {
   seconds: number;
 }
 
-interface ProfileReportItem {
-  average: number;
-  sum: number;
-  key: string;
-  label: string;
-  count: number;
-  maximum: number;
-  minimum: number;
-}
-
 export class Profiler {
   timerTypes: Record<string, TimerType>;
 
@@ -222,31 +212,16 @@ export class Timer {
 }
 
 export class ProfileReport {
-  static HOOK_REPORT_REGEX = /^plugins\.trigger\..*/;
-  static HOOK_REPORT_SUB_REGEX = /^plugins\.trigger\.[^\.]*\./;
+  static HOOK_REPORT_REGEX = /^plugins\.hook\..*/;
+  static HOOK_REPORT_SUB_REGEX = /^plugins\.hook\.[^\.]*\./;
   static THRESHOLD = 0.2;
   static MAX_WIDTH = 80;
   logMethod: Function;
   profiler: Profiler;
-  reportItems: Record<string, ProfileReportItem>;
 
   constructor(profiler: Profiler, logMethod = console.log) {
     this.logMethod = logMethod;
     this.profiler = profiler;
-    this.reportItems = {};
-
-    for (const timerKey of Object.keys(this.profiler.timerTypes).sort()) {
-      const timerType = this.profiler.timerTypes[timerKey];
-      this.reportItems[timerKey] = {
-        average: timerType.average,
-        sum: timerType.sum,
-        key: timerKey,
-        label: timerType.label || timerType.key,
-        count: timerType.length,
-        maximum: timerType.maximum,
-        minimum: timerType.minimum,
-      };
-    }
   }
 
   filter(filterFunc: Function): Record<string, TimerType> {
@@ -345,9 +320,9 @@ export class ProfileReport {
       (timerKey: string, timerType: TimerType, label: string) => {
         // Indent the plugin hook information.
         if (ProfileReport.HOOK_REPORT_SUB_REGEX.test(timerKey)) {
-          return `  ${label}`;
+          return `  ${timerType.meta.plugin}`;
         }
-        return label;
+        return timerType.meta.hook;
       }
     );
 

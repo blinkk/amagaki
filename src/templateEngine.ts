@@ -15,7 +15,7 @@ export interface TemplateEngineConstructor {
 export class TemplateEngineManager {
   pod: Pod;
   private engines: Record<string, TemplateEngineComponent>;
-  extToClass: Record<string, TemplateEngineConstructor>;
+  private extToClass: Record<string, TemplateEngineConstructor>;
 
   constructor(pod: Pod) {
     this.pod = pod;

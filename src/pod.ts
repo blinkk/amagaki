@@ -4,6 +4,7 @@ import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
+import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
 import {Builder} from './builder';
@@ -15,7 +16,6 @@ import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
 import {TemplateEngineManager} from './templateEngine';
-import {YamlPlugin} from './plugins/yaml';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -305,7 +305,9 @@ export class Pod {
 
     const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
     try {
-      this.cache.yamlSchema = utils.createYamlSchema(this);
+      const yamlTypeManager = new YamlTypeManager();
+      this.plugins.trigger('createYamlTypes', yamlTypeManager);
+      this.cache.yamlSchema = yaml.Schema.create(yamlTypeManager.types);
     } finally {
       timer.stop();
     }

@@ -14,8 +14,8 @@ class ExamplePlugin {
     }
   }
 
-  createYamlTypesHook(customTypes) {
-    customTypes.addType(
+  createYamlTypesHook(yamlTypeManager) {
+    yamlTypeManager.addType(
       new yaml.Type('!a.Foo', {
         kind: 'scalar',
         resolve: () => {

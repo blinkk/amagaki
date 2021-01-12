@@ -1,5 +1,4 @@
 import * as yaml from 'js-yaml';
-import {CustomYamlTypes} from '../utils';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 
@@ -22,8 +21,8 @@ export class YamlPlugin implements PluginComponent {
     this.shortcutTypes.push(type);
   }
 
-  createYamlTypesHook(customTypes: CustomYamlTypes) {
-    customTypes.addType(
+  createYamlTypesHook(yamlTypeManager: YamlTypeManager) {
+    yamlTypeManager.addType(
       new yaml.Type('!a.Doc', {
         kind: 'scalar',
         resolve: data => {
@@ -39,7 +38,7 @@ export class YamlPlugin implements PluginComponent {
       })
     );
 
-    customTypes.addType(
+    yamlTypeManager.addType(
       new yaml.Type('!a.Static', {
         kind: 'scalar',
         resolve: data => {
@@ -55,7 +54,7 @@ export class YamlPlugin implements PluginComponent {
       })
     );
 
-    customTypes.addType(
+    yamlTypeManager.addType(
       new yaml.Type('!a.String', {
         kind: 'mapping',
         resolve: data => {
@@ -73,7 +72,7 @@ export class YamlPlugin implements PluginComponent {
       })
     );
 
-    customTypes.addType(
+    yamlTypeManager.addType(
       new yaml.Type('!a.Yaml', {
         kind: 'scalar',
         resolve: data => {
@@ -102,7 +101,22 @@ export class YamlPlugin implements PluginComponent {
     );
 
     for (const shortcutType of this.shortcutTypes) {
-      customTypes.addType(shortcutType);
+      yamlTypeManager.addType(shortcutType);
     }
+  }
+}
+
+/**
+ * Custom yaml type manager for adding custom yaml types.
+ */
+export class YamlTypeManager {
+  types: Array<yaml.Type>;
+
+  constructor() {
+    this.types = [];
+  }
+
+  addType(yamlType: yaml.Type) {
+    this.types.push(yamlType);
   }
 }

@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
-import * as yaml from 'js-yaml';
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
@@ -71,12 +70,6 @@ export class DataType {
 
 export function basename(path: string) {
   return path.split('/').reverse()[0];
-}
-
-export function createYamlSchema(pod: Pod) {
-  const customTypes = new CustomYamlTypes();
-  pod.plugins.trigger('createYamlTypes', customTypes);
-  return yaml.Schema.create(customTypes.types);
 }
 
 export function formatBytes(bytes: number) {
@@ -176,16 +169,4 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
     }
   });
   return files;
-}
-
-export class CustomYamlTypes {
-  types: Array<yaml.Type>;
-
-  constructor() {
-    this.types = [];
-  }
-
-  addType(yamlType: yaml.Type) {
-    this.types.push(yamlType);
-  }
 }

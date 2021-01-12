@@ -16,11 +16,6 @@
         font-size: 1em;
         font-weight: 400;
       }
-      header {
-        margin-bottom: 8px;
-        display: flex;
-        flex-direction: column;
-      }
       main {
         width: 100%;
         display: flex;
@@ -52,9 +47,10 @@
         font-size: 0.75rem;
       }
       footer {
-        margin-top: 16px;
-        display: flex;
         align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
       }
       .header-label {
         margin-right: 4px;
@@ -89,8 +85,7 @@
     <main id="main"></main>
     <footer>
       <div class="footer-item">
-        <strong class="footer-label">Repository:</strong>
-        <a id="repository-link" rel="noopener"></a>
+        <strong class="footer-label"><a rel="noopener" href="https://amagaki.dev">Amagaki</a></strong>
       </div>
       <div class="footer-item">
         <strong class="footer-label">Last Update:</strong>
@@ -134,9 +129,6 @@
 
           // Render footer
           document.getElementById('last-update').textContent = new Date(data.lastUpdate).toString();
-          const repoLink = document.getElementById('repository-link');
-          repoLink.href = data.repoUrl;
-          repoLink.textContent = data.repoUrl;
 
           // Prepare data points for charts
           return Object.keys(data.entries).map(name => ({

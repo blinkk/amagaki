@@ -1,9 +1,10 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 import {Locale, LocaleSet} from './locale';
-import {Renderer, getRenderer} from './renderer';
+import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
+import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
 import {Builder} from './builder';
@@ -11,9 +12,10 @@ import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
 import {Environment} from './environment';
-import {Plugins} from './plugins';
+import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
+import {TemplateEngineManager} from './templateEngine';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -38,6 +40,10 @@ export interface PodConfig {
  * the different elements of a site and operating on them.
  */
 export class Pod {
+  static BuiltInPlugins: Array<PluginConstructor> = [
+    NunjucksPlugin,
+    YamlPlugin,
+  ];
   static DefaultLocalization: LocalizationConfig = {
     defaultLocale: 'en',
     locales: ['en'],
@@ -46,6 +52,7 @@ export class Pod {
   readonly builder: Builder;
   readonly cache: Cache;
   config: PodConfig;
+  readonly engines: TemplateEngineManager;
   readonly env: Environment;
   readonly profiler: Profiler;
   readonly plugins: Plugins;
@@ -58,6 +65,7 @@ export class Pod {
     this.root = resolve(root);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);
+    this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
     this.env = new Environment({
@@ -72,6 +80,13 @@ export class Pod {
       },
     };
     this.cache = new Cache(this);
+
+    // Register built-in plugins before the amagaki.js config to be consistent with
+    // external plugin hooks and allow external plugins to work with the built-in
+    // plugins.
+    for (const BuiltInPlugin of Pod.BuiltInPlugins) {
+      this.plugins.register(BuiltInPlugin, {});
+    }
 
     // Setup the pod using the amagaki.js file.
     if (this.fileExists(Pod.DefaultConfigFile)) {
@@ -242,17 +257,6 @@ export class Pod {
   }
 
   /**
-   * Returns a template renderer used for a template engine.
-   * @param path The renderer's file extension, without a leading dot. Example: "njk".
-   */
-  renderer(path: string): Renderer {
-    const rendererClass = getRenderer(path);
-    const renderer = new rendererClass(this);
-    this.plugins.trigger('createRenderer', renderer);
-    return renderer;
-  }
-
-  /**
    * Returns a static file object.
    * @param path The podPath to the static file.
    */
@@ -301,7 +305,9 @@ export class Pod {
 
     const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
     try {
-      this.cache.yamlSchema = utils.createYamlSchema(this);
+      const yamlTypeManager = new YamlTypeManager();
+      this.plugins.trigger('createYamlTypes', yamlTypeManager);
+      this.cache.yamlSchema = yaml.Schema.create(yamlTypeManager.types);
     } finally {
       timer.stop();
     }

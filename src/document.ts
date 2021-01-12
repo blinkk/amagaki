@@ -2,10 +2,8 @@ import * as fsPath from 'path';
 import * as utils from './utils';
 import {Locale, LocaleSet} from './locale';
 import {Pod} from './pod';
-import {Renderer} from './renderer';
 import {Url} from './url';
 
-const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
 
 interface DocumentParts {
@@ -46,7 +44,6 @@ export class Document {
   path: string;
   locale: Locale;
   pod: Pod;
-  renderer: Renderer;
   readonly ext: string;
   private parts: DocumentParts;
   private _content?: string | null;
@@ -55,7 +52,6 @@ export class Document {
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
-    this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
     this.parts = {};
@@ -95,7 +91,8 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    return this.renderer.render(this.view, context);
+    const templateEngine = this.pod.engines.getEngineByFilename(this.view);
+    return templateEngine.render(this.view, context);
   }
 
   /**

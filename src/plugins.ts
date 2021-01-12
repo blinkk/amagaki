@@ -1,21 +1,31 @@
-import {CustomYamlTypes} from './utils';
 import {Pod} from './pod';
-import {Renderer} from './renderer';
+import {TemplateEngineComponent} from './templateEngine';
+import {YamlTypeManager} from './plugins/yaml';
 
 /**
  * Interface for defining plugins to work with amagaki.
  */
 export interface PluginComponent {
   /**
-   * Hook for manipulating the renderer after it is initially created.
+   * Hook for manipulating the template engine after it is initially created.
+   *
+   * Used for creating template filters, globals, macros, etc.
    */
-  createRendererHook?: (renderer: Renderer) => void;
+  createTemplateEngineHook?: (
+    templateEngine: TemplateEngineComponent,
+    extension: string
+  ) => void;
   /**
    * Hook for defining custom yaml types for the yaml schema.
    * @see {@link CustomYamlTypes} for adding custom yaml types.
    */
-  createYamlTypesHook?: (customTypes: CustomYamlTypes) => void;
-  [x: string]: any; // Allows for referencing arbitrary indexes.
+  createYamlTypesHook?: (yamlTypeManager: YamlTypeManager) => void;
+  /**
+   * Plugins can define any other properties and methods.
+   *
+   * Methods ending in `Hook` are reserved for future plugin hook handlers.
+   */
+  [x: string]: any;
 }
 
 export interface PluginConstructor {

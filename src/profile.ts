@@ -317,7 +317,7 @@ export class ProfileReport {
     reportOutput += this.sectionToString(
       'Hooks',
       filteredTimerTypes,
-      (timerKey: string, timerType: TimerType, label: string) => {
+      (timerKey: string, timerType: TimerType) => {
         // Indent the plugin hook information.
         if (ProfileReport.HOOK_REPORT_SUB_REGEX.test(timerKey)) {
           return `  ${timerType.meta.plugin}`;

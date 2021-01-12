@@ -11,13 +11,48 @@ import marked from 'marked';
 export class NunjucksPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
+  private shortcutFilters: Record<string, Function>;
+  private shortcutGlobals: Record<string, Function>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
     this.config = config;
+    this.shortcutFilters = {};
+    this.shortcutGlobals = {};
 
     // Associate the engine during creation of pod.
     this.pod.engines.associate('.njk', NunjucksTemplateEngine);
+  }
+
+  addFilter(filterName: string, filterMethod: Function) {
+    this.shortcutFilters[filterName] = filterMethod;
+  }
+
+  addGlobal(globalName: string, globalMethod: Function) {
+    this.shortcutGlobals[globalName] = globalMethod;
+  }
+
+  createTemplateEngineHook(
+    templateEngine: TemplateEngineComponent,
+    extension: string
+  ) {
+    if (templateEngine.constructor.name === 'NunjucksTemplateEngine') {
+      // Add in the shortcut filters.
+      for (const key of Object.keys(this.shortcutFilters)) {
+        (templateEngine as NunjucksTemplateEngine).env.addFilter(
+          key,
+          this.shortcutFilters[key] as any
+        );
+      }
+
+      // Add in the shortcut globals.
+      for (const key of Object.keys(this.shortcutGlobals)) {
+        (templateEngine as NunjucksTemplateEngine).env.addGlobal(
+          key,
+          this.shortcutGlobals[key]
+        );
+      }
+    }
   }
 }
 

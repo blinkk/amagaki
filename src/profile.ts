@@ -162,8 +162,8 @@ export class TimerType {
     return sum;
   }
 
-  isOverThreshold(totalDuration: number, threshold: number): boolean {
-    return this.sum / totalDuration >= threshold;
+  isOverThreshold(totalDuration: number): boolean {
+    return this.sum / totalDuration >= this.threshold;
   }
 
   timer(): Timer {
@@ -329,7 +329,6 @@ export class ProfileReport {
   reportThreshold(shownTimerKeys: Set<string>) {
     const duration = this.profiler.duration;
     const filteredTimerTypes = this.filter((timerType: TimerType) => {
-      const threshold = duration * timerType.threshold;
       if (shownTimerKeys.has(timerType.key)) {
         return false;
       }
@@ -340,7 +339,7 @@ export class ProfileReport {
           return false;
         }
       }
-      return timerType.sum >= threshold && timerType.sum !== duration;
+      return timerType.isOverThreshold(duration) && timerType.sum !== duration;
     });
     for (const timerType of filteredTimerTypes) {
       shownTimerKeys.add(timerType.key);

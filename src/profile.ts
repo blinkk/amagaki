@@ -248,8 +248,8 @@ export class ProfileReport {
     }
 
     this.reportHooks(shownTimerKeys);
-    this.reportSlowBuilds(shownTimerKeys);
     this.reportTimers(shownTimerKeys);
+    this.reportSlowBuilds(shownTimerKeys);
   }
 
   reportHooks(shownTimerKeys: Set<string>) {

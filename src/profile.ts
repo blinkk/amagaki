@@ -364,9 +364,12 @@ export class ProfileReport {
 
   reportTimers(shownTimerKeys: Set<string>) {
     const duration = this.profiler.duration;
-    const filteredTimerTypes = this.filter(
-      (timerType: TimerType) => !shownTimerKeys.has(timerType.key)
-    );
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return (
+        !ProfileReport.BUILD_REPORT_REGEX.test(timerType.key) &&
+        !shownTimerKeys.has(timerType.key)
+      );
+    });
 
     // Mark timerType keys as being shown.
     filteredTimerTypes.forEach((timerType: TimerType) =>

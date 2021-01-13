@@ -257,9 +257,12 @@ export class ProfileReport {
     const filteredTimerTypes = this.filter((timerType: TimerType) => {
       return ProfileReport.HOOK_REPORT_REGEX.test(timerType.key);
     });
-    for (const timerType of filteredTimerTypes) {
-      shownTimerKeys.add(timerType.key);
-    }
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
     const reportSection = new ProfileReportSection(
       'Hooks',
       filteredTimerTypes,
@@ -341,9 +344,12 @@ export class ProfileReport {
       }
       return timerType.isOverThreshold(duration) && timerType.sum !== duration;
     });
-    for (const timerType of filteredTimerTypes) {
-      shownTimerKeys.add(timerType.key);
-    }
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
     const reportSection = new ProfileReportSection(
       'Over threshold',
       filteredTimerTypes,
@@ -361,9 +367,12 @@ export class ProfileReport {
     const filteredTimerTypes = this.filter(
       (timerType: TimerType) => !shownTimerKeys.has(timerType.key)
     );
-    for (const timerType of filteredTimerTypes) {
-      shownTimerKeys.add(timerType.key);
-    }
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
     const reportSection = new ProfileReportSection(
       'Timers',
       filteredTimerTypes,

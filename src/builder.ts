@@ -286,7 +286,23 @@ export class Builder {
               (createdPath.route as StaticRoute).staticFile.podPath
             );
           } else {
-            const content = await createdPath.route.build();
+            // Use the url path as a unique timer key.
+            const urlPathStub = createdPath.route.urlPath.replace(/\//g, '.');
+            const timer = this.pod.profiler.timer(
+              `builder.build${urlPathStub}`,
+              `Build: ${createdPath.route.urlPath}`,
+              {
+                path: createdPath.route.path,
+                type: createdPath.route.provider.type,
+                urlPath: createdPath.route.urlPath,
+              }
+            );
+            let content = '';
+            try {
+              content = await createdPath.route.build();
+            } finally {
+              timer.stop();
+            }
             return this.writeFileAsync(createdPath.tempPath, content);
           }
         } finally {

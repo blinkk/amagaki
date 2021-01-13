@@ -71,17 +71,20 @@ export class Profiler {
 }
 
 export class TimerType {
+  static DEFAULT_THRESHOLD = 0.2;
   key: string;
   label?: string;
   meta?: any;
+  threshold: number;
   timers: Array<Timer>;
 
-  constructor(key: string, label?: string, meta?: any) {
+  constructor(key: string, label?: string, meta?: any, threshold?: number) {
     this.timers = [];
 
     this.key = key;
     this.label = label;
     this.meta = meta;
+    this.threshold = threshold || TimerType.DEFAULT_THRESHOLD;
   }
 
   get average(): number {
@@ -212,9 +215,10 @@ export class Timer {
 }
 
 export class ProfileReport {
+  static BUILD_REPORT_REGEX = /^builder\.build\./;
   static HOOK_REPORT_REGEX = /^plugins\.hook\..*/;
   static HOOK_REPORT_SUB_REGEX = /^plugins\.hook\.[^\.]*\./;
-  static THRESHOLD = 0.2;
+  static IGNORED_THRESHOLDS = new Set([/^builder\.build\./]);
   static MAX_WIDTH = 80;
   logMethod: Function;
   profiler: Profiler;
@@ -224,118 +228,212 @@ export class ProfileReport {
     this.profiler = profiler;
   }
 
-  filter(filterFunc: Function): Record<string, TimerType> {
-    const filteredTimerTypes: Record<string, TimerType> = {};
+  filter(filterFunc: Function): Array<TimerType> {
+    const filteredTimerTypes: Array<TimerType> = [];
     for (const timerKey of Object.keys(this.profiler.timerTypes).sort()) {
       const timerType = this.profiler.timerTypes[timerKey];
-      if (filterFunc(timerKey, timerType)) {
-        filteredTimerTypes[timerKey] = timerType;
+      if (filterFunc(timerType)) {
+        filteredTimerTypes.push(timerType);
       }
     }
     return filteredTimerTypes;
   }
 
   output(showExpandedReport = false) {
-    const reportOutput = this.toString(showExpandedReport);
+    const shownTimerKeys: Set<string> = new Set();
+    this.reportThreshold(shownTimerKeys);
 
-    // Ignore the output when there is nothing to show.
-    if (reportOutput.length) {
+    if (!showExpandedReport) {
+      return;
+    }
+
+    this.reportHooks(shownTimerKeys);
+    this.reportSlowBuilds(shownTimerKeys);
+    this.reportTimers(shownTimerKeys);
+  }
+
+  reportHooks(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return ProfileReport.HOOK_REPORT_REGEX.test(timerType.key);
+    });
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
+    }
+    const reportSection = new ProfileReportSection(
+      'Hooks',
+      filteredTimerTypes,
+      duration
+    );
+    reportSection.labelFunc = (timerType: TimerType): string => {
+      // Indent the plugin hook information.
+      if (ProfileReport.HOOK_REPORT_SUB_REGEX.test(timerType.key)) {
+        return `  ${timerType.meta.plugin}`;
+      }
+      return timerType.meta.hook;
+    };
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
       this.logMethod(reportOutput);
     }
   }
 
-  sectionToString(
-    title: string,
-    timerTypes: Record<string, TimerType>,
-    labelFunc?: Function
-  ): string {
-    // Ignore when no matching timer types.
-    if (!Object.keys(timerTypes).length) {
-      return '';
+  reportSlowBuilds(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return ProfileReport.BUILD_REPORT_REGEX.test(timerType.key);
+    });
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
     }
+    const reportSection = new ProfileReportSection(
+      'Slowest builds',
+      filteredTimerTypes,
+      duration
+    );
 
-    const outputTable = new Table({
+    // Show the longest timers first.
+    reportSection.timerTypes.sort(
+      (a: TimerType, b: TimerType) => b.duration - a.duration
+    );
+
+    // Use the url as the label.
+    reportSection.labelFunc = (timerType: TimerType): string =>
+      timerType.meta.urlPath;
+
+    // Custom table structure.
+    reportSection.table = new Table({
+      head: [reportSection.title, 'Time'],
+      colAligns: ['left', 'right'],
+      chars: {mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''},
+    });
+
+    // Custom row display.
+    reportSection.rowFunc = (timerType: TimerType) => {
+      const labelValue = timerType.label || timerType.key;
+      return [
+        reportSection.labelFunc
+          ? reportSection.labelFunc(timerType, labelValue)
+          : labelValue,
+        timeFormat(timerType.sum),
+      ];
+    };
+
+    const reportOutput = reportSection.toString(12);
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportThreshold(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      const threshold = duration * timerType.threshold;
+      if (shownTimerKeys.has(timerType.key)) {
+        return false;
+      }
+
+      // Ignore thresholds for certain keys.
+      for (const ignorePattern of ProfileReport.IGNORED_THRESHOLDS) {
+        if (ignorePattern.test(timerType.key)) {
+          return false;
+        }
+      }
+      return timerType.sum >= threshold && timerType.sum !== duration;
+    });
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
+    }
+    const reportSection = new ProfileReportSection(
+      'Over threshold',
+      filteredTimerTypes,
+      duration
+    );
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportTimers(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter(
+      (timerType: TimerType) => !shownTimerKeys.has(timerType.key)
+    );
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
+    }
+    const reportSection = new ProfileReportSection(
+      'Timers',
+      filteredTimerTypes,
+      duration
+    );
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+}
+
+export class ProfileReportSection {
+  labelFunc?: (timerType: TimerType, defaultLabel: string) => string;
+  rowFunc: (
+    timerType: TimerType,
+    labelFunc?: (timerType: TimerType, defaultLabel: string) => string
+  ) => Array<any>;
+  table: Table;
+  timerTypes: Array<TimerType>;
+  title: string;
+  totalDuration: number;
+
+  constructor(
+    title: string,
+    timerTypes: Array<TimerType>,
+    totalDuration: number
+  ) {
+    this.title = title;
+    this.timerTypes = timerTypes;
+    this.totalDuration = totalDuration;
+
+    // Default table structure.
+    this.table = new Table({
       head: [title, '%', 'Time', 'Stats'],
       colAligns: ['left', 'right', 'right', 'left'],
       chars: {mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''},
     });
 
-    const totalDuration = this.profiler.duration;
-
-    for (const timerKey of Object.keys(timerTypes).sort()) {
-      const timerType = timerTypes[timerKey];
+    // Default row display.
+    this.rowFunc = (timerType: TimerType) => {
       const labelValue = timerType.label || timerType.key;
-      outputTable.push([
-        labelFunc ? labelFunc(timerKey, timerType, labelValue) : labelValue,
-        `${((timerType.sum / totalDuration) * 100).toFixed(2)}%`,
+      return [
+        this.labelFunc ? this.labelFunc(timerType, labelValue) : labelValue,
+        `${((timerType.sum / this.totalDuration) * 100).toFixed(2)}%`,
         timeFormat(timerType.sum),
-        `Called ${timerType.timers.length}x, ${timeFormat(
-          timerType.average
-        )} avg`,
-      ]);
-    }
-
-    return outputTable.toString();
+        timerType.length > 1
+          ? `${timerType.length} calls, ${timeFormat(timerType.average)} avg`
+          : '1 call',
+      ];
+    };
   }
 
-  toString(showExpandedReport = false): string {
-    let reportOutput = '';
+  toString(limit?: number): string {
+    // Ignore when no matching timer types.
+    if (!this.timerTypes.length) {
+      return '';
+    }
 
-    // Reset shown keys.
-    const shownTimerKeys = new Set();
-
-    // Display timers over threshold.
-    const duration = this.profiler.duration;
-    const threshold = duration * ProfileReport.THRESHOLD;
-    let filteredTimerTypes = this.filter(
-      (timerKey: string, timerType: TimerType) => {
-        if (shownTimerKeys.has(timerKey)) {
-          return false;
-        }
-        return timerType.sum >= threshold && timerType.sum !== duration;
+    let count = 0;
+    for (const timerType of this.timerTypes) {
+      this.table.push(this.rowFunc(timerType));
+      if (limit && ++count > limit) {
+        break;
       }
-    );
-    for (const timerKey of Object.keys(filteredTimerTypes)) {
-      shownTimerKeys.add(timerKey);
-    }
-    reportOutput += this.sectionToString(
-      `Over threshold (>=${ProfileReport.THRESHOLD * 100}%)`,
-      filteredTimerTypes
-    );
-
-    if (!showExpandedReport) {
-      return reportOutput;
     }
 
-    // Show hook timers.
-    filteredTimerTypes = this.filter((timerKey: string) => {
-      return ProfileReport.HOOK_REPORT_REGEX.test(timerKey);
-    });
-    for (const timerKey of Object.keys(filteredTimerTypes)) {
-      shownTimerKeys.add(timerKey);
-    }
-    reportOutput += this.sectionToString(
-      'Hooks',
-      filteredTimerTypes,
-      (timerKey: string, timerType: TimerType) => {
-        // Indent the plugin hook information.
-        if (ProfileReport.HOOK_REPORT_SUB_REGEX.test(timerKey)) {
-          return `  ${timerType.meta.plugin}`;
-        }
-        return timerType.meta.hook;
-      }
-    );
-
-    // Show all remaining timers.
-    filteredTimerTypes = this.filter(
-      (timerKey: string) => !shownTimerKeys.has(timerKey)
-    );
-    if (reportOutput.length) {
-      reportOutput += '\n';
-    }
-    reportOutput += this.sectionToString('Timers', filteredTimerTypes);
-
-    return reportOutput;
+    return this.table.toString();
   }
 }
 

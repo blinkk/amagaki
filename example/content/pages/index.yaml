@@ -8,7 +8,7 @@ partials:
   title: !a.String
     prefer: Welcome to Amagaki
     value: Welcome to Amagaki
-  body: !a.Env
+  body: !a.IfEnvironment
     default: Default body content. Pariatur excepteur sit mollit cupidatat deserunt exercitation sit do minim voluptate. Fugiat anim est duis.
     prod: Prod body content. Ex aute eu aliquip voluptate. Officia amet voluptate aliquip cillum aliqua aliquip voluptate labore sunt.
   buttons:

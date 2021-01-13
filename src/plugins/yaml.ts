@@ -1,4 +1,6 @@
 import * as yaml from 'js-yaml';
+
+import {Environment} from '../environment';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 
@@ -34,6 +36,21 @@ export class YamlPlugin implements PluginComponent {
         },
         represent: doc => {
           return doc;
+        },
+      })
+    );
+
+    yamlTypeManager.addType(
+      new yaml.Type('!a.IfEnvironment', {
+        kind: 'mapping',
+        resolve: data => {
+          return typeof data === 'object';
+        },
+        construct: value => {
+          return value[this.pod.env.name] || Environment.DefaultName;
+        },
+        represent: value => {
+          return value;
         },
       })
     );

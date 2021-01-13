@@ -62,6 +62,8 @@ export class Pod {
   readonly router: Router;
 
   constructor(root: string) {
+    // Anything that occurs in the Pod constructor must be very lightweight.
+    // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);

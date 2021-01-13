@@ -416,13 +416,14 @@ export class ProfileReportSection {
     // Default row display.
     this.rowFunc = (timerType: TimerType) => {
       const labelValue = timerType.label || timerType.key;
+      const statsValue = `${timerType.length} calls, ${timeFormat(
+        timerType.maximum
+      )} max, ${timeFormat(timerType.average)} avg`;
       return [
         this.labelFunc ? this.labelFunc(timerType, labelValue) : labelValue,
         `${((timerType.sum / this.totalDuration) * 100).toFixed(2)}%`,
         timeFormat(timerType.sum),
-        timerType.length > 1
-          ? `${timerType.length} calls, ${timeFormat(timerType.average)} avg`
-          : '1 call',
+        timerType.length > 1 ? statsValue : '1 call',
       ];
     };
   }

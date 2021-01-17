@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610460610788,
+  "lastUpdate": 1610915428605,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -759,6 +759,100 @@
           {
             "name": "yaml.schema",
             "value": 0.6662019999930635,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "committer": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "distinct": true,
+          "id": "b0bfbf1757b1e41aae64e1d3e8f63f1215462959",
+          "message": "Flatten executable for published version",
+          "timestamp": "2021-01-17T12:29:22-08:00",
+          "tree_id": "e3c2a144a1dccca63849f83f001e02b6eff80f9a",
+          "url": "https://github.com/blinkkcode/amagaki/commit/b0bfbf1757b1e41aae64e1d3e8f63f1215462959"
+        },
+        "date": 1610915428604,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 5911.856946000364,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 4.116237001493573,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 111.2487769909203,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 1.4633090002462268,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "19 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine",
+            "value": 0.09620099980384111,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine.NunjucksPlugin",
+            "value": 0.07000100007280707,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes",
+            "value": 0.2294020000845194,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes.YamlPlugin",
+            "value": 0.20420200005173683,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 7.944674000609666,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.5803060000762343,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

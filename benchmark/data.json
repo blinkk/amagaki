@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1610915428605,
+  "lastUpdate": 1610919171104,
   "repoUrl": "https://github.com/blinkkcode/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -853,6 +853,100 @@
           {
             "name": "yaml.schema",
             "value": 0.5803060000762343,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "committer": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "distinct": true,
+          "id": "e4f0421fa848ccb8dff348d92a508ba629ffb72e",
+          "message": "Adjust root folder to fix issue with published package",
+          "timestamp": "2021-01-17T13:31:17-08:00",
+          "tree_id": "dcb2ab2ead48d14c599186fb512d240472395256",
+          "url": "https://github.com/blinkkcode/amagaki/commit/e4f0421fa848ccb8dff348d92a508ba629ffb72e"
+        },
+        "date": 1610919171103,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 4634.505778999999,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 3.3542020000168122,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 64.33244400043623,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 1.1842999999935273,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "19 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine",
+            "value": 0.07119999999122228,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createTemplateEngine.NunjucksPlugin",
+            "value": 0.04980000000796281,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes",
+            "value": 0.16820000000006985,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.trigger.createYamlTypes.YamlPlugin",
+            "value": 0.1471999999921536,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 6.451502000025357,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "9 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.45160000000032596,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

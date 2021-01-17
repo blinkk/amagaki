@@ -1,5 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
+
+import {Environment, EnvironmentOptions} from './environment';
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
@@ -7,11 +9,11 @@ import {StringOptions, TranslationString} from './string';
 import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
+
 import {Builder} from './builder';
 import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
-import {Environment} from './environment';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
@@ -59,7 +61,7 @@ export class Pod {
   readonly root: string;
   readonly router: Router;
 
-  constructor(root: string) {
+  constructor(root: string, environmentOptions?: EnvironmentOptions) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
@@ -68,12 +70,14 @@ export class Pod {
     this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
-    this.env = new Environment({
-      host: 'localhost',
-      name: 'default',
-      scheme: 'http',
-      dev: true,
-    });
+    this.env = new Environment(
+      environmentOptions || {
+        host: 'localhost',
+        name: 'default',
+        scheme: 'http',
+        dev: false,
+      }
+    );
     this.config = {
       meta: {
         name: 'Amagaki pod',

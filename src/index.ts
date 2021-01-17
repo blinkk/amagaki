@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import * as packageData from '../package.json';
+
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';
 import {createCommand} from 'commander';

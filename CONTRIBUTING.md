@@ -102,13 +102,15 @@ versions on your system.
 
 ### Running against other sites locally
 
+Using `npm link`:
+
 1. From Amagaki's root directory, run `npm link`. This tells NPM to "install
    Amagaki from this directory, instead of from npmjs.org" for any project that
    depends on Amagaki.
 2. `cd` to the site's root directory.
 3. Ensure `@amagaki/amagaki` is in the project's `package.json` dependencies.
 4. Run `npm install`.
-5. Invoking the `amagaki` command will now point to your local development
+5. Invoking the `amagaki` command directly will now point to your local development
    version instead of the one hosted on npmjs.org.
 
 To unlink (the order is important):
@@ -117,6 +119,15 @@ To unlink (the order is important):
 2. Run `npm unlink --no-save @amagaki/amagaki`
 3. `cd` to Amagaki's root directory.
 4. Run `npm unlink`
+
+Using a local install:
+
+The `npm link` method is not compatible with invoking the `amagaki` commands
+from npm scripts. For another site to depend on your local copy of Amagaki and
+to run that local copy via an npm script, you'll need to temporarily install the
+local Amagaki using: `npm install ~/path/to/amagaki/`.
+
+Avoid committing any changes to `package.json` that depend on local files.
 
 ## Tips
 

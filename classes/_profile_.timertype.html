@@ -92,7 +92,8 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_profile_.timertype.html#label" class="tsd-kind-icon">label</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_profile_.timertype.html#meta" class="tsd-kind-icon">meta</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_profile_.timertype.html#threshold" class="tsd-kind-icon">threshold</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_profile_.timertype.html#timers" class="tsd-kind-icon">timers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_profile_.timertype.html#timers" class="tsd-kind-icon">timers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_profile_.timertype.html#default_threshold" class="tsd-kind-icon">DEFAULT_<wbr>THRESHOLD</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -103,6 +104,8 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#duration" class="tsd-kind-icon">duration</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#end" class="tsd-kind-icon">end</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#maximum" class="tsd-kind-icon">maximum</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#minimum" class="tsd-kind-icon">minimum</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_profile_.timertype.html#sum" class="tsd-kind-icon">sum</a></li>
 							</ul>
 						</section>
@@ -110,7 +113,6 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_profile_.timertype.html#isoverthreshold" class="tsd-kind-icon">is<wbr>Over<wbr>Threshold</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_profile_.timertype.html#report" class="tsd-kind-icon">report</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_profile_.timertype.html#timer" class="tsd-kind-icon">timer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_profile_.timertype.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
@@ -124,13 +126,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Timer<wbr>Type<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, label<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_profile_.timertype.html" class="tsd-signature-type">TimerType</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Timer<wbr>Type<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, label<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, threshold<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_profile_.timertype.html" class="tsd-signature-type">TimerType</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L126">src/profile.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L79">src/profile.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -143,6 +145,9 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> meta: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> threshold: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_profile_.timertype.html" class="tsd-signature-type">TimerType</a></h4>
@@ -158,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L122">src/profile.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L75">src/profile.ts:75</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L123">src/profile.ts:123</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L76">src/profile.ts:76</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +183,7 @@
 					<div class="tsd-signature tsd-kind-icon">meta<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L124">src/profile.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L77">src/profile.ts:77</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -188,17 +193,27 @@
 					<div class="tsd-signature tsd-kind-icon">threshold<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L125">src/profile.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L78">src/profile.ts:78</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="timers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> timers</h3>
+					<h3>timers</h3>
 					<div class="tsd-signature tsd-kind-icon">timers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_profile_.timer.html" class="tsd-signature-type">Timer</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L126">src/profile.ts:126</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L79">src/profile.ts:79</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="default_threshold" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> DEFAULT_<wbr>THRESHOLD</h3>
+					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>THRESHOLD<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0.2</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L74">src/profile.ts:74</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -215,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L137">src/profile.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L90">src/profile.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -232,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L164">src/profile.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L117">src/profile.ts:117</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -249,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L148">src/profile.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L101">src/profile.ts:101</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -266,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L153">src/profile.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L106">src/profile.ts:106</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -283,9 +298,53 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L174">src/profile.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L153">src/profile.ts:153</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="maximum" class="tsd-anchor"></a>
+					<h3>maximum</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> maximum<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L130">src/profile.ts:130</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The longest timer duration.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="minimum" class="tsd-anchor"></a>
+					<h3>minimum</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> minimum<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L143">src/profile.ts:143</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The shortest timer duration.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
@@ -300,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L178">src/profile.ts:178</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L157">src/profile.ts:157</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -320,7 +379,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L186">src/profile.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L165">src/profile.ts:165</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -334,32 +393,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="report" class="tsd-anchor"></a>
-					<h3>report</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">report<span class="tsd-signature-symbol">(</span>duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, logMethod<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L190">src/profile.ts:190</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>duration: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> logMethod: <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol"> = console.log</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="timer" class="tsd-anchor"></a>
 					<h3>timer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -369,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L206">src/profile.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L169">src/profile.ts:169</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_profile_.timer.html" class="tsd-signature-type">Timer</a></h4>
@@ -386,7 +419,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/be430b0/src/profile.ts#L212">src/profile.ts:212</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/8edb657/src/profile.ts#L175">src/profile.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -475,6 +508,12 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_profile_.profilereport.html" class="tsd-kind-icon">Profile<wbr>Report</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_profile_.profilereportsection.html" class="tsd-kind-icon">Profile<wbr>Report<wbr>Section</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="_profile_.profiler.html" class="tsd-kind-icon">Profiler</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
@@ -500,8 +539,11 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#threshold" class="tsd-kind-icon">threshold</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#timers" class="tsd-kind-icon">timers</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_profile_.timertype.html#default_threshold" class="tsd-kind-icon">DEFAULT_<wbr>THRESHOLD</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#average" class="tsd-kind-icon">average</a>
@@ -519,13 +561,16 @@
 								<a href="_profile_.timertype.html#length" class="tsd-kind-icon">length</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_profile_.timertype.html#maximum" class="tsd-kind-icon">maximum</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_profile_.timertype.html#minimum" class="tsd-kind-icon">minimum</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#sum" class="tsd-kind-icon">sum</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#isoverthreshold" class="tsd-kind-icon">is<wbr>Over<wbr>Threshold</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_profile_.timertype.html#report" class="tsd-kind-icon">report</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_profile_.timertype.html#timer" class="tsd-kind-icon">timer</a>
@@ -539,12 +584,6 @@
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../interfaces/_profile_.timeparts.html" class="tsd-kind-icon">Time<wbr>Parts</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_profile_.html#default_report_keys" class="tsd-kind-icon">DEFAULT_<wbr>REPORT_<wbr>KEYS</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_profile_.html#default_threshold" class="tsd-kind-icon">DEFAULT_<wbr>THRESHOLD</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_profile_.html#timeformat" class="tsd-kind-icon">time<wbr>Format</a>
@@ -573,7 +612,7 @@
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

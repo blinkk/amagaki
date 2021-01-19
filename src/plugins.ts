@@ -80,10 +80,10 @@ export class Plugins {
    */
   trigger(hookName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
-      `plugins.trigger.${hookName}`,
+      `plugins.hook.${hookName}`,
       `Hook: ${hookName}`,
       {
-        trigger: hookName,
+        hook: hookName,
       }
     );
 
@@ -93,10 +93,10 @@ export class Plugins {
       for (const plugin of this.plugins) {
         if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
-            `plugins.trigger.${hookName}.${plugin.constructor.name}`,
+            `plugins.hook.${hookName}.${plugin.constructor.name}`,
             `${plugin.constructor.name} hook: ${hookName}`,
             {
-              trigger: hookName,
+              hook: hookName,
               plugin: plugin.constructor.name,
             }
           );

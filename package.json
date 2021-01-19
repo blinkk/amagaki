@@ -39,6 +39,7 @@
   "devDependencies": {
     "@types/async": "^3.2.5",
     "@types/cli-progress": "^3.8.0",
+    "@types/cli-table": "^0.3.0",
     "@types/express": "^4.17.9",
     "@types/js-yaml": "^3.12.5",
     "@types/marked": "^1.2.1",
@@ -59,6 +60,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "cli-progress": "^3.8.2",
+    "cli-table": "^0.3.4",
     "commander": "^5.1.0",
     "express": "^4.17.1",
     "js-yaml": "^3.14.1",

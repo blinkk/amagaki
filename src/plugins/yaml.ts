@@ -85,14 +85,18 @@ export class YamlPlugin implements PluginComponent {
           // value can be: /content/partials/base.yaml?foo.bar.baz
           const parts = value.split('?');
           const podPath = parts[0];
-          const result = this.pod.readYaml(podPath);
+          let result = this.pod.readYaml(podPath);
           if (parts.length > 1) {
             const query = parts[1].split('.');
-            // TODO: Implement nested lookups.
-            return result[query[0]];
-          } else {
-            return result;
+            while (query.length > 0) {
+              const key = query.shift();
+              result = result[key];
+              if (result === undefined) {
+                break;
+              }
+            }
           }
+          return result;
         },
         represent: string => {
           return string;

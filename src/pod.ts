@@ -302,7 +302,7 @@ export class Pod {
    * Returns the YAML schema used to serialize and deserialize all YAML
    * documents that go through the pod.
    */
-  get yamlSchema() {
+  get yamlSchema(): yaml.Schema {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
     }
@@ -311,11 +311,11 @@ export class Pod {
     try {
       const yamlTypeManager = new YamlTypeManager();
       this.plugins.trigger('createYamlTypes', yamlTypeManager);
-      this.cache.yamlSchema = yaml.Schema.create(yamlTypeManager.types);
+      this.cache.yamlSchema = yaml.DEFAULT_SCHEMA.extend(yamlTypeManager.types);
     } finally {
       timer.stop();
     }
 
-    return this.cache.yamlSchema;
+    return this.cache.yamlSchema as yaml.Schema;
   }
 }

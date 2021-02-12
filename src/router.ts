@@ -1,5 +1,6 @@
 import * as fsPath from 'path';
 import * as utils from './utils';
+
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
@@ -205,19 +206,21 @@ export class Route {
   }
 
   async build(): Promise<string> {
-    throw new Error();
+    throw new Error('Subclasses of Route must implement a `build` getter.');
   }
 
   get path(): string {
-    throw new Error();
+    throw new Error('Subclasses of Route must implement a `path` getter.');
   }
 
   get contentType(): string {
-    throw new Error();
+    throw new Error(
+      'Subclasses of Route must implement a `contentType` getter.'
+    );
   }
 
   get urlPath(): string {
-    throw new Error();
+    throw new Error('Subclasses of Route must implement a `urlPath` getter.');
   }
 
   get url(): Url {

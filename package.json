@@ -14,6 +14,7 @@
     "node": ">=13.14.0"
   },
   "scripts": {
+    "build:example": "node ./dist/src/index.js build example",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc",

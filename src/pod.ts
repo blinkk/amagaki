@@ -130,6 +130,8 @@ export class Pod {
     this.config = config;
 
     if (this.config.staticRoutes) {
+      // Remove the default static routes.
+      this.router.providers['static_dir'] = [];
       this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
     }
   }

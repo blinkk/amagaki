@@ -14,7 +14,7 @@ export interface StaticDirConfig {
 
 export class Router {
   pod: Pod;
-  providers: Record<string, RouteProvider>;
+  providers: Record<string, RouteProvider[]>;
 
   constructor(pod: Pod) {
     this.pod = pod;
@@ -22,10 +22,11 @@ export class Router {
     [
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
-      // Default static directory serving.
+      // Default static routes. This can be overridden by the presence of any
+      // static routes configured in `amagaki.js`.
       new StaticDirectoryRouteProivder(this, {
         path: '/static/',
-        staticDir: '/source/static/',
+        staticDir: '/src/static/',
       }),
     ].forEach(provider => {
       this.addProvider(provider);
@@ -56,23 +57,29 @@ export class Router {
     if (this.pod.cache.routes.length) {
       return this.pod.cache.routes;
     }
-    Object.values(this.providers).forEach(provider => {
-      provider.routes.forEach(route => {
-        const routeUrl = route.url.path;
-        if (routeUrl in this.pod.cache.routeMap) {
-          throw Error(
-            `'Two routes share the same URL path: ${this.pod.cache.routeMap[routeUrl]} and ${route}'. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
-          );
-        }
-        this.pod.cache.routes.push(route);
-        this.pod.cache.routeMap[route.url.path] = route;
+    Object.values(this.providers).forEach(providers => {
+      providers.forEach(provider => {
+        provider.routes.forEach(route => {
+          const routeUrl = route.url.path;
+          if (routeUrl in this.pod.cache.routeMap) {
+            throw Error(
+              `'Two routes share the same URL path: ${this.pod.cache.routeMap[routeUrl]} and ${route}'. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
+            );
+          }
+          this.pod.cache.routes.push(route);
+          this.pod.cache.routeMap[route.url.path] = route;
+        });
       });
     });
     return this.pod.cache.routes;
   }
 
   addProvider(provider: RouteProvider) {
-    this.providers[provider.type] = provider;
+    if (this.providers[provider.type]) {
+      this.providers[provider.type].push(provider);
+    } else {
+      this.providers[provider.type] = [provider];
+    }
   }
 
   /**
@@ -86,7 +93,11 @@ export class Router {
   }
 
   getUrl(type: string, item: Document | StaticFile) {
-    const provider = this.providers[type];
+    const providers = this.providers[type];
+    if (!providers) {
+      throw Error(`RouteProvider not found for ${type}`);
+    }
+    const provider = providers[0];
     if (!provider) {
       throw Error(`RouteProvider not found for ${type}`);
     }
@@ -132,10 +143,12 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const docProvider = this.router.providers['doc'] as DocumentRouteProvider;
+    const docProvider = this.router.providers[
+      'doc'
+    ][0] as DocumentRouteProvider;
     // TODO: See if we want to do assemble routes by walking all /content/
     // files. In Grow.dev, this was too slow. In Amagaki, we could alternatively
-    // require users to specify routes in amagak.yaml?routes.
+    // require users to specify routes in amagaki.js.
     const podPaths = this.pod.walk(
       CollectionRouteProvider.DefaultContentFolder
     );

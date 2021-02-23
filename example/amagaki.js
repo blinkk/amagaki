@@ -12,8 +12,16 @@ module.exports = function (pod) {
     },
     staticRoutes: [
       {
-        path: '/static/',
-        staticDir: '/source/static/',
+        path: '/static/js/',
+        staticDir: '/dist/js/',
+      },
+      {
+        path: '/static/texts/',
+        staticDir: '/src/static/texts/',
+      },
+      {
+        path: '/static/images/',
+        staticDir: '/src/static/images/',
       },
     ],
   });

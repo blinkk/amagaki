@@ -16,6 +16,10 @@ module.exports = function (pod) {
         staticDir: '/dist/js/',
       },
       {
+        path: '/static/css/',
+        staticDir: '/dist/css/',
+      },
+      {
         path: '/static/texts/',
         staticDir: '/src/static/texts/',
       },

@@ -3,7 +3,8 @@
 <title>{{doc.fields.title}}</title>
 <meta name="description" value="{{doc.fields.description}}">
 <link href="//fonts.googleapis.com/css?family=Nunito&amp;display=swap" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="{{a.static('/src/static/main.css').url.path}}">
+<link rel="stylesheet" href="{{a.static('/dist/css/main.css').url.path}}">
+<script src="{{a.static('/dist/js/main.js').url.path}}"></script>
 <body>
 <div class="main">
     {% set partial = doc.pod.doc('/content/partials/header.yaml').fields %}

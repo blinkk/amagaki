@@ -97,11 +97,14 @@ export class Router {
     if (!providers) {
       throw Error(`RouteProvider not found for ${type}`);
     }
-    const provider = providers[0];
-    if (!provider) {
-      throw Error(`RouteProvider not found for ${type}`);
-    }
-    return provider.urlMap.get(item);
+    let result = undefined;
+    providers.forEach(provider => {
+      const foundItem = provider.urlMap.get(item);
+      if (foundItem) {
+        result = foundItem;
+      }
+    });
+    return result;
   }
 }
 

@@ -14,6 +14,7 @@ import {Builder} from './builder';
 import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
+import {Injector} from './injector';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {StaticFile} from './static';
@@ -57,6 +58,7 @@ export class Pod {
   readonly engines: TemplateEngineManager;
   readonly env: Environment;
   readonly profiler: Profiler;
+  readonly injector: Injector;
   readonly plugins: Plugins;
   readonly root: string;
   readonly router: Router;
@@ -84,6 +86,7 @@ export class Pod {
       },
     };
     this.cache = new Cache(this);
+    this.injector = new Injector(this);
 
     // Register built-in plugins before the amagaki.js config to be consistent with
     // external plugin hooks and allow external plugins to work with the built-in
@@ -219,10 +222,13 @@ export class Pod {
     return this.config.meta;
   }
 
-  readFile(path: string) {
+  readFile(podPath: string) {
     const timer = this.profiler.timer('file.read', 'File read');
     try {
-      return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
+      return (
+        this.injector.getContent(podPath) ||
+        readFileSync(this.getAbsoluteFilePath(podPath), 'utf8')
+      );
     } finally {
       timer.stop();
     }

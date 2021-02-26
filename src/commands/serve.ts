@@ -30,6 +30,7 @@ export class ServeCommand {
       port: port,
       scheme: 'http',
     });
+    await pod.injector.warmup();
     const watcher = new Watcher(pod);
     const app = createApp(pod);
     app.listen(port, () => {

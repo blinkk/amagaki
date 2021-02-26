@@ -44,8 +44,8 @@ export class Locale {
    * `/locales/{locale}.yaml`. The translations are stored as a mapping of
    * source string to translation, under a `translations` key within the file.
    * */
-  get translations() {
-    return this.pod.readYaml(this.podPath)['translations'];
+  async getTranslations() {
+    return (await this.pod.readYaml(this.podPath))['translations'];
   }
 
   /** Normalizes a string into a `TranslationString` object. */
@@ -81,15 +81,16 @@ export class Locale {
     }
   }
 
-  getTranslation(value: string | TranslationString, location?: Document) {
+  async getTranslation(value: string | TranslationString, location?: Document) {
     if (!value) {
       return value;
     }
 
     const string = this.toTranslationString(value);
+    const translations = await this.getTranslations();
 
     this.recordString(string, location);
-    if (!this.pod.fileExists(this.podPath) || !this.translations) {
+    if (!this.pod.fileExists(this.podPath) || !translations) {
       return string.value;
     }
 
@@ -99,14 +100,14 @@ export class Locale {
     // to support updating source languages without waiting for new translations
     // to arrive.
     if (string.prefer) {
-      const preferredValue = this.translations[string.prefer];
+      const preferredValue = translations[string.prefer];
       if (preferredValue) {
         return preferredValue;
       }
     }
 
     // Collect the string because the preferred translation is missing.
-    const foundValue = this.translations[string.value];
+    const foundValue = translations[string.value];
     if (foundValue) {
       return foundValue;
     }

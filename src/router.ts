@@ -284,12 +284,12 @@ export class DocumentRoute extends Route {
     return 'text/html';
   }
 
-  get urlPath() {
+  async getUrlPath() {
     let urlPath = this.pod.cache.urlPaths.get(this.doc);
     if (urlPath) {
       return urlPath;
     }
-    urlPath = utils.interpolate(this.pod, this.doc.pathFormat, {
+    urlPath = utils.interpolate(this.pod, await this.doc.getPathFormat(), {
       doc: this.doc,
     }) as string;
     this.pod.cache.urlPaths.set(this.doc, urlPath);

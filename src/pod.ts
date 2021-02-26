@@ -7,7 +7,7 @@ import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
-import {existsSync, readFileSync} from 'fs';
+import {existsSync, readFile, readFileSync} from 'fs';
 import {join, resolve} from 'path';
 
 import {Builder} from './builder';
@@ -219,7 +219,7 @@ export class Pod {
     return this.config.meta;
   }
 
-  readFile(path: string) {
+  async readFile(path: string) {
     const timer = this.profiler.timer('file.read', 'File read');
     try {
       return readFileSync(this.getAbsoluteFilePath(path), 'utf8');
@@ -228,14 +228,14 @@ export class Pod {
     }
   }
 
-  readYaml(path: string) {
+  async readYaml(path: string) {
     if (this.cache.yamls[path]) {
       return this.cache.yamls[path];
     }
 
     const timer = this.profiler.timer('yaml.load', 'Yaml load');
     try {
-      this.cache.yamls[path] = yaml.load(this.readFile(path), {
+      this.cache.yamls[path] = yaml.load(await this.readFile(path), {
         schema: this.yamlSchema,
       });
     } finally {
@@ -245,7 +245,7 @@ export class Pod {
     return this.cache.yamls[path];
   }
 
-  readYamlString(content: string, cacheKey: string) {
+  async readYamlString(content: string, cacheKey: string) {
     if (this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
     }

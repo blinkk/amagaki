@@ -93,8 +93,9 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
-    const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-    return templateEngine.render(this.view, context);
+    const view = await this.getView();
+    const templateEngine = this.pod.engines.getEngineByFilename(view);
+    return templateEngine.render(view, context);
   }
 
   /**
@@ -123,20 +124,19 @@ export class Document {
    * is used instead of the `$path` key. If no `$path` or `$localization?path`
    * is specified, the `pathFormat` is `false`.
    */
-  get pathFormat() {
+  async getPathFormat() {
+    const fields = await this.getFields();
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
     // return '/pages/${doc.basename}/';
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
-        (this.fields && this.fields['$path']) ||
+        (fields && fields['$path']) ||
         (this.collection && this.collection.fields['$path'])
       );
     }
     return (
-      (this.fields &&
-        this.fields['$localization'] &&
-        this.fields['$localization']['path']) ||
+      (fields && fields['$localization'] && fields['$localization']['path']) ||
       (this.collection &&
         this.collection.fields['$localization'] &&
         this.collection.fields['$localization']['path'])
@@ -146,14 +146,15 @@ export class Document {
   /**
    * Returns the filename of the template to render.
    */
-  get view(): string {
-    if (!this.fields) {
+  async getView(): Promise<string> {
+    const fields = await this.getFields();
+    if (!fields) {
       return (
         (this.collection && this.collection.fields['$view']) || DEFAULT_VIEW
       );
     }
     return (
-      this.fields['$view'] ||
+      fields['$view'] ||
       (this.collection && this.collection.fields['$view']) ||
       DEFAULT_VIEW
     );
@@ -165,14 +166,15 @@ export class Document {
    * not specified, inherited from the `_collection.yaml`, or if not specified
    * there, then `amagaki.js`.
    */
-  get locales(): Set<Locale> {
+  async getLocales(): Promise<Set<Locale>> {
+    const fields = await this.getFields();
     if (
-      this.fields &&
-      this.fields['$localization'] &&
-      this.fields['$localization']['locales']
+      fields &&
+      fields['$localization'] &&
+      fields['$localization']['locales']
     ) {
       return new LocaleSet(
-        this.fields['$localization']['locales'].map((locale: string) => {
+        fields['$localization']['locales'].map((locale: string) => {
           return this.pod.locale(locale);
         })
       );
@@ -183,12 +185,12 @@ export class Document {
     return this.pod.locales;
   }
 
-  get fields() {
+  async getFields() {
     if (this.parts.fields) {
       return this.parts.fields;
     }
     if (this.ext === '.md') {
-      this.parts = this.initPartsFromFrontMatter();
+      this.parts = await this.initPartsFromFrontMatter();
     } else {
       const timer = this.pod.profiler.timer(
         'document.fields.localize',
@@ -206,32 +208,32 @@ export class Document {
     return this.parts.fields;
   }
 
-  get content() {
+  async getContent() {
     if (this._content !== null) {
       return this._content;
     }
-    this._content = this.pod.readFile(this.path);
+    this._content = await this.pod.readFile(this.path);
     return this._content;
   }
 
-  get body() {
+  async getBody() {
     if (this.parts.body !== null) {
       return this.parts.body;
     }
     if (this.ext === '.yaml') {
       this.parts.body = '';
     } else if (this.ext === '.md') {
-      this.parts = this.initPartsFromFrontMatter();
+      this.parts = await this.initPartsFromFrontMatter();
     }
     return this.parts.body;
   }
 
-  private initPartsFromFrontMatter(): DocumentParts {
+  private async initPartsFromFrontMatter(): Promise<DocumentParts> {
     // If the body value is not undefined, assume the front matter has been split.
     if (this.parts.body !== undefined) {
       return this.parts;
     }
-    const result = utils.splitFrontMatter(this.content);
+    const result = utils.splitFrontMatter(await this.getContent());
     return {
       body: result.body || null,
       fields: result.frontMatter

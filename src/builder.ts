@@ -173,10 +173,10 @@ export class Builder {
     }
   }
 
-  getExistingManifest(): BuildManifest | null {
+  async getExistingManifest(): Promise<BuildManifest | null> {
     const path = this.manifestPodPath;
     if (this.pod.fileExists(path)) {
-      return JSON.parse(this.pod.readFile(this.manifestPodPath));
+      return JSON.parse(await this.pod.readFile(this.manifestPodPath));
     }
     return null;
   }
@@ -239,7 +239,7 @@ export class Builder {
   }
 
   async export() {
-    const existingManifest = this.getExistingManifest();
+    const existingManifest = await this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
       commit: null,

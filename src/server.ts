@@ -1,7 +1,9 @@
 import * as fsPath from 'path';
-import express = require('express');
+
 import {Pod} from './pod';
 import {StaticRoute} from './router';
+
+import express = require('express');
 
 export class Server {
   constructor() {}
@@ -10,6 +12,7 @@ export class Server {
 export function createApp(pod: Pod) {
   const app = express();
   app.disable('x-powered-by');
+  pod.plugins.trigger('createServer', app);
   app.all('/*', async (req: express.Request, res: express.Response) => {
     const route = pod.router.resolve(req.path);
     if (!route) {

@@ -16,6 +16,7 @@ import {Collection} from './collection';
 import {Document} from './document';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
+import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './static';
 import {TemplateEngineManager} from './templateEngine';
 
@@ -44,6 +45,7 @@ export interface PodConfig {
 export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
     NunjucksPlugin,
+    ServerPlugin,
     YamlPlugin,
   ];
   static DefaultLocalization: LocalizationConfig = {

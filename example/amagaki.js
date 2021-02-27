@@ -32,6 +32,13 @@ module.exports = function (pod) {
 
   pod.plugins.register(ExamplePlugin, {});
 
+  const serverPlugin = pod.plugins.get('ServerPlugin');
+  serverPlugin.register(app => {
+    app.use('/foo', (req, res) => {
+      res.send('This is a response from custom middleware.');
+    });
+  });
+
   // Shortcut method for adding custom nunjucks filter and global.
   const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
   nunjucksPlugin.addFilter('testShortcutFilter', value => `${value}--SHORTCUT`);

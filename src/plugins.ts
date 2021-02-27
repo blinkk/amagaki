@@ -1,11 +1,17 @@
+import express = require('express');
+
 import {Pod} from './pod';
 import {TemplateEngineComponent} from './templateEngine';
 import {YamlTypeManager} from './plugins/yaml';
 
 /**
- * Interface for defining plugins to work with amagaki.
+ * Interface for defining plugins to work with Amagaki.
  */
 export interface PluginComponent {
+  /**
+   * Hook for interfacing with the Express server.
+   */
+  createServerHook?: (app: express.Application) => void;
   /**
    * Hook for manipulating the template engine after it is initially created.
    *

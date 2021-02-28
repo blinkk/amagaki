@@ -62,8 +62,12 @@ export class Router {
         provider.routes.forEach(route => {
           const routeUrl = route.url.path;
           if (routeUrl in this.pod.cache.routeMap) {
+            // Reset the cache so subsequent requests continue to error until
+            // the problem is resolved.
+            const foundRoute = this.pod.cache.routeMap[routeUrl];
+            this.pod.cache.reset();
             throw Error(
-              `'Two routes share the same URL path: ${this.pod.cache.routeMap[routeUrl]} and ${route}'. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
+              `Two routes share the same URL path: ${foundRoute} and ${route}. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
             );
           }
           this.pod.cache.routes.push(route);

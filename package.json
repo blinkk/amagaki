@@ -20,6 +20,7 @@
     "compile": "tsc",
     "copy": "mkdir -p dist/src/static; cp src/static/* dist/src/static",
     "dev:start": "npm run copy; npm run compile",
+    "start:example": "node ./dist/src/index.js serve example",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
     "docs": "typedoc --out docs src/",
     "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",

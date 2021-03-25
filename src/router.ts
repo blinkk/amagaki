@@ -269,7 +269,9 @@ export class DocumentRoute extends Route {
 
   async build(): Promise<string> {
     try {
-      return await this.doc.render();
+      return await this.doc.render({
+        route: this,
+      });
     } catch (err) {
       console.error(`Error buildng: ${this.doc}`);
       throw err;

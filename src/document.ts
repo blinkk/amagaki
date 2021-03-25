@@ -83,8 +83,8 @@ export class Document {
     return this.pod.defaultLocale;
   }
 
-  async render(): Promise<string> {
-    const context = {
+  async render(context?: Record<string, any>): Promise<string> {
+    const defaultContext = {
       process: process,
       doc: this,
       env: this.pod.env,
@@ -93,8 +93,11 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
+    if (context) {
+      Object.assign(defaultContext, context);
+    }
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-    return templateEngine.render(this.view, context);
+    return templateEngine.render(this.view, defaultContext);
   }
 
   /**

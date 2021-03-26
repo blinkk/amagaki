@@ -142,7 +142,6 @@ export class Document {
   get pathFormat() {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
-    // return '/pages/${doc.basename}/';
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
         (this.fields && this.fields['$path']) ||

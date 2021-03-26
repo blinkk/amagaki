@@ -298,6 +298,11 @@ export class DocumentRoute extends Route {
     urlPath = utils.interpolate(this.pod, this.doc.pathFormat, {
       doc: this.doc,
     }) as string;
+
+    // Clean up multiple slashes in url paths.
+    // Path format params can be blank or return with starting or ending slashes.
+    urlPath = urlPath.replace(/\/{2,}/g, '/');
+
     this.pod.cache.urlPaths.set(this.doc, urlPath);
     return urlPath;
   }

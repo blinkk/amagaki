@@ -110,12 +110,25 @@ export class Document {
   }
 
   /**
-   * Returns the document's basename. A document's basename is its full filename
-   * (including extension), for example, the basename for
-   * `/content/pages/index.yaml` is `index.yaml`.
+   * Returns the document's basename.
+   *
+   * A document's basename is its filename without the extension.
+   *
+   * The `basename` for `/content/pages/index.yaml` is `index`.
    */
   get basename() {
     return fsPath.basename(this.path).split('.')[0];
+  }
+
+  /**
+   * Returns the document's relative path within the collection.
+   *
+   * The `collectionPath` for `/content/pages/sub/path/index.yaml` is `/sub/path`.
+   */
+  get collectionPath() {
+    const documentDirectory = fsPath.dirname(this.path);
+    const collectionDirectory = this.collection?.path || '';
+    return documentDirectory.slice(collectionDirectory.length);
   }
 
   /**

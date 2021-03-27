@@ -5,6 +5,10 @@ import {TranslationString} from './string';
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
 
 export class LocaleSet extends Set {
+  static fromIds(localeIds: Array<string>, pod: Pod): LocaleSet {
+    return new LocaleSet(localeIds.map(locale => pod.locale(locale)));
+  }
+
   toString() {
     return `[Locales: ${Array.from(this.values()).join(', ')}]`;
   }

@@ -1,4 +1,4 @@
-interface EnvironmentOptions {
+export interface EnvironmentOptions {
   host: string;
   port?: string;
   scheme: string;

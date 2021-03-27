@@ -1,5 +1,7 @@
 import * as nunjucks from 'nunjucks';
+
 import {formatBytes, getLocalizedValue} from '../utils';
+
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 import {TemplateEngineComponent} from '../templateEngine';
@@ -108,7 +110,7 @@ class NunjucksPodLoader extends nunjucks.Loader {
     return {
       src: this.pod.readFile(name),
       path: name,
-      noCache: false,
+      noCache: this.pod.env.dev, // Avoid caching Nunjucks templates in dev.
     };
   }
 }

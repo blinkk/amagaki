@@ -1,6 +1,8 @@
 import * as fsPath from 'path';
 import * as utils from './utils';
+
 import {Locale, LocaleSet} from './locale';
+
 import {Pod} from './pod';
 import {Url} from './url';
 
@@ -81,8 +83,8 @@ export class Document {
     return this.pod.defaultLocale;
   }
 
-  async render(): Promise<string> {
-    const context = {
+  async render(context?: Record<string, any>): Promise<string> {
+    const defaultContext = {
       process: process,
       doc: this,
       env: this.pod.env,
@@ -91,8 +93,11 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
+    if (context) {
+      Object.assign(defaultContext, context);
+    }
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-    return templateEngine.render(this.view, context);
+    return templateEngine.render(this.view, defaultContext);
   }
 
   /**
@@ -105,12 +110,25 @@ export class Document {
   }
 
   /**
-   * Returns the document's basename. A document's basename is its full filename
-   * (including extension), for example, the basename for
-   * `/content/pages/index.yaml` is `index.yaml`.
+   * Returns the document's basename.
+   *
+   * A document's basename is its filename without the extension.
+   *
+   * The `basename` for `/content/pages/index.yaml` is `index`.
    */
   get basename() {
     return fsPath.basename(this.path).split('.')[0];
+  }
+
+  /**
+   * Returns the document's relative path within the collection.
+   *
+   * The `collectionPath` for `/content/pages/sub/path/index.yaml` is `/sub/path`.
+   */
+  get collectionPath() {
+    const documentDirectory = fsPath.dirname(this.path);
+    const collectionDirectory = this.collection?.path || '';
+    return documentDirectory.slice(collectionDirectory.length);
   }
 
   /**
@@ -124,7 +142,6 @@ export class Document {
   get pathFormat() {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
-    // return '/pages/${doc.basename}/';
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
         (this.fields && this.fields['$path']) ||
@@ -175,7 +192,7 @@ export class Document {
         })
       );
     }
-    if (this.collection) {
+    if (this.collection?.locales) {
       return this.collection.locales;
     }
     return this.pod.locales;

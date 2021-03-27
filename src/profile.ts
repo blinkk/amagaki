@@ -1,4 +1,4 @@
-import {DataType} from './utils';
+import Table from 'cli-table';
 import {performance} from 'perf_hooks';
 
 interface TimeParts {
@@ -8,11 +8,8 @@ interface TimeParts {
   seconds: number;
 }
 
-const DEFAULT_REPORT_KEYS = [/document\..*/, /file\..*/, /yaml\..*/];
-const DEFAULT_THRESHOLD = 0.2;
-
 export class Profiler {
-  private timerTypes: Record<string, TimerType>;
+  timerTypes: Record<string, TimerType>;
 
   constructor() {
     this.timerTypes = {};
@@ -57,51 +54,6 @@ export class Profiler {
     return metrics.join('\n');
   }
 
-  report(
-    keys?: Array<string> | Array<RegExp>,
-    showExpandedReport = false,
-    logMethod: Function = console.log,
-    warnMethod: Function = console.warn
-  ) {
-    const totalDuration = this.duration;
-    const shownTimerKeys: Array<string> = [];
-
-    // Show timers that are over threshold first.
-    for (const timerKey of Object.keys(this.timerTypes).sort()) {
-      if (this.timerTypes[timerKey].isOverThreshold(totalDuration)) {
-        this.timerTypes[timerKey].report(totalDuration, warnMethod);
-        shownTimerKeys.push(timerKey);
-      }
-    }
-
-    if (!showExpandedReport) {
-      return;
-    }
-
-    // Show the timers that match the key expressions.
-    if (!keys || keys.length === 0) {
-      // TODO: Control the keys that get reported to important metrics.
-      // keys = DEFAULT_REPORT_KEYS;
-      keys = Object.keys(this.timerTypes);
-    }
-    for (const timerKey of Object.keys(this.timerTypes).sort()) {
-      if (shownTimerKeys.includes(timerKey)) {
-        continue;
-      }
-
-      for (let keyExp of keys) {
-        if (!DataType.isRegExp(keyExp)) {
-          keyExp = new RegExp(keyExp);
-        }
-
-        if ((keyExp as RegExp).test(timerKey)) {
-          this.timerTypes[timerKey].report(totalDuration, logMethod);
-          break;
-        }
-      }
-    }
-  }
-
   timer(key: string, label?: string, meta?: any): Timer {
     if (!this.timerTypes[key]) {
       this.timerTypes[key] = new TimerType(key, label, meta);
@@ -119,19 +71,20 @@ export class Profiler {
 }
 
 export class TimerType {
+  static DEFAULT_THRESHOLD = 0.2;
   key: string;
   label?: string;
   meta?: any;
   threshold: number;
-  private timers: Array<Timer>;
+  timers: Array<Timer>;
 
-  constructor(key: string, label?: string, meta?: any) {
+  constructor(key: string, label?: string, meta?: any, threshold?: number) {
     this.timers = [];
-    this.threshold = DEFAULT_THRESHOLD;
 
     this.key = key;
     this.label = label;
     this.meta = meta;
+    this.threshold = threshold || TimerType.DEFAULT_THRESHOLD;
   }
 
   get average(): number {
@@ -171,6 +124,32 @@ export class TimerType {
     return minBegin;
   }
 
+  /**
+   * The longest timer duration.
+   */
+  get maximum(): number {
+    let maxDuration = 0;
+    for (const timer of this.timers) {
+      if (timer.duration > maxDuration) {
+        maxDuration = timer.duration;
+      }
+    }
+    return maxDuration;
+  }
+
+  /**
+   * The shortest timer duration.
+   */
+  get minimum(): number {
+    let minDuration = Number.MAX_SAFE_INTEGER;
+    for (const timer of this.timers) {
+      if (timer.duration || Number.MAX_SAFE_INTEGER < minDuration) {
+        minDuration = timer.duration || Number.MAX_SAFE_INTEGER;
+      }
+    }
+    return minDuration;
+  }
+
   get length(): number {
     return this.timers.length;
   }
@@ -185,22 +164,6 @@ export class TimerType {
 
   isOverThreshold(totalDuration: number): boolean {
     return this.sum / totalDuration >= this.threshold;
-  }
-
-  report(duration: number, logMethod: Function = console.log) {
-    const sumDuration = this.sum;
-    let percent = (sumDuration / duration).toFixed(2);
-    if (duration === 0) {
-      percent = '100';
-    }
-
-    logMethod(
-      `${this.label || this.key} took ${timeFormat(
-        sumDuration
-      )} (${percent}% called ${this.timers.length}x, ${timeFormat(
-        this.average
-      )} each)`
-    );
   }
 
   timer(): Timer {
@@ -248,6 +211,241 @@ export class Timer {
 
   toString(): string {
     return `[Timer: ${this.duration}]`;
+  }
+}
+
+export class ProfileReport {
+  static BUILD_REPORT_REGEX = /^builder\.build\./;
+  static HOOK_REPORT_REGEX = /^plugins\.hook\..*/;
+  static HOOK_REPORT_SUB_REGEX = /^plugins\.hook\.[^\.]*\./;
+  static IGNORED_THRESHOLDS = new Set([/^builder\.build\./]);
+  static MAX_WIDTH = 80;
+  logMethod: Function;
+  profiler: Profiler;
+
+  constructor(profiler: Profiler, logMethod = console.log) {
+    this.logMethod = logMethod;
+    this.profiler = profiler;
+  }
+
+  filter(filterFunc: Function): Array<TimerType> {
+    const filteredTimerTypes: Array<TimerType> = [];
+    for (const timerKey of Object.keys(this.profiler.timerTypes).sort()) {
+      const timerType = this.profiler.timerTypes[timerKey];
+      if (filterFunc(timerType)) {
+        filteredTimerTypes.push(timerType);
+      }
+    }
+    return filteredTimerTypes;
+  }
+
+  output(showExpandedReport = false) {
+    const shownTimerKeys: Set<string> = new Set();
+    this.reportThreshold(shownTimerKeys);
+
+    if (!showExpandedReport) {
+      return;
+    }
+
+    this.reportHooks(shownTimerKeys);
+    this.reportTimers(shownTimerKeys);
+    this.reportSlowBuilds(shownTimerKeys);
+  }
+
+  reportHooks(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return ProfileReport.HOOK_REPORT_REGEX.test(timerType.key);
+    });
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
+    const reportSection = new ProfileReportSection(
+      'Hooks',
+      filteredTimerTypes,
+      duration
+    );
+    reportSection.labelFunc = (timerType: TimerType): string => {
+      // Indent the plugin hook information.
+      if (ProfileReport.HOOK_REPORT_SUB_REGEX.test(timerType.key)) {
+        return `  ${timerType.meta.plugin}`;
+      }
+      return timerType.meta.hook;
+    };
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportSlowBuilds(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return ProfileReport.BUILD_REPORT_REGEX.test(timerType.key);
+    });
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
+    }
+    const reportSection = new ProfileReportSection(
+      'Slowest builds',
+      filteredTimerTypes,
+      duration
+    );
+
+    // Show the longest timers first.
+    reportSection.timerTypes.sort(
+      (a: TimerType, b: TimerType) => b.duration - a.duration
+    );
+
+    // Use the url as the label.
+    reportSection.labelFunc = (timerType: TimerType): string =>
+      timerType.meta.urlPath;
+
+    // Custom table structure.
+    reportSection.table = new Table({
+      head: [reportSection.title, 'Time'],
+      colAligns: ['left', 'right'],
+      chars: {mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''},
+    });
+
+    // Custom row display.
+    reportSection.rowFunc = (timerType: TimerType) => {
+      const labelValue = timerType.label || timerType.key;
+      return [
+        reportSection.labelFunc
+          ? reportSection.labelFunc(timerType, labelValue)
+          : labelValue,
+        timeFormat(timerType.sum),
+      ];
+    };
+
+    const reportOutput = reportSection.toString(12);
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportThreshold(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      if (shownTimerKeys.has(timerType.key)) {
+        return false;
+      }
+
+      // Ignore thresholds for certain keys.
+      for (const ignorePattern of ProfileReport.IGNORED_THRESHOLDS) {
+        if (ignorePattern.test(timerType.key)) {
+          return false;
+        }
+      }
+      return timerType.isOverThreshold(duration) && timerType.sum !== duration;
+    });
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
+    const reportSection = new ProfileReportSection(
+      'Over threshold',
+      filteredTimerTypes,
+      duration
+    );
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportTimers(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return (
+        !ProfileReport.BUILD_REPORT_REGEX.test(timerType.key) &&
+        !shownTimerKeys.has(timerType.key)
+      );
+    });
+
+    // Mark timerType keys as being shown.
+    filteredTimerTypes.forEach((timerType: TimerType) =>
+      shownTimerKeys.add(timerType.key)
+    );
+
+    const reportSection = new ProfileReportSection(
+      'Timers',
+      filteredTimerTypes,
+      duration
+    );
+
+    const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+}
+
+export class ProfileReportSection {
+  labelFunc?: (timerType: TimerType, defaultLabel: string) => string;
+  rowFunc: (
+    timerType: TimerType,
+    labelFunc?: (timerType: TimerType, defaultLabel: string) => string
+  ) => Array<any>;
+  table: Table;
+  timerTypes: Array<TimerType>;
+  title: string;
+  totalDuration: number;
+
+  constructor(
+    title: string,
+    timerTypes: Array<TimerType>,
+    totalDuration: number
+  ) {
+    this.title = title;
+    this.timerTypes = timerTypes;
+    this.totalDuration = totalDuration;
+
+    // Default table structure.
+    this.table = new Table({
+      head: [title, '%', 'Time', 'Stats'],
+      colAligns: ['left', 'right', 'right', 'left'],
+      chars: {mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''},
+    });
+
+    // Default row display.
+    this.rowFunc = (timerType: TimerType) => {
+      const labelValue = timerType.label || timerType.key;
+      const statsValue = `${timerType.length} calls, ${timeFormat(
+        timerType.maximum
+      )} max, ${timeFormat(timerType.average)} avg`;
+      return [
+        this.labelFunc ? this.labelFunc(timerType, labelValue) : labelValue,
+        `${((timerType.sum / this.totalDuration) * 100).toFixed(2)}%`,
+        timeFormat(timerType.sum),
+        timerType.length > 1 ? statsValue : '1 call',
+      ];
+    };
+  }
+
+  toString(limit?: number): string {
+    // Ignore when no matching timer types.
+    if (!this.timerTypes.length) {
+      return '';
+    }
+
+    let count = 0;
+    for (const timerType of this.timerTypes) {
+      this.table.push(this.rowFunc(timerType));
+      if (limit && ++count > limit) {
+        break;
+      }
+    }
+
+    return this.table.toString();
   }
 }
 

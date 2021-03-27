@@ -1,4 +1,5 @@
 import * as yaml from 'js-yaml';
+
 import {Collection} from './collection';
 import {Document} from './document';
 import {Locale} from './locale';
@@ -42,7 +43,7 @@ export class Cache {
     this.yamlSchema = null;
   }
 
-  reset(podPath: string) {
+  reset() {
     // TODO: Clear based on dependency graph and file type.
     this.clearAll();
   }

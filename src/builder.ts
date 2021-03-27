@@ -8,7 +8,9 @@ import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
+
 import {Route, StaticRoute} from './router';
+
 import {Pod} from './pod';
 
 interface Artifact {
@@ -137,7 +139,16 @@ export class Builder {
 
   moveFileAsync(beforePath: string, afterPath: string) {
     Builder.ensureDirectoryExists(afterPath);
-    return fs.promises.rename(beforePath, afterPath);
+    return fs.promises.rename(beforePath, afterPath).catch(err => {
+      // Handle scenario where temporary directory is on a different device than
+      // the destination directory. In this situation, Node cannot move files,
+      // but copying files is OK. The temporary directory is cleaned up later by
+      // the builder.
+      if (err.code === 'EXDEV') {
+        return fs.promises.copyFile(beforePath, afterPath);
+      }
+      throw err;
+    });
   }
 
   writeFileAsync(outputPath: string, content: string) {
@@ -286,7 +297,23 @@ export class Builder {
               (createdPath.route as StaticRoute).staticFile.podPath
             );
           } else {
-            const content = await createdPath.route.build();
+            // Use the url path as a unique timer key.
+            const urlPathStub = createdPath.route.urlPath.replace(/\//g, '.');
+            const timer = this.pod.profiler.timer(
+              `builder.build${urlPathStub}`,
+              `Build: ${createdPath.route.urlPath}`,
+              {
+                path: createdPath.route.path,
+                type: createdPath.route.provider.type,
+                urlPath: createdPath.route.urlPath,
+              }
+            );
+            let content = '';
+            try {
+              content = await createdPath.route.build();
+            } finally {
+              timer.stop();
+            }
             return this.writeFileAsync(createdPath.tempPath, content);
           }
         } finally {

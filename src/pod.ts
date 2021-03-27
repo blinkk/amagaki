@@ -1,6 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 
+import {Environment, EnvironmentOptions} from './environment';
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
@@ -13,9 +14,9 @@ import {Builder} from './builder';
 import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
-import {Environment} from './environment';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
+import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './static';
 import {TemplateEngineManager} from './templateEngine';
 
@@ -44,6 +45,7 @@ export interface PodConfig {
 export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
     NunjucksPlugin,
+    ServerPlugin,
     YamlPlugin,
   ];
   static DefaultLocalization: LocalizationConfig = {
@@ -61,7 +63,7 @@ export class Pod {
   readonly root: string;
   readonly router: Router;
 
-  constructor(root: string) {
+  constructor(root: string, environmentOptions?: EnvironmentOptions) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
@@ -70,14 +72,14 @@ export class Pod {
     this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
-    // TODO: Env should be parameterized and optionally passed in when the Pod
-    // is instantiated.
-    this.env = new Environment({
-      host: 'localhost',
-      name: Environment.DefaultName,
-      scheme: 'http',
-      dev: true,
-    });
+    this.env = new Environment(
+      environmentOptions || {
+        host: 'localhost',
+        name: 'default',
+        scheme: 'http',
+        dev: false,
+      }
+    );
     this.config = {
       meta: {
         name: 'Amagaki pod',
@@ -130,6 +132,8 @@ export class Pod {
     this.config = config;
 
     if (this.config.staticRoutes) {
+      // Remove the default static routes.
+      this.router.providers['static_dir'] = [];
       this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
     }
   }
@@ -200,7 +204,11 @@ export class Pod {
    * `amagaki.js`.
    */
   get locales(): Set<Locale> {
-    return new LocaleSet(this.localization.locales);
+    return new LocaleSet(
+      (this.localization.locales || []).map((locale: string) => {
+        return this.locale(locale);
+      })
+    );
   }
 
   /**
@@ -302,7 +310,7 @@ export class Pod {
    * Returns the YAML schema used to serialize and deserialize all YAML
    * documents that go through the pod.
    */
-  get yamlSchema() {
+  get yamlSchema(): yaml.Schema {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
     }
@@ -311,11 +319,11 @@ export class Pod {
     try {
       const yamlTypeManager = new YamlTypeManager();
       this.plugins.trigger('createYamlTypes', yamlTypeManager);
-      this.cache.yamlSchema = yaml.Schema.create(yamlTypeManager.types);
+      this.cache.yamlSchema = yaml.DEFAULT_SCHEMA.extend(yamlTypeManager.types);
     } finally {
       timer.stop();
     }
 
-    return this.cache.yamlSchema;
+    return this.cache.yamlSchema as yaml.Schema;
   }
 }

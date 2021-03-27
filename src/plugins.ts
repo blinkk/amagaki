@@ -1,11 +1,17 @@
+import express = require('express');
+
 import {Pod} from './pod';
 import {TemplateEngineComponent} from './templateEngine';
 import {YamlTypeManager} from './plugins/yaml';
 
 /**
- * Interface for defining plugins to work with amagaki.
+ * Interface for defining plugins to work with Amagaki.
  */
 export interface PluginComponent {
+  /**
+   * Hook for interfacing with the Express server.
+   */
+  createServerHook?: (app: express.Application) => void;
   /**
    * Hook for manipulating the template engine after it is initially created.
    *
@@ -80,10 +86,10 @@ export class Plugins {
    */
   trigger(hookName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
-      `plugins.trigger.${hookName}`,
+      `plugins.hook.${hookName}`,
       `Hook: ${hookName}`,
       {
-        trigger: hookName,
+        hook: hookName,
       }
     );
 
@@ -93,10 +99,10 @@ export class Plugins {
       for (const plugin of this.plugins) {
         if (plugin[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
-            `plugins.trigger.${hookName}.${plugin.constructor.name}`,
+            `plugins.hook.${hookName}.${plugin.constructor.name}`,
             `${plugin.constructor.name} hook: ${hookName}`,
             {
-              trigger: hookName,
+              hook: hookName,
               plugin: plugin.constructor.name,
             }
           );

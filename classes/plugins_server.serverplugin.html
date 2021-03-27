@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>YamlPlugin | @amagaki/amagaki</title>
+	<title>ServerPlugin | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -53,13 +53,13 @@
 					<a href="../modules.html">@amagaki/amagaki</a>
 				</li>
 				<li>
-					<a href="../modules/plugins_yaml.html">plugins/yaml</a>
+					<a href="../modules/plugins_server.html">plugins/server</a>
 				</li>
 				<li>
-					<a href="plugins_yaml.yamlplugin.html">YamlPlugin</a>
+					<a href="plugins_server.serverplugin.html">ServerPlugin</a>
 				</li>
 			</ul>
-			<h1>Class YamlPlugin</h1>
+			<h1>Class ServerPlugin</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Plugin providing built-in custom yaml types.</p>
+						<p>Plugin providing access to the Express server.</p>
 					</div>
 				</div>
 			</section>
@@ -77,7 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">YamlPlugin</span>
+						<span class="target">ServerPlugin</span>
 					</li>
 				</ul>
 			</section>
@@ -94,22 +94,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="plugins_yaml.yamlplugin.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="plugins_server.serverplugin.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="plugins_yaml.yamlplugin.html#config" class="tsd-kind-icon">config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="plugins_yaml.yamlplugin.html#pod" class="tsd-kind-icon">pod</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="plugins_yaml.yamlplugin.html#shortcuttypes" class="tsd-kind-icon">shortcut<wbr>Types</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="plugins_server.serverplugin.html#callbacks" class="tsd-kind-icon">callbacks</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="plugins_server.serverplugin.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="plugins_server.serverplugin.html#pod" class="tsd-kind-icon">pod</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_yaml.yamlplugin.html#addtype" class="tsd-kind-icon">add<wbr>Type</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_yaml.yamlplugin.html#createyamltypeshook" class="tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_server.serverplugin.html#createserverhook" class="tsd-kind-icon">create<wbr>Server<wbr>Hook</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_server.serverplugin.html#register" class="tsd-kind-icon">register</a></li>
 							</ul>
 						</section>
 					</div>
@@ -121,13 +121,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Yaml<wbr>Plugin<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="plugins_yaml.yamlplugin.html" class="tsd-signature-type" data-tsd-kind="Class">YamlPlugin</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Server<wbr>Plugin<span class="tsd-signature-symbol">(</span>pod<span class="tsd-signature-symbol">: </span><a href="pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="plugins_server.serverplugin.html" class="tsd-signature-type" data-tsd-kind="Class">ServerPlugin</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L11">src/plugins/yaml.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L12">src/plugins/server.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,20 +139,30 @@
 									<h5>config: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="plugins_yaml.yamlplugin.html" class="tsd-signature-type" data-tsd-kind="Class">YamlPlugin</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="plugins_server.serverplugin.html" class="tsd-signature-type" data-tsd-kind="Class">ServerPlugin</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="callbacks" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> callbacks</h3>
+					<div class="tsd-signature tsd-kind-icon">callbacks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L12">src/plugins/server.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="config" class="tsd-anchor"></a>
 					<h3>config</h3>
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L9">src/plugins/yaml.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L10">src/plugins/server.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -162,17 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L10">src/plugins/yaml.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="shortcuttypes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> shortcut<wbr>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">shortcut<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L11">src/plugins/yaml.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L11">src/plugins/server.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,22 +180,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="addtype" class="tsd-anchor"></a>
-					<h3>add<wbr>Type</h3>
+					<a name="createserverhook" class="tsd-anchor"></a>
+					<h3>create<wbr>Server<wbr>Hook</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Type<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Type</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Server<wbr>Hook<span class="tsd-signature-symbol">(</span>app<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Application</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L20">src/plugins/yaml.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L24">src/plugins/server.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>type: <span class="tsd-signature-type">Type</span></h5>
+									<h5>app: <span class="tsd-signature-type">Application</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -203,22 +203,22 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="createyamltypeshook" class="tsd-anchor"></a>
-					<h3>create<wbr>Yaml<wbr>Types<wbr>Hook</h3>
+					<a name="register" class="tsd-anchor"></a>
+					<h3>register</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook<span class="tsd-signature-symbol">(</span>yamlTypeManager<span class="tsd-signature-symbol">: </span><a href="plugins_yaml.yamltypemanager.html" class="tsd-signature-type" data-tsd-kind="Class">YamlTypeManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">register<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/yaml.ts#L24">src/plugins/yaml.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins/server.ts#L20">src/plugins/server.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>yamlTypeManager: <a href="plugins_yaml.yamltypemanager.html" class="tsd-signature-type" data-tsd-kind="Class">YamlTypeManager</a></h5>
+									<h5>func: <span class="tsd-signature-type">Function</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -269,10 +269,10 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/plugins_nunjucks.html">plugins/nunjucks</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/plugins_server.html">plugins/server</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/plugins_yaml.html">plugins/yaml</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -312,33 +312,30 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="plugins_yaml.yamlplugin.html" class="tsd-kind-icon">Yaml<wbr>Plugin</a>
+						<a href="plugins_server.serverplugin.html" class="tsd-kind-icon">Server<wbr>Plugin</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="plugins_yaml.yamlplugin.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="plugins_yaml.yamlplugin.html#config" class="tsd-kind-icon">config</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="plugins_yaml.yamlplugin.html#pod" class="tsd-kind-icon">pod</a>
+								<a href="plugins_server.serverplugin.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="plugins_yaml.yamlplugin.html#shortcuttypes" class="tsd-kind-icon">shortcut<wbr>Types</a>
+								<a href="plugins_server.serverplugin.html#callbacks" class="tsd-kind-icon">callbacks</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="plugins_server.serverplugin.html#config" class="tsd-kind-icon">config</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="plugins_server.serverplugin.html#pod" class="tsd-kind-icon">pod</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="plugins_yaml.yamlplugin.html#addtype" class="tsd-kind-icon">add<wbr>Type</a>
+								<a href="plugins_server.serverplugin.html#createserverhook" class="tsd-kind-icon">create<wbr>Server<wbr>Hook</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="plugins_yaml.yamlplugin.html#createyamltypeshook" class="tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook</a>
+								<a href="plugins_server.serverplugin.html#register" class="tsd-kind-icon">register</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="plugins_yaml.yamltypemanager.html" class="tsd-kind-icon">Yaml<wbr>Type<wbr>Manager</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Interface for defining plugins to work with amagaki.</p>
+						<p>Interface for defining plugins to work with Amagaki.</p>
 					</div>
 				</div>
 			</section>
@@ -85,6 +85,7 @@
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../classes/plugins_nunjucks.nunjucksplugin.html" class="tsd-signature-type" data-tsd-kind="Class">NunjucksPlugin</a></li>
+					<li><a href="../classes/plugins_server.serverplugin.html" class="tsd-signature-type" data-tsd-kind="Class">ServerPlugin</a></li>
 					<li><a href="../classes/plugins_yaml.yamlplugin.html" class="tsd-signature-type" data-tsd-kind="Class">YamlPlugin</a></li>
 				</ul>
 			</section>
@@ -105,6 +106,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createserverhook" class="tsd-kind-icon">create<wbr>Server<wbr>Hook</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createtemplateenginehook" class="tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createyamltypeshook" class="tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook</a></li>
 							</ul>
@@ -115,12 +117,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="createserverhook" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> create<wbr>Server<wbr>Hook</h3>
+					<div class="tsd-signature tsd-kind-icon">create<wbr>Server<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>app<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Application</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins.ts#L14">src/plugins.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Hook for interfacing with the Express server.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="createtemplateenginehook" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> create<wbr>Template<wbr>Engine<wbr>Hook</h3>
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>templateEngine<span class="tsd-signature-symbol">: </span><a href="templateengine.templateenginecomponent.html" class="tsd-signature-type" data-tsd-kind="Interface">TemplateEngineComponent</a>, extension<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/1130b73/src/plugins.ts#L14">src/plugins.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins.ts#L20">src/plugins.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>yamlTypeManager<span class="tsd-signature-symbol">: </span><a href="../classes/plugins_yaml.yamltypemanager.html" class="tsd-signature-type" data-tsd-kind="Class">YamlTypeManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/1130b73/src/plugins.ts#L22">src/plugins.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/7527338/src/plugins.ts#L28">src/plugins.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -195,6 +212,9 @@
 						<a href="../modules/plugins_nunjucks.html">plugins/nunjucks</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="../modules/plugins_server.html">plugins/server</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="../modules/plugins_yaml.html">plugins/yaml</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -239,6 +259,9 @@
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="plugins.plugincomponent.html" class="tsd-kind-icon">Plugin<wbr>Component</a>
 						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="plugins.plugincomponent.html#createserverhook" class="tsd-kind-icon">create<wbr>Server<wbr>Hook</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="plugins.plugincomponent.html#createtemplateenginehook" class="tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook</a>
 							</li>

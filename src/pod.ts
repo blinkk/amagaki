@@ -204,7 +204,11 @@ export class Pod {
    * `amagaki.js`.
    */
   get locales(): Set<Locale> {
-    return new LocaleSet(this.localization.locales);
+    return new LocaleSet(
+      (this.localization.locales || []).map((locale: string) => {
+        return this.locale(locale);
+      })
+    );
   }
 
   /**

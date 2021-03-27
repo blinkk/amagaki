@@ -192,7 +192,7 @@ export class Document {
         })
       );
     }
-    if (this.collection) {
+    if (this.collection?.locales) {
       return this.collection.locales;
     }
     return this.pod.locales;

@@ -1,11 +1,11 @@
 import * as fsPath from 'path';
 import * as utils from './utils';
+
 import {Locale, LocaleSet} from './locale';
+
 import {Pod} from './pod';
-import {Renderer} from './renderer';
 import {Url} from './url';
 
-const DEFAULT_RENDERER = 'njk';
 const DEFAULT_VIEW = '/views/base.njk';
 
 interface DocumentParts {
@@ -46,7 +46,6 @@ export class Document {
   path: string;
   locale: Locale;
   pod: Pod;
-  renderer: Renderer;
   readonly ext: string;
   private parts: DocumentParts;
   private _content?: string | null;
@@ -62,7 +61,6 @@ export class Document {
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
     this.path = path;
-    this.renderer = pod.renderer(DEFAULT_RENDERER);
     this.locale = locale;
     this.ext = fsPath.extname(this.path);
     this.parts = {};
@@ -85,15 +83,15 @@ export class Document {
    * Returns the default locale for the document. The default locale of a
    * document can be specified one of three ways, in order:
    * `$localization?defaultLocale` field within the document's fields, the
-   * collection's `_collection.yaml`, or the pod's `amagaki.yaml`.
+   * collection's `_collection.yaml`, or the pod's `amagaki.js`.
    */
   get defaultLocale() {
     // TODO: Allow docs and collections to override default locales.
     return this.pod.defaultLocale;
   }
 
-  async render(): Promise<string> {
-    const context = {
+  async render(context?: Record<string, any>): Promise<string> {
+    const defaultContext = {
       process: process,
       doc: this,
       env: this.pod.env,
@@ -102,11 +100,18 @@ export class Document {
         static: this.pod.staticFile.bind(this.pod),
       },
     };
+    if (context) {
+      Object.assign(defaultContext, context);
+    }
+
     // When `$view: self` is used, use the document's body as the template.
     if (this.view === Document.SelfReferencedView) {
-      return this.renderer.renderString(this.body as string, context);
+      const templateEngine = this.pod.engines.getEngineByFilename(this.path);
+      return templateEngine.renderString(this.body as string, defaultContext);
     }
-    return this.renderer.render(this.view, context);
+
+    const templateEngine = this.pod.engines.getEngineByFilename(this.view);
+    return templateEngine.render(this.view, defaultContext);
   }
 
   /**
@@ -119,12 +124,25 @@ export class Document {
   }
 
   /**
-   * Returns the document's basename. A document's basename is its full filename
-   * (including extension), for example, the basename for
-   * `/content/pages/index.yaml` is `index.yaml`.
+   * Returns the document's basename.
+   *
+   * A document's basename is its filename without the extension.
+   *
+   * The `basename` for `/content/pages/index.yaml` is `index`.
    */
   get basename() {
     return fsPath.basename(this.path).split('.')[0];
+  }
+
+  /**
+   * Returns the document's relative path within the collection.
+   *
+   * The `collectionPath` for `/content/pages/sub/path/index.yaml` is `/sub/path`.
+   */
+  get collectionPath() {
+    const documentDirectory = fsPath.dirname(this.path);
+    const collectionDirectory = this.collection?.path || '';
+    return documentDirectory.slice(collectionDirectory.length);
   }
 
   /**
@@ -138,7 +156,6 @@ export class Document {
   get pathFormat() {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
-    // return '/pages/${doc.basename}/';
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
         (this.fields && this.fields['$path']) ||
@@ -169,7 +186,7 @@ export class Document {
    * Returns the document's set of locale objects. In order, the locales are
    * determined by the `$localization:locales` from the document's fields, or if
    * not specified, inherited from the `_collection.yaml`, or if not specified
-   * there, then `amagaki.yaml`.
+   * there, then `amagaki.js`.
    */
   get locales(): Set<Locale> {
     if (
@@ -183,7 +200,7 @@ export class Document {
         })
       );
     }
-    if (this.collection) {
+    if (this.collection?.locales) {
       return this.collection.locales;
     }
     return this.pod.locales;

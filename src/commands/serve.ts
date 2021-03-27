@@ -1,8 +1,9 @@
 import * as _colors from 'colors';
 import * as fs from 'fs';
+
 import {GlobalOptions} from './global';
 import {Pod} from '../pod';
-import Watcher from '../watcher';
+import {Watcher} from '../watcher';
 import {createApp} from '../server';
 
 interface ServeOptions {
@@ -21,15 +22,21 @@ export class ServeCommand {
   }
 
   async run(path = './') {
-    const pod = new Pod(fs.realpathSync(path));
+    const port = process.env.PORT || '8080';
+    const pod = new Pod(fs.realpathSync(path), {
+      dev: true,
+      host: 'localhost',
+      name: 'default',
+      port: port,
+      scheme: 'http',
+    });
     const watcher = new Watcher(pod);
     const app = createApp(pod);
-    const PORT = process.env.PORT || 8080;
-    app.listen(PORT, () => {
+    app.listen(port, () => {
       console.log('   Pod:'.green, `${pod.root}`);
       console.log(
         'Server:'.green,
-        `${pod.env.scheme}://${pod.env.host}:${PORT}/`
+        `${pod.env.scheme}://${pod.env.host}:${port}/`
       );
       console.log(' Ready. Press ctrl+c to quit.'.green);
       watcher.start();

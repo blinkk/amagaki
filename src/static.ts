@@ -19,6 +19,6 @@ export class StaticFile {
    * the static file doesn't have a serving URL, `undefined` is returned.
    */
   get url(): Url | undefined {
-    return this.pod.router.getUrl('static_file', this);
+    return this.pod.router.getUrl('static_dir', this);
   }
 }

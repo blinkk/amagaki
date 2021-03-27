@@ -10,7 +10,7 @@ partials:
     value: Welcome to Amagaki
   body: Sunt elit et aute commodo id. Esse quis cupidatat reprehenderit qui eiusmod sit proident sit tempor aliquip eu. Irure reprehenderit magna duis mollit nostrud aute dolore nulla adipisicing nisi. Excepteur sunt sint duis do proident do nulla veniam incididunt magna velit eiusmod sunt occaecat.
   buttons:
-  - label: Learn more
+  - label: !a.Foo Learn more
     url: https://example.com
 - partial: spacer
   options:
@@ -23,7 +23,7 @@ partials:
       title: Magna do magna occaecat irure.
       body: Esse in dolor anim excepteur incididunt laborum pariatur consequat. Occaecat officia elit nisi Lorem ex ex mollit aliqua ipsum fugiat quis amet sit. Mollit dolore cillum ea commodo ullamco cillum minim nisi et reprehenderit consectetur aute fugiat.
       buttons:
-      - label: Learn more
+      - label: !a.Bar Learn more
         url: https://example.com
   - asset:
       url: https://placeholder-dot-madebygoog.appspot.com/4x3.svg

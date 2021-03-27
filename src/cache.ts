@@ -1,4 +1,5 @@
 import * as yaml from 'js-yaml';
+
 import {Collection} from './collection';
 import {Document} from './document';
 import {Locale} from './locale';
@@ -7,7 +8,7 @@ import {Route} from './router';
 import {StaticFile} from './static';
 import {TranslationString} from './string';
 
-export default class Cache {
+export class Cache {
   pod: Pod;
   collections!: Record<string, Collection>;
   docs!: Record<string, Document>;
@@ -42,7 +43,7 @@ export default class Cache {
     this.yamlSchema = null;
   }
 
-  reset(podPath: string) {
+  reset() {
     // TODO: Clear based on dependency graph and file type.
     this.clearAll();
   }

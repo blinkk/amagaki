@@ -1,18 +1,40 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
+
+import {Environment, EnvironmentOptions} from './environment';
 import {Locale, LocaleSet} from './locale';
+import {PluginConstructor, Plugins} from './plugins';
+import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
+import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
+import {join, resolve} from 'path';
+
 import {Builder} from './builder';
-import Cache from './cache';
+import {Cache} from './cache';
 import {Collection} from './collection';
 import {Document} from './document';
-import {Environment} from './environment';
+import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
-import {Router} from './router';
+import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './static';
-import {getRenderer} from './renderer';
-import {join} from 'path';
+import {TemplateEngineManager} from './templateEngine';
+
+export interface LocalizationConfig {
+  defaultLocale?: string;
+  locales?: Array<string>;
+}
+
+export interface MetadataConfig {
+  name: string;
+  [x: string]: any;
+}
+
+export interface PodConfig {
+  meta: MetadataConfig;
+  localization?: LocalizationConfig;
+  staticRoutes?: Array<StaticDirConfig>;
+}
 
 /**
  * Pods are the "command center" for all operations within a site. Pods hold
@@ -21,28 +43,64 @@ import {join} from 'path';
  * the different elements of a site and operating on them.
  */
 export class Pod {
-  static DefaultLocale = 'en';
+  static BuiltInPlugins: Array<PluginConstructor> = [
+    NunjucksPlugin,
+    ServerPlugin,
+    YamlPlugin,
+  ];
+  static DefaultLocalization: LocalizationConfig = {
+    defaultLocale: 'en',
+    locales: ['en'],
+  };
+  static DefaultConfigFile = 'amagaki.js';
   readonly builder: Builder;
   readonly cache: Cache;
+  config: PodConfig;
+  readonly engines: TemplateEngineManager;
   readonly env: Environment;
   readonly profiler: Profiler;
+  readonly plugins: Plugins;
   readonly root: string;
   readonly router: Router;
 
-  constructor(root: string) {
+  constructor(root: string, environmentOptions?: EnvironmentOptions) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
-    this.root = root;
+    this.root = resolve(root);
     this.profiler = new Profiler();
+    this.plugins = new Plugins(this);
+    this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
-    this.env = new Environment({
-      host: 'localhost',
-      name: 'default',
-      scheme: 'http',
-      dev: true,
-    });
+    this.env = new Environment(
+      environmentOptions || {
+        host: 'localhost',
+        name: 'default',
+        scheme: 'http',
+        dev: false,
+      }
+    );
+    this.config = {
+      meta: {
+        name: 'Amagaki pod',
+      },
+    };
     this.cache = new Cache(this);
+
+    // Register built-in plugins before the amagaki.js config to be consistent with
+    // external plugin hooks and allow external plugins to work with the built-in
+    // plugins.
+    for (const BuiltInPlugin of Pod.BuiltInPlugins) {
+      this.plugins.register(BuiltInPlugin, {});
+    }
+
+    // Setup the pod using the amagaki.js file.
+    if (this.fileExists(Pod.DefaultConfigFile)) {
+      const configFilename = this.getAbsoluteFilePath(Pod.DefaultConfigFile);
+      // tslint:disable-next-line
+      const amagakiConfigFunc: Function = require(configFilename);
+      amagakiConfigFunc(this);
+    }
   }
 
   /**
@@ -65,11 +123,30 @@ export class Pod {
   }
 
   /**
+   * Configures a configuration update on the pod based on the provided
+   * config. Should only be called once on a pod.
+   * @param config Pod configuration value.
+   */
+  configure(config: PodConfig) {
+    // TODO: Validate the configuration.
+    this.config = config;
+
+    if (this.config.staticRoutes) {
+      // Remove the default static routes.
+      this.router.providers['static_dir'] = [];
+      this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
+    }
+  }
+
+  /**
    * Returns the default locale for the pod. The default locale can be
-   * overwritten in `amagaki.yaml`.
+   * overwritten in `amagaki.js`.
    */
   get defaultLocale() {
-    return this.locale(Pod.DefaultLocale);
+    return this.locale(
+      this.localization.defaultLocale ||
+        (Pod.DefaultLocalization.defaultLocale as string)
+    );
   }
 
   /**
@@ -124,11 +201,28 @@ export class Pod {
 
   /**
    * Returns a set of the pod's global locales. Global locales are defined in
-   * `amagaki.yaml`.
+   * `amagaki.js`.
    */
   get locales(): Set<Locale> {
-    // TODO: Replace with amagaki.yaml?locales.
-    return new LocaleSet();
+    return new LocaleSet(
+      (this.localization.locales || []).map((locale: string) => {
+        return this.locale(locale);
+      })
+    );
+  }
+
+  /**
+   * Returns the pod's global localization configuration.
+   */
+  get localization(): LocalizationConfig {
+    return this.config.localization || Pod.DefaultLocalization;
+  }
+
+  /**
+   * Returns the meta information from the pod config.
+   */
+  get meta(): MetadataConfig {
+    return this.config.meta;
   }
 
   readFile(path: string) {
@@ -175,15 +269,6 @@ export class Pod {
   }
 
   /**
-   * Returns a template renderer used for a template engine.
-   * @param path The renderer's file extension, without a leading dot. Example: "njk".
-   */
-  renderer(path: string) {
-    const rendererClass = getRenderer(path);
-    return new rendererClass(this);
-  }
-
-  /**
    * Returns a static file object.
    * @param path The podPath to the static file.
    */
@@ -225,18 +310,20 @@ export class Pod {
    * Returns the YAML schema used to serialize and deserialize all YAML
    * documents that go through the pod.
    */
-  get yamlSchema() {
+  get yamlSchema(): yaml.Schema {
     if (this.cache.yamlSchema) {
       return this.cache.yamlSchema;
     }
 
     const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
     try {
-      this.cache.yamlSchema = utils.createYamlSchema(this);
+      const yamlTypeManager = new YamlTypeManager();
+      this.plugins.trigger('createYamlTypes', yamlTypeManager);
+      this.cache.yamlSchema = yaml.DEFAULT_SCHEMA.extend(yamlTypeManager.types);
     } finally {
       timer.stop();
     }
 
-    return this.cache.yamlSchema;
+    return this.cache.yamlSchema as yaml.Schema;
   }
 }

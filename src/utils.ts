@@ -126,7 +126,7 @@ export function localizeData(data: any, locale: Locale): any {
   return data;
 }
 
-export function splitFrontMatter(content?: string): FrontMatterResult {
+export function splitFrontMatter(content: string | null): FrontMatterResult {
   if (!content) {
     return {};
   }

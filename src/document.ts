@@ -107,7 +107,10 @@ export class Document {
     // When `$view: self` is used, use the document's body as the template.
     if (this.view === Document.SelfReferencedView) {
       const templateEngine = this.pod.engines.getEngineByFilename(this.path);
-      return templateEngine.renderString(this.body as string, defaultContext);
+      return templateEngine.renderFromString(
+        this.body as string,
+        defaultContext
+      );
     }
 
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
@@ -159,7 +162,7 @@ export class Document {
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
         (this.fields && this.fields['$path']) ||
-        (this.collection && this.collection.fields['$path'])
+        this.collection?.fields['$path']
       );
     }
     return (
@@ -176,7 +179,7 @@ export class Document {
     if (this.fields && this.fields['$view']) {
       return this.fields['$view'];
     }
-    if (this.collection && this.collection.fields['$view']) {
+    if (this.collection?.fields['$view']) {
       return this.collection.fields['$view'];
     }
     return DEFAULT_VIEW;
@@ -210,7 +213,7 @@ export class Document {
     if (this.parts.fields) {
       return this.parts.fields;
     }
-    if (this.ext === '.md') {
+    if (['.md', '.njk'].includes(this.ext)) {
       this.parts = this.initPartsFromFrontMatter();
     } else {
       const timer = this.pod.profiler.timer(
@@ -229,8 +232,8 @@ export class Document {
     return this.parts.fields;
   }
 
-  get content() {
-    if (this._content !== null) {
+  get content(): string | null {
+    if (this._content !== undefined) {
       return this._content;
     }
     this._content = this.pod.readFile(this.path);

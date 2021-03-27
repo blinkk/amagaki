@@ -78,14 +78,7 @@ $path: /pages/${doc.basename.toLowerCase()}/
 
 ## What about the Live Editor (grow-ext-editor)?
 
-We'll need to prototype this!
-
-The server-side APIs that the Editor's frontend depends on can be rewritten as
-an Amagaki extension and then plugged into Amagaki's dev server. We can then
-pair the Editor frontend with the Amagaki server for page rendering.
-
-If we want to pursue this route, we may need to "fork" the Editor or add
-pluggable support for Amagaki's tags (i.e. `g.doc` -> `a.Doc`).
+A new version of the live editor is being created that will support amagaki projects.
 
 ## Key differences from Grow.dev
 

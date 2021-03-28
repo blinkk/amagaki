@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
+
 import {Locale, LocaleSet} from './locale';
+
 import {Pod} from './pod';
 
 /**
@@ -94,5 +96,12 @@ export class Collection {
       );
     }
     return this.pod.locales;
+  }
+
+  /**
+   * Returns a list of documents in this collection (recursively).
+   */
+  docs() {
+    return this.pod.docs([`${this.path}**`]);
   }
 }

@@ -1,3 +1,4 @@
+import * as fsPath from 'path';
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 
@@ -163,6 +164,39 @@ export class Pod {
     }
     this.cache.docs[key] = new Document(this, path, locale);
     return this.cache.docs[key];
+  }
+
+  /**
+   * Lists documents using glob patterns, as outlined by the [`glob`
+   * module](https://github.com/isaacs/node-glob#glob-primer).
+   *
+   * Note the following behavior:
+   * - Files prefixed with `_` are ignored.
+   * - Only files with supported doc extensions are returned.
+   *
+   * Various techniques can be used to list docs depending on your needs:
+   *
+   * ```
+   * // All docs within the "pages" collection:
+   * pod.docs('/content/pages/**')
+   *
+   * // Only Markdown docs within the "pages" collection:
+   * pod.docs('/content/pages/*.md')
+   *
+   * // All docs within both the "pages" and "posts" collections:
+   * pod.docs(['/content/pages/**', '/content/posts/**'])
+   *
+   * // All Markdown docs within the entire pod:
+   * pod.docs('*.md')
+   *
+   * // All docs named `index.yaml` within the entire pod:
+   * pod.docs('index.yaml')
+   * ```
+   * @param patterns A list of glob patterns or a single glob pattern. If
+   * nothing is supplied, all docs within the pod will be returned.
+   */
+  docs(patterns?: string[] | string) {
+    return Document.list(this, patterns);
   }
 
   /**

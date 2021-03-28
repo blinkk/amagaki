@@ -99,7 +99,7 @@ export class Document {
     if (typeof patterns === 'string') {
       patterns = [patterns];
     }
-    patterns = patterns || ['/content/**/*'];
+    patterns = patterns || [`${Pod.DefaultContentPodPath}**/*`];
     patterns.forEach(pattern => {
       paths = paths.concat(
         glob.sync(pattern, {

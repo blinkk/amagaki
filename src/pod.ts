@@ -54,6 +54,7 @@ export class Pod {
     locales: ['en'],
   };
   static DefaultConfigFile = 'amagaki.js';
+  static DefaultContentPodPath = '/content/';
   readonly builder: Builder;
   readonly cache: Cache;
   config: PodConfig;

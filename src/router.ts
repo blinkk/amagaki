@@ -142,8 +142,6 @@ export class DocumentRouteProvider extends RouteProvider {
 }
 
 export class CollectionRouteProvider extends RouteProvider {
-  static DefaultContentFolder = '/content/';
-
   constructor(router: Router) {
     super(router);
     this.type = 'collection';
@@ -153,12 +151,9 @@ export class CollectionRouteProvider extends RouteProvider {
     const docProvider = this.router.providers[
       'doc'
     ][0] as DocumentRouteProvider;
-    // TODO: See if we want to do assemble routes by walking all /content/
+    // NOTE: See if we want to do assemble routes by walking all /content/
     // files. In Grow.dev, this was too slow. In Amagaki, we could alternatively
     // require users to specify routes in amagaki.js.
-    const podPaths = this.pod.walk(
-      CollectionRouteProvider.DefaultContentFolder
-    );
     const routes: Array<Route> = [];
 
     function addRoute(podPath: string, locale?: Locale) {
@@ -172,19 +167,14 @@ export class CollectionRouteProvider extends RouteProvider {
       return route;
     }
 
-    podPaths.forEach(podPath => {
-      const basePath = fsPath.basename(podPath);
-      const ext = fsPath.extname(podPath);
-      if (!Document.SupportedExtensions.has(ext) || basePath.startsWith('_')) {
-        return;
-      }
-
+    const docs = this.pod.docs();
+    docs.forEach(doc => {
       // Add base and localized docs.
-      const baseRoute = addRoute(podPath);
+      const baseRoute = addRoute(doc.path);
       baseRoute &&
         baseRoute.doc.locales.forEach((locale: Locale) => {
           if (locale !== baseRoute.doc.defaultLocale) {
-            addRoute(podPath, locale);
+            addRoute(doc.path, locale);
           }
         });
     });

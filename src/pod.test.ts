@@ -37,6 +37,10 @@ test('Pod docs', (t: ExecutionContext) => {
     pod.docs(['index.yaml']).map(doc => doc.path),
     ['/content/pages/index.yaml']
   );
+  t.deepEqual(
+    pod.docs(['about.yaml', 'index.yaml']).map(doc => doc.path),
+    ['/content/pages/about.yaml', '/content/pages/index.yaml']
+  );
   // Default behavior requesting docs from a specific collection.
   t.deepEqual(
     pod.docs('/content/pages/*').map(doc => doc.path),

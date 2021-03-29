@@ -19,6 +19,7 @@ test('Pod docs', (t: ExecutionContext) => {
       '/content/pages/contact.yaml',
       '/content/pages/index.yaml',
       '/content/pages/routes.yaml',
+      '/content/pages/template.njk',
       '/content/partials/base.yaml',
       '/content/partials/footer.yaml',
       '/content/partials/header.yaml',
@@ -50,6 +51,7 @@ test('Pod docs', (t: ExecutionContext) => {
       '/content/pages/contact.yaml',
       '/content/pages/index.yaml',
       '/content/pages/routes.yaml',
+      '/content/pages/template.njk',
     ]
   );
   // Exclusively use glob syntax; missing * will result in an empty list.

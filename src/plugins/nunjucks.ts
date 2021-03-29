@@ -93,6 +93,10 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
   async render(path: string, context: any): Promise<string> {
     return this.env.render(path, context);
   }
+
+  async renderFromString(template: string, context: any): Promise<string> {
+    return this.env.renderString(template, context);
+  }
 }
 
 /**

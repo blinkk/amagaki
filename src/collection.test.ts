@@ -15,5 +15,6 @@ test('Collection docs', (t: ExecutionContext) => {
     '/content/pages/contact.yaml',
     '/content/pages/index.yaml',
     '/content/pages/routes.yaml',
+    '/content/pages/template.njk',
   ]);
 });

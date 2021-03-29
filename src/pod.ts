@@ -182,16 +182,16 @@ export class Pod {
    * pod.docs('/content/pages/**')
    *
    * // Only Markdown docs within the "pages" collection:
-   * pod.docs('/content/pages/*.md')
+   * pod.docs('/content/pages/**\/*.md')
    *
    * // All docs within both the "pages" and "posts" collections:
    * pod.docs(['/content/pages/**', '/content/posts/**'])
    *
    * // All Markdown docs within the entire pod:
-   * pod.docs('*.md')
+   * pod.docs('**\/*.md')
    *
    * // All docs named `index.yaml` within the entire pod:
-   * pod.docs('index.yaml')
+   * pod.docs('**\/index.yaml')
    * ```
    * @param patterns A list of glob patterns or a single glob pattern. If
    * nothing is supplied, all docs within the pod will be returned.

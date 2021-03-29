@@ -1,0 +1,2 @@
+$path: /collection-c/${doc.collectionPath}/${doc.basename}/
+$view: /views/base.njk

@@ -1,0 +1,29 @@
+{% import "/views/macros/asset.njk" as asset %}
+{% import "/views/macros/button.njk" as button %}
+
+<div class="{{partial.partial}} {% for option in partial.options %}{{partial.partial}}--{{option}}{% endfor %}">
+    {% for column in partial.columns %}
+        <div class="{{partial.partial}}__column">
+            {% if column.primary %}
+                <div class="{{partial.partial}}__column__primary">
+                    <div class="{{partial.partial}}__column__primary__title">
+                        {{column.primary.title|t}}
+                    </div>
+                    <div class="{{partial.partial}}__column__primary__body">
+                        {{column.primary.body|t}}
+                    </div>
+                    {% if column.primary.buttons %}
+                        <div class="{{partial.partial}}__column__primary__buttons">
+                            {% for item in column.primary.buttons %}
+                                {{button.button(item)}}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if column.asset %}
+                {{asset.asset(column.asset)}}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

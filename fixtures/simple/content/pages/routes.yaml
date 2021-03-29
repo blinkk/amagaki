@@ -1,0 +1,12 @@
+title: All routes
+description: Page description
+partials:
+- partial: hero
+  title: !a.String
+    value: Routes
+  body: !a.String
+    value: Browse all the routes below.
+- partial: spacer
+  options:
+  - large
+- partial: routes

@@ -1,0 +1,7 @@
+title: About us
+partials:
+- partial: hero
+  title: Here's a picture of a cat
+  body: Sunt elit et aute commodo id. Esse quis cupidatat reprehenderit qui eiusmod sit proident sit tempor aliquip eu. Irure reprehenderit magna duis mollit nostrud aute dolore nulla adipisicing nisi. Excepteur sunt sint duis do proident do nulla veniam incididunt magna velit eiusmod sunt occaecat.
+  images:
+  - static: !a.Static /src/static/images/cat.jpg

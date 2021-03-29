@@ -1,2 +1,2 @@
-$path: /sub-collection/${doc.collectionPath}/${doc.basename}/
+$path: /collection-a/${doc.collectionPath}/${doc.basename}/
 $view: /views/base.njk

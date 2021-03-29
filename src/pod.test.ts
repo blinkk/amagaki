@@ -20,6 +20,7 @@ test('Pod docs', (t: ExecutionContext) => {
       '/content/pages/index.yaml',
       '/content/pages/routes.yaml',
       '/content/pages/sub-pages/index.yaml',
+      '/content/pages/template.njk',
       '/content/partials/base.yaml',
       '/content/partials/footer.yaml',
       '/content/partials/header.yaml',
@@ -27,19 +28,19 @@ test('Pod docs', (t: ExecutionContext) => {
   );
   // Both strings and lists are supported.
   t.deepEqual(
-    pod.docs('*.md').map(doc => doc.path),
+    pod.docs('**/*.md').map(doc => doc.path),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['*.md']).map(doc => doc.path),
+    pod.docs(['**/*.md']).map(doc => doc.path),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['index.yaml']).map(doc => doc.path),
+    pod.docs(['**/index.yaml']).map(doc => doc.path),
     ['/content/pages/index.yaml', '/content/pages/sub-pages/index.yaml']
   );
   t.deepEqual(
-    pod.docs(['about.yaml', 'index.yaml']).map(doc => doc.path),
+    pod.docs(['**/about.yaml', '**/index.yaml']).map(doc => doc.path),
     [
       '/content/pages/about.yaml',
       '/content/pages/index.yaml',
@@ -55,6 +56,7 @@ test('Pod docs', (t: ExecutionContext) => {
       '/content/pages/contact.yaml',
       '/content/pages/index.yaml',
       '/content/pages/routes.yaml',
+      '/content/pages/template.njk',
     ]
   );
   // Exclusively use glob syntax; missing * will result in an empty list.

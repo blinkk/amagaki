@@ -6,6 +6,10 @@ export interface TemplateEngineComponent {
    * Renders the template string using the template engine and the given context.
    */
   render: (template: string, context: any) => Promise<string>;
+  /**
+   * Renders the template from a string using the template engine and the given context.
+   */
+  renderFromString: (template: string, context: any) => Promise<string>;
 }
 
 export interface TemplateEngineConstructor {

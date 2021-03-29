@@ -1,6 +1,6 @@
 import * as fsPath from 'path';
+import * as mimetypes from 'mime-types';
 import * as utils from './utils';
-
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
@@ -169,6 +169,10 @@ export class CollectionRouteProvider extends RouteProvider {
 
     const docs = this.pod.docs();
     docs.forEach(doc => {
+      if (!Document.isServable(doc.path)) {
+        return;
+      }
+
       // Add base and localized docs.
       const baseRoute = addRoute(doc.path);
       baseRoute &&
@@ -276,8 +280,20 @@ export class DocumentRoute extends Route {
     return this.podPath;
   }
 
+  /**
+   * Returns the content type header for the route, based on the route's URL
+   * path. Routes that terminate in `/` or have no extension are assumed to be
+   * HTML. All other routes are automatically determined using the `mime-types`
+   * module.
+   */
   get contentType() {
-    return 'text/html';
+    if (this.urlPath.endsWith('/') || !fsPath.extname(this.urlPath)) {
+      return 'text/html';
+    }
+    return (
+      mimetypes.contentType(fsPath.basename(this.urlPath)) ||
+      'application/octet-stream'
+    );
   }
 
   get urlPath() {

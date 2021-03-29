@@ -50,7 +50,14 @@ export class Document {
   readonly ext: string;
   private parts: DocumentParts;
   private _content?: string | null;
-  static SupportedExtensions = new Set(['.md', '.yaml']);
+  static SelfReferencedView = 'self';
+  static SupportedExtensions = new Set([
+    '.md',
+    '.html',
+    '.njk',
+    '.xml',
+    '.yaml',
+  ]);
 
   constructor(pod: Pod, path: string, locale: Locale) {
     this.pod = pod;
@@ -79,16 +86,16 @@ export class Document {
    * Document.list(pod, '/content/pages/**')
    *
    * // Only Markdown docs within the "pages" collection:
-   * Document.list(pod, '/content/pages/*.md')
+   * Document.list(pod, '/content/pages/**\/*.md')
    *
    * // All docs within both the "pages" and "posts" collections:
    * Document.list(pod, ['/content/pages/**', '/content/posts/**'])
    *
    * // All Markdown docs within the entire pod:
-   * Document.list(pod, '*.md')
+   * Document.list(pod, '**\/*.md')
    *
    * // All docs named `index.yaml` within the entire pod:
-   * Document.list(pod, 'index.yaml')
+   * Document.list(pod, '**\/index.yaml')
    * ```
    * @param pod The pod object.
    * @param patterns A list of glob patterns or a single glob pattern. If
@@ -106,7 +113,7 @@ export class Document {
           cwd: pod.root,
           root: pod.root,
           ignore: '/**/*/_*',
-          matchBase: true,
+          matchBase: false,
           nodir: true,
         })
       );
@@ -160,6 +167,16 @@ export class Document {
     if (context) {
       Object.assign(defaultContext, context);
     }
+
+    // When `$view: self` is used, use the document's body as the template.
+    if (this.view === Document.SelfReferencedView) {
+      const templateEngine = this.pod.engines.getEngineByFilename(this.path);
+      return templateEngine.renderFromString(
+        this.body as string,
+        defaultContext
+      );
+    }
+
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
     return templateEngine.render(this.view, defaultContext);
   }
@@ -209,7 +226,7 @@ export class Document {
     if (this.locale.id === this.pod.defaultLocale.id) {
       return (
         (this.fields && this.fields['$path']) ||
-        (this.collection && this.collection.fields['$path'])
+        this.collection?.fields['$path']
       );
     }
     return (
@@ -222,20 +239,14 @@ export class Document {
     );
   }
 
-  /**
-   * Returns the filename of the template to render.
-   */
-  get view(): string {
-    if (!this.fields) {
-      return (
-        (this.collection && this.collection.fields['$view']) || DEFAULT_VIEW
-      );
+  get view() {
+    if (this.fields && this.fields['$view']) {
+      return this.fields['$view'];
     }
-    return (
-      this.fields['$view'] ||
-      (this.collection && this.collection.fields['$view']) ||
-      DEFAULT_VIEW
-    );
+    if (this.collection?.fields['$view']) {
+      return this.collection.fields['$view'];
+    }
+    return DEFAULT_VIEW;
   }
 
   /**
@@ -265,7 +276,7 @@ export class Document {
     if (this.parts.fields) {
       return this.parts.fields;
     }
-    if (this.ext === '.md') {
+    if (['.md', '.njk'].includes(this.ext)) {
       this.parts = this.initPartsFromFrontMatter();
     } else {
       const timer = this.pod.profiler.timer(
@@ -284,8 +295,8 @@ export class Document {
     return this.parts.fields;
   }
 
-  get content() {
-    if (this._content !== null) {
+  get content(): string | null {
+    if (this._content !== undefined) {
       return this._content;
     }
     this._content = this.pod.readFile(this.path);
@@ -319,5 +330,15 @@ export class Document {
           )
         : {},
     };
+  }
+
+  /**
+   * Returns whether a document is servable, given a pod path.
+   * @param podPath The pod path of the document.
+   */
+  static isServable(podPath: string) {
+    const basePath = fsPath.basename(podPath);
+    const ext = fsPath.extname(podPath);
+    return Document.SupportedExtensions.has(ext) && !basePath.startsWith('_');
   }
 }

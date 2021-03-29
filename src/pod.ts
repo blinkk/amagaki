@@ -1,7 +1,7 @@
-import * as fsPath from 'path';
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 
+import {Document, DocumentListOptions} from './document';
 import {Environment, EnvironmentOptions} from './environment';
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
@@ -14,7 +14,6 @@ import {join, resolve} from 'path';
 import {Builder} from './builder';
 import {Cache} from './cache';
 import {Collection} from './collection';
-import {Document} from './document';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {ServerPlugin} from './plugins/server';
@@ -196,8 +195,8 @@ export class Pod {
    * @param patterns A list of glob patterns or a single glob pattern. If
    * nothing is supplied, all docs within the pod will be returned.
    */
-  docs(patterns?: string[] | string) {
-    return Document.list(this, patterns);
+  docs(patterns?: string[] | string, options?: DocumentListOptions) {
+    return Document.list(this, patterns, options);
   }
 
   /**

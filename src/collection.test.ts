@@ -3,6 +3,18 @@ import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
 
+test('Collection sub-collections', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/collections/');
+  const collection = pod.collection('/content/collection/') as Collection;
+  const paths = collection.subcollections.map(collection => collection.path);
+
+  t.deepEqual(paths, [
+    '/content/collection/collection-a',
+    '/content/collection/collection-a/collection-b',
+    '/content/collection/dir/collection-c',
+  ]);
+});
+
 test('Collection docs', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   let collection = pod.collection('/content/collection/') as Collection;
@@ -27,6 +39,20 @@ test('Collection docs', (t: ExecutionContext) => {
     '/content/collection/collection-a/collection-b/index.yaml',
     '/content/collection/collection-a/dir/index.yaml',
     '/content/collection/collection-a/index.yaml',
+  ]);
+});
+
+test('Collection docs option to exclude sub-collections', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/collections/');
+  const collection = pod.collection('/content/collection/') as Collection;
+  const docs = collection.docs({
+    excludeSubcollections: true,
+  });
+  const paths = docs.map(doc => doc.path);
+
+  t.deepEqual(paths, [
+    '/content/collection/dir/index.yaml',
+    '/content/collection/index.yaml',
   ]);
 });
 

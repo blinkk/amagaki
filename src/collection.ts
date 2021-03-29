@@ -1,9 +1,15 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
 
+import {Document, DocumentListOptions} from './document';
 import {Locale, LocaleSet} from './locale';
 
 import {Pod} from './pod';
+import glob from 'glob';
+
+export interface CollectionDocsOptions extends DocumentListOptions {
+  excludeSubcollections: boolean;
+}
 
 /**
  * Collections represent groups of documents. Collections allow documents to
@@ -25,7 +31,7 @@ export class Collection {
   constructor(pod: Pod, path: string) {
     this.pod = pod;
     // Remove trailing slashes from collection paths.
-    this.path = path.replace(/[/]+$/, '');
+    this.path = Collection.normalizePath(path);
     this.collectionPath = fsPath.join(this.path, Collection.ConfigFile);
 
     this._fields = null;
@@ -35,11 +41,42 @@ export class Collection {
     return `[Collection: ${this.path}]`;
   }
 
+  get subcollections(): Array<Collection> {
+    const collections = [];
+
+    // Find all of the sub collections.
+    const subcollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
+      cwd: this.pod.root,
+      root: this.pod.root,
+      // Ignore the current collection.
+      // Need to strip of first / for glob matching.
+      ignore: this.collectionPath.replace(/^[/]+/, ''),
+      nodir: true,
+    });
+
+    for (const collectionPath of subcollectionPaths) {
+      collections.push(
+        new Collection(this.pod, fsPath.dirname(collectionPath))
+      );
+    }
+
+    return collections;
+  }
+
   /**
    * Returns a list of documents in this collection (recursively).
+   *
+   * @param options Options for which docs are returned.
    */
-  docs() {
-    return this.pod.docs([`${this.path}/**`]);
+  docs(options?: CollectionDocsOptions): Array<Document> {
+    if (options?.excludeSubcollections) {
+      options.exclude = options.exclude || [];
+
+      for (const subcollection of this.subcollections) {
+        (options.exclude as Array<string>).push(`${subcollection.path}/**`);
+      }
+    }
+    return this.pod.docs([`${this.path}/**`], options);
   }
 
   /**
@@ -68,6 +105,21 @@ export class Collection {
    */
   get exists() {
     return this.pod.fileExists(this.collectionPath);
+  }
+
+  /**
+   * Normalize path to collection.
+   *
+   * `content/pages/` becomes `/content/pages`
+   */
+  static normalizePath(path: string): string {
+    // Begins with /.
+    if (!path.startsWith('/')) {
+      path = `/${path}`;
+    }
+
+    // Ends with no /.
+    return path.replace(/[/]+$/, '');
   }
 
   /** Returns the absolute parent directory path of the collection. */

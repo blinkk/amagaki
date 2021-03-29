@@ -20,11 +20,13 @@ export class Collection {
   collectionPath: string;
   private _fields: any;
 
+  static ConfigFile = '_collection.yaml';
+
   constructor(pod: Pod, path: string) {
     this.pod = pod;
     // Remove trailing slashes from collection paths.
     this.path = path.replace(/[/]+$/, '');
-    this.collectionPath = fsPath.join(this.path, '_collection.yaml');
+    this.collectionPath = fsPath.join(this.path, Collection.ConfigFile);
 
     this._fields = null;
   }
@@ -90,7 +92,9 @@ export class Collection {
     const parents = [];
     let parent = this.parent;
     while (parent) {
-      parents.push(parent);
+      if (parent.exists) {
+        parents.push(parent);
+      }
       parent = parent.parent;
     }
     return parents;

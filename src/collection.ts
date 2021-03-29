@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
+
 import {Locale, LocaleSet} from './locale';
+
 import {Pod} from './pod';
 
 /**
@@ -20,7 +22,8 @@ export class Collection {
 
   constructor(pod: Pod, path: string) {
     this.pod = pod;
-    this.path = path;
+    // Remove trailing slashes from collection paths.
+    this.path = path.replace(/[/]+$/, '');
     this.collectionPath = fsPath.join(this.path, '_collection.yaml');
 
     this._fields = null;
@@ -28,6 +31,13 @@ export class Collection {
 
   toString() {
     return `[Collection: ${this.path}]`;
+  }
+
+  /**
+   * Returns a list of documents in this collection (recursively).
+   */
+  docs() {
+    return this.pod.docs([`${this.path}/**`]);
   }
 
   /**

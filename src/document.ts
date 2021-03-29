@@ -1,4 +1,5 @@
 import * as fsPath from 'path';
+import * as glob from 'glob';
 import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
@@ -68,6 +69,69 @@ export class Document {
 
   toString() {
     return `[Document: ${this.path} (${this.locale.id})]`;
+  }
+
+  /**
+   * Lists documents using glob patterns, as outlined by the [`glob`
+   * module](https://github.com/isaacs/node-glob#glob-primer).
+   *
+   * Note the following behavior:
+   * - Files prefixed with `_` are ignored.
+   * - Only files with supported doc extensions are returned.
+   *
+   * Various techniques can be used to list docs depending on your needs:
+   *
+   * ```
+   * // All docs within the "pages" collection:
+   * Document.list(pod, '/content/pages/**')
+   *
+   * // Only Markdown docs within the "pages" collection:
+   * Document.list(pod, '/content/pages/**\/*.md')
+   *
+   * // All docs within both the "pages" and "posts" collections:
+   * Document.list(pod, ['/content/pages/**', '/content/posts/**'])
+   *
+   * // All Markdown docs within the entire pod:
+   * Document.list(pod, '**\/*.md')
+   *
+   * // All docs named `index.yaml` within the entire pod:
+   * Document.list(pod, '**\/index.yaml')
+   * ```
+   * @param pod The pod object.
+   * @param patterns A list of glob patterns or a single glob pattern. If
+   * nothing is supplied, all docs within the pod will be returned.
+   */
+  static list(pod: Pod, patterns?: string[] | string) {
+    let paths: string[] = [];
+    if (typeof patterns === 'string') {
+      patterns = [patterns];
+    }
+    patterns = patterns || [`${Pod.DefaultContentPodPath}**/*`];
+    patterns.forEach(pattern => {
+      paths = paths.concat(
+        glob.sync(pattern, {
+          cwd: pod.root,
+          root: pod.root,
+          ignore: '/**/*/_*',
+          matchBase: false,
+          nodir: true,
+        })
+      );
+    });
+    // Include only files with supported extensions.
+    paths = paths.filter(path => {
+      const ext = fsPath.extname(path);
+      return Document.SupportedExtensions.has(ext);
+    });
+    // Convert paths to Document objects.
+    return paths.map(path => {
+      // Normalize paths returned by glob. Depending on the glob pattern, the
+      // resulting paths may or may not include the pod root.
+      if (!path.startsWith(pod.root)) {
+        path = fsPath.join(pod.root, path);
+      }
+      return pod.doc(path.replace(pod.root, ''));
+    });
   }
 
   /**

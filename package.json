@@ -25,7 +25,8 @@
     "docs": "typedoc --out docs src/",
     "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
     "prepare": "rm -rf dist/; npm run dev:start;",
-    "test": "ava"
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "ava": {
     "require": [

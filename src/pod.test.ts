@@ -26,19 +26,19 @@ test('Pod docs', (t: ExecutionContext) => {
   );
   // Both strings and lists are supported.
   t.deepEqual(
-    pod.docs('*.md').map(doc => doc.path),
+    pod.docs('**/*.md').map(doc => doc.path),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['*.md']).map(doc => doc.path),
+    pod.docs(['**/*.md']).map(doc => doc.path),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['index.yaml']).map(doc => doc.path),
+    pod.docs(['**/index.yaml']).map(doc => doc.path),
     ['/content/pages/index.yaml']
   );
   t.deepEqual(
-    pod.docs(['about.yaml', 'index.yaml']).map(doc => doc.path),
+    pod.docs(['**/about.yaml', '**/index.yaml']).map(doc => doc.path),
     ['/content/pages/about.yaml', '/content/pages/index.yaml']
   );
   // Default behavior requesting docs from a specific collection.

@@ -79,16 +79,16 @@ export class Document {
    * Document.list(pod, '/content/pages/**')
    *
    * // Only Markdown docs within the "pages" collection:
-   * Document.list(pod, '/content/pages/*.md')
+   * Document.list(pod, '/content/pages/**\/*.md')
    *
    * // All docs within both the "pages" and "posts" collections:
    * Document.list(pod, ['/content/pages/**', '/content/posts/**'])
    *
    * // All Markdown docs within the entire pod:
-   * Document.list(pod, '*.md')
+   * Document.list(pod, '**\/*.md')
    *
    * // All docs named `index.yaml` within the entire pod:
-   * Document.list(pod, 'index.yaml')
+   * Document.list(pod, '**\/index.yaml')
    * ```
    * @param pod The pod object.
    * @param patterns A list of glob patterns or a single glob pattern. If
@@ -106,7 +106,7 @@ export class Document {
           cwd: pod.root,
           root: pod.root,
           ignore: '/**/*/_*',
-          matchBase: true,
+          matchBase: false,
           nodir: true,
         })
       );

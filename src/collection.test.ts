@@ -8,6 +8,7 @@ test('Collection docs', (t: ExecutionContext) => {
   const collection = pod.collection('/content/pages/') as Collection;
   const docs = collection.docs();
   const paths = docs.map(doc => doc.path);
+
   t.deepEqual(paths, [
     '/content/pages/about.yaml',
     '/content/pages/bio.md',

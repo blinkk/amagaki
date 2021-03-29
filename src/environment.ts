@@ -12,6 +12,8 @@ export class Environment {
   name: string;
   dev: boolean;
 
+  static DefaultName: 'default';
+
   constructor(options: EnvironmentOptions) {
     this.name = options.name;
     this.host = options.host;

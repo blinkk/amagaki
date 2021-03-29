@@ -89,10 +89,9 @@ export class Collection {
       this.fields['$localization'] &&
       this.fields['$localization']['locales']
     ) {
-      return new LocaleSet(
-        this.fields['$localization']['locales'].map((locale: string) => {
-          return this.pod.locale(locale);
-        })
+      return LocaleSet.fromIds(
+        this.fields['$localization']['locales'],
+        this.pod
       );
     }
     return this.pod.locales;

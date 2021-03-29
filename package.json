@@ -71,6 +71,7 @@
     "js-yaml": "^4.0.0",
     "marked": "^2.0.1",
     "mime-types": "^2.1.29",
+    "minimatch": "^3.0.4",
     "nunjucks": "^3.2.3"
   }
 }

@@ -3,7 +3,13 @@ import * as fsPath from 'path';
 
 import {Locale, LocaleSet} from './locale';
 
+import {DocumentListOptions} from './document';
 import {Pod} from './pod';
+import glob from 'glob';
+
+export interface CollectionDocsOptions extends DocumentListOptions {
+  excludeSubCollections: boolean;
+}
 
 /**
  * Collections represent groups of documents. Collections allow documents to
@@ -38,8 +44,26 @@ export class Collection {
   /**
    * Returns a list of documents in this collection (recursively).
    */
-  docs() {
-    return this.pod.docs([`${this.path}/**`]);
+  docs(options?: CollectionDocsOptions) {
+    if (options?.excludeSubCollections) {
+      options.exclude = options.exclude || [];
+
+      // Find all of the sub collections.
+      const subCollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
+        cwd: this.pod.root,
+        root: this.pod.root,
+        ignore: this.collectionPath.replace(/^[\/]+/, ''),
+        nodir: true,
+      });
+
+      for (const collectionPath of subCollectionPaths) {
+        (options.exclude as Array<string>).push(
+          `/${fsPath.dirname(collectionPath)}/**`
+        );
+      }
+    }
+
+    return this.pod.docs([`${this.path}/**`], options);
   }
 
   /**

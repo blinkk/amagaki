@@ -6,12 +6,20 @@ import {Locale, LocaleSet} from './locale';
 
 import {Pod} from './pod';
 import {Url} from './url';
+import minimatch from 'minimatch';
 
 const DEFAULT_VIEW = '/views/base.njk';
 
 interface DocumentParts {
   body?: string | null;
   fields?: any;
+}
+
+export interface DocumentListOptions {
+  /**
+   * Exclude filter for excluding documents that match the glob pattern(s).
+   */
+  exclude?: string | Array<string>;
 }
 
 /**
@@ -101,7 +109,11 @@ export class Document {
    * @param patterns A list of glob patterns or a single glob pattern. If
    * nothing is supplied, all docs within the pod will be returned.
    */
-  static list(pod: Pod, patterns?: string[] | string) {
+  static list(
+    pod: Pod,
+    patterns?: string[] | string,
+    options?: DocumentListOptions
+  ) {
     let paths: string[] = [];
     if (typeof patterns === 'string') {
       patterns = [patterns];
@@ -118,20 +130,36 @@ export class Document {
         })
       );
     });
+
+    // Normalize paths returned by glob. Depending on the glob pattern, the
+    // resulting paths may or may not include the pod root.
+    paths = paths.map(path => {
+      if (!path.startsWith(pod.root)) {
+        path = fsPath.join(pod.root, path);
+      }
+      return path.replace(pod.root, '');
+    });
+
+    // Exclude any excluded paths from the options.
+    if (options?.exclude) {
+      if (typeof options.exclude === 'string') {
+        options.exclude = [options.exclude];
+      }
+
+      for (const pattern of options.exclude) {
+        const pathsToBeExcluded = paths.filter(minimatch.filter(pattern));
+        paths = paths.filter(path => !pathsToBeExcluded.includes(path));
+      }
+    }
+
     // Include only files with supported extensions.
     paths = paths.filter(path => {
       const ext = fsPath.extname(path);
       return Document.SupportedExtensions.has(ext);
     });
+
     // Convert paths to Document objects.
-    return paths.map(path => {
-      // Normalize paths returned by glob. Depending on the glob pattern, the
-      // resulting paths may or may not include the pod root.
-      if (!path.startsWith(pod.root)) {
-        path = fsPath.join(pod.root, path);
-      }
-      return pod.doc(path.replace(pod.root, ''));
-    });
+    return paths.map(path => pod.doc(path));
   }
 
   /**

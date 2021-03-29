@@ -30,6 +30,20 @@ test('Collection docs', (t: ExecutionContext) => {
   ]);
 });
 
+test('Collection docs exclude sub collections', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/collections/');
+  const collection = pod.collection('/content/collection/') as Collection;
+  const docs = collection.docs({
+    excludeSubCollections: true,
+  });
+  const paths = docs.map(doc => doc.path);
+
+  t.deepEqual(paths, [
+    '/content/collection/dir/index.yaml',
+    '/content/collection/index.yaml',
+  ]);
+});
+
 test('Collection parents', (t: ExecutionContext) => {
   // No parents.
   const pod = new Pod('./fixtures/collections/');

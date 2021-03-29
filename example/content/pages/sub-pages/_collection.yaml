@@ -1,0 +1,4 @@
+$path: /sub-pages/${doc.basename}/
+$view: /views/base.njk
+$localization:
+  path: /intl/${doc.locale.id}/sub-pages/${doc.basename}/

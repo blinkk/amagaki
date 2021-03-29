@@ -20,11 +20,13 @@ export class Collection {
   collectionPath: string;
   private _fields: any;
 
+  static ConfigFile = '_collection.yaml';
+
   constructor(pod: Pod, path: string) {
     this.pod = pod;
     // Remove trailing slashes from collection paths.
     this.path = path.replace(/[/]+$/, '');
-    this.collectionPath = fsPath.join(this.path, '_collection.yaml');
+    this.collectionPath = fsPath.join(this.path, Collection.ConfigFile);
 
     this._fields = null;
   }
@@ -77,6 +79,25 @@ export class Collection {
   /** Returns the parent collection object. */
   get parent() {
     return this.pod.collection(this.parentPath);
+  }
+
+  /**
+   * Returns a list of the parent collections.
+   *
+   * This may be useful for situations where you need to walk through content
+   * relationships. Examples include generating site navigation menus,
+   * breadcrumbs, or various listings of collections and their documents.
+   */
+  get parents() {
+    const parents = [];
+    let parent = this.parent;
+    while (parent) {
+      if (parent.exists) {
+        parents.push(parent);
+      }
+      parent = parent.parent;
+    }
+    return parents;
   }
 
   get fields() {

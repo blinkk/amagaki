@@ -19,6 +19,7 @@ test('Pod docs', (t: ExecutionContext) => {
       '/content/pages/contact.yaml',
       '/content/pages/index.yaml',
       '/content/pages/routes.yaml',
+      '/content/pages/sub-pages/index.yaml',
       '/content/pages/template.njk',
       '/content/partials/base.yaml',
       '/content/partials/footer.yaml',
@@ -36,11 +37,15 @@ test('Pod docs', (t: ExecutionContext) => {
   );
   t.deepEqual(
     pod.docs(['**/index.yaml']).map(doc => doc.path),
-    ['/content/pages/index.yaml']
+    ['/content/pages/index.yaml', '/content/pages/sub-pages/index.yaml']
   );
   t.deepEqual(
     pod.docs(['**/about.yaml', '**/index.yaml']).map(doc => doc.path),
-    ['/content/pages/about.yaml', '/content/pages/index.yaml']
+    [
+      '/content/pages/about.yaml',
+      '/content/pages/index.yaml',
+      '/content/pages/sub-pages/index.yaml',
+    ]
   );
   // Default behavior requesting docs from a specific collection.
   t.deepEqual(

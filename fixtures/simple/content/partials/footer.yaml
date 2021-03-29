@@ -1,0 +1,7 @@
+partial: footer
+logo:
+  title: Amagaki
+nav:
+- title: External link 1
+- title: External link 2
+- title: External link 3

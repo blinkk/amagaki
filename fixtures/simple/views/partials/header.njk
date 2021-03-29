@@ -1,0 +1,14 @@
+<div class="{{partial.partial}} {% for option in partial.options %}{{partial.partial}}--{{option}}{% endfor %}">
+    <div class="{{partial.partial}}__logo">
+        <a href="{{partial.logo.doc.url.path}}">
+        <img class="{{partial.partial}}__logo__image" src="{{partial.logo.image.url}}">
+        </a>
+    </div>
+    <div class="{{partial.partial}}__links">
+        {% for item in partial.nav %}
+            <a href="{{item.url.path}}" class="{{partial.partial}}__links__link">
+                {{item.fields.title}}
+            </a>
+        {% endfor %}
+    </div>
+</div>

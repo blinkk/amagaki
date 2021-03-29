@@ -3,11 +3,10 @@ import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
 
-test('Collection children', (t: ExecutionContext) => {
+test('Collection sub-collections', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   const collection = pod.collection('/content/collection/') as Collection;
-  const subCollections = collection.subCollections;
-  const paths = subCollections.map(collection => collection.path);
+  const paths = collection.subCollections.map(collection => collection.path);
 
   t.deepEqual(paths, [
     '/content/collection/collection-a',
@@ -43,7 +42,7 @@ test('Collection docs', (t: ExecutionContext) => {
   ]);
 });
 
-test('Collection docs exclude sub collections', (t: ExecutionContext) => {
+test('Collection docs option to exclude sub-collections', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   const collection = pod.collection('/content/collection/') as Collection;
   const docs = collection.docs({

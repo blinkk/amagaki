@@ -22,7 +22,8 @@ export class Collection {
 
   constructor(pod: Pod, path: string) {
     this.pod = pod;
-    this.path = path;
+    // Remove trailing slashes from collection paths.
+    this.path = path.replace(/[/]+$/, '');
     this.collectionPath = fsPath.join(this.path, '_collection.yaml');
 
     this._fields = null;
@@ -30,6 +31,13 @@ export class Collection {
 
   toString() {
     return `[Collection: ${this.path}]`;
+  }
+
+  /**
+   * Returns a list of documents in this collection (recursively).
+   */
+  docs() {
+    return this.pod.docs([`${this.path}/**`]);
   }
 
   /**
@@ -96,12 +104,5 @@ export class Collection {
       );
     }
     return this.pod.locales;
-  }
-
-  /**
-   * Returns a list of documents in this collection (recursively).
-   */
-  docs() {
-    return this.pod.docs([`${this.path}**`]);
   }
 }

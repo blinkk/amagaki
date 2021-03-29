@@ -126,7 +126,7 @@ export function localizeData(data: any, locale: Locale): any {
   return data;
 }
 
-export function splitFrontMatter(content?: string): FrontMatterResult {
+export function splitFrontMatter(content: string | null): FrontMatterResult {
   if (!content) {
     return {};
   }
@@ -153,8 +153,8 @@ export function splitFrontMatter(content?: string): FrontMatterResult {
   }
 
   return {
-    frontMatter: content.slice(0, closingIndex),
-    body: content.slice(closingIndex),
+    frontMatter: content.slice(0, closingIndex).trim(),
+    body: content.slice(closingIndex + closingPart.length).trim(),
   };
 }
 

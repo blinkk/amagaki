@@ -3,6 +3,19 @@ import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
 
+test('Collection children', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/collections/');
+  const collection = pod.collection('/content/collection/') as Collection;
+  const subCollections = collection.subCollections;
+  const paths = subCollections.map(collection => collection.path);
+
+  t.deepEqual(paths, [
+    '/content/collection/collection-a',
+    '/content/collection/collection-a/collection-b',
+    '/content/collection/dir/collection-c',
+  ]);
+});
+
 test('Collection docs', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   let collection = pod.collection('/content/collection/') as Collection;

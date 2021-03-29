@@ -6,7 +6,7 @@ import test from 'ava';
 test('Collection sub-collections', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   const collection = pod.collection('/content/collection/') as Collection;
-  const paths = collection.subCollections.map(collection => collection.path);
+  const paths = collection.subcollections.map(collection => collection.path);
 
   t.deepEqual(paths, [
     '/content/collection/collection-a',
@@ -46,7 +46,7 @@ test('Collection docs option to exclude sub-collections', (t: ExecutionContext) 
   const pod = new Pod('./fixtures/collections/');
   const collection = pod.collection('/content/collection/') as Collection;
   const docs = collection.docs({
-    excludeSubCollections: true,
+    excludeSubcollections: true,
   });
   const paths = docs.map(doc => doc.path);
 

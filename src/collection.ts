@@ -8,7 +8,7 @@ import {Pod} from './pod';
 import glob from 'glob';
 
 export interface CollectionDocsOptions extends DocumentListOptions {
-  excludeSubCollections: boolean;
+  excludeSubcollections: boolean;
 }
 
 /**
@@ -41,11 +41,11 @@ export class Collection {
     return `[Collection: ${this.path}]`;
   }
 
-  get subCollections(): Array<Collection> {
+  get subcollections(): Array<Collection> {
     const collections = [];
 
     // Find all of the sub collections.
-    const subCollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
+    const subcollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
       cwd: this.pod.root,
       root: this.pod.root,
       // Ignore the current collection.
@@ -54,7 +54,7 @@ export class Collection {
       nodir: true,
     });
 
-    for (const collectionPath of subCollectionPaths) {
+    for (const collectionPath of subcollectionPaths) {
       collections.push(
         new Collection(this.pod, fsPath.dirname(collectionPath))
       );
@@ -69,11 +69,11 @@ export class Collection {
    * @param options Options for which docs are returned.
    */
   docs(options?: CollectionDocsOptions): Array<Document> {
-    if (options?.excludeSubCollections) {
+    if (options?.excludeSubcollections) {
       options.exclude = options.exclude || [];
 
-      for (const subCollection of this.subCollections) {
-        (options.exclude as Array<string>).push(`${subCollection.path}/**`);
+      for (const subcollection of this.subcollections) {
+        (options.exclude as Array<string>).push(`${subcollection.path}/**`);
       }
     }
     return this.pod.docs([`${this.path}/**`], options);

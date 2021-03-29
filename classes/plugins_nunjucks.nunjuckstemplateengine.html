@@ -108,6 +108,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_nunjucks.nunjuckstemplateengine.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="plugins_nunjucks.nunjuckstemplateengine.html#renderfromstring" class="tsd-kind-icon">render<wbr>From<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -125,7 +126,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/12ef4b1/src/plugins/nunjucks.ts#L66">src/plugins/nunjucks.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/2e17704/src/plugins/nunjucks.ts#L66">src/plugins/nunjucks.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -147,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Environment</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/12ef4b1/src/plugins/nunjucks.ts#L65">src/plugins/nunjucks.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/2e17704/src/plugins/nunjucks.ts#L65">src/plugins/nunjucks.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,7 +159,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/templateengine.templateenginecomponent.html">TemplateEngineComponent</a>.<a href="../interfaces/templateengine.templateenginecomponent.html#pod">pod</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/12ef4b1/src/plugins/nunjucks.ts#L66">src/plugins/nunjucks.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/2e17704/src/plugins/nunjucks.ts#L66">src/plugins/nunjucks.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,7 +177,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of TemplateEngineComponent.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/12ef4b1/src/plugins/nunjucks.ts#L93">src/plugins/nunjucks.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/2e17704/src/plugins/nunjucks.ts#L93">src/plugins/nunjucks.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -188,6 +189,38 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>context: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="renderfromstring" class="tsd-anchor"></a>
+					<h3>render<wbr>From<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>From<wbr>String<span class="tsd-signature-symbol">(</span>template<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of TemplateEngineComponent.renderFromString</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkkcode/amagaki/blob/2e17704/src/plugins/nunjucks.ts#L97">src/plugins/nunjucks.ts:97</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Renders the template from a string using the template engine and the given context.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>template: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5>context: <span class="tsd-signature-type">any</span></h5>
@@ -300,6 +333,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="plugins_nunjucks.nunjuckstemplateengine.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="plugins_nunjucks.nunjuckstemplateengine.html#renderfromstring" class="tsd-kind-icon">render<wbr>From<wbr>String</a>
 							</li>
 						</ul>
 					</li>

@@ -14,5 +14,12 @@ test('Collection docs', (t: ExecutionContext) => {
     '/content/pages/contact.yaml',
     '/content/pages/index.yaml',
     '/content/pages/routes.yaml',
+    '/content/pages/sub-pages/index.yaml',
   ]);
+});
+
+test('Collection parents', (t: ExecutionContext) => {
+  const pod = new Pod('./example/');
+  const collection = pod.collection('/content/pages/sub-pages/') as Collection;
+  t.deepEqual([pod.collection('/content/pages')], collection.parents);
 });

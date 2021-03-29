@@ -1,0 +1,6 @@
+$path: /sub-pages/
+$localization:
+  path: /intl/${doc.locale.id}/sub-pages/
+title: Sub-page index
+description: Page description
+partials: []

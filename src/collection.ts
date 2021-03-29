@@ -71,6 +71,23 @@ export class Collection {
     return this.pod.collection(this.parentPath);
   }
 
+  /**
+   * Returns a list of the parent collections.
+   *
+   * This may be useful for situations where you need to walk through content
+   * relationships. Examples include generating site navigation menus,
+   * breadcrumbs, or various listings of collections and their documents.
+   */
+  get parents() {
+    const parents = [];
+    let parent = this.parent;
+    while (parent) {
+      parents.push(parent);
+      parent = parent.parent;
+    }
+    return parents;
+  }
+
   get fields() {
     if (this._fields) {
       return this._fields;

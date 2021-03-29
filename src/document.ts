@@ -17,7 +17,7 @@ interface DocumentParts {
 
 export interface DocumentListOptions {
   /**
-   * Exclude filter for excluding documents that match the glob pattern(s).
+   * Exclude patterns for excluding documents that match the glob pattern(s).
    */
   exclude?: string | Array<string>;
 }
@@ -131,6 +131,12 @@ export class Document {
       );
     });
 
+    // Include only files with supported extensions.
+    paths = paths.filter(path => {
+      const ext = fsPath.extname(path);
+      return Document.SupportedExtensions.has(ext);
+    });
+
     // Normalize paths returned by glob. Depending on the glob pattern, the
     // resulting paths may or may not include the pod root.
     paths = paths.map(path => {
@@ -151,12 +157,6 @@ export class Document {
         paths = paths.filter(path => !pathsToBeExcluded.includes(path));
       }
     }
-
-    // Include only files with supported extensions.
-    paths = paths.filter(path => {
-      const ext = fsPath.extname(path);
-      return Document.SupportedExtensions.has(ext);
-    });
 
     // Convert paths to Document objects.
     return paths.map(path => pod.doc(path));

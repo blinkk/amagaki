@@ -3,7 +3,7 @@ import * as fsPath from 'path';
 
 import {Locale, LocaleSet} from './locale';
 
-import {DocumentListOptions} from './document';
+import {Document, DocumentListOptions} from './document';
 import {Pod} from './pod';
 import glob from 'glob';
 
@@ -43,8 +43,10 @@ export class Collection {
 
   /**
    * Returns a list of documents in this collection (recursively).
+   *
+   * @param options Options for which docs are returned.
    */
-  docs(options?: CollectionDocsOptions) {
+  docs(options?: CollectionDocsOptions): Array<Document> {
     if (options?.excludeSubCollections) {
       options.exclude = options.exclude || [];
 
@@ -52,7 +54,7 @@ export class Collection {
       const subCollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
         cwd: this.pod.root,
         root: this.pod.root,
-        ignore: this.collectionPath.replace(/^[\/]+/, ''),
+        ignore: this.collectionPath.replace(/^[/]+/, ''),
         nodir: true,
       });
 

@@ -1,6 +1,7 @@
 import * as fsPath from 'path';
 import * as mimetypes from 'mime-types';
 import * as utils from './utils';
+
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
@@ -24,7 +25,7 @@ export class Router {
       new CollectionRouteProvider(this),
       // Default static routes. This can be overridden by the presence of any
       // static routes configured in `amagaki.js`.
-      new StaticDirectoryRouteProivder(this, {
+      new StaticDirectoryRouteProvider(this, {
         path: '/static/',
         staticDir: '/src/static/',
       }),
@@ -92,7 +93,7 @@ export class Router {
    */
   addStaticDirectoryRoutes(routeConfigs: Array<StaticDirConfig>) {
     for (const routeConfig of routeConfigs) {
-      this.addProvider(new StaticDirectoryRouteProivder(this, routeConfig));
+      this.addProvider(new StaticDirectoryRouteProvider(this, routeConfig));
     }
   }
 
@@ -187,7 +188,7 @@ export class CollectionRouteProvider extends RouteProvider {
   }
 }
 
-export class StaticDirectoryRouteProivder extends RouteProvider {
+export class StaticDirectoryRouteProvider extends RouteProvider {
   config: StaticDirConfig;
 
   constructor(router: Router, config: StaticDirConfig) {
@@ -197,15 +198,17 @@ export class StaticDirectoryRouteProivder extends RouteProvider {
   }
 
   get routes(): Array<Route> {
-    const podPaths = this.pod.walk(this.config.staticDir);
     const routes: Array<Route> = [];
-    const cleanPath = cleanBasePath(this.config.path);
-    podPaths.forEach(podPath => {
-      const subPath = podPath.slice(this.config.staticDir.length);
-      const route = new StaticRoute(this, podPath, `${cleanPath}/${subPath}`);
-      routes.push(route);
-      this.urlMap.set(route.staticFile, route.url);
-    });
+    if (this.pod.fileExists(this.config.staticDir)) {
+      const cleanPath = cleanBasePath(this.config.path);
+      const podPaths = this.pod.walk(this.config.staticDir);
+      podPaths.forEach(podPath => {
+        const subPath = podPath.slice(this.config.staticDir.length);
+        const route = new StaticRoute(this, podPath, `${cleanPath}/${subPath}`);
+        routes.push(route);
+        this.urlMap.set(route.staticFile, route.url);
+      });
+    }
     return routes;
   }
 }

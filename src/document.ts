@@ -224,29 +224,20 @@ export class Document {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
     if (this.locale.id === this.pod.defaultLocale.id) {
-      return (
-        (this.fields && this.fields['$path']) ||
-        this.collection?.fields['$path']
-      );
+      return this.fields?.['path'] || this.collection?.fields?.['$path'];
     }
     return (
-      (this.fields &&
-        this.fields['$localization'] &&
-        this.fields['$localization']['path']) ||
-      (this.collection &&
-        this.collection.fields['$localization'] &&
-        this.collection.fields['$localization']['path'])
+      this.fields?.['$localization']?.['path'] ||
+      this.collection?.fields?.['$localization']?.['path']
     );
   }
 
   get view() {
-    if (this.fields && this.fields['$view']) {
-      return this.fields['$view'];
-    }
-    if (this.collection?.fields['$view']) {
-      return this.collection.fields['$view'];
-    }
-    return DEFAULT_VIEW;
+    return (
+      this.fields?.['$view'] ||
+      this.collection?.fields?.['$view'] ||
+      DEFAULT_VIEW
+    );
   }
 
   /**
@@ -256,11 +247,7 @@ export class Document {
    * there, then `amagaki.js`.
    */
   get locales(): Set<Locale> {
-    if (
-      this.fields &&
-      this.fields['$localization'] &&
-      this.fields['$localization']['locales']
-    ) {
+    if (this.fields?.['$localization']?.['locales']) {
       return LocaleSet.fromIds(
         this.fields['$localization']['locales'],
         this.pod

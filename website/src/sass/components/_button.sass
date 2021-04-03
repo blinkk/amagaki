@@ -1,0 +1,130 @@
+@import ../utils/color
+@import ../utils/spacing
+@import ../utils/type
+
+$button-primary-color: var(--primaryColor)
+$button-primary-inverted-color: var(--whiteColor)
+$button-primary-hover-color: var(--secondaryTextColor)
+
+.button
+  +type-button
+  align-items: center
+  appearance: none
+  background-color: $button-primary-color
+  border: 1px solid transparent
+  border-radius: 2px
+  color: $button-primary-inverted-color
+  cursor: pointer
+  display: inline-flex
+  justify-content: center
+  padding: 12px 24px 11px
+  text-decoration: none
+  text-rendering: optimizeLegibility
+  transition: background-color .2s, box-shadow .2s, color .2s
+
+  &:visited
+    color: $button-primary-inverted-color
+
+  &:hover:not(.button--medium):not(.button--low):not(.button--tonal):not(.button--link)
+    background-color: $button-primary-hover-color
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15)
+    color: $button-primary-inverted-color
+
+  &:active:not(.button--medium):not(.button--low):not(.button--tonal):not(.button--link)
+    background-color: #174ea6
+    box-shadow: 0 0 0 2px #aecbfa
+
+  &:focus:not(.button--medium):not(.button--low):not(.button--tonal):not(.button--link)
+    background-color: #174ea6
+    box-shadow: 0 0 0 2px #aecbfa
+
+  &--medium
+    background-color: $button-primary-inverted-color
+    border-color: #dadce0
+    color: $button-primary-color
+    &:visited
+      color: $button-primary-color
+    &:hover
+      background-color: #f4f8fe
+      border-color: $button-primary-color
+      box-shadow: none
+      color: $button-primary-color
+    &:active
+      background-color: #e8f0fe
+      box-shadow: 0 0 0 1px $button-primary-color
+      border-color: $button-primary-color
+    &:focus
+      background-color: #f4f8fe
+      box-shadow: 0 0 0 1px $button-primary-color
+      border-color: $button-primary-color
+
+  &--low
+    background-color: transparent
+    border-color: #dadce0
+    color: $button-primary-color
+    &:visited
+      color: $button-primary-color
+    &:focus,
+    &:hover
+      background-color: #f4f8fe
+      color: $button-primary-color
+      box-shadow: none
+    &:active
+      background-color: #e8f0fe
+
+  &--tonal
+    background-color: #f4f8fe
+    color: $button-primary-color
+    &:visited
+      color: $button-primary-color
+    &:focus,
+    &:hover
+      background-color: #d2e3fc
+      color: $button-primary-color
+      box-shadow: none
+    &:active
+      background-color: #aecbfa
+
+  &--link
+    background-color: transparent
+    border-radius: 0
+    color: $button-primary-color
+    padding: 0
+    position: relative
+    &:visited
+      color: $button-primary-color
+    &:focus,
+    &:hover
+      background-color: transparent
+      box-shadow: none
+      &:after
+        background-color: $button-primary-color
+        bottom: 0
+        content: ''
+        display: block
+        height: 2px
+        left: 0
+        position: absolute
+        right: 0
+      &:focus
+        box-shadow: 0 0 0 2px #aecbfa
+    &:active
+      background-color: transparent
+    &:focus
+      background-color: transparent
+
+  &--small
+    font-size: 12px
+    font-weight: 700
+    line-height: 14px
+    padding: 3px 7px
+
+    .material-icons-outlined
+      font-size: 13px
+
+  & + &
+    margin-left: 10px
+
+  .material-icons-outlined
+    margin-right: 4px
+    margin-top: 0

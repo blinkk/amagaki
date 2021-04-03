@@ -1,0 +1,29 @@
+<div class="markdown">
+    <div class="markdown__menu">
+        <ul>
+            {% for collection in pod.collections(['/content/docs/**'], {sort: 'order'}) %}
+                {% set outerLoop = loop %}
+                <li>{{outerLoop.index}}. {{collection.fields.title}}</li>
+                <ul>
+                    {% for item in collection.docs({sort: 'order', excludeSubcollections: true}) %}
+                        <li
+                            {% if item == doc %}class="--active"{% endif %}
+                        >  
+                            {% if item == doc %}
+                                <div class="--active__marker">
+                                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="2" fill="#000"></circle></svg>
+                                </div>
+                            {% endif %}
+                            <a href="{{item.url.path}}">{{item.fields.title}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="markdown__body">
+        <div class="markdown-body">
+            {{partial.body|markdown|safe}}
+        </div>
+    </div>
+</div>

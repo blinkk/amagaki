@@ -1,0 +1,13 @@
+{% macro button(button) %}
+    {% if button.doc %}
+        {% set url = button.doc.url %}
+    {% else %}
+        {% set url = button.url %}
+    {% endif %}
+    <a
+        class="button {{button.class}}"
+        href="{{url}}"
+    >
+        {{button.label}}
+    </a>
+{% endmacro %}

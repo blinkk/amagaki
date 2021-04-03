@@ -1,0 +1,31 @@
+{% import "/views/macros/renderPartial.njk" as renderPartial with context %}
+
+<!DOCTYPE html>
+<html lang="{{doc.locale}}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{doc.fields.title}}</title>
+    <meta name="description" value="{{doc.fields.description}}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700|Nunito:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.min.css').url.path}}">
+    <script src="{{pod.staticFile('/dist/js/main.min.js').url.path}}"></script>
+</head>
+<body>
+<div class="main">
+    {% set partial = pod.doc('/content/partials/header.yaml').fields %}
+    {{renderPartial.renderPartial(partial)}}
+    {% if doc.fields.partials %}
+        {% for partial in doc.fields.partials %}
+            {{renderPartial.renderPartial(partial)}}
+        {% endfor %}
+    {% elif doc.body %}
+        {{renderPartial.renderPartial({
+            partial: 'markdown',
+            body: doc.body
+        })}}
+    {% endif %}
+    {{renderPartial.renderPartial(pod.doc('/content/partials/footer.yaml').fields)}}
+</div>

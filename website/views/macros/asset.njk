@@ -1,0 +1,18 @@
+{% macro asset(asset) %}
+    {{_image(asset)}}
+{% endmacro %}
+
+{% macro _image(params) %}
+  {% if params.url %}
+    {% set url = params.url %}
+  {% elif params.static %}
+    {% set url = params.static.url.path %}
+  {% endif %}
+  <img
+      loading="lazy"
+      src="{{url}}"
+      {% if params.style %}style="{{params.style}}"{% endif %}
+      {% if params.class %}class="{{params.class}}"{% endif %}
+      {% if params.title %}title="{{params.title}}" alt="{{params.title}}"{% endif %}
+  >
+{% endmacro %}

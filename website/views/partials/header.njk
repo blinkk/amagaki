@@ -1,0 +1,34 @@
+{% import "/views/macros/asset.njk" as asset with context %}
+
+<div class="header">
+    <div class="header__content">
+        <a href="{{partial.logo.home.url.path}}" class="header__content__logo">
+            <div class="header__content__logo__image">
+                {{asset.asset(partial.logo.image)}}
+            </div>
+            <div class="header__content__logo__title">
+                {{partial.logo.title}}
+            </div>
+        </a>
+        <div class="header__content__menu">
+            {% for item in partial.menu %}
+                {% set url = item.doc.url.path if item.doc else item.url %}
+                <a href="{{url}}" class="header__content__menu__link">
+                    {{item.title}}
+                </a>
+            {% endfor %}
+        </div>
+        <div class="header__content__aside">
+            <script async defer src="https://buttons.github.io/buttons.js"></script>
+            <a
+                class="github-button"
+                href="https://github.com/{{partial.aside.githubProject}}"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star {{partial.aside.githubProject}} on GitHub"
+            >
+                Star
+            </a>
+        </div>
+    </div>
+</div>

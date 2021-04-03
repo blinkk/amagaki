@@ -1,0 +1,25 @@
+{% import "/views/macros/asset.njk" as asset with context %}
+{% import "/views/macros/button.njk" as button with context %}
+
+<div class="hero">
+    <div class="hero__content">
+        <div class="hero__chapter">
+            <div class="hero__chapter__parts">
+                <div class="hero__chapter__parts__title">
+                    {{partial.title}}
+                </div>
+                <div class="hero__chapter__parts__body">
+                    {{partial.body}}
+                </div>
+                <div class="hero__chapter__parts__buttons">
+                    {% for item in partial.buttons %}
+                        {{button.button(item)}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="hero__chapter__image">
+                {{asset.asset(partial.image)}}
+            </div>
+        </div>
+    </div>
+</div>

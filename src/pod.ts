@@ -1,6 +1,7 @@
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 
+import {Collection, CollectionListOptions} from './collection';
 import {Document, DocumentListOptions} from './document';
 import {Environment, EnvironmentOptions} from './environment';
 import {Locale, LocaleSet} from './locale';
@@ -13,7 +14,6 @@ import {join, resolve} from 'path';
 
 import {Builder} from './builder';
 import {Cache} from './cache';
-import {Collection} from './collection';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {ServerPlugin} from './plugins/server';
@@ -164,6 +164,29 @@ export class Pod {
     }
     this.cache.docs[key] = new Document(this, path, locale);
     return this.cache.docs[key];
+  }
+
+  /**
+   * Lists collections using glob patterns, as outlined by the [`glob`
+   * module](https://github.com/isaacs/node-glob#glob-primer).
+   *
+   * Various techniques can be used to list collections depending on your needs:
+   *
+   * ```
+   * // All top-level collections:
+   * pod.collections('/content/**')
+   *
+   * // All top-level collections, sorted by the field "order":
+   * pod.collections('/content/**', {sort: 'order'})
+   *
+   * // Both the "pages" and "posts" collections:
+   * pod.collections(['/content/posts/*', '/content/pages/*'])
+   *
+   * @param patterns A list of glob patterns or a single glob pattern. If
+   * nothing is supplied, all docs within the pod will be returned.
+   */
+  collections(patterns?: string[], options?: CollectionListOptions) {
+    return Collection.list(this, patterns, options);
   }
 
   /**

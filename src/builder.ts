@@ -173,6 +173,23 @@ export class Builder {
     }
   }
 
+  deleteOutputFiles(paths: Array<string>) {
+    paths.forEach(outputPath => {
+      // Delete the file.
+      const absOutputPath = fsPath.join(
+        this.outputDirectoryPodPath,
+        outputPath
+      );
+      fs.unlinkSync(absOutputPath);
+      // Delete the directory if it is empty.
+      const dirPath = fsPath.dirname(absOutputPath);
+      const innerPaths = fs.readdirSync(dirPath);
+      if (innerPaths.length === 0) {
+        fs.rmdirSync(dirPath);
+      }
+    });
+  }
+
   getExistingManifest(): BuildManifest | null {
     const path = this.manifestPodPath;
     if (this.pod.fileExists(path)) {
@@ -432,6 +449,10 @@ export class Builder {
       existingManifest,
       buildManifest
     );
+
+    // After diff has been computed, actually delete files.
+    this.deleteOutputFiles(buildDiff.deletes);
+
     console.log(
       'Changes: '.blue +
         `${buildDiff.adds.length} adds, `.green +

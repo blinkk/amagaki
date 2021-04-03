@@ -95,15 +95,15 @@ export class Collection {
     // Normalize paths returned by glob. Depending on the glob pattern, the
     // resulting paths may or may not include the pod root.
     const cleanPaths = Array.from(paths)
+      .filter(path => {
+        // Only include `_collection.yaml` results.
+        return path.endsWith(Collection.ConfigFile);
+      })
       .map(path => {
         if (!path.startsWith(pod.root)) {
           path = fsPath.join(pod.root, path);
         }
         return path.replace(pod.root, '');
-      })
-      .filter(path => {
-        // Only include `_collection.yaml` results.
-        return path.endsWith(Collection.ConfigFile);
       });
 
     // Convert paths to Collection objects.

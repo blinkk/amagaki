@@ -20,6 +20,11 @@ export interface DocumentListOptions {
    * Exclude patterns for excluding documents that match the glob pattern(s).
    */
   exclude?: string | Array<string>;
+
+  /**
+   * Field name to sort the result by.
+   */
+  sort?: string;
 }
 
 /**
@@ -159,7 +164,14 @@ export class Document {
     }
 
     // Convert paths to Document objects.
-    return paths.map(path => pod.doc(path));
+    const docs = paths.map(path => pod.doc(path));
+    if (options && options.sort) {
+      const sort = options.sort as string;
+      docs.sort((a, b) => {
+        return a.fields[sort] - b.fields[sort];
+      });
+    }
+    return docs;
   }
 
   /**

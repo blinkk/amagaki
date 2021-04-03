@@ -8,7 +8,14 @@ import {Pod} from './pod';
 import glob from 'glob';
 
 export interface CollectionDocsOptions extends DocumentListOptions {
-  excludeSubcollections: boolean;
+  excludeSubcollections?: boolean;
+}
+
+export interface CollectionListOptions {
+  /**
+   * Field name to sort the result by.
+   */
+  sort?: string;
 }
 
 /**
@@ -41,26 +48,103 @@ export class Collection {
     return `[Collection: ${this.path}]`;
   }
 
-  get subcollections(): Array<Collection> {
-    const collections = [];
-
-    // Find all of the sub collections.
-    const subcollectionPaths = glob.sync(`**/${Collection.ConfigFile}`, {
-      cwd: this.pod.root,
-      root: this.pod.root,
-      // Ignore the current collection.
-      // Need to strip of first / for glob matching.
-      ignore: this.collectionPath.replace(/^[/]+/, ''),
-      nodir: true,
+  /**
+   * Lists collections using glob patterns, as outlined by the [`glob`
+   * module](https://github.com/isaacs/node-glob#glob-primer).
+   *
+   * Various techniques can be used to list collections depending on your needs:
+   *
+   * ```
+   * // All top-level collections:
+   * Collection.list(pod, '/content/**')
+   *
+   * // All top-level collections, sorted by the field "order":
+   * Collection.list(pod, '/content/**', {sort: 'order'})
+   *
+   * // Both the "pages" and "posts" collections:
+   * Collection.list(pod, ['/content/posts/*', '/content/pages/*'])
+   *
+   * @param patterns A list of glob patterns or a single glob pattern. If
+   * nothing is supplied, all docs within the pod will be returned.
+   */
+  static list(
+    pod: Pod,
+    patterns?: string[] | string,
+    options?: CollectionListOptions
+  ) {
+    const paths: Set<string> = new Set();
+    if (typeof patterns === 'string') {
+      patterns = [patterns];
+    }
+    patterns = patterns || [
+      `${Pod.DefaultContentPodPath}**/${Collection.ConfigFile}`,
+    ];
+    patterns.forEach(pattern => {
+      glob
+        .sync(pattern, {
+          cwd: pod.root,
+          root: pod.root,
+          matchBase: false,
+          nodir: true,
+        })
+        .forEach(path => {
+          paths.add(path);
+        });
     });
 
-    for (const collectionPath of subcollectionPaths) {
-      collections.push(
-        new Collection(this.pod, fsPath.dirname(collectionPath))
-      );
-    }
+    // Normalize paths returned by glob. Depending on the glob pattern, the
+    // resulting paths may or may not include the pod root.
+    const cleanPaths = Array.from(paths)
+      .map(path => {
+        if (!path.startsWith(pod.root)) {
+          path = fsPath.join(pod.root, path);
+        }
+        return path.replace(pod.root, '');
+      })
+      .filter(path => {
+        // Only include `_collection.yaml` results.
+        return path.endsWith(Collection.ConfigFile);
+      });
 
+    // Convert paths to Collection objects.
+    const collections = cleanPaths
+      .map(path => pod.collection(path))
+      .filter(collection => {
+        return collection !== null;
+      }) as Collection[];
+
+    // Handle sort options.
+    if (options?.sort) {
+      const sort = options.sort as string;
+      collections.sort((a, b) => {
+        return a.fields[sort] - b.fields[sort];
+      });
+    }
     return collections;
+  }
+
+  /**
+   * Returns a list of subcollections within this collection (recursively).
+   */
+  get subcollections(): Array<Collection> {
+    const pattern = fsPath.join(this.path, '**', Collection.ConfigFile);
+    return glob
+      .sync(pattern, {
+        cwd: this.pod.root,
+        root: this.pod.root,
+        nodir: true,
+      })
+      .map(path => {
+        // Convert absolute paths to pod paths.
+        return fsPath.dirname(path).replace(this.pod.root, '');
+      })
+      .filter(podPath => {
+        // Avoid including the current collection in its subcollections.
+        return podPath !== this.path;
+      })
+      .map(podPath => {
+        return new Collection(this.pod, podPath);
+      });
   }
 
   /**
@@ -76,6 +160,7 @@ export class Collection {
         (options.exclude as Array<string>).push(`${subcollection.path}/**`);
       }
     }
+
     return this.pod.docs([`${this.path}/**`], options);
   }
 

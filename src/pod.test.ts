@@ -8,6 +8,15 @@ test('Pod collection', (t: ExecutionContext) => {
   t.truthy(collection);
 });
 
+test('Pod collections', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/simple/');
+
+  t.deepEqual(
+    pod.collections().map(collection => collection.path),
+    ['/content/pages']
+  );
+});
+
 test('Pod docs', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
 

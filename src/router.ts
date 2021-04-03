@@ -308,9 +308,14 @@ export class DocumentRoute extends Route {
       doc: this.doc,
     }) as string;
 
-    // Clean up multiple slashes in url paths.
+    // Clean up repeated slashes.
     // Path format params can be blank or return with starting or ending slashes.
     urlPath = urlPath.replace(/\/{2,}/g, '/');
+
+    // Collapse `.../index/$` to `.../` for clean URLs.
+    // NOTE: This can be made configurable via a flag if needed, however this is
+    // a very sane default.
+    urlPath = urlPath.replace(/index\/?$/, '');
 
     this.pod.cache.urlPaths.set(this.doc, urlPath);
     return urlPath;

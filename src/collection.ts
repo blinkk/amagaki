@@ -100,6 +100,18 @@ export class Collection {
   }
 
   /**
+   * Returns the collection's basename.
+   *
+   * A collection's basename is its folder's name, without the full path.
+   *
+   * The `basename` for `/content/pages` is `pages`.
+   * The `basename` for `/content/pages/foo` is `foo`.
+   */
+  get basename() {
+    return fsPath.basename(this.path);
+  }
+
+  /**
    * Returns whether a collection exists. A collection exists if it has a
    * `_collection.yaml` file in it.
    */
@@ -166,11 +178,7 @@ export class Collection {
   }
 
   get locales(): Set<Locale> {
-    if (
-      this.fields &&
-      this.fields['$localization'] &&
-      this.fields['$localization']['locales']
-    ) {
+    if (this.fields?.['$localization']?.['locales']) {
       return LocaleSet.fromIds(
         this.fields['$localization']['locales'],
         this.pod

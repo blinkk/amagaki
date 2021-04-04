@@ -4,6 +4,7 @@ export interface EnvironmentOptions {
   scheme: string;
   name: string;
   dev: boolean;
+  fields?: any;
 }
 export class Environment {
   host: string;
@@ -11,6 +12,7 @@ export class Environment {
   scheme: string;
   name: string;
   dev: boolean;
+  fields?: any;
 
   static DefaultName: 'default';
 
@@ -20,6 +22,7 @@ export class Environment {
     this.port = options.port;
     this.scheme = options.scheme;
     this.dev = options.dev;
+    this.fields = options.fields;
   }
 
   toString() {

@@ -30,6 +30,9 @@ export class ServeCommand {
       port: port,
       scheme: 'http',
     });
+    if (this.globalOptions.env) {
+      pod.setEnvironment(this.globalOptions.env);
+    }
     const watcher = new Watcher(pod);
     const app = createApp(pod);
     app.listen(port, () => {

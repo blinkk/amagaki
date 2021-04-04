@@ -34,6 +34,7 @@ export interface PodConfig {
   meta: MetadataConfig;
   localization?: LocalizationConfig;
   staticRoutes?: Array<StaticDirConfig>;
+  environments?: Record<string, EnvironmentOptions>;
 }
 
 /**
@@ -348,6 +349,24 @@ export class Pod {
       locale
     );
     return this.cache.strings[options.value];
+  }
+
+  /**
+   * Sets the environment using settings specified from one of the
+   * preconfigured environments in `amagaki.js`. This is useful for changing
+   * behavior depending on your build environment, such as outputting different
+   * content between dev, staging, and prod.
+   */
+  setEnvironment(name: string) {
+    if (!this.config.environments || !this.config.environments[name]) {
+      throw new Error(`Environment ${name} is not configured in amagaki.js.`);
+    }
+    this.env.name = name;
+    this.env.host = this.config.environments[name]?.host || this.env.host;
+    this.env.port = this.config.environments[name]?.port || this.env.port;
+    this.env.scheme = this.config.environments[name]?.scheme || this.env.scheme;
+    this.env.dev = this.config.environments[name]?.dev || this.env.dev;
+    this.env.fields = this.config.environments[name]?.fields || this.env.fields;
   }
 
   /**

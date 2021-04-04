@@ -1,0 +1,24 @@
+@import ../utils/spacing
+@import ../utils/type
+
+.touts
+
+.touts__container
+    +spacing-max-width-container
+    max-width: $spacing-small-max-width
+
+.touts__header
+    text-align: center
+
+.touts__touts
+    display: grid
+    grid-gap: $spacing-60
+    grid-template-columns: 1fr 1fr
+
+.touts__touts__tout__title
+    +type-heading-4
+
+    & + .touts__touts__tout__body
+        margin-top: $spacing-20
+
+.touts__touts__tout__body

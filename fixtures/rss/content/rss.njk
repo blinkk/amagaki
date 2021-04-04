@@ -1,0 +1,27 @@
+---
+$path: /rss.xml
+$view: self
+siteTitle: Site title
+siteDescription: Site description
+---
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{doc.fields.siteTitle}}</title>
+    <link>{{pod.index.url}}</link>
+    <description>{{doc.fields.siteDescription}}</description>
+    <generator>Amagaki</generator>
+    <language>{{doc.locale.id}}</language>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="{{doc.url}}" rel="self" type="application/rss+xml" />
+    {% for item in pod.docs('/content/posts/**') %}
+      <item>
+        <title>{{item.fields.title}}</title>
+        <link>{{item.url}}</link>
+        <pubDate>{{item.fields.date}}</pubDate>
+        <author>{{item.fields.author}}</author>
+        <description>{{item.fields.description}}</description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

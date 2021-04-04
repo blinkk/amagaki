@@ -56,6 +56,12 @@ interface BuildMetrics {
   outputSizeDocuments: number;
 }
 
+interface BuildResult {
+  metrics: BuildMetrics;
+  manifest: BuildManifest;
+  diff: BuildDiffPaths;
+}
+
 interface CreatedPath {
   route: Route;
   tempPath: string;
@@ -176,13 +182,25 @@ export class Builder {
   deleteOutputFiles(paths: Array<string>) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = fsPath.join(
-        this.outputDirectoryPodPath,
-        outputPath
+      const absOutputPath = this.pod.getAbsoluteFilePath(
+        fsPath.join(this.outputDirectoryPodPath, outputPath)
       );
-      fs.unlinkSync(absOutputPath);
+      try {
+        fs.unlinkSync(absOutputPath);
+      } catch (err) {
+        if (err.errno === -2) {
+          console.warn(
+            `Warning: The Amagaki builder was unable to delete a file while cleaning the build output directory. Avoid manually deleting files outside of the Amagaki build process. -> ${absOutputPath}.`
+          );
+        } else {
+          throw err;
+        }
+      }
       // Delete the directory if it is empty.
       const dirPath = fsPath.dirname(absOutputPath);
+      if (!fs.existsSync(dirPath)) {
+        return;
+      }
       const innerPaths = fs.readdirSync(dirPath);
       if (innerPaths.length === 0) {
         fs.rmdirSync(dirPath);
@@ -255,7 +273,7 @@ export class Builder {
     );
   }
 
-  async export() {
+  async export(): Promise<BuildResult> {
     const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
@@ -281,6 +299,12 @@ export class Builder {
       customDuration: Builder.formatProgressBarTime(0),
     });
     const createdPaths: Array<CreatedPath> = [];
+
+    if (this.pod.router.routes.length === 0) {
+      throw new Error(
+        `Nothing to build. No routes found for pod rooted at: ${this.pod.root}. Ensure this is the right directory, and ensure that there is either content or static files to build.`
+      );
+    }
 
     // Collect the routes and assemble the temporary directory mapping.
     this.pod.router.routes.forEach(route => {
@@ -459,6 +483,17 @@ export class Builder {
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
     );
+
+    console.log(
+      'Build complete:'.blue +
+        ` ${this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)}`
+    );
+
+    return {
+      diff: buildDiff,
+      manifest: buildManifest,
+      metrics: buildMetrics,
+    };
   }
 
   async exportBenchmark() {

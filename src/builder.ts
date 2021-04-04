@@ -56,6 +56,12 @@ interface BuildMetrics {
   outputSizeDocuments: number;
 }
 
+interface BuildResult {
+  metrics: BuildMetrics;
+  manifest: BuildManifest;
+  diff: BuildDiffPaths;
+}
+
 interface CreatedPath {
   route: Route;
   tempPath: string;
@@ -255,7 +261,7 @@ export class Builder {
     );
   }
 
-  async export() {
+  async export(): Promise<BuildResult> {
     const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
@@ -281,6 +287,12 @@ export class Builder {
       customDuration: Builder.formatProgressBarTime(0),
     });
     const createdPaths: Array<CreatedPath> = [];
+
+    if (this.pod.router.routes.length === 0) {
+      throw new Error(
+        `Nothing to build. No routes found for pod rooted at: ${this.pod.root}. Ensure this is the right directory, and ensure that there is either content or static files to build.`
+      );
+    }
 
     // Collect the routes and assemble the temporary directory mapping.
     this.pod.router.routes.forEach(route => {
@@ -459,6 +471,12 @@ export class Builder {
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
     );
+
+    return {
+      diff: buildDiff,
+      manifest: buildManifest,
+      metrics: buildMetrics,
+    };
   }
 
   async exportBenchmark() {

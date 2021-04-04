@@ -182,13 +182,25 @@ export class Builder {
   deleteOutputFiles(paths: Array<string>) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = fsPath.join(
-        this.outputDirectoryPodPath,
-        outputPath
+      const absOutputPath = this.pod.getAbsoluteFilePath(
+        fsPath.join(this.outputDirectoryPodPath, outputPath)
       );
-      fs.unlinkSync(absOutputPath);
+      try {
+        fs.unlinkSync(absOutputPath);
+      } catch (err) {
+        if (err.errno === -2) {
+          console.warn(
+            `Warning: The Amagaki builder was unable to delete a file while cleaning the build output directory. Avoid manually deleting files outside of the Amagaki build process. -> ${absOutputPath}.`
+          );
+        } else {
+          throw err;
+        }
+      }
       // Delete the directory if it is empty.
       const dirPath = fsPath.dirname(absOutputPath);
+      if (!fs.existsSync(dirPath)) {
+        return;
+      }
       const innerPaths = fs.readdirSync(dirPath);
       if (innerPaths.length === 0) {
         fs.rmdirSync(dirPath);
@@ -470,6 +482,11 @@ export class Builder {
         `${buildDiff.adds.length} adds, `.green +
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
+    );
+
+    console.log(
+      'Build complete:'.blue +
+        ` ${this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)}`
     );
 
     return {

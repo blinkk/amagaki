@@ -18,3 +18,9 @@ for (const fixture of fixtures) {
     t.true(result.manifest.files.length > 0);
   });
 }
+
+test('Build example', async (t: ExecutionContext) => {
+  const pod = new Pod('./example/');
+  const result = await pod.builder.export();
+  t.true(result.manifest.files.length > 0);
+});

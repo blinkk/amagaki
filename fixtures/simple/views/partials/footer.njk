@@ -6,7 +6,7 @@
           {{"Select language:"|t}}
           <select onchange="window.location.href = this.value">
             {% for locale in doc.locales %}
-              {% set localized_doc = doc.pod.doc(doc.path, locale) %}
+              {% set localized_doc = pod.doc(doc.podPath, locale) %}
               <option value="{{localized_doc.url.path}}" {% if localized_doc.locale == doc.locale %}selected{% endif %}>
                 {{locale.id}}
               </option>

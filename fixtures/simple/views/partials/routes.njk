@@ -7,7 +7,7 @@
                 <td>{{"Title"|t}}</td>
             </tr>
         </thead>
-        {% for item in doc.pod.router.routes %}
+        {% for item in pod.router.routes %}
             <tr>
                 <td>{{item.locale.id}}</td>
                 <td><a href="{{item.url.path}}">{{item.url.path}}</a></td>

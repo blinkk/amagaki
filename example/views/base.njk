@@ -7,7 +7,7 @@
 <script src="{{a.static('/dist/js/main.js').url.path}}"></script>
 <body>
 <div class="main">
-    {% set partial = doc.pod.doc('/content/partials/header.yaml').fields %}
+    {% set partial = pod.doc('/content/partials/header.yaml').fields %}
     {% include "/views/partials/header.njk" %}
     {% if doc.fields.partials %}
         {% for partial in doc.fields.partials %}
@@ -19,7 +19,7 @@
             {{doc.body|markdown|safe}}
         </div>
     {% endif %}
-    {% set partial = doc.pod.doc('/content/partials/footer.yaml').fields %}
+    {% set partial = pod.doc('/content/partials/footer.yaml').fields %}
     {% include "/views/partials/footer.njk" %}
     {% include "/views/partials/debug.njk" %}
 </div>

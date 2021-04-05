@@ -12,7 +12,7 @@ test('Pod collections', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
 
   t.deepEqual(
-    pod.collections().map(collection => collection.path),
+    pod.collections().map(collection => collection.podPath),
     ['/content/pages']
   );
 });
@@ -22,7 +22,7 @@ test('Pod docs', (t: ExecutionContext) => {
 
   // By default, return all docs in the pod.
   t.deepEqual(
-    pod.docs().map(doc => doc.path),
+    pod.docs().map(doc => doc.podPath),
     [
       '/content/pages/about.yaml',
       '/content/pages/bio.md',
@@ -39,19 +39,19 @@ test('Pod docs', (t: ExecutionContext) => {
 
   // Both strings and lists are supported.
   t.deepEqual(
-    pod.docs('**/*.md').map(doc => doc.path),
+    pod.docs('**/*.md').map(doc => doc.podPath),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['**/*.md']).map(doc => doc.path),
+    pod.docs(['**/*.md']).map(doc => doc.podPath),
     ['/content/pages/bio.md']
   );
   t.deepEqual(
-    pod.docs(['**/index.yaml']).map(doc => doc.path),
+    pod.docs(['**/index.yaml']).map(doc => doc.podPath),
     ['/content/pages/dir/index.yaml', '/content/pages/index.yaml']
   );
   t.deepEqual(
-    pod.docs(['**/about.yaml', '**/index.yaml']).map(doc => doc.path),
+    pod.docs(['**/about.yaml', '**/index.yaml']).map(doc => doc.podPath),
     [
       '/content/pages/about.yaml',
       '/content/pages/dir/index.yaml',
@@ -61,7 +61,7 @@ test('Pod docs', (t: ExecutionContext) => {
 
   // Default behavior requesting docs from a specific collection.
   t.deepEqual(
-    pod.docs('/content/pages/**').map(doc => doc.path),
+    pod.docs('/content/pages/**').map(doc => doc.podPath),
     [
       '/content/pages/about.yaml',
       '/content/pages/bio.md',
@@ -75,7 +75,7 @@ test('Pod docs', (t: ExecutionContext) => {
 
   // Exclusively use glob syntax; missing * will result in an empty list.
   t.deepEqual(
-    pod.docs('/content/pages/').map(doc => doc.path),
+    pod.docs('/content/pages/').map(doc => doc.podPath),
     []
   );
 });

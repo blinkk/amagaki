@@ -28,24 +28,24 @@ export interface CollectionListOptions {
  * documents within that collection.
  */
 export class Collection {
-  path: string;
+  podPath: string;
   pod: Pod;
   collectionPath: string;
   private _fields: any;
 
   static ConfigFile = '_collection.yaml';
 
-  constructor(pod: Pod, path: string) {
+  constructor(pod: Pod, podPath: string) {
     this.pod = pod;
     // Remove trailing slashes from collection paths.
-    this.path = Collection.normalizePath(path);
-    this.collectionPath = fsPath.join(this.path, Collection.ConfigFile);
+    this.podPath = Collection.normalizePath(podPath);
+    this.collectionPath = fsPath.join(this.podPath, Collection.ConfigFile);
 
     this._fields = null;
   }
 
   toString() {
-    return `[Collection: ${this.path}]`;
+    return `[Collection: ${this.podPath}]`;
   }
 
   /**
@@ -127,7 +127,7 @@ export class Collection {
    * Returns a list of subcollections within this collection (recursively).
    */
   get subcollections(): Array<Collection> {
-    const pattern = fsPath.join(this.path, '**', Collection.ConfigFile);
+    const pattern = fsPath.join(this.podPath, '**', Collection.ConfigFile);
     return glob
       .sync(pattern, {
         cwd: this.pod.root,
@@ -140,7 +140,7 @@ export class Collection {
       })
       .filter(podPath => {
         // Avoid including the current collection in its subcollections.
-        return podPath !== this.path;
+        return podPath !== this.podPath;
       })
       .map(podPath => {
         return new Collection(this.pod, podPath);
@@ -157,11 +157,11 @@ export class Collection {
       options.exclude = options.exclude || [];
 
       for (const subcollection of this.subcollections) {
-        (options.exclude as Array<string>).push(`${subcollection.path}/**`);
+        (options.exclude as Array<string>).push(`${subcollection.podPath}/**`);
       }
     }
 
-    return this.pod.docs([`${this.path}/**`], options);
+    return this.pod.docs([`${this.podPath}/**`], options);
   }
 
   /**
@@ -178,7 +178,7 @@ export class Collection {
       return collection;
     }
     // Reached the pod root, no collection found.
-    if (collection.path === '') {
+    if (collection.podPath === '') {
       return null;
     }
     return Collection.find(pod, collection.parentPath);
@@ -193,7 +193,7 @@ export class Collection {
    * The `basename` for `/content/pages/foo` is `foo`.
    */
   get basename() {
-    return fsPath.basename(this.path);
+    return fsPath.basename(this.podPath);
   }
 
   /**
@@ -221,7 +221,9 @@ export class Collection {
 
   /** Returns the absolute parent directory path of the collection. */
   get parentPath() {
-    const absPath = this.pod.getAbsoluteFilePath(fsPath.join(this.path, '..'));
+    const absPath = this.pod.getAbsoluteFilePath(
+      fsPath.join(this.podPath, '..')
+    );
     return fs.realpathSync(absPath).replace(this.pod.root, '');
   }
 

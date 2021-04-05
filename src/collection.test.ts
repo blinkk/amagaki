@@ -6,7 +6,7 @@ import test from 'ava';
 test('Collection sub-collections', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   const collection = pod.collection('/content/collection/') as Collection;
-  const paths = collection.subcollections.map(collection => collection.path);
+  const paths = collection.subcollections.map(collection => collection.podPath);
 
   t.deepEqual(paths, [
     '/content/collection/collection-a',
@@ -19,7 +19,7 @@ test('Collection docs', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/collections/');
   let collection = pod.collection('/content/collection/') as Collection;
   let docs = collection.docs();
-  let paths = docs.map(doc => doc.path);
+  let paths = docs.map(doc => doc.podPath);
 
   t.deepEqual(paths, [
     '/content/collection/collection-a/collection-b/index.yaml',
@@ -33,7 +33,7 @@ test('Collection docs', (t: ExecutionContext) => {
   // Sub collection is a sub-set of parent collection.
   collection = pod.collection('/content/collection/collection-a') as Collection;
   docs = collection.docs();
-  paths = docs.map(doc => doc.path);
+  paths = docs.map(doc => doc.podPath);
 
   t.deepEqual(paths, [
     '/content/collection/collection-a/collection-b/index.yaml',
@@ -48,7 +48,7 @@ test('Collection docs option to exclude sub-collections', (t: ExecutionContext) 
   const docs = collection.docs({
     excludeSubcollections: true,
   });
-  const paths = docs.map(doc => doc.path);
+  const paths = docs.map(doc => doc.podPath);
 
   t.deepEqual(paths, [
     '/content/collection/dir/index.yaml',

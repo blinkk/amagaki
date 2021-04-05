@@ -109,18 +109,18 @@ export class Pod {
    * the requested directory, the directory will be walked upwards until finding
    * a directory containing a `_collection.yaml` file. If no `_collection.yaml`
    * is found, no collection will be returned.
-   * @param path The podPath to the collection.
+   * @param podPath The podPath to the collection.
    */
-  collection(path: string) {
-    if (this.cache.collections[path]) {
-      return this.cache.collections[path];
+  collection(podPath: string) {
+    if (this.cache.collections[podPath]) {
+      return this.cache.collections[podPath];
     }
-    const collection = Collection.find(this, path);
+    const collection = Collection.find(this, podPath);
     if (!collection) {
       return null;
     }
-    this.cache.collections[path] = collection;
-    return this.cache.collections[path];
+    this.cache.collections[podPath] = collection;
+    return this.cache.collections[podPath];
   }
 
   /**
@@ -152,17 +152,17 @@ export class Pod {
 
   /**
    * Returns a document object.
-   * @param path The podPath to the document.
+   * @param podPath The podPath to the document.
    * @param locale The document's locale. If not provided, the pod's default
    * locale will be used to return the document.
    */
-  doc(path: string, locale?: Locale) {
+  doc(podPath: string, locale?: Locale) {
     locale = locale || this.defaultLocale;
-    const key = `${path}${locale.id}`;
+    const key = `${podPath}${locale.id}`;
     if (this.cache.docs[key]) {
       return this.cache.docs[key];
     }
-    this.cache.docs[key] = new Document(this, path, locale);
+    this.cache.docs[key] = new Document(this, podPath, locale);
     return this.cache.docs[key];
   }
 
@@ -224,12 +224,12 @@ export class Pod {
 
   /**
    * Returns whether a file exists within the pod.
-   * @param path The podPath to the file.
+   * @param podPath The podPath to the file.
    */
-  fileExists(path: string) {
+  fileExists(podPath: string) {
     const timer = this.profiler.timer('file.exists', 'File exists');
     try {
-      return existsSync(this.getAbsoluteFilePath(path));
+      return existsSync(this.getAbsoluteFilePath(podPath));
     } finally {
       timer.stop();
     }
@@ -237,11 +237,11 @@ export class Pod {
 
   /**
    * Returns the absolute file path on the file system.
-   * @param path The podPath to the file or directory.
+   * @param podPath The podPath to the file or directory.
    */
-  getAbsoluteFilePath(path: string) {
-    path = path.replace(/^\/+/, '');
-    return join(this.root, path);
+  getAbsoluteFilePath(podPath: string) {
+    podPath = podPath.replace(/^\/+/, '');
+    return join(this.root, podPath);
   }
 
   /**
@@ -287,21 +287,21 @@ export class Pod {
     }
   }
 
-  readYaml(path: string) {
-    if (this.cache.yamls[path]) {
-      return this.cache.yamls[path];
+  readYaml(podPath: string) {
+    if (this.cache.yamls[podPath]) {
+      return this.cache.yamls[podPath];
     }
 
     const timer = this.profiler.timer('yaml.load', 'Yaml load');
     try {
-      this.cache.yamls[path] = yaml.load(this.readFile(path), {
+      this.cache.yamls[podPath] = yaml.load(this.readFile(podPath), {
         schema: this.yamlSchema,
       });
     } finally {
       timer.stop();
     }
 
-    return this.cache.yamls[path];
+    return this.cache.yamls[podPath];
   }
 
   readYamlString(content: string, cacheKey: string) {
@@ -323,14 +323,14 @@ export class Pod {
 
   /**
    * Returns a static file object.
-   * @param path The podPath to the static file.
+   * @param podPath The podPath to the static file.
    */
-  staticFile(path: string) {
-    if (this.cache.staticFiles[path]) {
-      return this.cache.staticFiles[path];
+  staticFile(podPath: string) {
+    if (this.cache.staticFiles[podPath]) {
+      return this.cache.staticFiles[podPath];
     }
-    this.cache.staticFiles[path] = new StaticFile(this, path);
-    return this.cache.staticFiles[path];
+    this.cache.staticFiles[podPath] = new StaticFile(this, podPath);
+    return this.cache.staticFiles[podPath];
   }
 
   /**
@@ -355,8 +355,8 @@ export class Pod {
    * that directory, recursively in a flat list. For example, if walking
    * `/content/pages/`, it might return: `/content/pages/index.yaml`,
    * `/content/pages/subpages/index.yaml`, etc. */
-  walk(path: string) {
-    return utils.walk(this.getAbsoluteFilePath(path), [], this.root);
+  walk(podPath: string) {
+    return utils.walk(this.getAbsoluteFilePath(podPath), [], this.root);
   }
 
   /**

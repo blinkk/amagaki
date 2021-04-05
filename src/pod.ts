@@ -78,7 +78,7 @@ export class Pod {
       environmentOptions || {
         host: 'localhost',
         name: 'default',
-        scheme: 'http',
+        scheme: 'https',
         dev: false,
       }
     );
@@ -358,7 +358,7 @@ export class Pod {
    * content between dev, staging, and prod.
    */
   setEnvironment(name: string) {
-    if (!this.config.environments || !this.config.environments[name]) {
+    if (!this.config.environments?.[name]) {
       throw new Error(`Environment ${name} is not configured in amagaki.js.`);
     }
     this.env.name = name;

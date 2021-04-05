@@ -243,9 +243,7 @@ export class Route {
   get url(): Url {
     return new Url({
       path: this.urlPath,
-      host: this.pod.env.host,
-      port: this.pod.env.port,
-      scheme: this.pod.env.scheme,
+      env: this.pod.env,
     });
   }
 }

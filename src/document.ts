@@ -57,7 +57,7 @@ export interface DocumentListOptions {
  * `router`.
  */
 export class Document {
-  path: string;
+  podPath: string;
   locale: Locale;
   pod: Pod;
   readonly ext: string;
@@ -72,16 +72,16 @@ export class Document {
     '.yaml',
   ]);
 
-  constructor(pod: Pod, path: string, locale: Locale) {
+  constructor(pod: Pod, podPath: string, locale: Locale) {
     this.pod = pod;
-    this.path = path;
+    this.podPath = podPath;
     this.locale = locale;
-    this.ext = fsPath.extname(this.path);
+    this.ext = fsPath.extname(this.podPath);
     this.parts = {};
   }
 
   toString() {
-    return `[Document: ${this.path} (${this.locale.id})]`;
+    return `[Document: ${this.podPath} (${this.locale.id})]`;
   }
 
   /**
@@ -180,7 +180,7 @@ export class Document {
    * walked upwards until locating a `_collection.yaml`.
    */
   get collection() {
-    return this.pod.collection(fsPath.dirname(this.path));
+    return this.pod.collection(fsPath.dirname(this.podPath));
   }
 
   /**
@@ -210,7 +210,7 @@ export class Document {
 
     // When `$view: self` is used, use the document's body as the template.
     if (this.view === Document.SelfReferencedView) {
-      const templateEngine = this.pod.engines.getEngineByFilename(this.path);
+      const templateEngine = this.pod.engines.getEngineByFilename(this.podPath);
       return templateEngine.renderFromString(
         this.body as string,
         defaultContext
@@ -238,7 +238,7 @@ export class Document {
    * The `basename` for `/content/pages/index.yaml` is `index`.
    */
   get basename() {
-    return fsPath.basename(this.path).split('.')[0];
+    return fsPath.basename(this.podPath).split('.')[0];
   }
 
   /**
@@ -247,8 +247,8 @@ export class Document {
    * The `collectionPath` for `/content/pages/sub/path/index.yaml` is `/sub/path`.
    */
   get collectionPath() {
-    const documentDirectory = fsPath.dirname(this.path);
-    const collectionDirectory = this.collection?.path || '';
+    const documentDirectory = fsPath.dirname(this.podPath);
+    const collectionDirectory = this.collection?.podPath || '';
     return documentDirectory.slice(collectionDirectory.length);
   }
 
@@ -312,7 +312,7 @@ export class Document {
       );
       try {
         this.parts.fields = utils.localizeData(
-          this.pod.readYaml(this.path),
+          this.pod.readYaml(this.podPath),
           this.locale
         );
       } finally {
@@ -326,7 +326,7 @@ export class Document {
     if (this._content !== undefined) {
       return this._content;
     }
-    this._content = this.pod.readFile(this.path);
+    this._content = this.pod.readFile(this.podPath);
     return this._content;
   }
 
@@ -352,7 +352,7 @@ export class Document {
       body: result.body || null,
       fields: result.frontMatter
         ? utils.localizeData(
-            this.pod.readYamlString(result.frontMatter, this.path),
+            this.pod.readYamlString(result.frontMatter, this.podPath),
             this.locale
           )
         : {},

@@ -6,7 +6,7 @@ import test from 'ava';
 test('Doc sort', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/documents/');
   const collection = pod.collection('/content/') as Collection;
-  const paths = collection.docs({sort: 'order'}).map(doc => doc.path);
+  const paths = collection.docs({sort: 'order'}).map(doc => doc.podPath);
 
   t.deepEqual(paths, [
     '/content/foo.yaml',

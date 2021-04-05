@@ -170,16 +170,16 @@ export class CollectionRouteProvider extends RouteProvider {
 
     const docs = this.pod.docs();
     docs.forEach(doc => {
-      if (!Document.isServable(doc.path)) {
+      if (!Document.isServable(doc.podPath)) {
         return;
       }
 
       // Add base and localized docs.
-      const baseRoute = addRoute(doc.path);
+      const baseRoute = addRoute(doc.podPath);
       baseRoute &&
         baseRoute.doc.locales.forEach((locale: Locale) => {
           if (locale !== baseRoute.doc.defaultLocale) {
-            addRoute(doc.path, locale);
+            addRoute(doc.podPath, locale);
           }
         });
     });

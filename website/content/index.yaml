@@ -1,0 +1,57 @@
+partials:
+
+- partial: hero
+  title: The best way to hand‑code high‑fidelity marketing websites
+  body: Amagaki is a TypeScript-based website generator. It's fast, flexible, and extensible. It's more than Jekyll, less than Next.js or Gatsby – and perfect for hand-coding high-fidelity marketing websites.
+  image:
+    url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w1024
+  buttons:
+  - label: Read manual
+    doc: !a.Doc /content/docs/index.md
+  - label: Explore the starter
+    doc: !a.Doc /content/docs/index.md
+    class: button--low
+
+- partial: spacer
+  size: large
+
+- partial: touts
+  header:
+    title: Lorem ipsum dolor sit amet
+  touts:
+  - title: Performance first
+    body: Performance metrics come with every build. Insights inform you of slowdowns with your site’s build time.
+  - title: Just write HTML, CSS, and TS
+    body: "Amagaki lets you focus on the things that matter for marketing sites: building out the templates, making the styles pixel perfect, and maintaining the content. Avoid fussing with boilerplate configuration and routing on every project."
+  - title: Not a frontend framework.
+    body: Amagaki helps you follow best practices such as separating content and markup. You can pair it with the frontend framework of your choosing, if needed. Since it just generates HTML, CSS, and JS – you can integrate it into an existing project or system.
+  - title: Minim irure reprehenderit duis ea.
+    body: Amet elit ut nostrud commodo ut labore pariatur esse.
+
+- partial: spacer
+  size: large
+
+- partial: simpleMarkdown
+  body: |
+    ## Why?
+    
+    We know there are dozens and dozens of static site generators. Amagaki was designed specifically for two reasons:
+    
+    - **TypeScript.** There aren’t a lot of robust TypeScript static site generators. Amagaki aims to be the best. We are betting on the evolution of TypeScript and the JavaScript ecosystem, and want to empower developers to use the same tools to extend Amagaki as they use to build their website.
+
+    - **A laser focus on the marketing website lifecycle.** Marketing websites face certain challenges and sit somewhere in between blogs and webapps. For example, a popular tool like Jekyll may have too few features for a marketing website, and Next.js may have too many. Something has to bridge the gap.
+
+    Marketing websites are often constructed with elements such as repeatable content types, reusable modules, frontend components, and translations. Amagaki makes it easy to separate content and views, allowing developers to follow this critical maintainability best practice. All while just writing HTML (templates), CSS (Sass), and JS (TypeScrpt).
+    
+    And, often, stakeholders require developers to stage updates on a dime and push content updates rapidly. Amagaki facilitates this workflow with confidence.
+
+- partial: spacer
+  size: large
+
+- partial: simpleMarkdown
+  body: |
+    ## The editor
+
+    You’re using a static site generator, but you want to empower stakeholders with the ability to edit and publish content themselves; and you want to avoid a complicated headless CMS integration. That’s where Editor.dev comes in.
+    
+    Amagaki was built to pair with Editor.dev – a robust, minimal configuration, user-friendly way to empower non-technical users to assemble pages, update copy, images, and translations, and interact with your website content – all without requiring integrations.

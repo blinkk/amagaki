@@ -1,0 +1,8 @@
+partial: footer
+menu:
+- doc: !a.Doc /content/docs/index.md
+  title: Docs
+- url: /api/
+  title: API Reference
+- url: /benchmarks/
+  title: Benchmarks

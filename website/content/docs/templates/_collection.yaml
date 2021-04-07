@@ -1,0 +1,2 @@
+$path: /docs/${doc.collection.basename}/${doc.basename}/
+title: Templates

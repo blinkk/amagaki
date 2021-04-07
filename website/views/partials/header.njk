@@ -12,8 +12,7 @@
         </a>
         <div class="header__content__menu">
             {% for item in partial.menu %}
-                {% set url = item.doc.url.path if item.doc else item.url %}
-                <a href="{{url}}" class="header__content__menu__link">
+                <a href="{{item|url}}" class="header__content__menu__link">
                     {{item.title}}
                 </a>
             {% endfor %}

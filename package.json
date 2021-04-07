@@ -3,7 +3,7 @@
   "bin": {
     "amagaki": "./src/index.js"
   },
-  "version": "0.1.15",
+  "version": "0.2.0",
   "license": "MIT",
   "homepage": "https://amagaki.dev",
   "repository": {

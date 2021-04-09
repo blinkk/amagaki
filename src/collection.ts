@@ -117,7 +117,7 @@ export class Collection {
     if (options?.sort) {
       const sort = options.sort as string;
       collections.sort((a, b) => {
-        return a.fields[sort] - b.fields[sort];
+        return a.fields?.[sort] - b.fields?.[sort];
       });
     }
     return collections;

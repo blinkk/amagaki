@@ -165,10 +165,10 @@ export class Document {
 
     // Convert paths to Document objects.
     const docs = paths.map(path => pod.doc(path));
-    if (options && options.sort) {
+    if (options?.sort) {
       const sort = options.sort as string;
       docs.sort((a, b) => {
-        return a.fields[sort] - b.fields[sort];
+        return a.fields?.[sort] - b.fields?.[sort];
       });
     }
     return docs;

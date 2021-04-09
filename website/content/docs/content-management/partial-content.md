@@ -1,34 +1,52 @@
 ---
 title: Partial content
 ---
-# Hello123  World
+## Partials {#partials}
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+One of the most important concepts with Amagaki is the partial loop. Most pages
+on marketing and informational websites are assembled by mixing and matching
+reusable sections or templates – in Amagaki, these are called partials.
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+A partial is a reusable, content-agnostic template that is designed to be
+reused, mixed, and matched in pages. Partials are meant to be independent of one
+another and completely isolated such that there are minimal, or no dependencies
+beyond the content injected into the partial.
 
-Here’s what a sample content structure may look like:
+Within a content document, the partial loop is represented by a list of
+partials, like this:
+
 
 ```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
+...
+partials:
+
+- partial: hero  # Maps to /views/partials/hero.njk
+  headline: Hello World!
+
+- partial: spacer  # Maps to /views/partials/spacer.njk
+
+- partial: columns  # Maps to /views/partials/columns.njk
+  columns: 
+  - headline: Column 1 headline
+  - headline: Column 2 headline
 ```
 
-In this example content structure:
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+Within Amagaki’s default base template, the content document’s partials are
+looped over, rendering one at a time. Each partial’s rendering context
+(`{{partial}}`) is populated by its content from the partial loop.
+
+In summary, each document should be rendered as an assembly of partials, with an
+overall anatomy of:
+
+
+
+*   The list of partials within the document
+*   The data within each partial in the partial loop
+*   The partial template – within /views/partials/&lt;partial>
+*   The partial templates CSS – within /src/sass/partials/&lt;partial>
+
+As your site evolves over time, you can easily create new partials, mix and
+match partials, and manage them all independently of one another. Note that even
+if a page has a section that will never be reused on another page, you should
+still build that page as a list of partials for consistency.

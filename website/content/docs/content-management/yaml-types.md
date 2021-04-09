@@ -1,34 +1,69 @@
 ---
 title: YAML types
 ---
-# Hello123  World
+## YAML types {#yaml-types}
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+One of Amagaki’s unique concepts is bringing elevating YAML types to first party
+citizens in the ecosystem. Amagaki provides Pod Functions and additional inbuilt
+YAML types to assist with common content management tasks.
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+Amagaki’s YAML types facilitate content management best practices, entirely
+within the content layer. For example, using YAML types, you can:
 
-Here’s what a sample content structure may look like:
 
-```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
-```
 
-In this example content structure:
+*   Create and reuse partial content (such as common modules)
+*   Refer to pod objects, such as documents, collections, static files, and URLs
+    – entirely within the content layer
+*   Refer to translation strings, including the ability to use preferred string
+    values and fall back to previous translations if a new translation is not
+    yet available
+*   Conditionally change content based on the pod’s environment or document’s
+    locale
+*   Create custom YAML types representing custom content structures within your
+    site. For example, you can create a YAML type representing a button, or a
+    YAML type representing a media asset. Custom YAML types can be validated,
+    and represented into objects of your choosing.
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+
+### When to use YAML types
+
+Always avoid hardcoding objects that can be represented through an existing or
+custom YAML type. For example, you should:
+
+
+
+*   Never hardcode URLs. URLs can change throughout the life of a project. Use
+    the `url` property on a document to determine URLs instead.
+*   Never hardcode document or collection paths. Use the !pod.doc or
+    !pod.collection YAML types to represent documents instead. Hardcoding
+    document or collection paths could result in a template error if a typo was
+    made.
+
+
+### Built-in YAML types
+
+
+
+*   !pod.doc
+*   !pod.docs
+*   !pod.collection
+*   !pod.collections
+*   !pod.string
+*   !pod.staticFile
+*   !pod.yaml
+*   !pod.locale
+*   !pod.locales
+*   !pod.config
+*   !IfEnvironment
+*   !IfLocale
+
+
+### Custom YAML types
+
+Custom YAML types are created through plugins. Custom YAML types can be used to
+represent reusable objects that may be helpful to reuse throughout the content
+layer in your site.
+
+Below is an example of how to create a custom YAML type that represents a
+button.

@@ -1,34 +1,29 @@
 ---
 title: Referring to static files
 ---
-# Hello World
+## Referring to static files {#referring-to-static-files}
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+Static files should always be loaded using an Amagaki function. By default,
+static files can be placed in the `/src/static/` folder, and then can be loaded
+using the `staticFile` Amagaki function.
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+In YAML:
 
-Here’s what a sample content structure may look like:
 
 ```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
+file: !pod.staticFile /src/static/image.jpg
 ```
 
-In this example content structure:
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+In a template:
+
+
+```
+<img src="{{pod.staticFile('/src/static/image.jpg').url.path}}">
+```
+
+
+Avoid hardcoding paths to static files. When hardcoding paths, maintainability
+is reduced, and it’s easier to make mistakes (i.e. typos that refer to files
+that may not exist). Using the Amagaki functions also enables the features that
+come with it – such as recording static file usage.

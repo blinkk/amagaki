@@ -1,34 +1,32 @@
 ---
-title: Introduction
+title: Template engines
 ---
-# Hello World
+## Template engines {#template-engines}
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+Amagaki supports multiple template engines. Because Amagaki is primarily an HTML
+generator, and because Nunjucks is a simple template engine that is fully
+compatible with HTML, Nunjucks is included in Amagaki’s core.
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+Read the Nunjucks manual
 
-Here’s what a sample content structure may look like:
 
-```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
-```
+### Template specification
 
-In this example content structure:
+Amagaki determines which template engine to used based on the file extension of
+the template specified b
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+
+### Global default template
+
+By default, if `$view` is not specified within `_collection.yaml` or within a
+document’s front matter, the default `/views/base.njk` template is used. When
+used in conjunction with the partial loop, this global default represents a
+powerful way to follow the DRY (don’t repeat yourself) concept -- avoiding
+specification of different $view settings – while maintaining the concept of
+building websites out of reusable modules.
+
+
+### Adding new template engines
+
+Different template engines can be used by installing or writing an Amagaki
+plugin. See the Plugins: Template engines documentation to understand how.

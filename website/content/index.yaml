@@ -15,9 +15,43 @@ partials:
 - partial: spacer
   size: large
 
+- partial: simpleMarkdown
+  body: |
+    ### Quick start {#quick-start}
+
+    Amagaki is distributed as an npm package. We recommend using our starter when building marketing websites from scratch.
+
+
+    ```bash
+    git clone https://github.com/amagakidev/starter
+    npm install
+
+    # Start the dev server
+    npm run dev
+
+    # Build the site
+    npm run build
+    ```
+
+    If you are integrating into an existing project, you can install Amagaki directly.
+
+    ```bash
+    # Install Amagaki.
+    npm install --save @amagaki/amagaki
+
+    # Start the dev server
+    npx amagaki server
+
+    # Build the site.
+    npx amagaki build
+    ```
+
+- partial: spacer
+  size: large
+
 - partial: touts
   header:
-    title: Lorem ipsum dolor sit amet
+    title: Key features
   touts:
   - title: Performance first
     body: Performance metrics come with every build. Insights inform you of slowdowns with your site’s build time.
@@ -55,3 +89,18 @@ partials:
     You’re using a static site generator, but you want to empower stakeholders with the ability to edit and publish content themselves; and you want to avoid a complicated headless CMS integration. That’s where Editor.dev comes in.
     
     Amagaki was built to pair with Editor.dev – a robust, minimal configuration, user-friendly way to empower non-technical users to assemble pages, update copy, images, and translations, and interact with your website content – all without requiring integrations.
+
+- partial: spacer
+  size: large
+
+- partial: simpleMarkdown
+  body: |
+    ## The team
+
+    Amagaki is an independent project released under the MIT License largely maintained by Blinkk, a small web development studio. We use Amagaki to build projects for our stakeholders and partners.
+
+    ## Other projects
+
+    - Editor.dev
+    - Fileset
+    - Degu

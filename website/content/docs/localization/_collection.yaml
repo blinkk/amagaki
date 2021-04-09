@@ -1,0 +1,3 @@
+$path: /docs/${doc.collection.basename}/${doc.basename}/
+title: Localization
+order: 1

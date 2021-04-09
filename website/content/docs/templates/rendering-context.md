@@ -1,34 +1,68 @@
 ---
 title: Rendering context
 ---
-# Hello World
+## Rendering context and functions
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+By default, Amagaki’s document route provider will render all documents
+configured with URLs. Binding a URL to a document means “render me as a page”.
+When Amagaki renders a document, it selects a template (either the pod’s default
+template or a template bound to a collection), and renders it with a rendering
+context.
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+Here is the top-level rendering context: \
 
-Here’s what a sample content structure may look like:
 
-```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
-```
 
-In this example content structure:
+<table>
+  <tr>
+   <td>Template variable
+   </td>
+   <td>Description
+   </td>
+  </tr>
+  <tr>
+   <td>doc
+   </td>
+   <td>A reference to the current document being rendered. All properties of the document are available. Some commonly used ones are: \
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+<ol>
+
+<li>doc.fields – containing front matter
+
+<li>doc.body – containing the body (i.e. for Markdown or HTML documents)
+
+<li>doc.collection – a reference to the document’s collection
+
+<li>doc.locale
+
+<p>
+See API Reference for Document objects
+</li>
+</ol>
+   </td>
+  </tr>
+  <tr>
+   <td>route
+   </td>
+   <td>A reference to the route binding the URL to the document. Commonly used properties of the route are:
+<ol>
+
+<li>route.params
+
+<li>route.fields
+
+<p>
+See API Reference for Route objects
+</li>
+</ol>
+   </td>
+  </tr>
+  <tr>
+   <td>pod
+   </td>
+   <td>A reference to the pod. All pod functions are available from the `pod` object, which can be invoked from your templates.
+<p>
+See API Reference for Pod objects
+   </td>
+  </tr>
+</table>

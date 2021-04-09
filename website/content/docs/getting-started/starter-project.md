@@ -2,34 +2,67 @@
 title: Starter project
 order: 1
 ---
-# Hello 123 World
 
-All Amagaki content is organized into collections, which themselves have blueprints, documents, and may have subcollections. Unlike other website generators, Amagaki does not assume a 1:1 relationship between content and pages. Understandably, you might have content that’s shared across pages (this type of content is typically called “partial” content)
+# Starter project
 
-You may architect your content in a way that makes most logical sense for your project, and decide later how to represent that content on pages. Documents and collections may specify URLs and bind themselves to templates, or they may not.
+The quickest way to start an Amagaki project with enough foundational bells and whistles is to simply clone and run the Amagaki starter project.
 
-Here’s what a sample content structure may look like:
+This guide assumes you have Node and Git installed. Amagaki is a command line
+program, so you’ll invoke these commands from your terminal. To get started,
+simply clone the quick start project, install the dependencies, and run the
+development server. \
+
+
 
 ```
-.
-└── content
-    ├── pages
-    |   ├── _collection.yaml
-    |   ├── about.yaml
-    |   ├── contact.yaml
-    |   └── index.yaml
-    ├── partials
-    |   ├── header.yaml
-    |   └── footer.yaml
-    └── posts
-        ├── _collection.yaml
-        ├── 2019-01-06.md
-        ├── 2021-04-01.md
-        └── 2021-08-08.md
+git clone https://github.com/amagakidev/starter
+npm install
+npm run dev
 ```
 
-In this example content structure:
 
-- We generate three pages, generate three blog posts, and use two partial documents.
-- Note partial content does not need `_collection.yaml` (the collection’s blueprint).
-- Blueprints are only needed to define URLs; if documents aren’t meant to be generated into individual pages, no blueprint is necessary.
+
+## What’s included in the quick start project?
+
+
+
+*   Sample pages
+    *   Homepage
+    *   About page
+    *   Contact page
+*   Sample blog
+    *   Blog listing
+    *   Blog posts
+*   Feeds
+    *   Sitemap
+    *   RSS
+*   Foundational development tools
+    *   Nunjucks templates
+        *   Base template
+        *   Reusable partial modules
+    *   Sass (with code splitting on a per-partial basis)
+    *   TypeScript (with code splitting on a per-partial basis)
+    *   Live reloading using BrowserSync
+*   Lighthouse scores
+    *   [Show Lighthouse score for quick start project]
+
+The quick start project demonstrates how to assemble a preliminary Amagaki
+website. You can customize the look and feel and adjust the stylesheet to meet
+your project’s needs.
+
+The quick start project can be built into static HTML, CSS, and JavaScript
+using:
+
+
+```
+npm run build
+```
+
+## Other starter projects
+
+The official starter project follows our presumptions and recommendations, and
+shows how to make use of the partial loop, which is a powerful way to build
+maintainable marketing websites. If you want to add your own starter project,
+add it below.
+
+[Edit button]

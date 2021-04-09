@@ -2,6 +2,15 @@ import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
 
+test('Pod basepath', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/basePath/');
+  t.is(pod.basePath, '/foo/');
+  // Warmup to ensure URLs are generated for docs.
+  pod.router.warmup();
+  const doc = pod.doc('/content/about.njk');
+  t.is(doc.url?.path, '/foo/about/');
+});
+
 test('Pod collection', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
   const collection = pod.collection('/content/pages/');

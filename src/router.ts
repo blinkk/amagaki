@@ -26,7 +26,9 @@ export class Router {
       // Default static routes. This can be overridden by the presence of any
       // static routes configured in `amagaki.js`.
       new StaticDirectoryRouteProvider(this, {
-        path: '/static/',
+        path: this.pod.basePath
+          ? `${cleanBasePath(this.pod.basePath)}/static/`
+          : '/static/',
         staticDir: '/src/static/',
       }),
     ].forEach(provider => {
@@ -34,10 +36,12 @@ export class Router {
     });
   }
 
-  createTree() {}
-
   resolve(path: string): Route | null {
-    // TODO: Implement route trie.
+    // NOTE: Instead of using a route trie with placeholders, and resolving
+    // request paths against that tree, we currently generate all concrete
+    // routes, and match request paths to the concrete URLs. If this does not
+    // prove to be a robust solution, this approach can be replaced with a route
+    // trie and matching abstract routes.
     for (let i = 0; i < this.routes.length; i++) {
       const route = this.routes[i];
       if (route.url.path === path) {
@@ -306,6 +310,7 @@ export class DocumentRoute extends Route {
     }
     urlPath = utils.interpolate(this.pod, this.doc.pathFormat, {
       doc: this.doc,
+      pod: this.pod,
     }) as string;
 
     // Clean up repeated slashes.

@@ -1,4 +1,7 @@
-## Configuration {#configuration}
+---
+title: Configuration
+---
+# Configuration
 
 Your project’s top-level configuration is managed in the `amagaki.js` file. This
 configuration file 

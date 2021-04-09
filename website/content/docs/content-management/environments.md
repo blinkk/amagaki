@@ -1,6 +1,8 @@
 ---
 title: Environments
 ---
+# Environments
+
 Amagaki supports multiple build environments. You may want your templates – or
 your content – to do different things depending on the current status of your
 project. For example, you may want to show certain content in development or

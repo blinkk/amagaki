@@ -1,7 +1,7 @@
 ---
 title: YAML types
 ---
-## YAML types {#yaml-types}
+# YAML types
 
 One of Amagaki’s unique concepts is bringing elevating YAML types to first party
 citizens in the ecosystem. Amagaki provides Pod Functions and additional inbuilt

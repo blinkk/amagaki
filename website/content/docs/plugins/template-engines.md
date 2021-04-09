@@ -1,5 +1,9 @@
+---
+title: Template engines
+---
+# Template engines
 
-**Nunjucks**
+## Nunjucks
 
 Amagaki provides convenience methods for extending Nunjucks functionality. See
 below to learn how to easily add Nunjucks filters or globals.

@@ -1,7 +1,7 @@
 ---
 title: Partial content
 ---
-## Partials {#partials}
+# Partial content
 
 One of the most important concepts with Amagaki is the partial loop. Most pages
 on marketing and informational websites are assembled by mixing and matching

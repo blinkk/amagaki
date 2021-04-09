@@ -2,7 +2,6 @@
 title: Starter project
 order: 1
 ---
-
 # Starter project
 
 The quickest way to start an Amagaki project with enough foundational bells and whistles is to simply clone and run the Amagaki starter project.

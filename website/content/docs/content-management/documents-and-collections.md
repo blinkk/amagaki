@@ -1,6 +1,8 @@
 ---
 title: Documents and collections
 ---
+# Documents and collections
+
 All Amagaki content is organized into collections, which themselves have
 blueprints, documents, and may have subcollections. Unlike other website
 generators, Amagaki does not assume a 1:1 relationship between content and

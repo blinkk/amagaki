@@ -1,7 +1,7 @@
 ---
 title: Rendering context
 ---
-## Rendering context and functions
+# Rendering context and functions
 
 By default, Amagaki’s document route provider will render all documents
 configured with URLs. Binding a URL to a document means “render me as a page”.

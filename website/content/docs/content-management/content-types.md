@@ -1,7 +1,7 @@
 ---
 title: Content types
 ---
-## Supported content types
+# Supported content types
 
 In Amagaki, you can mix and match content types depending on the file type that
 is best suited for your data. For example, typically long-form content such as

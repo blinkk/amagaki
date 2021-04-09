@@ -2,7 +2,7 @@
 title: Project structure
 order: 2
 ---
-## Project structure {#project-structure}
+# Project structure
 
 Like most website generators, Amagaki assumes a directory structure and produces
 HTML by determining your website’s URL routes, then binding content files to

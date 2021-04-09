@@ -1,7 +1,7 @@
 ---
 title: Referring to static files
 ---
-## Referring to static files {#referring-to-static-files}
+# Referring to static files
 
 Static files should always be loaded using an Amagaki function. By default,
 static files can be placed in the `/src/static/` folder, and then can be loaded

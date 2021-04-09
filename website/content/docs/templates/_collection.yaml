@@ -1,2 +1,3 @@
 $path: /docs/${doc.collection.basename}/${doc.basename}/
 title: Templates
+order: 5

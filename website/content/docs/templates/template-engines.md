@@ -1,7 +1,7 @@
 ---
 title: Template engines
 ---
-## Template engines {#template-engines}
+# Template engines 
 
 Amagaki supports multiple template engines. Because Amagaki is primarily an HTML
 generator, and because Nunjucks is a simple template engine that is fully

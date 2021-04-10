@@ -9,9 +9,7 @@ project. For example, you may want to show certain content in development or
 staging only, or you may want to include or exclude content or functionality in
 production.
 
-
-
-### Configuration {#configuration}
+### Configuration
 
 To set up different environments, first configure them in `amagaki.js`. In the
 below example, we are configuring two environments (prod, and staging).
@@ -19,8 +17,7 @@ Environments accept arbitrary fields, allowing you to centrally manage global
 data (such as API keys or other configuration) and easily change it depending on
 the environment.
 
-
-```
+```javascript
 module.exports = function (pod) {
   pod.configure({
     environments: {
@@ -41,13 +38,10 @@ module.exports = function (pod) {
 };
 ```
 
-
-
 ### In templates
 
 In templates, the `pod.env` variable is available. It returns the pod’s current
 environment. See Environment reference.
-
 
 ```
 {{pod.env.name}}

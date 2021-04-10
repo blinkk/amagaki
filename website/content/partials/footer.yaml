@@ -1,8 +1,12 @@
 partial: footer
 menu:
+- url: /
+  title: Edit this page
 - doc: !a.Doc /content/docs/index.md
-  title: Docs
+  title: Manual
 - url: /api/
   title: API Reference
 - url: /benchmarks/
   title: Benchmarks
+- url: /benchmarks/
+  title: Accessibility

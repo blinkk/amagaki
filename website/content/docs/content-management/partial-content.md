@@ -1,5 +1,6 @@
 ---
 title: Partial content
+order: 7
 ---
 # Partial content
 

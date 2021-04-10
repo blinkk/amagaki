@@ -1,5 +1,8 @@
 module.exports = function (pod) {
   pod.configure({
+    metadata: {
+      siteTitle: 'Amagaki',
+    },
     staticRoutes: [
       {
         path: '/static/css/',

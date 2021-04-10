@@ -1,5 +1,6 @@
 ---
 title: Content types
+order: 2
 ---
 # Supported content types
 

@@ -1,5 +1,6 @@
 ---
 title: YAML types
+order: 6
 ---
 # YAML types
 

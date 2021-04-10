@@ -1,5 +1,6 @@
 ---
-title: Managing translation strings
+title: Translations
+order: 2
 ---
 # Managing translation strings
 

@@ -1,5 +1,6 @@
 ---
 title: Documents and collections
+order: 1
 ---
 # Documents and collections
 

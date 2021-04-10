@@ -8,5 +8,5 @@ menu:
   title: API Reference
 - url: /benchmarks/
   title: Benchmarks
-- url: /benchmarks/
+- doc: !a.Doc /content/accessibility.md
   title: Accessibility

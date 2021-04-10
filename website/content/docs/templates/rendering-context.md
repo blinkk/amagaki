@@ -1,5 +1,6 @@
 ---
 title: Template variables and context
+order: 1
 ---
 
 # Template variables and rendering context

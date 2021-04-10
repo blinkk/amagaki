@@ -1,3 +1,6 @@
+title: Amagaki – The best way to hand-code marketing sites
+include_site_title: false
+
 partials:
 
 - partial: hero
@@ -58,7 +61,7 @@ partials:
   - title: Just write HTML, CSS, and TS
     body: "Amagaki lets you focus on the things that matter for marketing sites: building out the templates, making the styles pixel perfect, and maintaining the content. Avoid fussing with boilerplate configuration and routing on every project."
   - title: Not a frontend framework
-    body: Amagaki helps you follow best practices such as separating content and markup. You can pair it with the frontend framework of your choosing, if needed. Since it just generates HTML, CSS, and JS – you can integrate it into an existing project or system (even a totally proprietary one).
+    body: Amagaki helps you follow best practices such as separating content and markup. You can pair it with the frontend framework of your choosing, if needed. Since it just generates HTML, you can integrate it into an existing project or system (even a totally proprietary one).
   - title: Extendible. Written in TypeScript.
     body: Enhance Amagaki with the same language used to write your frontend. Leverage the full Amagaki API, which is documented, tested, and has auto-generated API Reference. Amagaki comes with Nunjucks for HTML templates, but supports unlimited template engines.
   - title: Locale aware

@@ -1,5 +1,6 @@
 ---
 title: Referring to static files
+order: 3
 ---
 # Referring to static files
 

@@ -10,7 +10,7 @@
                         {{tout.title}}
                     </div>
                     <div class="touts__touts__tout__body">
-                        {{tout.body}}
+                        {{tout.body|render|safe}}
                     </div>
                 </div>
             {% endfor %}

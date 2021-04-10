@@ -66,5 +66,4 @@ Custom YAML types are created through plugins. Custom YAML types can be used to
 represent reusable objects that may be helpful to reuse throughout the content
 layer in your site.
 
-Below is an example of how to create a custom YAML type that represents a
-button.
+<a class="button button--low" href="{{pod.doc('/content/plugins/yaml-types.md').url.path}}">Learn how to create custom YAML types</a>

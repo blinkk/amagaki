@@ -57,7 +57,7 @@ partials:
     title: Key features
   touts:
   - title: Performance first
-    body: Performance metrics come with every build. Insights inform you of slowdowns with your site’s build time.
+    body: Performance metrics come with every build. Insights inform you of slowdowns with your site’s build time. <a href="{{pod.doc('/content/benchmarks.md').url.path}}">See benchmarks</a>.
   - title: Just write HTML, CSS, and TS
     body: "Amagaki lets you focus on the things that matter for marketing sites: building out the templates, making the styles pixel perfect, and maintaining the content. Avoid fussing with boilerplate configuration and routing on every project."
   - title: Not a frontend framework

@@ -1,9 +1,11 @@
 name: 'Deploy docs and benchmarks to GitHub pages'
 
-on:
-  push:
-    branches:
-      - main
+# TODO: Change this back to just building on `main`:
+# on:
+#   push:
+#     branches:
+#       - main
+on: [push]
 
 jobs:
   docs:
@@ -44,6 +46,13 @@ jobs:
 
                 # Build the docs into docs/
                 npm run docs
+      - name: Build marketing website
+        run: |
+              cd website
+              npm install
+              npm run build
+              cd ..
+              mv website/build/ docs/website
       - name: Build benchmark build
         run: |
                 # Preserve benchmark files.

@@ -104,6 +104,10 @@ export class Pod {
     }
   }
 
+  toString() {
+    return `[Pod: ${this.root}]`;
+  }
+
   /**
    * Returns a collection object. If no `_collection.yaml` file is found within
    * the requested directory, the directory will be walked upwards until finding

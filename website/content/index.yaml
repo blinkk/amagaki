@@ -11,9 +11,11 @@ partials:
   buttons:
   - label: Read manual
     doc: !a.Doc /content/docs/index.md
+    left_icon: menu_book
   - label: Explore the starter
     doc: !a.Doc /content/docs/index.md
     class: button--low
+    left_icon: explore
 
 - partial: spacer
   size: large
@@ -23,7 +25,6 @@ partials:
     ## Quick start
 
     Amagaki is distributed as an npm package. We recommend using our starter when building marketing websites from scratch.
-
 
     ```bash
     git clone https://github.com/amagakidev/starter
@@ -39,7 +40,7 @@ partials:
     If you are integrating into an existing project, you can install Amagaki directly.
 
     ```bash
-    # Install Amagaki.
+    # Install Amagaki
     npm install --save @amagaki/amagaki
 
     # Start the dev server

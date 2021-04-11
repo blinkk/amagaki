@@ -13,17 +13,24 @@ template files for each URL route it must generate.
 Amagaki projects are referred to as “pods”, which indicates operating within a
 directory containing the elements outlined below. When using Amagaki objects to
 build your site, they are generally referenced through an instance of a `Pod`
-object. [See Pod API reference].
+object.
+
+{{button.button({
+    label: 'Read Pod API Reference',
+    url: 'TODO',
+    external: true,
+    class: 'button button--tonal',
+    icon: 'launch'
+})}}
 
 Throughout this manual, and throughout Amagaki functions, we always refer to
 files using their “pod path”. A file’s pod path is mounted at the site root.
-Sample pod paths may resemble: `/content/pages/index.yaml`, `/views/base.njk`,
+Sample pod paths may resemble: `/content/docs/pages/index.yaml`, `/views/base.njk`,
 etc.
 
 **Pod structure**
 
 The following elements are the foundation of Amagaki projects:
-
 
 ```
 .
@@ -36,7 +43,6 @@ The following elements are the foundation of Amagaki projects:
 └── views
 ```
 
-
 An explanation for each element is below:
 
 **amagaki.js**
@@ -44,7 +50,9 @@ An explanation for each element is below:
 The primary configuration file for your Amagaki site. While this configuration
 file is optional, it facilitates configuration of site-wide settings, such as
 the locales, path behavior (URL root/mount point for pages and assets), build
-environments, and plugins. [See full docs on configuration]
+environments, and plugins.
+
+<a class="button button--low" href="{{pod.doc('/content/docs/getting-started/configuration.md').url.path}}">Learn more about configuration</a>
 
 **build**
 
@@ -52,7 +60,8 @@ The output directory for the build process. Equivalent to the “dist” folder 
 many JavaScript projects. When `npx amagaki build` is invoked, all generated
 files are placed within this directory. In addition to generated files, Amagaki
 will also generate metrics and a manifest, which can be used for deployment.
-[See full docs on build]
+
+<a class="button button--low" href="{{pod.doc('/content/docs/getting-started/cli.md').url.path}}">Learn more about the CLI</a>
 
 **content**
 
@@ -60,7 +69,9 @@ Contains all content for your website. Within this folder, there will be
 subfolders – one per collection. Collections hold documents, and
 _collection.yaml “blueprint” files that describe shared behavior for content
 within a collection. Collections themselves can have subcollections to describe
-content hierarchy. [See full docs on content]
+content hierarchy.
+
+<a class="button button--low" href="{{pod.doc('/content/docs/content-management/documents-and-collections.md').url.path}}">Learn more about documents and collections</a>
 
 **locales**
 
@@ -68,26 +79,27 @@ Contains translations, with one file per locale. Within each file you will find
 translation strings, which map source strings to their translations. When the
 site is built, the locale files are updated with the record of all strings used.
 Translations can be added to these files, or they can be used with the
-translation request workflow to acquire translations from translators. [See full
-docs on translation strings]
+translation request workflow to acquire translations from translators.
+
+<a class="button button--low" href="{{pod.doc('/content/docs/localization/managing-translations.md').url.path}}">Learn more about translations</a>
 
 **plugins**
 
 Contains project-local JavaScript plugins for extending Amagaki functionality.
-Plugins are configured and registered in `amagaki.js`. [See full docs on
-plugins]
+Plugins are configured and registered in `amagaki.js`.
 
 **src**
 
 Contains frontend code and dependencies, such as Sass files, TypeScript files,
 and media. You are generally free to customize your frontend stack how you
 prefer; our starter project makes some recommendations and Amagaki has some
-defaults as well. [See full docs on frontend code
+defaults as well.
 
 **views**
 
 Contains template files. By default, Amagaki ships with Nunjucks templates.
 Typically, our recommended approach is to have a `base.njk` file which handles
 generating the HTML “frame” or outlet, and a subfolder named `partials` that
-contains modules that can be mixed and matched across pages. [See full docs on
-templates]
+contains modules that can be mixed and matched across pages.
+
+<a class="button button--low" href="{{pod.doc('/content/docs/templates/template-engines.md').url.path}}">Learn more about template engines</a>

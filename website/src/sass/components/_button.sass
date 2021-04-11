@@ -120,12 +120,12 @@ $button-primary-hover-color: var(--secondaryTextColor)
     line-height: 14px
     padding: 3px 7px
 
-    .material-icons-outlined
-      font-size: 13px
-
   & + &
     margin-left: 10px
 
-  .material-icons-outlined
-    margin-right: 4px
-    margin-top: 0
+  span + .material-icons
+    transform: translateX(8px)
+
+  &--icon > .material-icons:first-child
+    transform: translateX(-8px) translateY(6px)
+    margin-top: -14px

@@ -44,21 +44,19 @@ custom YAML type. For example, you should:
 
 ### Built-in YAML types
 
-
-
-*   !pod.doc
-*   !pod.docs
-*   !pod.collection
-*   !pod.collections
-*   !pod.string
-*   !pod.staticFile
-*   !pod.yaml
-*   !pod.locale
-*   !pod.locales
-*   !pod.config
-*   !IfEnvironment
-*   !IfLocale
-
+- !pod.doc
+- !pod.docs
+- !pod.collection
+- !pod.collections
+- !pod.metadata
+- !pod.string
+- !pod.staticFile
+- !pod.yaml
+- !pod.locale
+- !pod.locales
+- !pod.config
+- !IfEnvironment
+- !IfLocale
 
 ### Custom YAML types
 

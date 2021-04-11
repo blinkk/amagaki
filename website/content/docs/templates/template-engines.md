@@ -8,8 +8,13 @@ Amagaki supports multiple template engines. Because Amagaki is primarily an HTML
 generator, and because Nunjucks is a simple template engine that is fully
 compatible with HTML, Nunjucks is included in Amagaki’s core.
 
-Read the Nunjucks manual
-
+{{button.button({
+    label: 'Read Nunjucks templating guide',
+    url: 'https://mozilla.github.io/nunjucks/templating.html',
+    external: true,
+    class: 'button button--tonal',
+    icon: 'launch'
+})}}
 
 ### Template specification
 

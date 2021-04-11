@@ -10,19 +10,17 @@ using the `staticFile` Amagaki function.
 
 In YAML:
 
-
-```
+```yaml
 file: !pod.staticFile /src/static/image.jpg
 ```
 
-
 In a template:
 
-
-```
+```nunjucks
+{%- raw -%}
 <img src="{{pod.staticFile('/src/static/image.jpg').url.path}}">
+{% endraw %}
 ```
-
 
 Avoid hardcoding paths to static files. When hardcoding paths, maintainability
 is reduced, and it’s easier to make mistakes (i.e. typos that refer to files

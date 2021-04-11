@@ -7,7 +7,7 @@
     <a
         class="button {{button.class}} {{'button--icon' if button.icon or button.left_icon}}"
         href="{{url}}"
-        {% if button.external %}target="_blank"{% endif %}
+        {% if button.external %}target="_blank"{% endif -%}
     >
         {%- if button.left_icon -%}
             <span class="material-icons">{{button.left_icon}}</span>

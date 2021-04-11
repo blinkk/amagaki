@@ -52,7 +52,13 @@ file is optional, it facilitates configuration of site-wide settings, such as
 the locales, path behavior (URL root/mount point for pages and assets), build
 environments, and plugins.
 
-<a class="button button--low" href="{{pod.doc('/content/docs/getting-started/configuration.md').url.path}}">Learn more about configuration</a>
+{{button.button({
+    label: 'Learn more about configuration',
+    url: pod.doc('/content/docs/getting-started/configuration.md').url.path,
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}
+
 
 **build**
 
@@ -61,7 +67,14 @@ many JavaScript projects. When `npx amagaki build` is invoked, all generated
 files are placed within this directory. In addition to generated files, Amagaki
 will also generate metrics and a manifest, which can be used for deployment.
 
-<a class="button button--low" href="{{pod.doc('/content/docs/getting-started/cli.md').url.path}}">Learn more about the CLI</a>
+
+{{button.button({
+    label: 'Learn more about the CLI',
+    url: pod.doc('/content/docs/getting-started/cli.md').url.path,
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}
+
 
 **content**
 
@@ -71,7 +84,13 @@ _collection.yaml “blueprint” files that describe shared behavior for content
 within a collection. Collections themselves can have subcollections to describe
 content hierarchy.
 
-<a class="button button--low" href="{{pod.doc('/content/docs/content-management/documents-and-collections.md').url.path}}">Learn more about documents and collections</a>
+{{button.button({
+    label: 'Learn more about documents and collections',
+    url: pod.doc('/content/docs/content-management/documents-and-collections.md').url.path,
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}
+
 
 **locales**
 
@@ -81,7 +100,13 @@ site is built, the locale files are updated with the record of all strings used.
 Translations can be added to these files, or they can be used with the
 translation request workflow to acquire translations from translators.
 
-<a class="button button--low" href="{{pod.doc('/content/docs/localization/managing-translations.md').url.path}}">Learn more about translations</a>
+{{button.button({
+    label: 'Learn more about translations',
+    url: pod.doc('/content/docs/localization/managing-translations.md').url.path,
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}
+
 
 **plugins**
 
@@ -102,4 +127,9 @@ Typically, our recommended approach is to have a `base.njk` file which handles
 generating the HTML “frame” or outlet, and a subfolder named `partials` that
 contains modules that can be mixed and matched across pages.
 
-<a class="button button--low" href="{{pod.doc('/content/docs/templates/template-engines.md').url.path}}">Learn more about template engines</a>
+{{button.button({
+    label: 'Learn more about template engines',
+    url: pod.doc('/content/docs/templates/template-engines.md').url.path,
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}

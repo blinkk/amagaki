@@ -25,7 +25,13 @@ document are available. Some commonly used ones are:
 - doc.collection – a reference to the document’s collection
 - doc.locale – a reference to the document's locale
 
-See API Reference for Document objects
+{{button.button({
+    label: 'Read Document API Reference',
+    url: 'TODO',
+    external: true,
+    class: 'button button--tonal',
+    icon: 'launch'
+})}}
 
 ### pod
 
@@ -39,7 +45,13 @@ which can be invoked from your templates. Some commonly used ones are:
 - pod.collections(...): Returns a list of collections
 - pod.staticFile(...): Returns a static file object
 
-See API Reference for Pod objects
+{{button.button({
+    label: 'Read Pod API Reference',
+    url: 'TODO',
+    external: true,
+    class: 'button button--tonal',
+    icon: 'launch'
+})}}
 
 ### route
 
@@ -50,4 +62,10 @@ properties of the route are:
 - route.fields
 - route.params
 
-See API Reference for Route objects
+{{button.button({
+    label: 'Read Route API Reference',
+    url: 'TODO',
+    external: true,
+    class: 'button button--tonal',
+    icon: 'launch'
+})}}

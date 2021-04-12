@@ -10,7 +10,7 @@
     {# Load partial CSS only once per page. #}
     {% set staticFile = pod.staticFile('/dist/css/' + partial.partial + '.min.css') %}
     {% if pod.fileExists(staticFile.podPath) and staticFile.url.path not in _loadedStylesheets %}
-    <link rel="stylesheet" href="{{staticFile.url.path}}">
+    <link rel="stylesheet" href="{{staticFile.url.path|relative}}">
     {% set _loadedStylesheets = _loadedStylesheets.push(staticFile.url.path) %}
     {% endif %}
     {% include "/views/partials/" ~ partial.partial ~ ".njk" %}

@@ -1,4 +1,4 @@
-{% import "/views/macros/button.njk" as button %}
+{% import "/views/macros/button.njk" as button with context %}
 <div class="markdown">
     {# Only show menu for docs collections. #}
     {% set next_doc = null %}
@@ -24,7 +24,7 @@
                                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="2" fill="#000"></circle></svg>
                                     </div>
                                 {% endif %}
-                                <a href="{{item.url.path}}">{{item.fields.title}}</a>
+                                <a href="{{item.url.path|relative}}">{{item.fields.title}}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -39,7 +39,7 @@
             </div>
             {% if next_doc %}
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="{{next_doc.url.path}}">
+                    <a class="button button--tonal button--icon" href="{{next_doc.url.path|relative}}">
                         <span>{{next_doc.fields.title}}</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>

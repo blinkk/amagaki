@@ -1,12 +1,12 @@
 {%- macro button(button) -%}
     {%- if button.doc -%}
-        {%- set url = button.doc.url -%}
+        {%- set url = button.doc.url.path -%}
     {%- else -%}
         {%- set url = button.url -%}
     {%- endif -%}
     <a
         class="button {{button.class}} {{'button--icon' if button.icon or button.left_icon}}"
-        href="{{url}}"
+        href="{{url|relative}}"
         {% if button.external %}target="_blank"{% endif -%}
     >
         {%- if button.left_icon -%}

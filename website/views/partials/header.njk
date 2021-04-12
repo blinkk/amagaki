@@ -2,7 +2,7 @@
 
 <div class="header">
     <div class="header__content">
-        <a href="{{partial.logo.home.url.path}}" class="header__content__logo">
+        <a href="{{partial.logo.home.url.path|relative}}" class="header__content__logo">
             <div class="header__content__logo__image">
                 {{asset.asset(partial.logo.image)}}
             </div>
@@ -12,7 +12,7 @@
         </a>
         <div class="header__content__menu">
             {% for item in partial.menu %}
-                <a href="{{item|url}}" class="header__content__menu__link">
+                <a href="{{item|url|relative}}" class="header__content__menu__link">
                     {{item.title}}
                 </a>
             {% endfor %}

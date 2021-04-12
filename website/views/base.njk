@@ -19,8 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.min.css').url.path}}">
-    <script src="{{pod.staticFile('/dist/js/main.min.js').url.path}}"></script>
+    <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.min.css').url.path|relative}}">
+    <script src="{{pod.staticFile('/dist/js/main.min.js').url.path|relative}}"></script>
 </head>
 <body>
 <div class="main">

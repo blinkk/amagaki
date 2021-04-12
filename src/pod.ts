@@ -31,8 +31,9 @@ export interface MetadataConfig {
 }
 
 export interface PodConfig {
-  meta: MetadataConfig;
+  basePath?: string;
   localization?: LocalizationConfig;
+  meta: MetadataConfig;
   staticRoutes?: Array<StaticDirConfig>;
 }
 
@@ -141,6 +142,20 @@ export class Pod {
       this.router.providers['static_dir'] = [];
       this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
     }
+  }
+
+  /**
+   * Returns the base URL path where the site is "mounted". This property is
+   * meant to be used in conjunction with the `$path` configuration in content.
+   *
+   * For example, if you want to generate your site to: `/mysite/`,
+   * `/mysite/about/`, `/mysite/static/main.css`, etc. You would use in
+   * `_collection.yaml`:
+   *
+   * $path: /${pod.basePath}/${doc.basename}/
+   */
+  get basePath() {
+    return this.config?.basePath;
   }
 
   /**

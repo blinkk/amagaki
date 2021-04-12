@@ -11,8 +11,5 @@ test('Exists', (t: ExecutionContext) => {
 test('Fingerprint', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/static/');
   const staticFile = pod.staticFile('/src/static/file.txt');
-  t.is(
-    staticFile.fingerprint(),
-    '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069'
-  );
+  t.is(staticFile.fingerprint, 'ed076287532e86365e841e92bfc50d8c');
 });

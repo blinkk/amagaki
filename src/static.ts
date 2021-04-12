@@ -23,10 +23,10 @@ export class StaticFile {
     return this.pod.router.getUrl('static_dir', this);
   }
 
-  /** Returns the sha256 hash for the file. */
-  fingerprint() {
+  /** Returns the MD5 hash for the file. */
+  get fingerprint() {
     const content = this.pod.readFile(this.podPath);
-    return createHash('sha256').update(content).digest('hex');
+    return createHash('md5').update(content).digest('hex');
   }
 
   /** Returns whether the file exists. */

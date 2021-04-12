@@ -44,12 +44,9 @@ module.exports = function (pod) {
       return value;
     }
     const result = fsPath.relative(this.ctx.doc.url.path, value);
-    if (!result || result === '/' || result === '') {
+    if (!result || result === '/') {
       return './';
     }
-    return (value.endsWith('/') ? `./${result}/` : `./${result}`).replace(
-      '//',
-      '/'
-    );
+    return value.endsWith('/') ? `./${result}/` : `./${result}`;
   });
 };

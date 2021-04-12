@@ -1,5 +1,6 @@
 import {Pod} from './pod';
 import {Url} from './url';
+import {createHash} from 'crypto';
 
 export class StaticFile {
   pod: Pod;
@@ -20,5 +21,16 @@ export class StaticFile {
    */
   get url(): Url | undefined {
     return this.pod.router.getUrl('static_dir', this);
+  }
+
+  /** Returns the MD5 hash for the file. */
+  get fingerprint() {
+    const content = this.pod.readFile(this.podPath);
+    return createHash('md5').update(content).digest('hex');
+  }
+
+  /** Returns whether the file exists. */
+  get exists() {
+    return this.pod.fileExists(this.podPath);
   }
 }

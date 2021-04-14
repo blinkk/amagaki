@@ -4,13 +4,18 @@ import {Environment} from '../environment';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 
+interface YamlTypeArguments {
+  tag: string;
+  options: yaml.TypeConstructorOptions;
+}
+
 /**
  * Plugin providing built-in custom yaml types.
  */
 export class YamlPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
-  private shortcutTypes: Array<yaml.Type>;
+  private shortcutTypes: Array<YamlTypeArguments>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
@@ -19,8 +24,11 @@ export class YamlPlugin implements PluginComponent {
   }
 
   // Shortcut for adding custom yaml types without creating a full plugin.
-  addType(type: yaml.Type) {
-    this.shortcutTypes.push(type);
+  addType(tag: string, options: yaml.TypeConstructorOptions) {
+    this.shortcutTypes.push({
+      tag: tag,
+      options: options,
+    });
   }
 
   createYamlTypesHook(yamlTypeManager: YamlTypeManager) {
@@ -122,7 +130,9 @@ export class YamlPlugin implements PluginComponent {
     );
 
     for (const shortcutType of this.shortcutTypes) {
-      yamlTypeManager.addType(shortcutType);
+      yamlTypeManager.addType(
+        new yaml.Type(shortcutType.tag, shortcutType.options)
+      );
     }
   }
 }

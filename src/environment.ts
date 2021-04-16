@@ -20,7 +20,7 @@ export class Environment {
     this.name = options.name;
     this.host = options.host;
     this.port = options.port;
-    this.scheme = options.scheme;
+    this.scheme = options.host === 'localhost' ? 'http' : options.scheme;
     this.dev = options.dev;
     this.fields = options.fields;
   }

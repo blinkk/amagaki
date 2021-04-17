@@ -52,14 +52,11 @@ environment. See Environment reference.
 {% endif %}
 ```
 
-
-
 ### In content
 
 While this can be represented in template logic using an if statement like in
 the above examples,  changing content based on the environment is better
 represented using the !IfEnvironment YAML type. See the example below:
-
 
 ```
 foo: !IfEnvironment
@@ -67,11 +64,7 @@ foo: !IfEnvironment
   prod: ''
 ```
 
-
-
 ### Defaults
-
-
 
 *   When running the dev server, the environment “dev” is used.
 *   When running `amagaki build`, the environment “default” is used.

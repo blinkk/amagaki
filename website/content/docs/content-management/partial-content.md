@@ -32,15 +32,12 @@ partials:
   - headline: Column 2 headline
 ```
 
-
 Within Amagaki’s default base template, the content document’s partials are
 looped over, rendering one at a time. Each partial’s rendering context
 (`{{partial}}`) is populated by its content from the partial loop.
 
 In summary, each document should be rendered as an assembly of partials, with an
 overall anatomy of:
-
-
 
 *   The list of partials within the document
 *   The data within each partial in the partial loop

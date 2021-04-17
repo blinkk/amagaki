@@ -11,18 +11,15 @@ modules will be YAML files (containing a list of partials used on a page).
 
 Amagaki supports the following content types:
 
-
-
 *   JSON
 *   MD
 *   YAML
 
-Markdown content supports front matter. Front matter is used to define
-additional data for Markdown documents, and can be used to specify a document’s
-URL, template, or other properties.
+All "long-form" content types support front matter. Front matter is used to
+define additional metadata for documents, and can be used to specify a
+document’s URL, template, or other properties.
 
 Here’s what a Markdown document with front matter may look like:
-
 
 ```
 ---
@@ -35,19 +32,14 @@ description: This was my first day!
 Hello, everyone. Today was my first day. I had a great day today. As a reminder, this is Markdown content.
 ```
 
-
-Here’s what a blueprint (_collection.yaml) may look like:
-
+Here’s what a blueprint (`_collection.yaml`) may look like:
 
 ```
 $path: /posts/${doc.date}/
 $view: /views/base.njk
 ```
 
-
 In the above example, the blueprint is declaring that:
-
-
 
 *   All documents in the collection should be rendered with the
     `/views/base.njk` template.
@@ -56,3 +48,16 @@ In the above example, the blueprint is declaring that:
 
 In this example, to add a new post to your site, you simply add a new Markdown
 file within the collection’s folder.
+
+If your project has the following structure, it will then generate three pages.
+The pages all use the `$path` settings specified in `_collection.yaml`.
+
+```
+.
+└── content
+    ├── pages
+        ├── _collection.yaml
+        ├── about.yaml
+        ├── contact.yaml
+        └── index.yaml
+```

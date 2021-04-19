@@ -64,7 +64,7 @@ jobs:
           # Output the processed data to the benchmark directory.
           benchmark-data-dir-path: docs/benchmark
           external-data-json-path: docs/benchmark/data.json
-          max-items-in-chart: 500
+          max-items-in-chart: 100
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

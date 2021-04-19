@@ -1,0 +1,50 @@
+{% import "/views/macros/button.njk" as button with context %}
+<div class="markdown">
+    {# Only show menu for docs collections. #}
+    {% set next_doc = null %}
+    {% set next_item = null %}
+    {% if pod.collection('/content/docs') in doc.collection.parents + doc.collection  %}
+        <div class="markdown__menu">
+            <ul>
+                {% for collection in pod.collections(['/content/docs/**'], {sort: 'order'}) %}
+                    {% set outerLoop = loop %}
+                    <li>{{outerLoop.index}}. {{collection.fields.title}}</li>
+                    <ul>
+                        {% for item in collection.docs({sort: 'order', excludeSubcollections: true}) %}
+                            {% if item == doc %}
+                                {% set next_item = true %}
+                            {% elif next_item and not next_doc %}
+                                {% set next_doc = item %}
+                            {% endif %}
+                            <li
+                                {% if item == doc %}class="--active"{% endif %}
+                            >  
+                                {% if item == doc %}
+                                    <div class="--active__marker">
+                                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="2" fill="#000"></circle></svg>
+                                    </div>
+                                {% endif %}
+                                <a href="{{item.url.path|relative}}">{{item.fields.title}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="markdown__body">
+        <div class="markdown-body">
+            <div>
+                {{partial.body|render|markdown|safe}}
+            </div>
+            {% if next_doc %}
+                <div class="markdown__body__next">
+                    <a class="button button--tonal button--icon" href="{{next_doc.url.path|relative}}">
+                        <span>{{next_doc.fields.title}}</span>
+                        <span class="material-icons">arrow_forward</span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

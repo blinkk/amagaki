@@ -1,0 +1,12 @@
+partial: footer
+menu:
+- url: ${pod.config.metadata.githubEditRoot}${doc.podPath}
+  title: Edit this page
+- doc: !a.Doc /content/docs/index.md
+  title: Manual
+- url: /api/
+  title: API Reference
+- doc: !a.Doc /content/benchmarks.md
+  title: Benchmarks
+- doc: !a.Doc /content/accessibility.md
+  title: Accessibility

@@ -1,0 +1,11 @@
+<div class="footer">
+    <div class="footer__content">
+        <div class="footer__content__menu">
+            {% for item in partial.menu %}
+                <a href="{{item|url|interpolate|relative}}" class="footer__content__menu__link">
+                    {{item.title}}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

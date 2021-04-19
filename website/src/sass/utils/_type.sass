@@ -1,0 +1,107 @@
+@import breakpoints
+@import inspect
+
+=type-font-family-primary
+  font-family: 'Nunito Sans', arial, sans-serif
+
+=type-font-family-secondary
+  font-family: 'Rubik', Arial, Helvetica, sans-serif
+
+=type-bottom-border
+  padding-bottom: 0.3em
+  border-bottom: 1px solid #eaecef
+
+=type-heading-1
+  +inspect-annotation('type-heading-1')
+  +type-font-family-primary
+  +type-bottom-border
+  font-weight: 600
+  font-size: 60px
+  line-height: 72px
+
+=type-heading-2
+  +inspect-annotation('type-heading-2')
+  +type-font-family-primary
+  +type-bottom-border
+  font-weight: 600
+  font-size: 48px
+  line-height: 56px
+
+=type-heading-3
+  +inspect-annotation('type-heading-3')
+  +type-font-family-primary
+  +type-bottom-border
+  font-weight: 600
+  font-size: 36px
+  line-height: 44px
+
+=type-heading-4
+  +inspect-annotation('type-heading-4')
+  +type-font-family-primary
+  +type-bottom-border
+  font-weight: 600
+  font-size: 28px
+  line-height: 36px
+
+=type-heading-5
+  font-size: 20px
+  line-height: 28px
+
+=type-body-large
+  +inspect-annotation('type-body-large')
+  +type-font-family-primary
+  font-size: 18px
+  line-height: 28px
+
+=type-body
+  +inspect-annotation('type-body')
+  +type-font-family-primary
+  font-size: 16px
+  line-height: 24px
+
+=type-small
+  +inspect-annotation('type-small')
+  +type-font-family-primary
+  font-size: 12px
+  line-height: 24px
+
+=type-eyebrow
+  +inspect-annotation('type-eyebrow')
+  text-transform: uppercase
+  letter-spacing: 0.5px
+  font-size: 14px
+  line-height: 20px
+
+=type-label
+  +type-font-family-secondary
+  font-size: 11px
+  letter-spacing: 0.5px
+  line-height: 16px
+
+=type-button
+  +type-font-family-primary
+  font-size: 16px
+  line-height: 24px
+  font-weight: 600
+
+=type-caption
+  font-size: 14px
+  line-height: 24px
+  +type-font-family-secondary
+
+=type-nav-item
+  +type-font-family-primary
+  font-size: 18px
+  line-height: 1.22
+  letter-spacing: 1.17px
+  font-weight: 500
+  +md
+    font-size: 15px
+    line-height: 24px
+    letter-spacing: initial
+
+=type-footnote
+  line-height: 1.5
+  font-size: 12px
+  font-weight: 300
+  letter-spacing: .35px

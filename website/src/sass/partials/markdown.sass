@@ -1,0 +1,75 @@
+@import ../utils/spacing
+
+.markdown
+    display: flex
+    margin: 0 auto
+    max-width: $spacing-max-width
+
+.markdown__menu
+    background: #F9FAFB
+    flex-basis: 290px
+    border-left: 1px solid var(--borderColor)
+    border-right: 1px solid var(--borderColor)
+    flex-shrink: 1
+    padding: $spacing-10 $spacing-20
+
+.markdown__menu ul
+    margin-block-start: .5em
+    padding-inline-start: 2px
+
+    & + li
+        margin-top: $spacing-10
+
+.markdown__menu ul li
+    color: var(--secondaryTextColor)
+    list-style: none
+    padding-top: 1px
+    padding-bottom: 1px
+
+.markdown__menu > ul > li
+    color: var(--primaryDarkTextColor)
+    font-weight: 600
+
+.markdown__menu ul ul li
+    border-left: 1px solid var(--borderDarkColor)
+    padding-left: $spacing-15
+    position: relative
+
+.markdown__menu a
+    color: var(--primaryTextColor)
+    text-decoration: none
+
+    &:hover
+        color: var(--secondaryTextColor)
+
+    @at-root li.--active
+        a
+            color: var(--primaryColor)
+
+        .--active__marker
+            align-items: center
+            background: #F9FAFB
+            display: flex
+            height: 12px
+            justify-content: center
+            left: -5px
+            position: absolute
+            top: 7px
+            width: 10px
+
+            svg circle
+                fill: var(--primaryColor)
+
+.markdown__body
+    box-sizing: border-box
+    margin: 0 auto
+    max-width: 780px
+    padding: $spacing-20
+    width: 100%
+
+.markdown__body__next
+    border-top: 1px solid #eaecef
+    display: flex
+    justify-content: flex-end
+    margin-top: $spacing-60
+    padding-top: $spacing-20

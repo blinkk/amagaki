@@ -1,0 +1,41 @@
+@import ../utils/spacing
+@import ../utils/type
+
+.hero
+    background-color: var(--backgroundColor)
+    border-bottom: 1px solid var(--borderColor)
+
+.hero__content
+    +spacing-max-width-container
+    display: flex
+    padding-bottom: $spacing-60
+    padding-top: $spacing-60
+
+.hero__chapter
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.hero__chapter__parts
+    flex: 60%
+
+.hero__chapter__parts__title
+    +type-heading-2
+    padding-bottom: 0
+    border: 0
+
+    & + .hero__chapter__parts__body
+        margin-top: $spacing-20
+
+.hero__chapter__parts__body
+    +type-body-large
+    max-width: 550px
+
+    & + .hero__chapter__parts__buttons
+        margin-top: $spacing-30
+
+.hero__chapter__image
+    flex: 40%
+
+.hero__chapter__image img
+    width: 400px

@@ -1,0 +1,19 @@
+<div class="touts">
+    <div class="touts__container">
+        <div class="touts__title">
+            
+        </div>
+        <div class="touts__touts">
+            {% for tout in partial.touts %}
+                <div class="touts__touts__tout">
+                    <div class="touts__touts__tout__title">
+                        {{tout.title}}
+                    </div>
+                    <div class="touts__touts__tout__body">
+                        {{tout.body|render|safe}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

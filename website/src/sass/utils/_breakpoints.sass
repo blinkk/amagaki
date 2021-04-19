@@ -1,0 +1,53 @@
+=between($min, $max)
+  @media (min-width: $min) and (max-width: $max)
+    @content
+    
+=gt($width)
+  @media (min-width: $width)
+    @content
+
+=lt($width)
+  @media (max-width: $width)
+    @content
+
+// laptop: Only the "laptop" breakpoint.
+// laptop-gt: The "laptop" breakpoint and everything greater.
+// laptop-lt: The "laptop" breakpoint and everything lower.
+
+=mobile
+  +lt(599px)
+    @content
+=mobile-gt
+  @content
+=mobile-lt
+  +lt(599px)
+    @content
+
+=tablet
+  +between(600px, 1023px)
+    @content
+=tablet-gt
+  +gt(600px)
+    @content
+=tablet-lt
+  +lt(1023px)
+    @content
+
+=laptop
+  +between(1024px, 1439px)
+    @content
+=laptop-gt
+  +gt(1024px)
+    @content
+=laptop-lt
+  +lt(1439px)
+    @content
+
+=desktop
+  +gt(1440px)
+    @content
+=desktop-gt
+  +gt(1440px)
+    @content
+=desktop-lt
+  @content

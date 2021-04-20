@@ -13,7 +13,7 @@ partials:
     doc: !a.Doc /content/docs/index.md
     left_icon: menu_book
   - label: Explore the starter
-    doc: !a.Doc /content/docs/index.md
+    doc: !a.Doc /content/docs/getting-started/starter-project.md
     class: button--low
     left_icon: explore
 

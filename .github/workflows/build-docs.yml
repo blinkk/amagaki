@@ -51,8 +51,8 @@ jobs:
             npm install --dev
             npm run dev:start
 
-            # Build the docs into ./public/api
-            npm run docs:ci
+            # Build the typedocs.
+            npm run docs --out ./public/api
       - name: Build benchmark build
         run: |
             # Preserve benchmark files.

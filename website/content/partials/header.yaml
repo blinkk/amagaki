@@ -9,6 +9,7 @@ menu:
   title: Home
 - doc: !a.Doc /content/docs/index.md
   title: Docs
-- title: API Reference
+- doc: !a.Doc /content/api.yaml
+  title: API Reference
 aside:
   githubProject: blinkkcode/amagaki

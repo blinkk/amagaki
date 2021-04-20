@@ -1,155 +1,155 @@
 {
   "branch": null,
   "commit": null,
-  "built": "Mon Apr 19 2021 23:54:05 GMT+0000 (Coordinated Universal Time)",
+  "built": "Tue Apr 20 2021 00:28:21 GMT+0000 (Coordinated Universal Time)",
   "files": [
     {
       "path": "/accessibility/index.html",
-      "sha": "bc2fda2b7aef7560510f47244825d25721319ab9"
+      "sha": "c970a8c44b49e0d9e137cd78baf9a18790bdc04b"
     },
     {
       "path": "/benchmarks/index.html",
-      "sha": "1b283e53ded3a24a08e67af4436261f925449d10"
+      "sha": "2779b968bc6354a415eae4f65f65c1fbd91895a8"
     },
     {
       "path": "/docs/best-practices/breadcrumbs/index.html",
-      "sha": "bdbb1534798738fe47b5055b0a5ef4a303828abc"
+      "sha": "221ceea5add27d3573d97e4137db2201fae69d93"
     },
     {
       "path": "/docs/best-practices/categorizing-pages/index.html",
-      "sha": "2b303431a944683284ba00a47d7b5bbf791ac962"
+      "sha": "b8078f54969d3ad0534be5a6aa0deb45d047e4c3"
     },
     {
       "path": "/docs/best-practices/links/index.html",
-      "sha": "43e249327a6d5ea8c1e64d5215bdbc07e2627b70"
+      "sha": "a6967598c8f919a0a71f5ff676074c41fab714b5"
     },
     {
       "path": "/docs/best-practices/navigation-and-menus/index.html",
-      "sha": "10958409ede5894a4dc2b58fc9f49f65cc651b7c"
+      "sha": "17d07ffed526dd52bd5176b2d30ff30ad8a9c6aa"
     },
     {
       "path": "/docs/best-practices/partials/index.html",
-      "sha": "be1d4b2530f598ac2fa55679e392e3a472f98d15"
+      "sha": "eebdde57aae5f55eeb766107eabb9a972e38f607"
     },
     {
       "path": "/docs/best-practices/restructuring-data/index.html",
-      "sha": "d129e552bb3f68dbae48c4ba63497243f312513a"
+      "sha": "79aa9b7d18060e0967f489ab5ef102185189509a"
     },
     {
       "path": "/docs/content-management/content-types/index.html",
-      "sha": "1032201d4c35d37b922fb618a62e5269fde3f905"
+      "sha": "c3ca35ba3b5bd35f2a0cd879969ebc37c81b0b7a"
     },
     {
       "path": "/docs/content-management/documents-and-collections/index.html",
-      "sha": "161a6ce9394e248ba9e9c84e1dc5cf1ee339157b"
+      "sha": "44744e982a6b47f4cbdb01376bb8cd6d17953abd"
     },
     {
       "path": "/docs/content-management/environments/index.html",
-      "sha": "4a21dd2b93a00310bc611b689db6486fa084d929"
+      "sha": "74a1ae36a8819e9b116b16031a4de8a30fcd119f"
     },
     {
       "path": "/docs/content-management/front-matter/index.html",
-      "sha": "f8dbd3b8ac49efef3a25e03faaac131f6f489deb"
+      "sha": "8eecabdbe44ebd5f0dd2e890166d86a38e60ffcf"
     },
     {
       "path": "/docs/content-management/markdown/index.html",
-      "sha": "732cef8c830f0bfe0308534711f493585fc19678"
+      "sha": "4e0947b19f8e0902511593ec3a168001feae5f2d"
     },
     {
       "path": "/docs/content-management/partial-content/index.html",
-      "sha": "8c165792769c538666ec12a3144d19824449044c"
+      "sha": "946ddf98d928b4360986db27c6c94548e0a14378"
     },
     {
       "path": "/docs/content-management/relationships/index.html",
-      "sha": "f4fe89d26fd1a656c3019acf1241f4063c754d8f"
+      "sha": "5de1c714ce4f6822e8780f0fa6b040a7f39344e8"
     },
     {
       "path": "/docs/content-management/yaml-types/index.html",
-      "sha": "0ca3807acd5abf66054ef56c6d9fe09054a904e8"
+      "sha": "24d78948cc2cacc48917cf20d8bcccff5524d24d"
     },
     {
       "path": "/docs/getting-started/cli/index.html",
-      "sha": "896fd5bcd70d531195f723190595e9e66a513625"
+      "sha": "91c3b4914e20305481ddcd6f0382619c1d781ed4"
     },
     {
       "path": "/docs/getting-started/configuration/index.html",
-      "sha": "231f2a293daa99aa62450ea3aff932fea23c5f88"
+      "sha": "13f6bf053595b8d4b3854c283f44365e2fdc232c"
     },
     {
       "path": "/docs/getting-started/installation/index.html",
-      "sha": "84d275fc910d7c6378502ce475cc64a8b1eebfe2"
+      "sha": "0be136b4083b01bdc22e5a8d70e203635a4358bb"
     },
     {
       "path": "/docs/getting-started/project-structure/index.html",
-      "sha": "adddf7a0264737ac952b31ca193a403eb3f9a26a"
+      "sha": "ed25723a99de3a16f7bee999fbe988a491be59a7"
     },
     {
       "path": "/docs/getting-started/routes/index.html",
-      "sha": "af3b9d7ee1339ade5fcdba26cc7115d8ed3339a4"
+      "sha": "dc16168d2d3ceedc5b958c8c780a265caf4aa2d8"
     },
     {
       "path": "/docs/getting-started/starter-project/index.html",
-      "sha": "c85f3d4fb5a5b6e196ab442baf7fb5bca6c17b0a"
+      "sha": "4b0e2ec7a24320db942aa9fdc6e5c0ce211f7756"
     },
     {
       "path": "/docs/index.html",
-      "sha": "0cb67c4a8c096efd838ff3ce8aa1d6bb123f9734"
+      "sha": "bc3e77c0aa8162b74bb3fe1e47bfbc89e3225194"
     },
     {
       "path": "/docs/localization/locale-aware-content/index.html",
-      "sha": "d9304ed4189591b62e204e97661f296f90e738e6"
+      "sha": "95f205b2ea1543df0837d968b8303c6a38df5f38"
     },
     {
       "path": "/docs/localization/managing-translations/index.html",
-      "sha": "111583abc9fb514518f0a8bd4e0d50918778a213"
+      "sha": "fe26284c3d5fa33363ac4230fb5937c055be1987"
     },
     {
       "path": "/docs/localization/requesting-translations/index.html",
-      "sha": "6e5a0563ef3ceb7fd337ed75e9f8d5196b0ed7a3"
+      "sha": "323a01177f4a83df6cd59f1123efa03b17edf6e3"
     },
     {
       "path": "/docs/plugins/dev-server-middleware/index.html",
-      "sha": "672f91f49f5c85d57bc8947ed3d1b92b7c5d8690"
+      "sha": "5e3f558c1aaecc8ec9b89d6a10953236ffe60635"
     },
     {
       "path": "/docs/plugins/template-engines/index.html",
-      "sha": "ee02af40112e2c908e39d9b3485386167f331eeb"
+      "sha": "fa12246d0a53c1e64802d33d4ec3100d1d075e45"
     },
     {
       "path": "/docs/plugins/yaml-types/index.html",
-      "sha": "45f9e960f10cbcdd7fbb75a40ba912d1dd74d14b"
+      "sha": "509f18e7962488ec5296a1cf291a934ab95fbbcb"
     },
     {
       "path": "/docs/pod-functions/api-reference/index.html",
-      "sha": "117ca7444770d4679aba3b7fc465d6c7924f248c"
+      "sha": "98f38d8d948a25ee17f7e22c18c3481124f922fe"
     },
     {
       "path": "/docs/pod-functions/index.html",
-      "sha": "3be32a24698474dc368c3e4e720080eb0109fd6e"
+      "sha": "2ed45e35c7af4e08c8c5e071247d50d73bdfce79"
     },
     {
       "path": "/docs/templates/referring-to-static-files/index.html",
-      "sha": "85f527e91791928e40275b13f74792499cc4135e"
-    },
-    {
-      "path": "/docs/templates/rendering-context/index.html",
-      "sha": "fa18210a4d3cf5c9f84b6bb779cc95cdfe40c08d"
+      "sha": "b2e1cf083519abd5ffd807f9e4818df8aa01093b"
     },
     {
       "path": "/docs/templates/template-engines/index.html",
-      "sha": "d90db4c95d3e665056f2cebbb08c5e61c0efdfd2"
+      "sha": "cb9e2d3691f1fd46eaf789c643f77d9edd52dca5"
     },
     {
       "path": "/index.html",
-      "sha": "baca49dc78f1f53282502ea6c2329addd154eeb7"
+      "sha": "acf210550bc02d08bb6102777651279c961dae09"
+    },
+    {
+      "path": "/docs/templates/rendering-context/index.html",
+      "sha": "28c26f5fdb80545807631516305f4427086ae5b4"
     },
     {
       "path": "/footer/index.html",
-      "sha": "9a97274bbb9e9e00cb5c6c3b59acc4603a070519"
+      "sha": "6b501542c194e22764713dd452da37f202765e34"
     },
     {
       "path": "/header/index.html",
-      "sha": "d439cc52924b8d95ee9c9647a9b2a32406076f25"
+      "sha": "fca99a865a472a0e39940d0edae2e0f0ef8f01aa"
     },
     {
       "path": "/static/css/footer.min.css",

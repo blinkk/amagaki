@@ -37,9 +37,6 @@ jobs:
           key: ${{ runner.os }}-build-bm-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-bm-${{ env.cache-name }}-
-      - name: Prepare public directory
-        run: |
-            mkdir -p ./public/
       - name: Build website
         run: |
             cd website

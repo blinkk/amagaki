@@ -47,7 +47,7 @@ jobs:
             cd website/
             npm ci
             npm run build
-            cp -r build/ ../public/
+            cp -r build/* ../public/
       - name: Build docs
         run: npm run docs --out ./public/api
       - name: Build benchmark build

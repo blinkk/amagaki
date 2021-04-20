@@ -23,6 +23,7 @@
     "start:example": "node ./dist/src/index.js serve example",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
     "docs": "typedoc --out docs src/",
+    "docs:ci": "typedoc --out public/api src/",
     "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
     "prepare": "rm -rf dist/; npm run dev:start;",
     "test": "ava",

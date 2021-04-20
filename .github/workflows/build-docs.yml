@@ -49,7 +49,7 @@ jobs:
             npm run build
             cp -r build/* ../public/
       - name: Build docs
-        run: npm run docs --out public/api src/**/*.ts
+        run: npm run docs:ci
       - name: Build benchmark build
         run: |
             # Preserve benchmark files.

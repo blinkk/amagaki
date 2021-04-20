@@ -1,8 +1,10 @@
 import * as yaml from 'js-yaml';
 
+import {Document} from '../document';
 import {Environment} from '../environment';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
+import {StaticFile} from '../static';
 
 interface YamlTypeArguments {
   tag: string;
@@ -32,55 +34,76 @@ export class YamlPlugin implements PluginComponent {
   }
 
   createYamlTypesHook(yamlTypeManager: YamlTypeManager) {
+    /**
+     * !pod.doc '/content/pages/index.yaml'
+     */
     yamlTypeManager.addType(
-      new yaml.Type('!a.Doc', {
+      new yaml.Type('!pod.doc', {
         kind: 'scalar',
-        resolve: data => {
-          // TODO: Validate this is in the content folder.
-          return data !== null && data.startsWith('/');
+        resolve: podPath => {
+          return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
         },
         construct: podPath => {
           return this.pod.doc(podPath);
         },
-        represent: doc => {
-          return doc;
+        represent: value => {
+          const doc = value as Document;
+          return doc.podPath;
         },
       })
     );
 
+    /**
+     * !pod.doc ['/content/pages/index.yaml', 'de']
+     * !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
+     */
     yamlTypeManager.addType(
-      new yaml.Type('!a.IfEnvironment', {
-        kind: 'mapping',
-        resolve: data => {
-          return typeof data === 'object';
+      new yaml.Type('!pod.doc', {
+        kind: 'sequence',
+        resolve: parts => {
+          const podPath = parts[0];
+          return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
         },
-        construct: value => {
-          return value[this.pod.env.name] || Environment.DefaultName;
+        construct: parts => {
+          const podPath = parts[0];
+          const localeIdOrLocale = parts[1];
+          const locale =
+            typeof localeIdOrLocale === 'string'
+              ? this.pod.locale(localeIdOrLocale)
+              : localeIdOrLocale;
+          return this.pod.doc(podPath, locale);
         },
         represent: value => {
-          return value;
+          const doc = value as Document;
+          return [doc.podPath, doc.locale];
         },
       })
     );
 
+    /**
+     * !pod.staticFile '/src/images/file.png'
+     */
     yamlTypeManager.addType(
-      new yaml.Type('!a.Static', {
+      new yaml.Type('!pod.staticFile', {
         kind: 'scalar',
         resolve: data => {
-          // TODO: Add more validation?
-          return data !== null && data.startsWith('/');
+          return data && data.startsWith('/');
         },
         construct: podPath => {
           return this.pod.staticFile(podPath);
         },
-        represent: staticFile => {
-          return staticFile;
+        represent: value => {
+          const staticFile = value as StaticFile;
+          return staticFile.podPath;
         },
       })
     );
 
+    /**
+     * !pod.string {prefer: 'Preferred String', value: 'Original String'}
+     */
     yamlTypeManager.addType(
-      new yaml.Type('!a.String', {
+      new yaml.Type('!pod.string', {
         kind: 'mapping',
         resolve: data => {
           return (
@@ -126,6 +149,19 @@ export class YamlPlugin implements PluginComponent {
         represent: string => {
           return string;
         },
+      })
+    );
+
+    yamlTypeManager.addType(
+      new yaml.Type('!a.IfEnvironment', {
+        kind: 'mapping',
+        resolve: data => {
+          return typeof data === 'object';
+        },
+        construct: value => {
+          return value[this.pod.env.name] || Environment.DefaultName;
+        },
+        // TODO: Represent serialized IfEnvironment values so they can be round-tripped.
       })
     );
 

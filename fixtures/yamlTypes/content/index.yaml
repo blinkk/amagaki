@@ -1,0 +1,3 @@
+button:
+  doc: !pod.doc /content/pages/index.yaml
+  docs: !pod.doc [/content/pages/index.yaml, {foo: bar}]

@@ -2,9 +2,9 @@ title: All routes
 description: Page description
 partials:
 - partial: hero
-  title: !a.String
+  title: !pod.string
     value: Routes
-  body: !a.String
+  body: !pod.string
     value: Browse all the routes below.
 - partial: spacer
   options:

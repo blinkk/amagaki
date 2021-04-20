@@ -46,7 +46,7 @@ export interface DocumentListOptions {
  * own document object (documents are instantiated with both a `podPath` and a
  * `locale` parameter). If a `locale` parameter is not provided, the pod's
  * default locale is used to instantiate the document. Localized documents will
- * automatically resolve any localizable elements (such as `!a.String` YAML
+ * automatically resolve any localizable elements (such as `!pod.string` YAML
  * types or `!a.Localized` YAML types) to their correct locale.
  *
  * Finally, documents may or may not actually be bound to routes. In other

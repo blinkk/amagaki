@@ -37,19 +37,19 @@ jobs:
           key: ${{ runner.os }}-build-bm-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-bm-${{ env.cache-name }}-
+      - name: Prepare for docs.
+        run: |
+            mkdir -p ./public/
+            npm install --dev
+            npm run dev:start
       - name: Build website
         run: |
-            cd website
+            cd website/
             npm ci
             npm run build
             cp -r build/ ../public/
       - name: Build docs
-        run: |
-            npm install --dev
-            npm run dev:start
-
-            # Build the typedocs.
-            npm run docs --out ./public/api
+        run: npm run docs --out ./public/api
       - name: Build benchmark build
         run: |
             # Preserve benchmark files.

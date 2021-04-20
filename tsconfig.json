@@ -6,12 +6,12 @@
       "outDir": "dist",
       "resolveJsonModule": true,
       "types": [
-        "node"
+        "node",
       ]
     },
     "include": [
       "src/**/*.ts",
-      "test/**/*.ts"
+      "test/**/*.ts",
     ],
     "typedocOptions": {
       "excludeProtected": true,
@@ -22,5 +22,6 @@
       "exclude": [
         "./src/*.test.ts",
       ],
+      "out": "docs",
     }
   }

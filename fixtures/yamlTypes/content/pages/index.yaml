@@ -3,9 +3,13 @@ doc:
   options: !pod.doc [/content/pages/index.yaml, !pod.locale 'de']
 docs:
   simple: !pod.docs [/content/pages/index.yaml, '/content/posts/2019-01-06.md']
-  options: !pod.docs ['/content/posts/**', {'sort': 'order'}]
+  options1: !pod.docs ['/content/posts/**', {sort: 'order'}]
+  options2: !pod.docs [['/content/posts/**'], {sort: 'order'}]
 collection: !pod.collection /content/pages/
-collections: !pod.collections [/content/pages/, /content/posts/]
+collections:
+  simple: !pod.collections [/content/pages/, /content/posts/]
+  options1: !pod.collections [/content/pages/, {sort: 'order'}]
+  options2: !pod.collections [[/content/pages/, /content/posts/], {sort: 'order'}]
 locale: !pod.locale 'de'
 locales: !pod.locales ['de', 'ja']
 staticFile: !pod.staticFile /src/static/file.txt

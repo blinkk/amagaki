@@ -17,13 +17,25 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
     pod.docs(['/content/pages/index.yaml', '/content/posts/2019-01-06.md'])
   );
   t.deepEqual(
-    doc.fields.docs.options,
+    doc.fields.docs.options1,
+    pod.docs(['/content/posts/**'], {sort: 'order'})
+  );
+  t.deepEqual(
+    doc.fields.docs.options2,
     pod.docs(['/content/posts/**'], {sort: 'order'})
   );
   t.deepEqual(doc.fields.collection, pod.collection('/content/pages/'));
   t.deepEqual(
-    doc.fields.collections,
+    doc.fields.collections.simple,
     pod.docs(['/content/pages/', '/content/posts/'])
+  );
+  t.deepEqual(
+    doc.fields.collections.options1,
+    pod.docs(['/content/pages/'], {sort: 'order'})
+  );
+  t.deepEqual(
+    doc.fields.collections.options2,
+    pod.docs(['/content/pages/', '/content/posts/'], {sort: 'order'})
   );
   t.deepEqual(doc.fields.locale, pod.locale('de'));
   t.deepEqual(doc.fields.locales, LocaleSet.fromIds(['de', 'ja'], pod));

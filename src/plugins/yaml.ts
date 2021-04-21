@@ -29,6 +29,17 @@ export class YamlPlugin implements PluginComponent {
     this.shortcutTypes = [];
   }
 
+  /**
+   * Returns whether supplied parts resemble the arguments for `pod.docs` or `pod.collections`.
+   */
+  private partsLikeGlobOptions(parts: any) {
+    return (
+      parts.length >= 2 &&
+      (typeof parts[0] === 'string' || Array.isArray(parts[0])) &&
+      typeof parts[parts.length - 1] === 'object'
+    );
+  }
+
   // Shortcut for adding custom yaml types without creating a full plugin.
   addType(tag: string, options: yaml.TypeConstructorOptions) {
     this.shortcutTypes.push({
@@ -59,21 +70,37 @@ export class YamlPlugin implements PluginComponent {
 
     /**
      * !pod.collections ['/content/pages/_collection.yaml', '/content/posts/_collection.yaml']
+     * !pod.collections [['/content/pages/_collection.yaml', '/content/posts/_collection.yaml'], {sort: 'order'}]
      */
     yamlTypeManager.addType(
       new yaml.Type('!pod.collections', {
         kind: 'sequence',
         resolve: parts => {
-          return parts.every((part: any) => {
-            return (
-              typeof part === 'string' &&
-              part.startsWith(Pod.DefaultContentPodPath)
-            );
-          });
+          return (
+            // Options version.
+            this.partsLikeGlobOptions(parts) ||
+            // Simple version.
+            parts.every((part: any) => {
+              return (
+                typeof part === 'string' &&
+                part.startsWith(Pod.DefaultContentPodPath)
+              );
+            })
+          );
         },
         construct: parts => {
           const patterns = parts;
-          return this.pod.collections(patterns);
+          if (this.partsLikeGlobOptions(parts)) {
+            // Options version.
+            const options = parts.pop();
+            return this.pod.collections(
+              patterns.length === 1 ? patterns[0] : patterns,
+              options
+            );
+          } else {
+            // Simple version.
+            return this.pod.collections(patterns);
+          }
         },
         represent: value => {
           const doc = value as Document;
@@ -139,9 +166,7 @@ export class YamlPlugin implements PluginComponent {
         resolve: parts => {
           return (
             // Options version.
-            (parts.length >= 2 &&
-              (typeof parts[0] === 'string' || Array.isArray(parts[0])) &&
-              typeof parts[parts.length - 1] === 'object') ||
+            this.partsLikeGlobOptions(parts) ||
             // Simple version.
             parts.every((part: any) => {
               return (
@@ -153,13 +178,13 @@ export class YamlPlugin implements PluginComponent {
         },
         construct: parts => {
           const patterns = parts;
-          if (
-            parts.length >= 2 &&
-            typeof parts[parts.length - 1] === 'object'
-          ) {
+          if (this.partsLikeGlobOptions(parts)) {
             // Options version.
             const options = parts.pop();
-            return this.pod.docs(patterns, options);
+            return this.pod.docs(
+              patterns.length === 1 ? patterns[0] : patterns,
+              options
+            );
           } else {
             // Simple version.
             return this.pod.docs(patterns);

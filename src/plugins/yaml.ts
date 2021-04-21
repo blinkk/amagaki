@@ -130,21 +130,40 @@ export class YamlPlugin implements PluginComponent {
 
     /**
      * !pod.docs ['/content/pages/index.yaml', '/content/pages/foo.yaml']
+     * !pod.docs ['/content/posts/**', {sort: 'order'}]
+     * !pod.docs [['/content/posts/**'], {sort: 'order'}]
      */
     yamlTypeManager.addType(
       new yaml.Type('!pod.docs', {
         kind: 'sequence',
         resolve: parts => {
-          return parts.every((part: any) => {
-            return (
-              typeof part === 'string' &&
-              part.startsWith(Pod.DefaultContentPodPath)
-            );
-          });
+          return (
+            // Options version.
+            (parts.length >= 2 &&
+              (typeof parts[0] === 'string' || Array.isArray(parts[0])) &&
+              typeof parts[parts.length - 1] === 'object') ||
+            // Simple version.
+            parts.every((part: any) => {
+              return (
+                typeof part === 'string' &&
+                part.startsWith(Pod.DefaultContentPodPath)
+              );
+            })
+          );
         },
         construct: parts => {
           const patterns = parts;
-          return this.pod.docs(patterns);
+          if (
+            parts.length >= 2 &&
+            typeof parts[parts.length - 1] === 'object'
+          ) {
+            // Options version.
+            const options = parts.pop();
+            return this.pod.docs(patterns, options);
+          } else {
+            // Simple version.
+            return this.pod.docs(patterns);
+          }
         },
         represent: value => {
           const docs = value as Document[];

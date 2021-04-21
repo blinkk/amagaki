@@ -220,7 +220,7 @@ export class YamlPlugin implements PluginComponent {
           return typeof data === 'string';
         },
         construct: value => {
-          return this.pod.string(value);
+          return this.pod.string({value: value});
         },
         represent: value => {
           const string = value as TranslationString;

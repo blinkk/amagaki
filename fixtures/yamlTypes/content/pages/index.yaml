@@ -1,9 +1,15 @@
-doc: !pod.doc /content/pages/index.yaml
-docWithOptions: !pod.doc [/content/pages/index.yaml, !pod.locale 'de']
+doc:
+  simple: !pod.doc /content/pages/index.yaml
+  options: !pod.doc [/content/pages/index.yaml, !pod.locale 'de']
 docs: !pod.docs [/content/pages/index.yaml, /content/posts/2019-01-06.md]
 collection: !pod.collection /content/pages/
 collections: !pod.collections [/content/pages/, /content/posts/]
 locale: !pod.locale 'de'
 locales: !pod.locales ['de', 'ja']
-yaml: !pod.yaml /content/pages/page.yaml
 staticFile: !pod.staticFile /src/static/file.txt
+string:
+  simple: !pod.string Hello World
+  options: !pod.string
+    prefer: New Value
+    value: Old Value
+yaml: !pod.yaml /content/pages/page.yaml

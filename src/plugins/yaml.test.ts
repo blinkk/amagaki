@@ -45,7 +45,9 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
     doc.fields.string.options,
     pod.string({prefer: 'New Value', value: 'Old Value'})
   );
-  t.deepEqual(doc.fields.yaml, pod.readYaml('/content/pages/page.yaml'));
+  t.deepEqual(doc.fields.yaml.simple, pod.readYaml('/content/pages/page.yaml'));
+  t.deepEqual(doc.fields.yaml.deep1, 'value1');
+  t.deepEqual(doc.fields.yaml.deep2, 'value3');
   t.deepEqual(doc.fields.IfEnvironment, 'Default Value');
 });
 

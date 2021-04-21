@@ -30,7 +30,11 @@ export class YamlPlugin implements PluginComponent {
   }
 
   /**
-   * Returns whether supplied parts resemble the arguments for `pod.docs` or `pod.collections`.
+   * Returns whether supplied parts resemble the arguments for `pod.docs` or
+   * `pod.collections`. Supplied parts must be in the following format:
+   * ```
+   * patterns?: string[] | string, options?: DocumentListOptions
+   * ```
    */
   private partsLikeGlobOptions(parts: any) {
     return (

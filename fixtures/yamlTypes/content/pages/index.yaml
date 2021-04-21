@@ -18,7 +18,10 @@ string:
   options: !pod.string
     prefer: 'New Value'
     value: 'Old Value'
-yaml: !pod.yaml /content/pages/page.yaml
+yaml:
+  simple: !pod.yaml /content/pages/page.yaml
+  deep1: !pod.yaml /content/pages/page.yaml?key1
+  deep2: !pod.yaml /content/pages/page.yaml?key2.key3
 IfEnvironment: !IfEnvironment
   default: 'Default Value'
   prod: 'Prod Value'

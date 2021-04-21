@@ -56,6 +56,14 @@ test('Collection docs option to exclude sub-collections', (t: ExecutionContext) 
   ]);
 });
 
+test('Collection index', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/collections/');
+  const collection = pod.collection('/content/collection/') as Collection;
+  t.deepEqual(collection.index, pod.doc('/content/collection/index.yaml'));
+  const otherCollection = pod.collection('/content/other/') as Collection;
+  t.is(otherCollection.index, undefined);
+});
+
 test('Collection parents', (t: ExecutionContext) => {
   // No parents.
   const pod = new Pod('./fixtures/collections/');

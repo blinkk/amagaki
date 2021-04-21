@@ -10,10 +10,10 @@ partials:
     url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w1024
   buttons:
   - label: Read manual
-    doc: !a.Doc /content/docs/index.md
+    doc: !pod.doc /content/docs/index.md
     left_icon: menu_book
   - label: Explore the starter
-    doc: !a.Doc /content/docs/getting-started/starter-project.md
+    doc: !pod.doc /content/docs/getting-started/starter-project.md
     class: button--low
     left_icon: explore
 

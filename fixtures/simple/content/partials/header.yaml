@@ -1,12 +1,12 @@
 partial: header
 logo:
-  doc: !a.Doc /content/pages/index.yaml
-  title: !a.Yaml /content/partials/base.yaml?title
+  doc: !pod.doc /content/pages/index.yaml
+  title: !pod.yaml /content/partials/base.yaml?title
   image:
     url: https://placeholder-dot-madebygoog.appspot.com/7x3.svg
 nav:
-- !a.Doc /content/pages/index.yaml
-- !a.Doc /content/pages/routes.yaml
-- !a.Doc /content/pages/about.yaml
-- !a.Doc /content/pages/bio.md
-- !a.Doc /content/pages/contact.yaml
+- !pod.doc /content/pages/index.yaml
+- !pod.doc /content/pages/routes.yaml
+- !pod.doc /content/pages/about.yaml
+- !pod.doc /content/pages/bio.md
+- !pod.doc /content/pages/contact.yaml

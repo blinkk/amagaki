@@ -132,8 +132,8 @@ A few proposed naming changes (TBD?):
 
 - `_blueprint.yaml` is now `_collection.yaml`
 - `podspec.yaml` is now `amagaki.yaml`
-- `!g.doc`, `!g.static`, `!g.yaml`, etc. are now `!a.Doc`, `!a.Static`, `!a.Content`
-- `!g.string` is now `!a.String` which is similar but has more features
+- `!g.doc`, `!g.static`, `!g.yaml`, etc. are now `!pod.doc`, `!pod.staticFile`, `!a.Content`
+- `!g.string` is now `!pod.string` which is similar but has more features
 - `.grow/index.proto.json` is now `.amagaki/build.json` (the `files`, `commit`, and `branch` values are preserved. the `deployed` key is changed to `built` and the `author` key is removed as it is a duplicate of the `commit.author` value)
 
 ## Benchmarks

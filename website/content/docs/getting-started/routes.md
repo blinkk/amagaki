@@ -107,3 +107,7 @@ slug: hello-world
 
 In the above example, the page will be generated to
 `/posts/2019-01-06/hello-world/`.
+
+## Static routes
+
+TODO

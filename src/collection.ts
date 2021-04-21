@@ -233,6 +233,18 @@ export class Collection {
   }
 
   /**
+   * Returns the `index` document from the collection. The `index` document is
+   * the document whose basename is `index`. If two documents with different
+   * extensions are located, the first one found is returned.
+   */
+  get index() {
+    const ext = Array.from(Document.SupportedExtensions).find(ext => {
+      return this.pod.fileExists(`${this.podPath}/index${ext}`);
+    });
+    return ext ? this.pod.doc(`${this.podPath}/index${ext}`) : undefined;
+  }
+
+  /**
    * Returns a list of the parent collections.
    *
    * This may be useful for situations where you need to walk through content

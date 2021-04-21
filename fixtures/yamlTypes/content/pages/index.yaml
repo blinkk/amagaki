@@ -1,24 +1,24 @@
 doc:
-  simple: !pod.doc /content/pages/index.yaml
-  options: !pod.doc [/content/pages/index.yaml, !pod.locale 'de']
+  simple: !pod.doc '/content/pages/index.yaml'
+  options: !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
 docs:
-  simple: !pod.docs [/content/pages/index.yaml, '/content/posts/2019-01-06.md']
+  simple: !pod.docs ['/content/pages/index.yaml', '/content/posts/2019-01-06.md']
   options1: !pod.docs ['/content/posts/**', {sort: 'order'}]
   options2: !pod.docs [['/content/posts/**'], {sort: 'order'}]
-collection: !pod.collection /content/pages/
+collection: !pod.collection '/content/pages/'
 collections:
-  simple: !pod.collections [/content/pages/, /content/posts/]
-  options1: !pod.collections [/content/pages/, {sort: 'order'}]
-  options2: !pod.collections [[/content/pages/, /content/posts/], {sort: 'order'}]
+  simple: !pod.collections ['/content/pages/', '/content/posts/']
+  options1: !pod.collections ['/content/pages/', {sort: 'order'}]
+  options2: !pod.collections [['/content/pages/', '/content/posts/'], {sort: 'order'}]
 locale: !pod.locale 'de'
 locales: !pod.locales ['de', 'ja']
-staticFile: !pod.staticFile /src/static/file.txt
+staticFile: !pod.staticFile '/src/static/file.txt'
 string:
-  simple: !pod.string Hello World
+  simple: !pod.string 'Hello World'
   options: !pod.string
-    prefer: New Value
-    value: Old Value
+    prefer: 'New Value'
+    value: 'Old Value'
 yaml: !pod.yaml /content/pages/page.yaml
 IfEnvironment: !IfEnvironment
-  default: 'foo'
-  prod: 'bar'
+  default: 'Default Value'
+  prod: 'Prod Value'

@@ -13,3 +13,6 @@ string:
     prefer: New Value
     value: Old Value
 yaml: !pod.yaml /content/pages/page.yaml
+IfEnvironment: !IfEnvironment
+  default: 'foo'
+  prod: 'bar'

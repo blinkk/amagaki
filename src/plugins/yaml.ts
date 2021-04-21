@@ -286,8 +286,11 @@ export class YamlPlugin implements PluginComponent {
       })
     );
 
+    /**
+     * !IfEnvironment {default: 'foo', prod: 'bar'}
+     */
     yamlTypeManager.addType(
-      new yaml.Type('!a.IfEnvironment', {
+      new yaml.Type('!IfEnvironment', {
         kind: 'mapping',
         resolve: data => {
           return typeof data === 'object';

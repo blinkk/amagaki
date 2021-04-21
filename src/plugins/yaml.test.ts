@@ -30,4 +30,16 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
     pod.string({prefer: 'New Value', value: 'Old Value'})
   );
   t.deepEqual(doc.fields.yaml, pod.readYaml('/content/pages/page.yaml'));
+  t.deepEqual(doc.fields.IfEnvironment, 'foo');
+});
+
+test('IfEnvironment', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/yamlTypes/', {
+    dev: false,
+    host: 'example.com',
+    name: 'prod',
+    scheme: 'https',
+  });
+  const doc = pod.doc('/content/pages/index.yaml') as Document;
+  t.deepEqual(doc.fields.IfEnvironment, 'bar');
 });

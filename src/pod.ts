@@ -362,14 +362,7 @@ export class Pod {
       throw new Error(`Environment ${name} is not configured in amagaki.js.`);
     }
     this.env.name = name;
-    // Apply configured environment properties, if ones exist. Otherwise, use
-    // the default env specified in the pod's constructor.
-    const env = this.config.environments[name];
-    this.env.host = env?.host || this.env.host;
-    this.env.port = env?.port || this.env.port;
-    this.env.scheme = env?.scheme || this.env.scheme;
-    this.env.dev = env?.dev || this.env.dev;
-    this.env.fields = env?.fields || this.env.fields;
+    this.env.updateFromConfig(this.config.environments[name]);
   }
 
   /**

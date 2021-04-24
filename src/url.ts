@@ -1,21 +1,43 @@
+import {Environment} from './environment';
+
 interface UrlOptions {
   path: string;
-  host: string;
-  scheme: string;
+  host?: string;
+  scheme?: string;
   port?: string;
+  env?: Environment;
 }
 
 export class Url {
   path: string;
-  host: string;
-  scheme: string;
-  port?: string;
+  env?: Environment;
+  private _host?: string;
+  private _scheme?: string;
+  private _port?: string;
 
+  /**
+   * Creates Url instance. If host, scheme, and port are supplied options, those
+   * values will be used. By default, a reference to the pod's environment is
+   * used instead.
+   */
   constructor(options: UrlOptions) {
     this.path = options.path;
-    this.host = options.host;
-    this.scheme = options.scheme;
-    this.port = options.port;
+    this.env = options.env;
+    this._host = options.host;
+    this._scheme = options.scheme;
+    this._port = options.port;
+  }
+
+  get host() {
+    return this._host || this.env?.host;
+  }
+
+  get scheme() {
+    return this._scheme || this.env?.scheme;
+  }
+
+  get port() {
+    return this._port || this.env?.port;
   }
 
   toString() {

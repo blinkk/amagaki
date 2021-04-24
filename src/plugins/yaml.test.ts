@@ -51,6 +51,16 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
   t.deepEqual(doc.fields.IfEnvironment, 'Default Value');
 });
 
+test('Async YAML types', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/yamlTypes/');
+  const doc = pod.doc('/content/pages/asyncType.yaml') as Document;
+  t.true(doc.fields.asyncKey instanceof Promise);
+  t.true(doc.fields.promiseKey instanceof Promise);
+  await doc.resolveFields();
+  t.deepEqual(doc.fields.asyncKey, 'ASYNC-TYPE-VALUE');
+  t.deepEqual(doc.fields.promiseKey, 'ASYNC-TYPE-VALUE');
+});
+
 test('IfEnvironment', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/yamlTypes/', {
     dev: false,

@@ -4,6 +4,7 @@ import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
 
+import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
 import {Pod} from './pod';
 import {Url} from './url';
 import minimatch from 'minimatch';
@@ -71,6 +72,7 @@ export class Document {
     '.xml',
     '.yaml',
   ]);
+  static ExtensionsWithoutFrontMatter = new Set(['.yaml']);
 
   constructor(pod: Pod, podPath: string, locale: Locale) {
     this.pod = pod;
@@ -194,15 +196,40 @@ export class Document {
     return this.pod.defaultLocale;
   }
 
+  /**
+   * Resolves any async fields. This is commonly used in conjunction with async
+   * YAML types. For example, if a YAML type fetches data from an API or loads
+   * content asynchronously, `resolveFields` ensures that the YAML type's
+   * promise is resolved. `resolveFields` is invoked prior to rendering a
+   * document, so any async data is immediately available for templates.
+   */
+  async resolveFields() {
+    if (!this.parts.fields) {
+      return;
+    }
+    const timer = this.pod.profiler.timer(
+      'document.resolveFields',
+      'Document resolve fields'
+    );
+    try {
+      const deepWalker = new DeepWalk();
+      this.parts.fields = await deepWalker.walk(
+        this.parts.fields,
+        async (value: any) => {
+          return value instanceof Promise ? await value : value;
+        }
+      );
+    } finally {
+      timer.stop();
+    }
+  }
+
   async render(context?: Record<string, any>): Promise<string> {
     const defaultContext = {
       process: process,
       doc: this,
       env: this.pod.env,
       pod: this.pod,
-      a: {
-        static: this.pod.staticFile.bind(this.pod),
-      },
     };
     if (context) {
       Object.assign(defaultContext, context);
@@ -216,6 +243,8 @@ export class Document {
         defaultContext
       );
     }
+
+    await this.resolveFields();
 
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
     return templateEngine.render(this.view, defaultContext);
@@ -303,7 +332,7 @@ export class Document {
     if (this.parts.fields) {
       return this.parts.fields;
     }
-    if (['.md', '.njk'].includes(this.ext)) {
+    if (!Document.ExtensionsWithoutFrontMatter.has(this.ext)) {
       this.parts = this.initPartsFromFrontMatter();
     } else {
       const timer = this.pod.profiler.timer(
@@ -334,9 +363,9 @@ export class Document {
     if (this.parts.body !== null) {
       return this.parts.body;
     }
-    if (this.ext === '.yaml') {
+    if (Document.ExtensionsWithoutFrontMatter.has(this.ext)) {
       this.parts.body = '';
-    } else if (this.ext === '.md') {
+    } else {
       this.parts = this.initPartsFromFrontMatter();
     }
     return this.parts.body;

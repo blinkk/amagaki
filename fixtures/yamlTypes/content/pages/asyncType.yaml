@@ -1,0 +1,2 @@
+asyncKey: !async async-type-value
+promiseKey: !promise async-type-value

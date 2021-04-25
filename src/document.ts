@@ -5,6 +5,7 @@ import * as utils from './utils';
 import {Locale, LocaleSet} from './locale';
 
 import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
+import {Environment} from './environment';
 import {Pod} from './pod';
 import {Url} from './url';
 import minimatch from 'minimatch';
@@ -14,6 +15,13 @@ const DEFAULT_VIEW = '/views/base.njk';
 interface DocumentParts {
   body?: string | null;
   fields?: any;
+}
+
+interface TemplateContext {
+  doc: Document;
+  env: Environment;
+  pod: Pod;
+  process: NodeJS.Process;
 }
 
 export interface DocumentListOptions {
@@ -72,7 +80,7 @@ export class Document {
     '.xml',
     '.yaml',
   ]);
-  static ExtensionsWithoutFrontMatter = new Set(['.yaml']);
+  static FrontMatterOnlyExtensions = new Set(['.yaml']);
 
   constructor(pod: Pod, podPath: string, locale: Locale) {
     this.pod = pod;
@@ -203,7 +211,7 @@ export class Document {
    * promise is resolved. `resolveFields` is invoked prior to rendering a
    * document, so any async data is immediately available for templates.
    */
-  async resolveFields() {
+  private async resolveFields(context: TemplateContext) {
     if (!this.parts.fields) {
       return;
     }
@@ -213,10 +221,25 @@ export class Document {
     );
     try {
       const deepWalker = new DeepWalk();
+
+      // Walk data twice, once to invoke async functions and once to await them.
+      // Follows pattern from https://github.com/blinkkcode/live-edit-connector/blob/main/src/utility/yamlSchemas.ts
       this.parts.fields = await deepWalker.walk(
         this.parts.fields,
         async (value: any) => {
-          return value instanceof Promise ? await value : value;
+          if (value?.constructor?.name === 'AsyncFunction') {
+            value.resolvePromise = value(context);
+            return value;
+          }
+          return value;
+        }
+      );
+      this.parts.fields = await deepWalker.walk(
+        this.parts.fields,
+        async (value: any) => {
+          return value?.constructor?.name === 'AsyncFunction'
+            ? await value.resolvePromise
+            : value;
         }
       );
     } finally {
@@ -225,15 +248,17 @@ export class Document {
   }
 
   async render(context?: Record<string, any>): Promise<string> {
-    const defaultContext = {
-      process: process,
+    const defaultContext: TemplateContext = {
       doc: this,
       env: this.pod.env,
       pod: this.pod,
+      process: process,
     };
     if (context) {
       Object.assign(defaultContext, context);
     }
+
+    await this.resolveFields(defaultContext);
 
     // When `$view: self` is used, use the document's body as the template.
     if (this.view === Document.SelfReferencedView) {
@@ -243,8 +268,6 @@ export class Document {
         defaultContext
       );
     }
-
-    await this.resolveFields();
 
     const templateEngine = this.pod.engines.getEngineByFilename(this.view);
     return templateEngine.render(this.view, defaultContext);
@@ -332,7 +355,7 @@ export class Document {
     if (this.parts.fields) {
       return this.parts.fields;
     }
-    if (!Document.ExtensionsWithoutFrontMatter.has(this.ext)) {
+    if (!Document.FrontMatterOnlyExtensions.has(this.ext)) {
       this.parts = this.initPartsFromFrontMatter();
     } else {
       const timer = this.pod.profiler.timer(
@@ -363,7 +386,7 @@ export class Document {
     if (this.parts.body !== null) {
       return this.parts.body;
     }
-    if (Document.ExtensionsWithoutFrontMatter.has(this.ext)) {
+    if (Document.FrontMatterOnlyExtensions.has(this.ext)) {
       this.parts.body = '';
     } else {
       this.parts = this.initPartsFromFrontMatter();

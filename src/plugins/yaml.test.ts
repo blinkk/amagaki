@@ -51,6 +51,19 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
   t.deepEqual(doc.fields.IfEnvironment, 'Default Value');
 });
 
+test('Async YAML types', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/yamlTypes/');
+  const doc = pod.doc('/content/pages/asyncType.yaml') as Document;
+  t.true(doc.fields.asyncKey.constructor.name === 'AsyncFunction');
+  // Prior to resolving, the field is a function.
+  t.true(typeof doc.fields.asyncKey === 'function');
+  await doc.render();
+  t.deepEqual(doc.fields.asyncKey, 'ASYNC-TYPE-VALUE');
+  // After resolving, the field has changed to its resolved value, which is a
+  // string in this case.
+  t.true(typeof doc.fields.asyncKey === 'string');
+});
+
 test('IfEnvironment', (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/yamlTypes/', {
     dev: false,

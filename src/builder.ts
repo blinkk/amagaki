@@ -403,7 +403,6 @@ export class Builder {
           path: createdPath.normalPath,
           sha: await this.getFileSha(createdPath.tempPath),
         });
-        console.log(createdPath);
         return Promise.all([
           // Then, update the metrics by getting file sizes.
           fs.promises.stat(createdPath.tempPath).then(statResult => {
@@ -414,9 +413,9 @@ export class Builder {
               buildMetrics.numDocumentRoutes += 1;
               buildMetrics.outputSizeDocuments += statResult.size;
             }
+            // Finally, move the files from the temporary to final locations.
+            this.moveFileAsync(createdPath.tempPath, createdPath.realPath);
           }),
-          // Finally, move the files from the temporary to final locations.
-          this.moveFileAsync(createdPath.tempPath, createdPath.realPath),
         ]).then(() => {
           // When done with each file step, increment the progress bar.
           if (showMoveProgressBar) {

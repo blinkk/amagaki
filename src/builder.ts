@@ -403,6 +403,7 @@ export class Builder {
           path: createdPath.normalPath,
           sha: await this.getFileSha(createdPath.tempPath),
         });
+        console.log(createdPath);
         return Promise.all([
           // Then, update the metrics by getting file sizes.
           fs.promises.stat(createdPath.tempPath).then(statResult => {

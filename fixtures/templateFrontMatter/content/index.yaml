@@ -1,0 +1,2 @@
+$path: /${doc.basename}/
+$view: /views/base.njk

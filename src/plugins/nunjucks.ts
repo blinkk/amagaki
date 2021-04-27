@@ -1,4 +1,5 @@
 import * as nunjucks from 'nunjucks';
+import * as utils from '../utils';
 
 import {formatBytes, getLocalizedValue} from '../utils';
 
@@ -111,8 +112,10 @@ class NunjucksPodLoader extends nunjucks.Loader {
   }
 
   getSource(name: string) {
+    const content = this.pod.readFile(name);
+    const parts = utils.splitFrontMatter(content);
     return {
-      src: this.pod.readFile(name),
+      src: parts.body || '',
       path: name,
       noCache: this.pod.env.dev, // Avoid caching Nunjucks templates in dev.
     };

@@ -263,11 +263,13 @@ export class Builder {
   }
 
   static createProgressBar(label: string) {
+    const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
     return new cliProgress.SingleBar(
       {
         format:
           `${label} ({value}/{total}): `.green +
           '{bar} Total: {customDuration}',
+        noTTYOutput: isTTY,
       },
       cliProgress.Presets.shades_classic
     );

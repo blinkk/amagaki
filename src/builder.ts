@@ -264,13 +264,17 @@ export class Builder {
 
   static createProgressBar(label: string) {
     const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
+    const options: cliProgress.Options = {
+      format:
+        `${label} ({value}/{total}): `.green + '{bar} Total: {customDuration}',
+      noTTYOutput: isTTY,
+      notTTYSchedule: 50000, // 5s
+    };
+    if (!isTTY) {
+      options.stream = process.stdout;
+    }
     return new cliProgress.SingleBar(
-      {
-        format:
-          `${label} ({value}/{total}): `.green +
-          '{bar} Total: {customDuration}',
-        noTTYOutput: isTTY,
-      },
+      options,
       cliProgress.Presets.shades_classic
     );
   }

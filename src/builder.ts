@@ -404,25 +404,24 @@ export class Builder {
           sha: await this.getFileSha(createdPath.tempPath),
         });
         // Then, update the metrics by getting file sizes.
-        fs.promises.stat(createdPath.tempPath).then(statResult => {
-          if (createdPath.route.provider.type === 'static_dir') {
-            buildMetrics.numStaticRoutes += 1;
-            buildMetrics.outputSizeStaticFiles += statResult.size;
-          } else {
-            buildMetrics.numDocumentRoutes += 1;
-            buildMetrics.outputSizeDocuments += statResult.size;
-          }
-          // Finally, move the files from the temporary to final locations.
-          this.moveFileAsync(createdPath.tempPath, createdPath.realPath);
-          // When done with each file step, increment the progress bar.
-          if (showMoveProgressBar) {
-            moveBar.increment({
-              customDuration: Builder.formatProgressBarTime(
-                new Date().getTime() - moveStartTime
-              ),
-            });
-          }
-        });
+        const statResult = await fs.promises.stat(createdPath.tempPath);
+        if (createdPath.route.provider.type === 'static_dir') {
+          buildMetrics.numStaticRoutes += 1;
+          buildMetrics.outputSizeStaticFiles += statResult.size;
+        } else {
+          buildMetrics.numDocumentRoutes += 1;
+          buildMetrics.outputSizeDocuments += statResult.size;
+        }
+        // Finally, move the files from the temporary to final locations.
+        await this.moveFileAsync(createdPath.tempPath, createdPath.realPath);
+        // When done with each file step, increment the progress bar.
+        if (showMoveProgressBar) {
+          moveBar.increment({
+            customDuration: Builder.formatProgressBarTime(
+              new Date().getTime() - moveStartTime
+            ),
+          });
+        }
       }
     );
 

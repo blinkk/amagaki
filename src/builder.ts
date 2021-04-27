@@ -273,6 +273,8 @@ export class Builder {
     if (!isTTY) {
       options.stream = process.stdout;
     }
+    throw new Error(JSON.stringify(options));
+    // @ts-ignore
     return new cliProgress.SingleBar(
       options,
       cliProgress.Presets.shades_classic

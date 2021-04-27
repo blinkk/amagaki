@@ -263,18 +263,12 @@ export class Builder {
   }
 
   static createProgressBar(label: string) {
-    const isTTY =
-      Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY) &&
-      !process.env.GITHUB_ACTIONS;
+    const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
     const options: cliProgress.Options = {
       format:
         `${label} ({value}/{total}): `.green + '{bar} Total: {customDuration}',
       noTTYOutput: isTTY,
     };
-    if (!isTTY) {
-      options.notTTYSchedule = 50000; // 5s
-      options.stream = process.stdout;
-    }
     return new cliProgress.SingleBar(
       options,
       cliProgress.Presets.shades_classic

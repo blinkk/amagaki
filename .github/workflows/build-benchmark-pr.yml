@@ -40,7 +40,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('benchmark/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: Build amagaki
+      - name: Build amagaki and benchmark
         run: |
                 npm install
                 npm run dev:start

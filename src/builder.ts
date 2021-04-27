@@ -263,12 +263,14 @@ export class Builder {
   }
 
   static createProgressBar(label: string) {
+    const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
+    const options: cliProgress.Options = {
+      format:
+        `${label} ({value}/{total}): `.green + '{bar} Total: {customDuration}',
+      noTTYOutput: isTTY,
+    };
     return new cliProgress.SingleBar(
-      {
-        format:
-          `${label} ({value}/{total}): `.green +
-          '{bar} Total: {customDuration}',
-      },
+      options,
       cliProgress.Presets.shades_classic
     );
   }
@@ -395,29 +397,25 @@ export class Builder {
           path: createdPath.normalPath,
           sha: await this.getFileSha(createdPath.tempPath),
         });
-        return Promise.all([
-          // Then, update the metrics by getting file sizes.
-          fs.promises.stat(createdPath.tempPath).then(statResult => {
-            if (createdPath.route.provider.type === 'static_dir') {
-              buildMetrics.numStaticRoutes += 1;
-              buildMetrics.outputSizeStaticFiles += statResult.size;
-            } else {
-              buildMetrics.numDocumentRoutes += 1;
-              buildMetrics.outputSizeDocuments += statResult.size;
-            }
-          }),
-          // Finally, move the files from the temporary to final locations.
-          this.moveFileAsync(createdPath.tempPath, createdPath.realPath),
-        ]).then(() => {
-          // When done with each file step, increment the progress bar.
-          if (showMoveProgressBar) {
-            moveBar.increment({
-              customDuration: Builder.formatProgressBarTime(
-                new Date().getTime() - moveStartTime
-              ),
-            });
-          }
-        });
+        // Then, update the metrics by getting file sizes.
+        const statResult = await fs.promises.stat(createdPath.tempPath);
+        if (createdPath.route.provider.type === 'static_dir') {
+          buildMetrics.numStaticRoutes += 1;
+          buildMetrics.outputSizeStaticFiles += statResult.size;
+        } else {
+          buildMetrics.numDocumentRoutes += 1;
+          buildMetrics.outputSizeDocuments += statResult.size;
+        }
+        // Finally, move the files from the temporary to final locations.
+        await this.moveFileAsync(createdPath.tempPath, createdPath.realPath);
+        // When done with each file step, increment the progress bar.
+        if (showMoveProgressBar) {
+          moveBar.increment({
+            customDuration: Builder.formatProgressBarTime(
+              new Date().getTime() - moveStartTime
+            ),
+          });
+        }
       }
     );
 

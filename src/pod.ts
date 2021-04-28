@@ -13,6 +13,7 @@ import {existsSync, readFileSync} from 'fs';
 import {join, resolve} from 'path';
 
 import {Builder} from './builder';
+import {BuilderPlugin} from './plugins/builder';
 import {Cache} from './cache';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
@@ -46,6 +47,7 @@ export interface PodConfig {
  */
 export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
+    BuilderPlugin,
     NunjucksPlugin,
     ServerPlugin,
     YamlPlugin,

@@ -31,12 +31,14 @@ export class Locale {
   podPath: string;
   id: string;
   recordedStrings: Map<TranslationString, Set<Document>>;
+  contextualStrings: Map<Document, Set<TranslationString>>;
 
   constructor(pod: Pod, id: string) {
     this.pod = pod;
     this.id = id;
     this.podPath = `/locales/${id}.yaml`;
     this.recordedStrings = new Map();
+    this.contextualStrings = new Map();
   }
 
   toString() {
@@ -49,7 +51,7 @@ export class Locale {
    * source string to translation, under a `translations` key within the file.
    * */
   get translations() {
-    return this.pod.readYaml(this.podPath)['translations'];
+    return this.pod.readYaml(this.podPath)?.translations || {};
   }
 
   /** Normalizes a string into a `TranslationString` object. */
@@ -81,7 +83,13 @@ export class Locale {
       this.recordedStrings.set(string, new Set());
     }
     if (location) {
+      if (!this.contextualStrings.has(location)) {
+        this.contextualStrings.set(location, new Set());
+      }
       (this.recordedStrings.get(string) as Set<Document>).add(location);
+      (this.contextualStrings.get(location) as Set<TranslationString>).add(
+        string
+      );
     }
   }
 
@@ -103,14 +111,14 @@ export class Locale {
     // to support updating source languages without waiting for new translations
     // to arrive.
     if (string.prefer) {
-      const preferredValue = this.translations[string.prefer];
+      const preferredValue = this.translations?.[string.prefer]?.translation;
       if (preferredValue) {
         return preferredValue;
       }
     }
 
     // Collect the string because the preferred translation is missing.
-    const foundValue = this.translations[string.value];
+    const foundValue = this.translations?.[string.value]?.translation;
     if (foundValue) {
       return foundValue;
     }

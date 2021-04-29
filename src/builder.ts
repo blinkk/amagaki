@@ -8,6 +8,7 @@ import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
+import * as yaml from 'js-yaml';
 
 import {Route, StaticRoute} from './router';
 
@@ -453,13 +454,37 @@ export class Builder {
           )})`
       );
     }
+
+    const localesToCatalogs: any = {};
+
     let numMissingTranslations = 0;
     let numMissingLocales = 0;
-    Object.values(this.pod.cache.locales).forEach(locale => {
+    Object.values(this.pod.cache.locales).forEach(async locale => {
       numMissingTranslations += locale.recordedStrings.size;
       if (locale.recordedStrings.size) {
         numMissingLocales += 1;
       }
+      // console.log(locale.recordedStrings);
+      localesToCatalogs[locale.id] =
+        this.pod.readYaml(`/locales/${locale.id}.yaml`) || {};
+      localesToCatalogs[locale.id].translations =
+        localesToCatalogs[locale.id].translations || {};
+      locale.recordedStrings.forEach((doc, string) => {
+        if (!localesToCatalogs[locale.id].translations[string.value]) {
+          localesToCatalogs[locale.id].translations[string.value] = {};
+          localesToCatalogs[locale.id].translations[string.value].translation =
+            '';
+        }
+      });
+
+      await this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(`/locales/${locale.id}.yaml`),
+        yaml.dump(localesToCatalogs[locale.id], {
+          // flowLevel: -1,
+          // forceQuotes: true,
+          sortKeys: true,
+        })
+      );
     });
     if (numMissingTranslations) {
       console.log(

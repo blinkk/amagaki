@@ -17,6 +17,7 @@
       "excludeProtected": true,
       "excludeExternals": true,
       "entryPoints": [
+        "./src/*.ts",
         "./src/**/*.ts"
       ],
       "exclude": [

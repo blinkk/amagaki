@@ -11,7 +11,7 @@
     "url": "git://github.com/blinkkcode/amagaki.git"
   },
   "engines": {
-    "node": ">=13.14.0"
+    "node": ">=14"
   },
   "scripts": {
     "build:example": "node ./dist/src/index.js build example",

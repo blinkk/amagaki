@@ -10,11 +10,11 @@ import {Pod} from '../pod';
  * ```
  * const plugin = pod.plugins.get('BuilderPlugin');
  *
- * plugin.addPreBuildStep(builder => {
+ * plugin.addBeforeBuildStep(builder => {
  *   // Do something with the builder.
  * });
  *
- * plugin.addPostBuildStep(buildResult => {
+ * plugin.addAfterBuildStep(buildResult => {
  *   // Do something with the build result.
  * });
  * ```
@@ -22,32 +22,32 @@ import {Pod} from '../pod';
 export class BuilderPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
-  private preBuildCallbacks: Array<Function>;
-  private postBuildCallbacks: Array<Function>;
+  private beforeBuildCallbacks: Array<Function>;
+  private afterBuildCallbacks: Array<Function>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
     this.config = config;
-    this.preBuildCallbacks = [];
-    this.postBuildCallbacks = [];
+    this.beforeBuildCallbacks = [];
+    this.afterBuildCallbacks = [];
   }
 
-  addPreBuildStep(func: Function) {
-    this.preBuildCallbacks.push(func);
+  addBeforeBuildStep(func: Function) {
+    this.beforeBuildCallbacks.push(func);
   }
 
-  addPostBuildStep(func: Function) {
-    this.postBuildCallbacks.push(func);
+  addAfterBuildStep(func: Function) {
+    this.afterBuildCallbacks.push(func);
   }
 
-  preBuildHook(builder: Builder) {
-    this.preBuildCallbacks.forEach(callback => {
+  beforeBuildHook(builder: Builder) {
+    this.beforeBuildCallbacks.forEach(callback => {
       callback(builder);
     });
   }
 
-  postBuildHook(buildResult: BuildResult) {
-    this.postBuildCallbacks.forEach(callback => {
+  afterBuildHook(buildResult: BuildResult) {
+    this.afterBuildCallbacks.forEach(callback => {
       callback(buildResult);
     });
   }

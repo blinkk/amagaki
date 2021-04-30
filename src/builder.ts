@@ -56,7 +56,7 @@ interface BuildMetrics {
   outputSizeDocuments: number;
 }
 
-interface BuildResult {
+export interface BuildResult {
   metrics: BuildMetrics;
   manifest: BuildManifest;
   diff: BuildDiffPaths;
@@ -276,6 +276,7 @@ export class Builder {
   }
 
   async export(): Promise<BuildResult> {
+    this.pod.plugins.trigger('beforeBuild', this);
     const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
@@ -487,11 +488,13 @@ export class Builder {
         ` ${this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)}`
     );
 
-    return {
+    const result: BuildResult = {
       diff: buildDiff,
       manifest: buildManifest,
       metrics: buildMetrics,
     };
+    this.pod.plugins.trigger('afterBuild', result);
+    return result;
   }
 
   async exportBenchmark() {

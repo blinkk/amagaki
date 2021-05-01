@@ -33,6 +33,7 @@ program
 program
   .command('serve [root]')
   .description('start the development server')
+  .option('--port <number>', 'development server port', '8080')
   .action((path, options) => {
     if (!isNodeVersionSupported()) {
       return;

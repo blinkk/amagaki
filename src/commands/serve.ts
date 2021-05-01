@@ -9,6 +9,7 @@ import {createApp} from '../server';
 interface ServeOptions {
   fcd?: string;
   ref?: string;
+  port?: number;
   site: string;
 }
 
@@ -22,12 +23,12 @@ export class ServeCommand {
   }
 
   async run(path = './') {
-    const port = process.env.PORT || '8080';
+    const port = this.options.port || process.env.PORT || 8080;
     const pod = new Pod(fs.realpathSync(path), {
       dev: true,
       host: 'localhost',
       name: 'default',
-      port: port,
+      port: `${port}`,
       scheme: 'http',
     });
     if (this.globalOptions.env) {

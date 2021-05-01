@@ -144,7 +144,7 @@ You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchm
 [github-url]: https://github.com/blinkkcode/amagaki/actions
 [codecov-image]: https://codecov.io/gh/blinkkcode/amagaki/branch/main/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/blinkkcode/amagaki
-[david-image]: https://david-dm.org/blinkkcode/amagaki.svg
+[david-image]: https://status.david-dm.org/gh/blinkkcode/amagaki.svg
 [david-url]: https://david-dm.org/blinkkcode/amagaki
 [gts-image]: https://img.shields.io/badge/code%20style-google-blueviolet.svg
 [gts-url]: https://github.com/google/gts

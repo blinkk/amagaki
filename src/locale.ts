@@ -1,3 +1,6 @@
+import * as yaml from 'js-yaml';
+
+import {Builder} from './builder';
 import {Document} from './document';
 import {Pod} from './pod';
 import {TranslationString} from './string';
@@ -12,6 +15,15 @@ export class LocaleSet extends Set {
   toString() {
     return `[Locales: ${Array.from(this.values()).join(', ')}]`;
   }
+}
+
+interface Translation {
+  translation: string;
+  comment?: string;
+}
+
+interface LocaleContent {
+  translations: Record<string, Translation>;
 }
 
 /**
@@ -32,6 +44,7 @@ export class Locale {
   id: string;
   recordedStrings: Map<TranslationString, Set<Document>>;
   contextualStrings: Map<Document, Set<TranslationString>>;
+  _content: LocaleContent | undefined;
 
   constructor(pod: Pod, id: string) {
     this.pod = pod;
@@ -39,10 +52,25 @@ export class Locale {
     this.podPath = `/locales/${id}.yaml`;
     this.recordedStrings = new Map();
     this.contextualStrings = new Map();
+    this._content = undefined;
   }
 
   toString() {
     return `[Locale: ${this.id}]`;
+  }
+
+  private get content() {
+    if (this._content !== undefined) {
+      return this._content;
+    }
+    if (this.pod.fileExists(this.podPath)) {
+      this._content = this.pod.readYaml(this.podPath) as LocaleContent;
+    } else {
+      this._content = {
+        translations: {},
+      };
+    }
+    return this._content;
   }
 
   /** Returns the translations for this locale. The translations are stored
@@ -51,7 +79,7 @@ export class Locale {
    * source string to translation, under a `translations` key within the file.
    * */
   get translations() {
-    return this.pod.readYaml(this.podPath)?.translations || {};
+    return this.content.translations;
   }
 
   /** Normalizes a string into a `TranslationString` object. */
@@ -91,6 +119,11 @@ export class Locale {
         string
       );
     }
+    if (!this.content?.translations[string.value]) {
+      this.content.translations[string.value] = {
+        translation: '',
+      };
+    }
   }
 
   getTranslation(value: string | TranslationString, location?: Document) {
@@ -101,7 +134,8 @@ export class Locale {
     const string = this.toTranslationString(value);
 
     this.recordString(string, location);
-    if (!this.pod.fileExists(this.podPath) || !this.translations) {
+
+    if (!this.translations) {
       return string.value;
     }
 
@@ -130,5 +164,12 @@ export class Locale {
   /** Returns whether the locale uses an RTL (right to left) language. */
   get rtl() {
     return RTL_REGEX.test(this.id);
+  }
+
+  async save() {
+    const content = yaml.dump(this.content, {
+      sortKeys: true,
+    });
+    Builder.writeFileAsync(this.podPath, content);
   }
 }

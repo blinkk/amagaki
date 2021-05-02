@@ -8,7 +8,6 @@ import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
-import * as yaml from 'js-yaml';
 
 import {Route, StaticRoute} from './router';
 
@@ -158,7 +157,7 @@ export class Builder {
     });
   }
 
-  writeFileAsync(outputPath: string, content: string) {
+  static writeFileAsync(outputPath: string, content: string) {
     Builder.ensureDirectoryExists(outputPath);
     return fs.promises.writeFile(outputPath, content);
   }
@@ -359,7 +358,7 @@ export class Builder {
             } finally {
               timer.stop();
             }
-            return this.writeFileAsync(createdPath.tempPath, content);
+            return Builder.writeFileAsync(createdPath.tempPath, content);
           }
         } finally {
           artifacts.push({
@@ -426,7 +425,7 @@ export class Builder {
     }
 
     // Write the manifest.
-    await this.writeFileAsync(
+    await Builder.writeFileAsync(
       this.pod.getAbsoluteFilePath(this.manifestPodPath),
       JSON.stringify(buildManifest, null, 2)
     );
@@ -455,8 +454,6 @@ export class Builder {
       );
     }
 
-    const localesToCatalogs: any = {};
-
     let numMissingTranslations = 0;
     let numMissingLocales = 0;
     Object.values(this.pod.cache.locales).forEach(async locale => {
@@ -464,27 +461,6 @@ export class Builder {
       if (locale.recordedStrings.size) {
         numMissingLocales += 1;
       }
-      // console.log(locale.recordedStrings);
-      localesToCatalogs[locale.id] =
-        this.pod.readYaml(`/locales/${locale.id}.yaml`) || {};
-      localesToCatalogs[locale.id].translations =
-        localesToCatalogs[locale.id].translations || {};
-      locale.recordedStrings.forEach((doc, string) => {
-        if (!localesToCatalogs[locale.id].translations[string.value]) {
-          localesToCatalogs[locale.id].translations[string.value] = {};
-          localesToCatalogs[locale.id].translations[string.value].translation =
-            '';
-        }
-      });
-
-      await this.writeFileAsync(
-        this.pod.getAbsoluteFilePath(`/locales/${locale.id}.yaml`),
-        yaml.dump(localesToCatalogs[locale.id], {
-          // flowLevel: -1,
-          // forceQuotes: true,
-          sortKeys: true,
-        })
-      );
     });
     if (numMissingTranslations) {
       console.log(
@@ -524,7 +500,7 @@ export class Builder {
 
   async exportBenchmark() {
     // Write the profile benchmark.
-    await this.writeFileAsync(
+    await Builder.writeFileAsync(
       this.pod.getAbsoluteFilePath(this.benchmarkPodPath),
       this.pod.profiler.benchmarkOutput
     );

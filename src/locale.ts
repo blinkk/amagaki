@@ -5,6 +5,8 @@ import {Document} from './document';
 import {Pod} from './pod';
 import {TranslationString} from './string';
 
+const xliff = require('xliff');
+
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
 
 export class LocaleSet extends Set {
@@ -26,6 +28,21 @@ interface LocaleContent {
   translations: Record<string, Translation>;
 }
 
+interface XlfItem {
+  source: string;
+  target: string;
+}
+
+type XlfNamespace = string;
+type XlfKey = string;
+type XlfResource = Record<XlfKey, XlfItem>;
+
+interface XlfDocument {
+  resources: Record<XlfNamespace, XlfResource>;
+  sourceLanguage: string;
+  targetLanguage: string;
+}
+
 /**
  * Locales provide pods with a way of generating different content for different
  * locales. Locale objects are used to instantiate documents, so that one
@@ -41,6 +58,7 @@ interface LocaleContent {
 export class Locale {
   pod: Pod;
   podPath: string;
+  xlfPodPath: string;
   id: string;
   recordedStrings: Map<TranslationString, Set<Document>>;
   contextualStrings: Map<Document, Set<TranslationString>>;
@@ -50,6 +68,7 @@ export class Locale {
     this.pod = pod;
     this.id = id;
     this.podPath = `/locales/${id}.yaml`;
+    this.xlfPodPath = `/locales/${id}.xlf`;
     this.recordedStrings = new Map();
     this.contextualStrings = new Map();
     this._content = undefined;
@@ -71,6 +90,11 @@ export class Locale {
       };
     }
     return this._content;
+  }
+
+  /** Returns whether the locale uses an RTL (right to left) language. */
+  get rtl() {
+    return RTL_REGEX.test(this.id);
   }
 
   /** Returns the translations for this locale. The translations are stored
@@ -161,15 +185,29 @@ export class Locale {
     return string.value;
   }
 
-  /** Returns whether the locale uses an RTL (right to left) language. */
-  get rtl() {
-    return RTL_REGEX.test(this.id);
-  }
-
   async save() {
     const content = yaml.dump(this.content, {
       sortKeys: true,
     });
     Builder.writeFileAsync(this.pod.getAbsoluteFilePath(this.podPath), content);
+    await this.saveXlf();
+  }
+
+  async saveXlf() {
+    const data: XlfDocument = {
+      resources: {},
+      sourceLanguage: this.pod.defaultLocale.id,
+      targetLanguage: this.id,
+    };
+    data.resources.global = {};
+    for (const string of Object.keys(this.translations)) {
+      const value = this.translations[string];
+      data.resources.global[string] = {
+        source: string,
+        target: value.translation,
+      };
+    }
+    const resp = await xliff.js2xliff(data);
+    Builder.writeFileAsync(this.pod.getAbsoluteFilePath(this.xlfPodPath), resp);
   }
 }

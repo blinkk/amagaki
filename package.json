@@ -74,6 +74,7 @@
     "marked": "^2.0.3",
     "mime-types": "^2.1.30",
     "minimatch": "^3.0.4",
-    "nunjucks": "^3.2.3"
+    "nunjucks": "^3.2.3",
+    "xliff": "^5.5.3"
   }
 }

@@ -170,6 +170,6 @@ export class Locale {
     const content = yaml.dump(this.content, {
       sortKeys: true,
     });
-    Builder.writeFileAsync(this.podPath, content);
+    Builder.writeFileAsync(this.pod.getAbsoluteFilePath(this.podPath), content);
   }
 }

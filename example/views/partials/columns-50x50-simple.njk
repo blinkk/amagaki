@@ -1,5 +1,5 @@
-{% import "/views/macros/asset.njk" as asset %}
-{% import "/views/macros/button.njk" as button %}
+{% import "/views/macros/asset.njk" as asset with context %}
+{% import "/views/macros/button.njk" as button with context %}
 
 <div class="{{partial.partial}} {% for option in partial.options %}{{partial.partial}}--{{option}}{% endfor %}">
     {% for column in partial.columns %}

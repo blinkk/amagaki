@@ -468,9 +468,14 @@ export class Builder {
           `${numMissingTranslations} (across ${numMissingLocales} locales)`
       );
     }
-    Object.values(this.pod.cache.locales).forEach(async locale => {
-      await locale.save();
-    });
+
+    // Always save recorded locale files, for localized sites.
+    const locales = Object.values(this.pod.cache.locales);
+    if (locales.length > 1) {
+      locales.forEach(async locale => {
+        await locale.save();
+      });
+    }
 
     const buildDiff = this.cleanOutputUsingManifests(
       existingManifest,

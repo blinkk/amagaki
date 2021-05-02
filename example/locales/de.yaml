@@ -1,4 +1,19 @@
 translations:
-  "Welcome to Amagaki": "Willkommen in Amagaki"
-  "Browse all the routes below.": "Durchsuchen Sie alle unten aufgeführten Routen."
-  "Routes": "Routen"
+  Browse all the routes below.:
+    translation: 'Durchsuchen Sie alle unten aufgeführten Routen.'
+  Esse in dolor anim excepteur incididunt laborum pariatur consequat. Occaecat officia elit nisi Lorem ex ex mollit aliqua ipsum fugiat quis amet sit. Mollit dolore cillum ea commodo ullamco cillum minim nisi et reprehenderit consectetur aute fugiat.:
+    translation: ''
+  Locale:
+    translation: ''
+  Magna do magna occaecat irure.:
+    translation: ''
+  Routes:
+    translation: 'Routen'
+  'Select language:':
+    translation: ''
+  Title:
+    translation: ''
+  URL path:
+    translation: ''
+  Welcome to Amagaki:
+    translation: 'Willkommen in Amagaki'

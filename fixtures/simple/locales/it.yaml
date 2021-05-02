@@ -1,6 +1,6 @@
 translations:
   Browse all the routes below.:
-    translation: 'Durchsuchen Sie alle unten aufgeführten Routen.'
+    translation: ''
   Esse in dolor anim excepteur incididunt laborum pariatur consequat. Occaecat officia elit nisi Lorem ex ex mollit aliqua ipsum fugiat quis amet sit. Mollit dolore cillum ea commodo ullamco cillum minim nisi et reprehenderit consectetur aute fugiat.:
     translation: ''
   Locale:
@@ -8,7 +8,7 @@ translations:
   Magna do magna occaecat irure.:
     translation: ''
   Routes:
-    translation: 'Routen'
+    translation: ''
   'Select language:':
     translation: ''
   Title:
@@ -16,4 +16,4 @@ translations:
   URL path:
     translation: ''
   Welcome to Amagaki:
-    translation: 'Willkommen in Amagaki'
+    translation: ''

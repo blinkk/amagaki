@@ -17,7 +17,7 @@ object.
 
 {{button.button({
     label: 'Read Pod API Reference',
-    url: 'TODO',
+    url: 'https://blinkkcode.github.io/amagaki/api/',
     external: true,
     class: 'button button--tonal',
     icon: 'launch'

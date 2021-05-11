@@ -10,8 +10,8 @@ the `amagaki` command easily using `npx`.
 
 It offers two commands:
 
-- build
-- serve
+- `build`
+- `serve`
 
 ## build
 

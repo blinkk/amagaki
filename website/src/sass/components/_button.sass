@@ -118,7 +118,17 @@ $button-primary-hover-color: var(--secondaryTextColor)
     font-size: 12px
     font-weight: 700
     line-height: 14px
-    padding: 3px 7px
+    padding: 5px 7px
+
+    span + .material-icons
+      font-size: 12px
+      transform: translateX(4px) !important
+
+  &--reverse
+    flex-direction: row-reverse
+
+    span + .material-icons
+      transform: translateX(-2px) !important
 
   & + &
     margin-left: 10px

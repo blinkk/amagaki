@@ -361,7 +361,7 @@
                                 
                             >  
                                 
-                                <a href="./../dev-server-middleware/">Dev server middleware</a>
+                                <a href="./../server-middleware/">Server middleware</a>
                             </li>
                         
                     </ul>
@@ -430,7 +430,7 @@
 <h2 id="nunjucks">Nunjucks</h2>
 <p>Amagaki provides convenience methods for extending Nunjucks functionality. See
 below to learn how to easily add Nunjucks filters or globals.</p>
-<pre><code>const nunjucksPlugin = pod.plugins.get(&#39;NunjucksPlugin&#39;);
+<pre><code class="language-javascript">const nunjucksPlugin = pod.plugins.get(&#39;NunjucksPlugin&#39;);
 nunjucksPlugin.addFilter(&#39;testShortcutFilter&#39;, value =&gt; `${value}--SHORTCUT`);
 nunjucksPlugin.addGlobal(&#39;copyrightYear&#39;, () =&gt; new Date().getFullYear());
 </code></pre>
@@ -438,8 +438,8 @@ nunjucksPlugin.addGlobal(&#39;copyrightYear&#39;, () =&gt; new Date().getFullYea
             </div>
             
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="./../dev-server-middleware/">
-                        <span>Dev server middleware</span>
+                    <a class="button button--tonal button--icon" href="./../server-middleware/">
+                        <span>Server middleware</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>
                 </div>

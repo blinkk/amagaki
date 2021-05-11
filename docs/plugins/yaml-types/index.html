@@ -361,7 +361,7 @@
                                 
                             >  
                                 
-                                <a href="./../dev-server-middleware/">Dev server middleware</a>
+                                <a href="./../server-middleware/">Server middleware</a>
                             </li>
                         
                     </ul>
@@ -433,20 +433,62 @@ structure your content, as well as validate the content that you are managing.</
 <p>With custom YAML types, you can further keep concerns around content in the
 content layer, and allow you to avoid holding too much business logic in your
 templates.</p>
+<p>Custom YAML types have a variety of uses, such as:</p>
+<ul>
+<li>Verifying reusable data structures</li>
+<li>Simplifying template logic</li>
+<li>Restructuring data between the content and template layer</li>
+<li>Integrating with external content sources, such as Google Sheets or headless
+CMSes</li>
+</ul>
 <h2 id="example">Example</h2>
-<p>Here is an example of a custom YAML type being used:</p>
-<pre><code class="language-yaml">
+<p>Here is an example of a custom YAML type being used. In it, we have a custom
+type named <code>!Person</code> that accepts <code>firstName</code> and <code>lastName</code> options. The custom
+type is constructed into an object <code>Person</code>, with getter <code>fullName</code> that joins
+the first and last name together.</p>
+<ol>
+<li>Use the custom type in YAML:</li>
+</ol>
+<pre><code class="language-yaml">avengers:
+- !Person
+    firstName: Tony
+    lastName: Stark
+- !Person
+    firstName: Steve
+    lastName: Rogers
+- !Person
+    firstName: Carol
+    lastName: Danvers
 </code></pre>
-<p>To create the custom type:</p>
-<pre><code class="language-js">const yamlPlugin = pod.plugins.get(&#39;YamlPlugin&#39;);
-yamlPlugin.addType(
-    new yaml.Type(&#39;!Person&#39;, {
-        kind: &#39;mapping&#39;,
-        construct: (data) {
-                   
-        },
-    })
-);
+<ol start="2">
+<li>Create the custom type:</li>
+</ol>
+<pre><code class="language-js">class Person {
+  constructor(options) {
+      this.firstName = options.firstName;
+      this.lastName = options.lastName;
+  }
+
+  get name() {
+      return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+const yamlPlugin = pod.plugins.get(&#39;YamlPlugin&#39;);
+yamlPlugin.addType(&#39;!Person&#39;, {
+    kind: &#39;mapping&#39;,
+    construct: data =&gt; {
+        return new Person(data);
+    },
+});
+</code></pre>
+<ol start="3">
+<li>Use the <code>Person</code> objects in templates. Note that we never declared any
+<code>fullName</code> in YAML. That property was defined in our <code>Person</code> object.</li>
+</ol>
+<pre><code class="language-nunjucks">{% for person in avengers %}
+    {{person.fullName}}
+{% endfor %}
 </code></pre>
 
             </div>

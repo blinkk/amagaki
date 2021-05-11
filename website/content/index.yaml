@@ -27,7 +27,7 @@ partials:
     Amagaki is distributed as an npm package. We recommend using our starter when building marketing websites from scratch.
 
     ```bash
-    git clone https://github.com/amagakidev/starter
+    git clone https://github.com/blinkkcode/amagaki-starter
     npm install
 
     # Start the dev server
@@ -44,7 +44,7 @@ partials:
     npm install --save @amagaki/amagaki
 
     # Start the dev server
-    npx amagaki server
+    npx amagaki serve
 
     # Build the site.
     npx amagaki build
@@ -111,9 +111,9 @@ partials:
 
     ### Other projects
 
-    - Editor.dev
-    - Fileset
-    - Degu
+    - [Editor.dev](https://github.com/blinkkcode/live-edit)
+    - [Fileset](https://github.com/blinkkcode/fileset)
+    - [Degu](https://github.com/blinkkcode/degu)
 
 - partial: spacer
   size: large

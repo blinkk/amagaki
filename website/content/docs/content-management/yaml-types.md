@@ -55,8 +55,14 @@ custom YAML type. For example, you should:
 ### Custom YAML types
 
 Custom YAML types are created through plugins. Custom YAML types can be used to
-represent reusable objects that may be helpful to reuse throughout the content
-layer in your site.
+represent objects that may be helpful for reusing throughout the content layer
+in your site.
+
+Often, custom YAML types will be used for things like:
+
+- Restructure content prior to being inserted into the template layer
+- Simplify template logic
+- Connect with headless CMSes
 
 {{button.button({
     label: 'Learn how to create custom YAML types',

@@ -12,25 +12,66 @@ With custom YAML types, you can further keep concerns around content in the
 content layer, and allow you to avoid holding too much business logic in your
 templates.
 
+Custom YAML types have a variety of uses, such as:
+
+- Verifying reusable data structures
+- Simplifying template logic
+- Restructuring data between the content and template layer
+- Integrating with external content sources, such as Google Sheets or headless
+  CMSes
+
 ## Example
 
-Here is an example of a custom YAML type being used:
+Here is an example of a custom YAML type being used. In it, we have a custom
+type named `!Person` that accepts `firstName` and `lastName` options. The custom
+type is constructed into an object `Person`, with getter `fullName` that joins
+the first and last name together.
+
+1. Use the custom type in YAML:
 
 ```yaml
-
-
+avengers:
+- !Person
+    firstName: Tony
+    lastName: Stark
+- !Person
+    firstName: Steve
+    lastName: Rogers
+- !Person
+    firstName: Carol
+    lastName: Danvers
 ```
 
-To create the custom type:
+2. Create the custom type:
 
 ```js
+class Person {
+  constructor(options) {
+      this.firstName = options.firstName;
+      this.lastName = options.lastName;
+  }
+
+  get name() {
+      return `${this.firstName} ${this.lastName}`;
+  }
+}
+
 const yamlPlugin = pod.plugins.get('YamlPlugin');
-yamlPlugin.addType(
-    new yaml.Type('!Person', {
-        kind: 'mapping',
-        construct: (data) {
-                   
-        },
-    })
-);
+yamlPlugin.addType('!Person', {
+    kind: 'mapping',
+    construct: data => {
+        return new Person(data);
+    },
+});
+```
+
+3. Use the `Person` objects in templates. Note that we never declared any
+   `fullName` in YAML. That property was defined in our `Person` object.
+
+```nunjucks
+{%- raw %}
+{% for person in avengers %}
+    {{person.fullName}}
+{% endfor %}
+{% endraw %}
 ```

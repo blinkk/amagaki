@@ -285,7 +285,7 @@
                                 
                             >  
                                 
-                                <a href="./../../templates/rendering-context/">Template variables and context</a>
+                                <a href="./../../templates/template-engines/">Template engines</a>
                             </li>
                         
                             
@@ -293,7 +293,7 @@
                                 
                             >  
                                 
-                                <a href="./../../templates/template-engines/">Template engines</a>
+                                <a href="./../../templates/rendering-context/">Template variables and context</a>
                             </li>
                         
                             
@@ -460,8 +460,11 @@ the environment.</p>
 <h3 id="in-templates">In templates</h3>
 <p>In templates, the <code>pod.env</code> variable is available. It returns the pod’s current
 environment. See Environment reference.</p>
-<pre><code>default
-
+<pre><code>{{pod.env.name}}
+{{pod.env.fields.apiKey}}
+{% if pod.env.name == &quot;prod&quot; %}
+&lt;!-- Output prod stuff. --&gt;
+{% endif %}
 </code></pre>
 <h3 id="in-content">In content</h3>
 <p>While this can be represented in template logic using an if statement like in
@@ -473,18 +476,18 @@ represented using the !IfEnvironment YAML type. See the example below:</p>
 </code></pre>
 <h3 id="defaults">Defaults</h3>
 <ul>
-<li>  When running the dev server, the environment “dev” is used.</li>
-<li>  When running <code>amagaki build</code>, the environment “default” is used.</li>
+<li>  When running the dev server, the environment <code>dev</code> is used.</li>
+<li>  When running <code>amagaki build</code>, the environment <code>default</code> is used.</li>
 </ul>
-<p>Different environment names can be invoked during the “serve” or “build”
-commands by using the “--env &lt;name&gt;” flag. For example, to build the prod
+<p>Different environment names can be invoked during the <code>serve</code> or <code>build</code>
+commands by using the <code>--env &lt;name&gt;</code> flag. For example, to build the prod
 environment: <code>amagaki build --env prod</code>.</p>
 
             </div>
             
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="./../../templates/rendering-context/">
-                        <span>Template variables and context</span>
+                    <a class="button button--tonal button--icon" href="./../../templates/template-engines/">
+                        <span>Template engines</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>
                 </div>

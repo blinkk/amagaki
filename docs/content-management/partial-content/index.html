@@ -285,7 +285,7 @@
                                 
                             >  
                                 
-                                <a href="./../../templates/rendering-context/">Template variables and context</a>
+                                <a href="./../../templates/template-engines/">Template engines</a>
                             </li>
                         
                             
@@ -293,7 +293,7 @@
                                 
                             >  
                                 
-                                <a href="./../../templates/template-engines/">Template engines</a>
+                                <a href="./../../templates/rendering-context/">Template variables and context</a>
                             </li>
                         
                             
@@ -434,31 +434,59 @@ reusable sections or templates – in Amagaki, these are called partials.</p>
 reused, mixed, and matched in pages. Partials are meant to be independent of one
 another and completely isolated such that there are minimal, or no dependencies
 beyond the content injected into the partial.</p>
+<h2 id="the-partial-loop">The partial loop</h2>
 <p>Within a content document, the partial loop is represented by a list of
 partials, like this:</p>
-<pre><code>...
+<pre><code class="language-yaml"># ...
 partials:
 
-- partial: hero  # Maps to /views/partials/hero.njk
-  headline: Hello World!
+# Renders: /views/partials/hero.njk
+# Loads:   /src/sass/partials/hero.sass
+- partial: hero  
+  headline: Page headline
 
-- partial: spacer  # Maps to /views/partials/spacer.njk
+# Renders: /views/partials/spacer.njk
+# Loads:   /src/sass/partials/spacer.sass
+- partial: spacer
 
-- partial: columns  # Maps to /views/partials/columns.njk
+# Renders: /views/partials/columns.njk
+# Loads:   /src/sass/partials/columns.sass
+- partial: columns
+  header:
+    headline: Columns headline
+    body: Columns body.
   columns: 
   - headline: Column 1 headline
   - headline: Column 2 headline
 </code></pre>
 <p>Within Amagaki’s default base template, the content document’s partials are
-looped over, rendering one at a time. Each partial’s rendering context
-(``) is populated by its content from the partial loop.</p>
+looped over, rendering one at a time. Each partial’s rendering context is
+populated by its content from the partial loop:</p>
+<pre><code class="language-nunjucks">&lt;div class=&quot;columns&quot;&gt;
+  &lt;div class=&quot;columns__header&quot;&gt;
+    &lt;div class=&quot;columns__header__headline&quot;&gt;
+      {{partial.header.headline}}
+    &lt;/div&gt;
+    &lt;div class=&quot;columns__header__body&quot;&gt;
+      {{partial.header.body}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;columns__columns&quot;&gt;
+    {% for column in partial.columns %}
+      &lt;div class=&quot;columns__columns__column&quot;&gt;
+        {{column.headline}}
+      &lt;/div&gt;
+    {% endfor %}
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
 <p>In summary, each document should be rendered as an assembly of partials, with an
 overall anatomy of:</p>
 <ul>
 <li>  The list of partials within the document</li>
 <li>  The data within each partial in the partial loop</li>
-<li>  The partial template – within /views/partials/&lt;partial&gt;</li>
-<li>  The partial templates CSS – within /src/sass/partials/&lt;partial&gt;</li>
+<li>  The partial template – within <code>/views/partials/&lt;partial&gt;</code></li>
+<li>  The partial templates CSS – within <code>/src/sass/partials/&lt;partial&gt;</code></li>
 </ul>
 <p>As your site evolves over time, you can easily create new partials, mix and
 match partials, and manage them all independently of one another. Note that even

@@ -1,20 +1,20 @@
-{%- macro button(button) -%}
-    {%- if button.doc -%}
-        {%- set url = button.doc.url.path -%}
+{%- macro button(options) -%}
+    {%- if options.doc -%}
+        {%- set url = options.doc.url.path -%}
     {%- else -%}
-        {%- set url = button.url -%}
+        {%- set url = options.url -%}
     {%- endif -%}
     <a
-        class="button {{button.class}} {{'button--icon' if button.icon or button.left_icon}}"
+        class="button {{options.class}} {{'button--icon' if options.icon or options.left_icon}}"
         href="{{url|relative}}"
-        {% if button.external %}target="_blank"{% endif -%}
+        {% if options.external %}target="_blank"{% endif -%}
     >
-        {%- if button.left_icon -%}
-            <span class="material-icons">{{button.left_icon}}</span>
+        {%- if options.left_icon -%}
+            <span class="material-icons">{{options.left_icon}}</span>
         {%- endif -%}
-        <span>{{button.label}}</span>
-        {%- if button.icon -%}
-            <span class="material-icons">{{button.icon}}</span>
+        <span>{{options.label}}</span>
+        {%- if options.icon -%}
+            <span class="material-icons">{{options.icon}}</span>
         {%- endif -%}
     </a>
 {%- endmacro -%}

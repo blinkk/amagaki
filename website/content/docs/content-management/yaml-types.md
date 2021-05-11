@@ -11,8 +11,6 @@ YAML types to assist with common content management tasks.
 Amagaki’s YAML types facilitate content management best practices, entirely
 within the content layer. For example, using YAML types, you can:
 
-
-
 *   Create and reuse partial content (such as common modules)
 *   Refer to pod objects, such as documents, collections, static files, and URLs
     – entirely within the content layer
@@ -26,13 +24,10 @@ within the content layer. For example, using YAML types, you can:
     YAML type representing a media asset. Custom YAML types can be validated,
     and represented into objects of your choosing.
 
-
 ### When to use YAML types
 
 Always avoid hardcoding objects that can be represented through an existing or
 custom YAML type. For example, you should:
-
-
 
 *   Never hardcode URLs. URLs can change throughout the life of a project. Use
     the `url` property on a document to determine URLs instead.
@@ -41,22 +36,21 @@ custom YAML type. For example, you should:
     document or collection paths could result in a template error if a typo was
     made.
 
-
 ### Built-in YAML types
 
-- !pod.doc
-- !pod.docs
-- !pod.collection
-- !pod.collections
-- !pod.metadata
-- !pod.string
-- !pod.staticFile
-- !pod.yaml
-- !pod.locale
-- !pod.locales
-- !pod.config
-- !IfEnvironment
-- !IfLocale
+- `!pod.doc`
+- `!pod.docs`
+- `!pod.collection`
+- `!pod.collections`
+- `!pod.metadata` (WIP)
+- `!pod.string`
+- `!pod.staticFile`
+- `!pod.yaml`
+- `!pod.locale`
+- `!pod.locales`
+- `!pod.config` (WIP)
+- `!IfEnvironment`
+- `!IfLocale` (WIP)
 
 ### Custom YAML types
 
@@ -64,4 +58,9 @@ Custom YAML types are created through plugins. Custom YAML types can be used to
 represent reusable objects that may be helpful to reuse throughout the content
 layer in your site.
 
-<a class="button button--low" href="{{pod.doc('/content/plugins/yaml-types.md').url.path}}">Learn how to create custom YAML types</a>
+{{button.button({
+    label: 'Learn how to create custom YAML types',
+    doc: '/content/plugins/yaml-types.md',
+    class: 'button button--low',
+    icon: 'arrow_forward'
+})}}

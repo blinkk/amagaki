@@ -13,36 +13,69 @@ reused, mixed, and matched in pages. Partials are meant to be independent of one
 another and completely isolated such that there are minimal, or no dependencies
 beyond the content injected into the partial.
 
+## The partial loop
+
 Within a content document, the partial loop is represented by a list of
 partials, like this:
 
 
-```
-...
+```yaml
+# ...
 partials:
 
-- partial: hero  # Maps to /views/partials/hero.njk
-  headline: Hello World!
+# Renders: /views/partials/hero.njk
+# Loads:   /src/sass/partials/hero.sass
+- partial: hero  
+  headline: Page headline
 
-- partial: spacer  # Maps to /views/partials/spacer.njk
+# Renders: /views/partials/spacer.njk
+# Loads:   /src/sass/partials/spacer.sass
+- partial: spacer
 
-- partial: columns  # Maps to /views/partials/columns.njk
+# Renders: /views/partials/columns.njk
+# Loads:   /src/sass/partials/columns.sass
+- partial: columns
+  header:
+    headline: Columns headline
+    body: Columns body.
   columns: 
   - headline: Column 1 headline
   - headline: Column 2 headline
 ```
 
 Within Amagaki’s default base template, the content document’s partials are
-looped over, rendering one at a time. Each partial’s rendering context
-(`{{partial}}`) is populated by its content from the partial loop.
+looped over, rendering one at a time. Each partial’s rendering context is
+populated by its content from the partial loop:
+
+```nunjucks
+{%- raw %}
+<div class="columns">
+  <div class="columns__header">
+    <div class="columns__header__headline">
+      {{partial.header.headline}}
+    </div>
+    <div class="columns__header__body">
+      {{partial.header.body}}
+    </div>
+  </div>
+  <div class="columns__columns">
+    {% for column in partial.columns %}
+      <div class="columns__columns__column">
+        {{column.headline}}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endraw %}
+```
 
 In summary, each document should be rendered as an assembly of partials, with an
 overall anatomy of:
 
 *   The list of partials within the document
 *   The data within each partial in the partial loop
-*   The partial template – within /views/partials/&lt;partial>
-*   The partial templates CSS – within /src/sass/partials/&lt;partial>
+*   The partial template – within `/views/partials/<partial>`
+*   The partial templates CSS – within `/src/sass/partials/<partial>`
 
 As your site evolves over time, you can easily create new partials, mix and
 match partials, and manage them all independently of one another. Note that even

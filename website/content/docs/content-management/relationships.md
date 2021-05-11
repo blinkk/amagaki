@@ -18,5 +18,4 @@ Additionally, two dimensions can further impact rendering of the above elements:
 - Locales
 - Build environments
 
-## Collections and documents
-
+<!-- TODO: Add anatomy chart -->

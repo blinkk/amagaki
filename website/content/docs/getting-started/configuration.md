@@ -26,6 +26,30 @@ at the content-level, on a per-document or per-collection basis.
 
 Here's what a sample `amagaki.js` file may look like:
 
+```javascript
+module.exports = function (pod) {
+  pod.configure({
+    metadata: {
+      name: 'Amagaki Example',
+    },
+    localization: {
+      defaultLocale: 'en',
+      locales: ['en', 'fr', 'it', 'ja'],
+    },
+    staticRoutes: [
+      {
+        path: '/static/',
+        staticDir: '/dist/',
+      },
+      {
+        path: '/static/images/',
+        staticDir: '/src/static/images/',
+      },
+    ],
+  });
+};
+```
+
 ## Custom metadata
 
 Specify custom metadata:

@@ -1,6 +1,6 @@
 ---
 title: Template variables and context
-order: 1
+order: 2
 ---
 
 # Template variables and rendering context
@@ -20,16 +20,16 @@ Here is the top-level rendering context available when templates are rendered:
 A reference to the current document being rendered. All properties of the
 document are available. Some commonly used ones are:
 
-- doc.fields – containing front matter
-- doc.body – containing the body (i.e. for Markdown or HTML documents)
-- doc.collection – a reference to the document’s collection
-- doc.locale – a reference to the document's locale
+- `doc.body` – The document's body (i.e. for Markdown or HTML documents)
+- `doc.collection` – A reference to the document’s collection
+- `doc.fields` – The document's front matter
+- `doc.locale` – A reference to the document's locale
 
 {{button.button({
     label: 'Read Document API Reference',
-    url: 'TODO',
+    url: 'https://blinkkcode.github.io/amagaki/api/classes/document.document-1.html',
     external: true,
-    class: 'button button--tonal',
+    class: 'button button--low',
     icon: 'launch'
 })}}
 
@@ -38,34 +38,34 @@ document are available. Some commonly used ones are:
 A reference to the pod. All pod functions are available from the `pod` object,
 which can be invoked from your templates. Some commonly used ones are:
 
-- pod.env: Returns the current rendering environment
-- pod.doc(...): Returns a document object
-- pod.docs(...): Returns a list of documents
-- pod.collection(...): Returns a collection object
-- pod.collections(...): Returns a list of collections
-- pod.staticFile(...): Returns a static file object
+- `pod.collection(...)` – Returns a collection object
+- `pod.collections(...)` – Returns a list of collections
+- `pod.doc(...)` – Returns a document object
+- `pod.docs(...)` – Returns a list of documents
+- `pod.env` – Returns the current rendering environment
+- `pod.staticFile(...)` – Returns a static file object
 
 {{button.button({
     label: 'Read Pod API Reference',
-    url: 'TODO',
+    url: 'https://blinkkcode.github.io/amagaki/api/classes/pod.pod-1.html',
     external: true,
-    class: 'button button--tonal',
+    class: 'button button--low',
     icon: 'launch'
 })}}
 
 ### route
 
-A reference to the route binding the URL to the document. Commonly used
+A reference to the route binding the URL to the document. Some commonly used
 properties of the route are:
 
-- route.url 
-- route.fields
-- route.params
+- `route.fields` – Any data fields added to the route (i.e. by a route provider)
+- `route.params` – Any params used when matching the request to the route
+- `route.url` – A reference to the document's Url object
 
 {{button.button({
     label: 'Read Route API Reference',
-    url: 'TODO',
+    url: 'https://blinkkcode.github.io/amagaki/api/classes/router.route.html',
     external: true,
-    class: 'button button--tonal',
+    class: 'button button--low',
     icon: 'launch'
 })}}

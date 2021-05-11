@@ -22,7 +22,7 @@ npm run dev
     label: 'Open on GitHub',
     url: 'https://github.com/blinkkcode/amagaki-starter',
     external: true,
-    class: 'button button--tonal',
+    class: 'button button--low',
     icon: 'launch'
 })}}
 

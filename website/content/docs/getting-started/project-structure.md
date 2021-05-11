@@ -19,7 +19,7 @@ object.
     label: 'Read Pod API Reference',
     url: 'https://blinkkcode.github.io/amagaki/api/',
     external: true,
-    class: 'button button--tonal',
+    class: 'button button--low',
     icon: 'launch'
 })}}
 

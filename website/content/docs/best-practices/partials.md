@@ -15,14 +15,7 @@ mixing and matching various partial templates with partial content.
 
 Partials have a few components:
 
-
-
 *   The partial loop within the base template
 *   Reusable partial templates
 *   Reusable partial styles
 *   Partial content
-
-Partial content
-
-The first step to 
-

@@ -45,11 +45,13 @@ In templates, the `pod.env` variable is available. It returns the pod’s curren
 environment. See Environment reference.
 
 ```
+{%- raw %}
 {{pod.env.name}}
 {{pod.env.fields.apiKey}}
 {% if pod.env.name == "prod" %}
 <!-- Output prod stuff. -->
 {% endif %}
+{% endraw %}
 ```
 
 ### In content
@@ -66,9 +68,9 @@ foo: !IfEnvironment
 
 ### Defaults
 
-*   When running the dev server, the environment “dev” is used.
-*   When running `amagaki build`, the environment “default” is used.
+*   When running the dev server, the environment `dev` is used.
+*   When running `amagaki build`, the environment `default` is used.
 
-Different environment names can be invoked during the “serve” or “build”
-commands by using the “--env &lt;name>” flag. For example, to build the prod
+Different environment names can be invoked during the `serve` or `build`
+commands by using the `--env <name>` flag. For example, to build the prod
 environment: `amagaki build --env prod`.

@@ -52,6 +52,34 @@ custom YAML type. For example, you should:
 - `!IfEnvironment`
 - `!IfLocale` (WIP)
 
+#### !pod.doc
+
+Returns a document.
+
+```
+# Single document.
+!pod.doc '/content/pages/index.yaml'
+
+# Single document, localized.
+!pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
+```
+
+#### !pod.docs
+
+Returns a list of documents. Either multiple docs can be enumerated explicitly,
+or glob syntax can be used to fetch documents using a glob pattern.
+
+```
+# Two documents.
+!pod.docs ['/content/pages/index.yaml', '/content/posts/2019-01-06.md']
+
+# All documents within the `posts` collection, with options.
+!pod.docs ['/content/posts/**', {sort: 'order'}]
+
+# Alld ocuments within the `pages` and `posts` collection, with options.
+!pod.docs [['/content/pages/**', '/content/posts/**'], {sort: 'order'}]
+```
+
 ### Custom YAML types
 
 Custom YAML types are created through plugins. Custom YAML types can be used to

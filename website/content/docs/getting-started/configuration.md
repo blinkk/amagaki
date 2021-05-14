@@ -73,6 +73,5 @@ Metadata can be accessed using a pod function:
 ```nunjucks
 {%- raw %}
 {{pod.metadata.siteTitle}}
-{% endraw %}
-```
+{% endraw %}```
 {% endfilter %}

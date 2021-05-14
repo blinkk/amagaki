@@ -29,6 +29,7 @@ the first and last name together.
 
 1. Use the custom type in YAML:
 
+{% filter codeTabs %}
 ```yaml
 avengers:
 - !Person
@@ -41,33 +42,37 @@ avengers:
     firstName: Carol
     lastName: Danvers
 ```
+{% endfilter %}
 
 2. Create the custom type:
 
-```js
-class Person {
-  constructor(options) {
-      this.firstName = options.firstName;
-      this.lastName = options.lastName;
-  }
-
-  get name() {
-      return `${this.firstName} ${this.lastName}`;
-  }
+{% filter codeTabs %}
+```js:title=amagaki.js
+module.exports = (pod) => {
+    class Person {
+        constructor(options) {
+            this.firstName = options.firstName;
+            this.lastName = options.lastName;
+        }
+        get name() {
+            return `${this.firstName} ${this.lastName}`;
+        }
+    }
+    const yamlPlugin = pod.plugins.get('YamlPlugin');
+    yamlPlugin.addType('!Person', {
+        kind: 'mapping',
+        construct: data => {
+            return new Person(data);
+        },
+    });
 }
-
-const yamlPlugin = pod.plugins.get('YamlPlugin');
-yamlPlugin.addType('!Person', {
-    kind: 'mapping',
-    construct: data => {
-        return new Person(data);
-    },
-});
 ```
+{% endfilter %}
 
 3. Use the `Person` objects in templates. Note that we never declared any
    `fullName` in YAML. That property was defined in our `Person` object.
 
+{% filter codeTabs %}
 ```nunjucks
 {%- raw %}
 {% for person in avengers %}
@@ -75,3 +80,4 @@ yamlPlugin.addType('!Person', {
 {% endfor %}
 {% endraw %}
 ```
+{% endfilter %}

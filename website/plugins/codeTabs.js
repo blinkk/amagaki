@@ -1,9 +1,18 @@
+const {JSDOM} = require('jsdom');
 const commonTags = require('common-tags');
+const hljs = require('highlight.js');
 const marked = require('marked');
 const uuid = require('uuid');
-const {JSDOM} = require('jsdom');
 
 const register = pod => {
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    highlight: function (code, lang) {
+      lang = lang === 'nunjucks' ? 'twig' : lang;
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, {language}).value;
+    },
+  });
   const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
   nunjucksPlugin.addFilter('codeTabs', function (value) {
     const tabSetId = `t-${uuid.v1()}`;

@@ -164,13 +164,11 @@ want to change the serving path in the future. See the following example for a
 common usage pattern.
 
 {% filter codeTabs %}
-```nunjucks
-{%- raw %}
+```nunjucks{%- raw %}
 <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.css').url.path}}">
 <script src="{{pod.staticFile('/dist/js/main.js').url.path}}"></script>
 <img src="{{pod.staticFile('/src/static/images/cat.jpg').url.path}}">
-{% endraw %}
-```
+{% endraw %}```
 {% endfilter %}
 
 Pod functions also enable usage recording, so it's possible to determine where

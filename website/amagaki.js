@@ -1,3 +1,4 @@
+const codeTabs = require('./plugins/codeTabs');
 const fsPath = require('path');
 
 module.exports = function (pod) {
@@ -14,8 +15,9 @@ module.exports = function (pod) {
     ],
   });
 
-  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
+  codeTabs.register(pod);
 
+  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
   nunjucksPlugin.addFilter('url', value => {
     if (value.doc) {
       return value.doc.url.path;

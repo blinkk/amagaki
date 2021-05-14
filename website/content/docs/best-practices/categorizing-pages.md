@@ -9,7 +9,6 @@ create a subcollection folder within that collection.
 
 Here’s what a sample content structure may look like:
 
-
 ```
 .
 └── content
@@ -23,26 +22,36 @@ Here’s what a sample content structure may look like:
             └── post.md
 ```
 
-
 To list categories within the `posts` collection:
 
-
+```nunjucks
+{%- raw %}
+{{pod.collection('/content/posts').subcollections}}
+{% endraw %}
 ```
-pod.collection('/content/posts').subcollections
-```
-
 
 To list posts within a subcollection:
 
-
+```nunjucks
+{%- raw %}
+{{pod.collection('/content/posts/a').docs()}}
+{% endraw %}
 ```
-pod.collection('/content/posts/a').docs()
-```
-
 
 You can also use glob syntax to fetch posts from a specific category:
 
+{% filter codeTabs %}
 
+```nunjucks
+{%- raw %}
+{{pod.docs(['/content/posts/**'])}}
+{% endraw %}
 ```
+```javascript
 pod.docs(['/content/posts/**'])
 ```
+```yaml
+!pod.docs ['/content/posts/**']
+```
+
+{% endfilter %}

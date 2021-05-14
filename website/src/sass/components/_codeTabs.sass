@@ -1,0 +1,46 @@
+@import ../utils/spacing
+@import ../utils/type
+
+.codeTabs
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%)
+    max-width: 100%
+    border-radius: .2rem
+    position: relative
+
+.codeTabs__tabLabel
+    +type-small
+    cursor: pointer
+    display: inline-flex
+    font-weight: 600
+    padding: $spacing-5 $spacing-16
+    position: relative
+    width: auto
+
+.codeTabs__tabRadio
+    appearance: none
+    position: absolute
+
+    &:focus-visible + .codeTabs__tabLabel
+        box-shadow: 0 0 0 2px var(--borderDarkColor)
+
+    &:checked + .codeTabs__tabLabel
+        span
+            color: var(--primaryColor)
+        &::after
+            background: var(--primaryColor)
+            bottom: 0
+            content: ''
+            display: block
+            height: 2px
+            left: 0
+            position: absolute
+            right: 0
+            width: 100%
+
+@for $i from 1 through 3
+    .codeTabs__tabRadio:nth-of-type(#{$i}):checked ~ .codeTabs__blocks pre:nth-child(#{$i})
+        display: block
+
+.codeTabs__blocks pre
+    display: none
+    margin-bottom: 0

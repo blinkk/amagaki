@@ -44,15 +44,19 @@ using its `path` property only, you may also want an object's absolute URL
 including its domain name. Build environments can specify the hostname that your
 site is deployed to, allowing you to centrally configure hostnames.
 
+{% filter codeTabs %}
 ```yaml
 home: !pod.doc /content/pages/index.yaml
 ```
+{% endfilter %}
 
+{% filter codeTabs %}
 ```nunjucks
 {%- raw %}
 {{doc.home.url.path}}
 {% endraw %}
 ```
+{% endfilter %}
 
 ## Route provider deep-dive
 
@@ -62,10 +66,11 @@ A collection's `_collection.yaml` file specifies the default URL path for all
 documents within a collection. Here's what a typical `_collection.yaml` may look
 like:
 
-```
-# _collection.yaml
+{% filter codeTabs %}
+```yaml:title=_collection.yaml
 $path: /pages/${doc.basename}/
 ```
+{% endfilter %}
 
 All documents within this collection will be generated to paths generated from
 the above path formatter. Path formatters are interpolated, with the following
@@ -99,10 +104,11 @@ Note that paths that terminate in `/index/` are automatically cleaned.
 
 Documents can override a collection's `$path` by specifying their own.
 
-```
-# contact.yaml
+{% filter codeTabs %}
+```yaml:title=/content/pages/contact.yaml
 $path: /pages/get-in-touch/
 ```
+{% endfilter %}
 
 In the above example, the page will be generated to `/pages/get-in-touch/`
 instead of inheriting its path from `_collection.yaml`.
@@ -110,18 +116,22 @@ instead of inheriting its path from `_collection.yaml`.
 Documents can disable routing (and therefore won't be built) by setting their
 path to `null`:
 
-```
+{% filter codeTabs %}
+```yaml:title=/content/pages/contact.yaml
 $path: null
 ```
+{% endfilter %}
 
 Remember, path formatters are interpolated, so you can even refer to a
 document's content:
 
-```
+{% filter codeTabs %}
+```yaml:title=/content/pages/contact.yaml
 $path: /posts/${doc.fields.date}/${doc.fields.slug}/
 date: 2019-01-06
 slug: hello-world
 ```
+{% endfilter %}
 
 In the above example, the page will be generated to
 `/posts/2019-01-06/hello-world/`.
@@ -130,7 +140,8 @@ In the above example, the page will be generated to
 
 Amagaki collects files from directories and copies them to the `build` folder.
 
-```javascript
+{% filter codeTabs %}
+```javascript:title=amagaki.js
 module.exports = function (pod) {
   pod.configure({
     staticRoutes: [
@@ -146,11 +157,13 @@ module.exports = function (pod) {
   });
 };
 ```
+{% endfilter %}
 
 It's a best practice to refer to static files using their pod paths, in case you
 want to change the serving path in the future. See the following example for a
 common usage pattern.
 
+{% filter codeTabs %}
 ```nunjucks
 {%- raw %}
 <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.css').url.path}}">
@@ -158,6 +171,7 @@ common usage pattern.
 <img src="{{pod.staticFile('/src/static/images/cat.jpg').url.path}}">
 {% endraw %}
 ```
+{% endfilter %}
 
 Pod functions also enable usage recording, so it's possible to determine where
 assets are used, and how frequently.

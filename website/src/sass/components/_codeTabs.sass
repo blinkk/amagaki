@@ -2,10 +2,17 @@
 @import ../utils/type
 
 .codeTabs
-    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%)
-    max-width: 100%
     border-radius: .2rem
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 20%)
+    margin-bottom: $spacing-16
+    max-width: 100%
     position: relative
+
+    &[data-num-tabs="1"]
+        .codeTabs__tabRadio:checked + .codeTabs__tabLabel
+            cursor: default
+            &::after
+                display: none
 
 .codeTabs__tabLabel
     +type-small

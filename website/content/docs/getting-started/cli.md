@@ -15,9 +15,11 @@ It offers two commands:
 
 ## build
 
-```
+{% filter codeTabs %}
+```shell
 npx amagaki build
 ```
+{% endfilter %}
 
 The `build` command is used to build the HTML and collect static file
 dependencies for your site.
@@ -28,9 +30,11 @@ will contain everything needed to deploy your static site.
 
 ## serve
 
-```
+{% filter codeTabs %}
+```shell
 npx amagaki serve
 ```
+{% endfilter %}
 
 The `serve` command starts the Amagaki dev server. The Amagaki dev server builds
 pages on the fly at request time (and caches the result, until the underlying

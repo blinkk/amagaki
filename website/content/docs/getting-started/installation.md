@@ -9,10 +9,12 @@ started with Amagaki (as it comes with the nuts and bolts needed for building
 marketing sites beyond just the website build tool), you can also use Amagaki
 from scratch.
 
-```bash
+{% filter codeTabs %}
+```shell
 npm install @amagaki/amagaki
 npx amagaki start
 ```
+{% endfilter %}
 
 Amagaki assumes a defaults project structure and will generate your site using
 the defaults, in absence of an amagaki.js configuration file. Learn more about

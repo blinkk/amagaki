@@ -26,7 +26,8 @@ at the content-level, on a per-document or per-collection basis.
 
 Here's what a sample `amagaki.js` file may look like:
 
-```javascript
+{% filter codeTabs %}
+```javascript:title=amagaki.js
 module.exports = function (pod) {
   pod.configure({
     metadata: {
@@ -49,12 +50,14 @@ module.exports = function (pod) {
   });
 };
 ```
+{% endfilter %}
 
 ## Custom metadata
 
 Specify custom metadata:
 
-```javascript
+{% filter codeTabs %}
+```javascript:title=amagaki.js
 pod.configure({
     metadata: {
         siteTitle: 'Amagaki',
@@ -62,12 +65,14 @@ pod.configure({
     },
 });
 ```
+{% endfilter %}
 
 Metadata can be accessed using a pod function:
 
+{% filter codeTabs %}
 ```nunjucks
 {%- raw %}
 {{pod.metadata.siteTitle}}
 {% endraw %}
 ```
-
+{% endfilter %}

@@ -21,23 +21,26 @@ document’s URL, template, or other properties.
 
 Here’s what a Markdown document with front matter may look like:
 
-```
+{% filter codeTabs %}
+```markdown
 ---
 title: Hello World
 date: 2019-01-06
 description: This was my first day!
 ---
 ## My story
-
-Hello, everyone. Today was my first day. I had a great day today. As a reminder, this is Markdown content.
+Hello, everyone. This is my story.
 ```
+{% endfilter %}
 
 Here’s what a blueprint (`_collection.yaml`) may look like:
 
-```
+{% filter codeTabs %}
+```yaml:title=/content/posts/_collection.yaml
 $path: /posts/${doc.date}/
 $view: /views/base.njk
 ```
+{% endfilter %}
 
 In the above example, the blueprint is declaring that:
 

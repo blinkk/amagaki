@@ -7,6 +7,11 @@ const register = pod => {
   const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
   nunjucksPlugin.addFilter('codeTabs', function (value) {
     const tabSetId = `t-${uuid.v1()}`;
+    const titleRegex = /:title=(.*)$/gim;
+    const titles = (value.match(titleRegex) || []).map(item => {
+      return item.replace(':title=', '');
+    });
+    value = value.replace(titleRegex, '');
     const html = marked(value).trim();
     const dom = new JSDOM(html);
     const languages = Array.from(
@@ -15,8 +20,8 @@ const register = pod => {
       return el.className.replace('language-', '');
     });
     return this.env.filters.safe(
-      commonTags.oneLine`
-      <div class="codeTabs">
+      commonTags.stripIndent`
+      <div class="codeTabs" data-num-tabs="${languages.length}">
         ${languages
           .map((language, index) => {
             const tabId = `t-${uuid.v1()}`;
@@ -30,9 +35,11 @@ const register = pod => {
               >
               <label
                 for="${tabId}"
-                class="codeTabs__tabLabel"
+                class="codeTabs__tabLabel ${
+                  titles[index] ? 'codeTabs__tabLabel--filename' : ''
+                }"
               >
-                <span>${language}</span>
+                <span>${titles[index] || language}</span>
               </label>
             `;
           })

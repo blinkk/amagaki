@@ -12,11 +12,13 @@ program, so you’ll invoke these commands from your terminal. To get started,
 simply clone the quick start project, install the dependencies, and run the
 development server.
 
-```
+{% filter codeTabs %}
+```shell
 git clone https://github.com/blinkkcode/amagaki-starter
 npm install
 npm run dev
 ```
+{% endfilter %}
 
 {{button.button({
     label: 'Open on GitHub',
@@ -54,9 +56,11 @@ your project’s needs.
 The quick start project can be built into static HTML, CSS, and JavaScript
 using:
 
-```
+{% filter codeTabs %}
+```shell
 npm run build
 ```
+{% endfilter %}
 
 ## Other starter projects
 

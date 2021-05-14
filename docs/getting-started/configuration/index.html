@@ -445,7 +445,24 @@ URL paths, templates, custom fields, and localization behavior) can be specified
 at the content-level, on a per-document or per-collection basis.</p>
 <h2 id="example">Example</h2>
 <p>Here&#39;s what a sample <code>amagaki.js</code> file may look like:</p>
-<pre><code class="language-javascript">module.exports = function (pod) {
+<div class="codeTabs" data-num-tabs="1">
+        
+              <input
+                class="codeTabs__tabRadio"
+                type="radio"
+                id="t-79fd6ac0-b470-11eb-94ef-478bec8875b4"
+                name="t-79fc8060-b470-11eb-94ef-478bec8875b4"
+                checked
+              >
+              <label
+                for="t-79fd6ac0-b470-11eb-94ef-478bec8875b4"
+                class="codeTabs__tabLabel codeTabs__tabLabel--filename"
+              >
+                <span>amagaki.js</span>
+              </label>
+            
+        <div class="codeTabs__blocks" tabindex="1">
+          <pre><code class="language-javascript">module.exports = function (pod) {
   pod.configure({
     metadata: {
       name: &#39;Amagaki Example&#39;,
@@ -467,19 +484,60 @@ at the content-level, on a per-document or per-collection basis.</p>
   });
 };
 </code></pre>
+        </div>
+      </div>
+
 <h2 id="custom-metadata">Custom metadata</h2>
 <p>Specify custom metadata:</p>
-<pre><code class="language-javascript">pod.configure({
+<div class="codeTabs" data-num-tabs="1">
+        
+              <input
+                class="codeTabs__tabRadio"
+                type="radio"
+                id="t-79fe7c30-b470-11eb-94ef-478bec8875b4"
+                name="t-79fd6ac1-b470-11eb-94ef-478bec8875b4"
+                checked
+              >
+              <label
+                for="t-79fe7c30-b470-11eb-94ef-478bec8875b4"
+                class="codeTabs__tabLabel codeTabs__tabLabel--filename"
+              >
+                <span>amagaki.js</span>
+              </label>
+            
+        <div class="codeTabs__blocks" tabindex="1">
+          <pre><code class="language-javascript">pod.configure({
     metadata: {
         siteTitle: &#39;Amagaki&#39;,
         siteDescription: &#39;A cool tool for hand-coding marketing websites.&#39;,
     },
 });
 </code></pre>
-<p>Metadata can be accessed using a pod function:</p>
-<pre><code class="language-nunjucks">{{pod.metadata.siteTitle}}
-</code></pre>
+        </div>
+      </div>
 
+<p>Metadata can be accessed using a pod function:</p>
+<div class="codeTabs" data-num-tabs="1">
+        
+              <input
+                class="codeTabs__tabRadio"
+                type="radio"
+                id="t-79ff3f80-b470-11eb-94ef-478bec8875b4"
+                name="t-79fe7c31-b470-11eb-94ef-478bec8875b4"
+                checked
+              >
+              <label
+                for="t-79ff3f80-b470-11eb-94ef-478bec8875b4"
+                class="codeTabs__tabLabel "
+              >
+                <span>nunjucks</span>
+              </label>
+            
+        <div class="codeTabs__blocks" tabindex="1">
+          <pre><code class="language-nunjucks">{{pod.metadata.siteTitle}}
+</code></pre>
+        </div>
+      </div>
             </div>
             
                 <div class="markdown__body__next">

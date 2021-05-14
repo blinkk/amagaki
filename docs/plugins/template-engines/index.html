@@ -434,6 +434,12 @@ below to learn how to easily add Nunjucks filters or globals.</p>
 nunjucksPlugin.addFilter(&#39;testShortcutFilter&#39;, value =&gt; `${value}--SHORTCUT`);
 nunjucksPlugin.addGlobal(&#39;copyrightYear&#39;, () =&gt; new Date().getFullYear());
 </code></pre>
+<p>When creating filters that return safe HTML, ensure you use Amagaki&#39;s Nunjucks
+environment to mark the return value as safe.</p>
+<pre><code class="language-javascript">nunjucksPlugin.addFilter(&#39;myFilter&#39;, function (value) {
+    return this.env.filters.safe(&#39;&lt;div class=&quot;foo&quot;&gt;Hello World&lt;/div&gt;&#39;);
+}
+</code></pre>
 
             </div>
             

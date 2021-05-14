@@ -443,15 +443,13 @@ create a subcollection folder within that collection.</p>
             └── post.md
 </code></pre>
 <p>To list categories within the <code>posts</code> collection:</p>
-<pre><code>pod.collection(&#39;/content/posts&#39;).subcollections
+<pre><code class="language-nunjucks">{{pod.collection(&#39;/content/posts&#39;).subcollections}}
 </code></pre>
 <p>To list posts within a subcollection:</p>
-<pre><code>pod.collection(&#39;/content/posts/a&#39;).docs()
+<pre><code class="language-nunjucks">{{pod.collection(&#39;/content/posts/a&#39;).docs()}}
 </code></pre>
 <p>You can also use glob syntax to fetch posts from a specific category:</p>
-<pre><code>pod.docs([&#39;/content/posts/**&#39;])
-</code></pre>
-
+<div class="codeTabs"> <input class="codeTabs__tabRadio" type="radio" id="t-31812c90-b44e-11eb-bce5-8db9f99c7cbc" name="t-3176cc50-b44e-11eb-bce5-8db9f99c7cbc" checked > <label for="t-31812c90-b44e-11eb-bce5-8db9f99c7cbc" class="codeTabs__tabLabel" > <span>nunjucks</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-31812c91-b44e-11eb-bce5-8db9f99c7cbc" name="t-3176cc50-b44e-11eb-bce5-8db9f99c7cbc" > <label for="t-31812c91-b44e-11eb-bce5-8db9f99c7cbc" class="codeTabs__tabLabel" > <span>javascript</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-31812c92-b44e-11eb-bce5-8db9f99c7cbc" name="t-3176cc50-b44e-11eb-bce5-8db9f99c7cbc" > <label for="t-31812c92-b44e-11eb-bce5-8db9f99c7cbc" class="codeTabs__tabLabel" > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"> <pre><code class="language-nunjucks">{{pod.docs([&#39;/content/posts/**&#39;])}} </code></pre> <pre><code class="language-javascript">pod.docs([&#39;/content/posts/**&#39;]) </code></pre> <pre><code class="language-yaml">!pod.docs [&#39;/content/posts/**&#39;] </code></pre> </div> </div>
             </div>
             
                 <div class="markdown__body__next">

@@ -2,7 +2,9 @@ partial: header
 logo:
   home: !pod.doc /content/index.yaml
   image:
-    url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96
+    url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M
+    width: 96
+    height: 96
   title: Amagaki
 menu:
 - doc: !pod.doc /content/index.yaml

@@ -13,7 +13,7 @@ is a first-party citizen of Amagaki and can be brought in using plugins.
     label: 'Read Nunjucks templating guide',
     url: 'https://mozilla.github.io/nunjucks/templating.html',
     external: true,
-    class: 'button button--low',
+    class: 'button button--low button--small',
     icon: 'launch'
 })}}
 
@@ -24,20 +24,16 @@ the template specified by the page's `$view`. When using the [partial
 loop]({{pod.doc('/content/docs/content-management/partial-content.md').url.path}}),
 the partial's `partial` key specifies the template.
 
-```yaml
-# Base template for the page.
-$path: /views/page.njk
-```
-
-```yaml
-# When using the partial loop, `partial` specifies the template.
-# ...
+{% filter codeTabs %}
+```yaml:title=/content/pages/index.yaml
+$view: /views/page.njk
 partials:
 - partial: hero
   # ...
 - partial: columns
   # ...
 ```
+{% endfilter %}
 
 ### Global default template
 

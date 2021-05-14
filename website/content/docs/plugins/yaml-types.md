@@ -54,7 +54,7 @@ module.exports = (pod) => {
             this.firstName = options.firstName;
             this.lastName = options.lastName;
         }
-        get name() {
+        get fullName() {
             return `${this.firstName} ${this.lastName}`;
         }
     }
@@ -72,12 +72,10 @@ module.exports = (pod) => {
 3. Use the `Person` objects in templates. Note that we never declared any
    `fullName` in YAML. That property was defined in our `Person` object.
 
-{% filter codeTabs %}
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 {% for person in avengers %}
     {{person.fullName}}
 {% endfor %}
-{% endraw %}
 ```
-{% endfilter %}
+{% endraw %}{% endfilter %}

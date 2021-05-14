@@ -18,20 +18,17 @@ beyond the content injected into the partial.
 Within a content document, the partial loop is represented by a list of
 partials, like this:
 
-
+{% filter codeTabs %}
 ```yaml
 # ...
 partials:
-
 # Renders: /views/partials/hero.njk
 # Loads:   /src/sass/partials/hero.sass
 - partial: hero  
   headline: Page headline
-
 # Renders: /views/partials/spacer.njk
 # Loads:   /src/sass/partials/spacer.sass
 - partial: spacer
-
 # Renders: /views/partials/columns.njk
 # Loads:   /src/sass/partials/columns.sass
 - partial: columns
@@ -42,13 +39,14 @@ partials:
   - headline: Column 1 headline
   - headline: Column 2 headline
 ```
+{% endfilter %}
 
 Within Amagaki’s default base template, the content document’s partials are
 looped over, rendering one at a time. Each partial’s rendering context is
 populated by its content from the partial loop:
 
+{%  filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 <div class="columns">
   <div class="columns__header">
     <div class="columns__header__headline">
@@ -66,8 +64,8 @@ populated by its content from the partial loop:
     {% endfor %}
   </div>
 </div>
-{% endraw %}
 ```
+{% endraw %}{% endfilter %}
 
 In summary, each document should be rendered as an assembly of partials, with an
 overall anatomy of:

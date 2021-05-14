@@ -12,14 +12,15 @@ in a variety of scenarios, such as:
   behavior
 - Extending the functionality of Amagaki with custom request handlers
 
-Remember, Amagaki's is intended to be a static site generator. Request handlers
+Remember, Amagaki is intended to be a static site generator. Request handlers
 made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
-functionality to facilitate improved development velocity and workflows.
+functionality that enhances development velocity and the development workflow.
 
 ## Example
 
-```javascript
+{% filter codeTabs %}
+```javascript:title=amagaki.js
 module.exports = function (pod) {
     const serverPlugin = pod.plugins.get('ServerPlugin');
     serverPlugin.register(app => {
@@ -29,3 +30,4 @@ module.exports = function (pod) {
     });
 };
 ```
+{% endfilter %}

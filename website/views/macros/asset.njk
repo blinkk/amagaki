@@ -1,18 +1,62 @@
+{% set defaultBreakpoints = [
+  [0, 460],
+  [460, 768],
+  [768, 1024],
+  [1024, 1440],
+  [1440, 2880]
+] %}
+
 {% macro asset(asset) %}
     {{_image(asset)}}
+{% endmacro %}
+
+{% macro _renderImage(url, params) %}
+  <img
+      decoding="async"
+      loading="lazy"
+      src="{{url}}"
+      {% if params.width %}
+        width="{{params.width}}"
+      {% endif %}
+      {% if params.height %}
+        height="{{params.height}}"
+      {% endif %}
+      {% if params.aspect %}
+        width="{{params.aspect.split('x')[0]}}"
+        height="{{params.aspect.split('x')[1]}}"
+      {% endif %}
+      {% if params.style %}style="{{params.style}}"{% endif %}
+      {% if params.class %}class="{{params.class}}"{% endif %}
+      {% if params.alt_text %}
+        title="{{params.alt_text}}"
+        alt="{{params.alt_text}}"
+      {% else %}
+        alt=""
+        role="presentation"
+      {% endif %}
+  >
 {% endmacro %}
 
 {% macro _image(params) %}
   {% if params.url %}
     {% set url = params.url %}
-  {% elif params.static %}
-    {% set url = params.static.url.path %}
+  {% elif params.file %}
+    {% set url = params.file.url.path %}
   {% endif %}
-  <img
-      loading="lazy"
-      src="{{url}}"
-      {% if params.style %}style="{{params.style}}"{% endif %}
-      {% if params.class %}class="{{params.class}}"{% endif %}
-      {% if params.title %}title="{{params.title}}" alt="{{params.title}}"{% endif %}
-  >
+  {% set isDynamic = url.startsWith('https://lh3.googleusercontent.com') and "=" not in url %}
+  {% set breakpoints = params.breakpoints or defaultBreakpoints %}
+  {% if isDynamic and breakpoints %}
+    <picture>
+      {% for breakpoint, width in breakpoints %}
+        <source
+          type="image/webp"
+          srcset="{{url}}=rw-e365-w{{width * 2}}"
+          media="(min-width: {{breakpoint}}px)"
+        >
+      {% endfor %}
+      {{_renderImage(url, params)}}
+    </picture>
+  {% else %}
+    {{_renderImage(url, params)}}
+  {% endif %}
 {% endmacro %}

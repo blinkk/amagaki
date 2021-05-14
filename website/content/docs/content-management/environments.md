@@ -18,7 +18,8 @@ Environments accept arbitrary fields, allowing you to centrally manage global
 data (such as API keys or other configuration) and easily change it depending on
 the environment.
 
-```javascript
+{% filter codeTabs %}
+```javascript:title=amagaki.js
 module.exports = function (pod) {
   pod.configure({
     environments: {
@@ -38,6 +39,7 @@ module.exports = function (pod) {
   });
 };
 ```
+{% endfilter %}
 
 ### In templates
 
@@ -46,15 +48,15 @@ environment. <a
 href="https://blinkkcode.github.io/amagaki/api/classes/environment.environment-1.html">see
 Environment reference</a>.
 
-```
-{%- raw %}
+{% filter codeTabs %}{% raw %}
+```nunjucks
 {{pod.env.name}}
 {{pod.env.fields.apiKey}}
 {% if pod.env.name == "prod" %}
 <!-- Output prod stuff. -->
 {% endif %}
-{% endraw %}
 ```
+{% endraw %}{% endfilter %}
 
 ### In content
 
@@ -62,11 +64,13 @@ While this can be represented in template logic using an if statement like in
 the above examples,  changing content based on the environment is better
 represented using the !IfEnvironment YAML type. See the example below:
 
-```
+{% filter codeTabs %}
+```yaml
 foo: !IfEnvironment
   default: 'Hello World!'
   prod: ''
 ```
+{% endfilter %}
 
 ### Defaults
 

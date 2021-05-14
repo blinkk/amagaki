@@ -24,28 +24,25 @@ Here’s what a sample content structure may look like:
 
 To list categories within the `posts` collection:
 
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 {{pod.collection('/content/posts').subcollections}}
-{% endraw %}
 ```
+{% endraw %}{% endfilter %}
 
 To list posts within a subcollection:
 
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 {{pod.collection('/content/posts/a').docs()}}
-{% endraw %}
 ```
+{% endraw %}{% endfilter %}
 
 You can also use glob syntax to fetch posts from a specific category:
 
-{% filter codeTabs %}
-
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 {{pod.docs(['/content/posts/**'])}}
-{% endraw %}
 ```
 ```javascript
 pod.docs(['/content/posts/**'])
@@ -53,5 +50,4 @@ pod.docs(['/content/posts/**'])
 ```yaml
 !pod.docs ['/content/posts/**']
 ```
-
-{% endfilter %}
+{% endraw %}{% endfilter %}

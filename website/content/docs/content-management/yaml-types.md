@@ -56,29 +56,33 @@ custom YAML type. For example, you should:
 
 Returns a document.
 
-```
+{% filter codeTabs %}
+```yaml
 # Single document.
 !pod.doc '/content/pages/index.yaml'
 
 # Single document, localized.
 !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
 ```
+{% endfilter %}
 
 #### !pod.docs
 
 Returns a list of documents. Either multiple docs can be enumerated explicitly,
 or glob syntax can be used to fetch documents using a glob pattern.
 
-```
+{% filter codeTabs %}
+```yaml
 # Two documents.
 !pod.docs ['/content/pages/index.yaml', '/content/posts/2019-01-06.md']
 
 # All documents within the `posts` collection, with options.
 !pod.docs ['/content/posts/**', {sort: 'order'}]
 
-# Alld ocuments within the `pages` and `posts` collection, with options.
+# All documents within the `pages` and `posts` collection, with options.
 !pod.docs [['/content/pages/**', '/content/posts/**'], {sort: 'order'}]
 ```
+{% endfilter %}
 
 ### Custom YAML types
 

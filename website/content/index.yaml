@@ -8,6 +8,8 @@ partials:
   body: Amagaki is a TypeScript-based website generator. It's fast, flexible, and extensible. It's more than Jekyll, less than Next.js or Gatsby – and perfect for hand-coding high-fidelity marketing websites.
   image:
     url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w1024
+    width: 400
+    height: 400
   buttons:
   - label: Read manual
     doc: !pod.doc /content/docs/index.md
@@ -26,7 +28,8 @@ partials:
 
     Amagaki is distributed as an npm package. We recommend using our starter when building marketing websites from scratch.
 
-    ```bash
+    {% filter codeTabs %}
+    ```shell
     git clone https://github.com/blinkkcode/amagaki-starter
     npm install
 
@@ -36,19 +39,22 @@ partials:
     # Build the site
     npm run build
     ```
+    {% endfilter %}
 
     If you are integrating into an existing project, you can install Amagaki directly.
 
-    ```bash
+    {% filter codeTabs %}
+    ```shell
     # Install Amagaki
     npm install --save @amagaki/amagaki
 
     # Start the dev server
     npx amagaki serve
 
-    # Build the site.
+    # Build the site
     npx amagaki build
     ```
+    {% endfilter %}
 
 - partial: spacer
   size: large

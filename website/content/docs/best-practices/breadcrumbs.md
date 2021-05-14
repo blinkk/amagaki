@@ -13,14 +13,21 @@ current document.
 The following code snippet will output the current document's collection, and
 its ancestors, in reverse order, suitable for rendering a breadcrumb.
 
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw -%}
 <ul>
   {% for collection in doc.collection.parents|reverse %}
-    <li><a href="{{collection.index.url.path}}">{{collection.index.fields.title}}</a></li>
-    {% endfor %}
-    <li><a href="{{doc.collection.index.url.path}}">{{doc.collection.index.fields.title}}</a></li>
+    <li>
+      <a href="{{collection.index.url.path}}">
+        {{collection.index.fields.title}}
+      </a>
+    </li>
   {% endfor %}
+  <li>
+    <a href="{{doc.collection.index.url.path}}">
+      {{doc.collection.index.fields.title}}
+    </a>
+  </li>
 </ul>
-{% endraw %}
 ```
+{% endraw %}{% endfilter %}

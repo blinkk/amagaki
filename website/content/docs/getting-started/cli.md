@@ -8,7 +8,7 @@ The `@amagaki/amagaki` package provides a command line interface (CLI) program.
 All commands should be invoked from your pod's root directory. You can invoke
 the `amagaki` command easily using `npx`.
 
-It offers two commands:
+There are two commands:
 
 - `build`
 - `serve`

@@ -8,19 +8,19 @@ Static files should always be loaded using an Amagaki function. By default,
 static files can be placed in the `/src/static/` folder, and then can be loaded
 using the `staticFile` Amagaki function.
 
-In YAML:
-
+{% filter codeTabs %}
 ```yaml
 file: !pod.staticFile /src/static/image.jpg
 ```
+{% endfilter %}
 
-In a template:
-
+{% filter codeTabs %}
 ```nunjucks
 {%- raw -%}
 <img src="{{pod.staticFile('/src/static/image.jpg').url.path}}">
 {% endraw %}
 ```
+{% endfilter %}
 
 Avoid hardcoding paths to static files. When hardcoding paths, maintainability
 is reduced, and it’s easier to make mistakes (i.e. typos that refer to files

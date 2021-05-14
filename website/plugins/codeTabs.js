@@ -6,7 +6,8 @@ const uuid = require('uuid');
 
 const register = pod => {
   marked.setOptions({
-    renderer: new marked.Renderer(),
+    breaks: true,
+    gfm: true,
     highlight: function (code, lang) {
       lang = lang === 'nunjucks' ? 'twig' : lang;
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -29,7 +30,7 @@ const register = pod => {
       return el.className.replace('language-', '');
     });
     return this.env.filters.safe(
-      commonTags.stripIndent`
+      commonTags.oneLine`
       <div class="codeTabs" data-num-tabs="${languages.length}">
         ${languages
           .map((language, index) => {
@@ -54,7 +55,9 @@ const register = pod => {
           })
           .join('')}
         <div class="codeTabs__blocks" tabindex="1">
-          ${html}
+        ` +
+        html +
+        commonTags.oneLine`
         </div>
       </div>
     `

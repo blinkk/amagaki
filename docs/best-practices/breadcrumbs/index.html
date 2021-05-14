@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -356,6 +369,14 @@
                                 <a href="./../../plugins/server-middleware/">Server middleware</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -436,15 +457,21 @@ current document.</p>
 </ul>
 <p>The following code snippet will output the current document&#39;s collection, and
 its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
-<pre><code class="language-nunjucks">&lt;ul&gt;
-  {% for collection in doc.collection.parents|reverse %}
-    &lt;li&gt;&lt;a href=&quot;{{collection.index.url.path}}&quot;&gt;{{collection.index.fields.title}}&lt;/a&gt;&lt;/li&gt;
-    {% endfor %}
-    &lt;li&gt;&lt;a href=&quot;{{doc.collection.index.url.path}}&quot;&gt;{{doc.collection.index.fields.title}}&lt;/a&gt;&lt;/li&gt;
-  {% endfor %}
-&lt;/ul&gt;
-</code></pre>
-
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8ab171b0-b509-11eb-ac97-4d34d57e5b40" name="t-8aa0a8d0-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8ab171b0-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> collection in doc.collection.parents|<span class="hljs-keyword">reverse</span> %}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+        </span><span class="hljs-template-variable">{{collection.index.fields.title}}</span><span class="xml">
+      <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{doc.collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+      </span><span class="hljs-template-variable">{{doc.collection.index.fields.title}}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+</code></pre></div> </div>
             </div>
             
                 <div class="markdown__body__next">

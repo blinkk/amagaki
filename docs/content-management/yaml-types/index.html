@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -364,6 +377,14 @@
                                 <a href="./../../plugins/server-middleware/">Server middleware</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -475,24 +496,23 @@ custom YAML type. For example, you should:</p>
 </ul>
 <h4 id="poddoc">!pod.doc</h4>
 <p>Returns a document.</p>
-<pre><code># Single document.
-!pod.doc &#39;/content/pages/index.yaml&#39;
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8afe8040-b509-11eb-ac97-4d34d57e5b40" name="t-8afd6ed0-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8afe8040-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
+<span class="hljs-type">!pod.doc</span> <span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>
 
-# Single document, localized.
-!pod.doc [&#39;/content/pages/index.yaml&#39;, !pod.locale &#39;de&#39;]
-</code></pre>
+<p><span class="hljs-comment"># Single document, localized.</span>
+<span class="hljs-type">!pod.doc</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-type">!pod.locale</span> <span class="hljs-string">&#x27;de&#x27;</span>]
+</code></pre></div> </div></p>
 <h4 id="poddocs">!pod.docs</h4>
 <p>Returns a list of documents. Either multiple docs can be enumerated explicitly,
 or glob syntax can be used to fetch documents using a glob pattern.</p>
-<pre><code># Two documents.
-!pod.docs [&#39;/content/pages/index.yaml&#39;, &#39;/content/posts/2019-01-06.md&#39;]
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b002df0-b509-11eb-ac97-4d34d57e5b40" name="t-8afea750-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b002df0-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
+<span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/2019-01-06.md&#x27;</span>]
 
-# All documents within the `posts` collection, with options.
-!pod.docs [&#39;/content/posts/**&#39;, {sort: &#39;order&#39;}]
-
-# Alld ocuments within the `pages` and `posts` collection, with options.
-!pod.docs [[&#39;/content/pages/**&#39;, &#39;/content/posts/**&#39;], {sort: &#39;order&#39;}]
-</code></pre>
+<p><span class="hljs-comment"># All documents within the <code>posts</code> collection, with options.</span>
+<span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>, {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]</p>
+<p><span class="hljs-comment"># All documents within the <code>pages</code> and <code>posts</code> collection, with options.</span>
+<span class="hljs-type">!pod.docs</span> [[<span class="hljs-string">&#x27;/content/pages/<strong>&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/</strong>&#x27;</span>], {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]
+</code></pre></div> </div></p>
 <h3 id="custom-yaml-types">Custom YAML types</h3>
 <p>Custom YAML types are created through plugins. Custom YAML types can be used to
 represent objects that may be helpful for reusing throughout the content layer

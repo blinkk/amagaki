@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -364,6 +377,14 @@
                                 <a href="./../server-middleware/">Server middleware</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -430,17 +451,22 @@
 <h2 id="nunjucks">Nunjucks</h2>
 <p>Amagaki provides convenience methods for extending Nunjucks functionality. See
 below to learn how to easily add Nunjucks filters or globals.</p>
-<pre><code class="language-javascript">const nunjucksPlugin = pod.plugins.get(&#39;NunjucksPlugin&#39;);
-nunjucksPlugin.addFilter(&#39;testShortcutFilter&#39;, value =&gt; `${value}--SHORTCUT`);
-nunjucksPlugin.addGlobal(&#39;copyrightYear&#39;, () =&gt; new Date().getFullYear());
-</code></pre>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b34f990-b509-11eb-ac97-4d34d57e5b40" name="t-8b3324d0-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b34f990-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> nunjucksPlugin = pod.plugins.get(<span class="hljs-string">&#x27;NunjucksPlugin&#x27;</span>);
+    nunjucksPlugin.addFilter(<span class="hljs-string">&#x27;testShortcutFilter&#x27;</span>, <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${value}</span>--SHORTCUT`</span>);
+    nunjucksPlugin.addGlobal(<span class="hljs-string">&#x27;copyrightYear&#x27;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getFullYear());
+};
+</code></pre></div> </div>
+
 <p>When creating filters that return safe HTML, ensure you use Amagaki&#39;s Nunjucks
 environment to mark the return value as safe.</p>
-<pre><code class="language-javascript">nunjucksPlugin.addFilter(&#39;myFilter&#39;, function (value) {
-    return this.env.filters.safe(&#39;&lt;div class=&quot;foo&quot;&gt;Hello World&lt;/div&gt;&#39;);
-}
-</code></pre>
-
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b36a740-b509-11eb-ac97-4d34d57e5b40" name="t-8b34f991-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b36a740-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> nunjucksPlugin = pod.plugins.get(<span class="hljs-string">&#x27;NunjucksPlugin&#x27;</span>);
+    nunjucksPlugin.addFilter(<span class="hljs-string">&#x27;myFilter&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.env.filters.safe(<span class="hljs-string">&#x27;&lt;div class=&quot;foo&quot;&gt;Hello World&lt;/div&gt;&#x27;</span>);
+    }
+};
+</code></pre></div> </div>
             </div>
             
                 <div class="markdown__body__next">

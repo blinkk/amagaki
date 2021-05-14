@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -364,6 +377,14 @@
                                 <a href="./../../plugins/server-middleware/">Server middleware</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -437,49 +458,48 @@ beyond the content injected into the partial.</p>
 <h2 id="the-partial-loop">The partial loop</h2>
 <p>Within a content document, the partial loop is represented by a list of
 partials, like this:</p>
-<pre><code class="language-yaml"># ...
-partials:
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8af46e20-b509-11eb-ac97-4d34d57e5b40" name="t-8af27250-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8af46e20-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># ...</span>
+<span class="hljs-attr">partials:</span>
+<span class="hljs-comment"># Renders: /views/partials/hero.njk</span>
+<span class="hljs-comment"># Loads:   /src/sass/partials/hero.sass</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>  
+  <span class="hljs-attr">headline:</span> <span class="hljs-string">Page</span> <span class="hljs-string">headline</span>
+<span class="hljs-comment"># Renders: /views/partials/spacer.njk</span>
+<span class="hljs-comment"># Loads:   /src/sass/partials/spacer.sass</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">spacer</span>
+<span class="hljs-comment"># Renders: /views/partials/columns.njk</span>
+<span class="hljs-comment"># Loads:   /src/sass/partials/columns.sass</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">columns</span>
+  <span class="hljs-attr">header:</span>
+    <span class="hljs-attr">headline:</span> <span class="hljs-string">Columns</span> <span class="hljs-string">headline</span>
+    <span class="hljs-attr">body:</span> <span class="hljs-string">Columns</span> <span class="hljs-string">body.</span>
+  <span class="hljs-attr">columns:</span> 
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">headline:</span> <span class="hljs-string">Column</span> <span class="hljs-number">1</span> <span class="hljs-string">headline</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">headline:</span> <span class="hljs-string">Column</span> <span class="hljs-number">2</span> <span class="hljs-string">headline</span>
+</code></pre></div> </div>
 
-# Renders: /views/partials/hero.njk
-# Loads:   /src/sass/partials/hero.sass
-- partial: hero  
-  headline: Page headline
-
-# Renders: /views/partials/spacer.njk
-# Loads:   /src/sass/partials/spacer.sass
-- partial: spacer
-
-# Renders: /views/partials/columns.njk
-# Loads:   /src/sass/partials/columns.sass
-- partial: columns
-  header:
-    headline: Columns headline
-    body: Columns body.
-  columns: 
-  - headline: Column 1 headline
-  - headline: Column 2 headline
-</code></pre>
 <p>Within Amagaki’s default base template, the content document’s partials are
 looped over, rendering one at a time. Each partial’s rendering context is
 populated by its content from the partial loop:</p>
-<pre><code class="language-nunjucks">&lt;div class=&quot;columns&quot;&gt;
-  &lt;div class=&quot;columns__header&quot;&gt;
-    &lt;div class=&quot;columns__header__headline&quot;&gt;
-      {{partial.header.headline}}
-    &lt;/div&gt;
-    &lt;div class=&quot;columns__header__body&quot;&gt;
-      {{partial.header.body}}
-    &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;columns__columns&quot;&gt;
-    {% for column in partial.columns %}
-      &lt;div class=&quot;columns__columns__column&quot;&gt;
-        {{column.headline}}
-      &lt;/div&gt;
-    {% endfor %}
-  &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8af75450-b509-11eb-ac97-4d34d57e5b40" name="t-8af49530-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8af75450-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header__headline&quot;</span>&gt;</span>
+      </span><span class="hljs-template-variable">{{partial.header.headline}}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header__body&quot;</span>&gt;</span>
+      </span><span class="hljs-template-variable">{{partial.header.body}}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__columns&quot;</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> column in partial.columns %}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__columns__column&quot;</span>&gt;</span>
+        </span><span class="hljs-template-variable">{{column.headline}}</span><span class="xml">
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</code></pre></div> </div>
+
 <p>In summary, each document should be rendered as an assembly of partials, with an
 overall anatomy of:</p>
 <ul>

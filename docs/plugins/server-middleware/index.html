@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -362,14 +375,22 @@
                                 <a href="./">Server middleware</a>
                             </li>
                         
+                            
+                                
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
                     <li>8. Best practices</li>
                     <ul>
                         
-                            
-                                
                             
                             <li
                                 
@@ -435,26 +456,25 @@ in a variety of scenarios, such as:</p>
 behavior</li>
 <li>Extending the functionality of Amagaki with custom request handlers</li>
 </ul>
-<p>Remember, Amagaki&#39;s is intended to be a static site generator. Request handlers
+<p>Remember, Amagaki is intended to be a static site generator. Request handlers
 made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
-functionality to facilitate improved development velocity and workflows.</p>
+functionality that enhances development velocity and the development workflow.</p>
 <h2 id="example">Example</h2>
-<pre><code class="language-javascript">module.exports = function (pod) {
-    const serverPlugin = pod.plugins.get(&#39;ServerPlugin&#39;);
-    serverPlugin.register(app =&gt; {
-        app.use(&#39;/foo&#39;, (req, res) =&gt; {
-            res.send(&#39;This is a response from custom middleware.&#39;);
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b2f7b50-b509-11eb-ac97-4d34d57e5b40" name="t-8b2d7f80-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b2f7b50-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+    <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>);
+    serverPlugin.register(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> {
+        app.use(<span class="hljs-string">&#x27;/foo&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+            res.send(<span class="hljs-string">&#x27;This is a response from custom middleware.&#x27;</span>);
         });
     });
 };
-</code></pre>
-
+</code></pre></div> </div>
             </div>
             
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="./../../best-practices/breadcrumbs/">
-                        <span>Creating breadcrumbs</span>
+                    <a class="button button--tonal button--icon" href="./../build-hooks/">
+                        <span>Build hooks</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>
                 </div>

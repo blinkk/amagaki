@@ -43,13 +43,26 @@
   
     
   
+  
+  
+  
+    
   <img
+      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
       
       
       
+      
+      
+      
+        alt=""
+        role="presentation"
+      
   >
+
+  
 
 
             </div>
@@ -364,6 +377,14 @@
                                 <a href="./../server-middleware/">Server middleware</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../build-hooks/">Build hooks</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -449,24 +470,7 @@ the first and last name together.</p>
 <ol>
 <li>Use the custom type in YAML:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1">
-        
-              <input
-                class="codeTabs__tabRadio"
-                type="radio"
-                id="t-e9903aa0-b47c-11eb-a227-61af1d9a7bd1"
-                name="t-e98edb10-b47c-11eb-a227-61af1d9a7bd1"
-                checked
-              >
-              <label
-                for="t-e9903aa0-b47c-11eb-a227-61af1d9a7bd1"
-                class="codeTabs__tabLabel "
-              >
-                <span>yaml</span>
-              </label>
-            
-        <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b3f59d0-b509-11eb-ac97-4d34d57e5b40" name="t-8b3dd330-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b3f59d0-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-type">!Person</span>
     <span class="hljs-attr">firstName:</span> <span class="hljs-string">Tony</span>
     <span class="hljs-attr">lastName:</span> <span class="hljs-string">Stark</span>
@@ -476,37 +480,18 @@ the first and last name together.</p>
 <span class="hljs-bullet">-</span> <span class="hljs-type">!Person</span>
     <span class="hljs-attr">firstName:</span> <span class="hljs-string">Carol</span>
     <span class="hljs-attr">lastName:</span> <span class="hljs-string">Danvers</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div> </div>
 
 <ol start="2">
 <li>Create the custom type:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1">
-        
-              <input
-                class="codeTabs__tabRadio"
-                type="radio"
-                id="t-e9923670-b47c-11eb-a227-61af1d9a7bd1"
-                name="t-e9903aa1-b47c-11eb-a227-61af1d9a7bd1"
-                checked
-              >
-              <label
-                for="t-e9923670-b47c-11eb-a227-61af1d9a7bd1"
-                class="codeTabs__tabLabel codeTabs__tabLabel--filename"
-              >
-                <span>amagaki.js</span>
-              </label>
-            
-        <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b412e90-b509-11eb-ac97-4d34d57e5b40" name="t-8b3f59d1-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b412e90-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">options</span>)</span> {
             <span class="hljs-built_in">this</span>.firstName = options.firstName;
             <span class="hljs-built_in">this</span>.lastName = options.lastName;
         }
-        <span class="hljs-keyword">get</span> <span class="hljs-title">name</span>() {
+        <span class="hljs-keyword">get</span> <span class="hljs-title">fullName</span>() {
             <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">this</span>.firstName}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.lastName}</span>`</span>;
         }
     }
@@ -518,38 +503,16 @@ the first and last name together.</p>
         },
     });
 }
-</code></pre>
-        </div>
-      </div>
+</code></pre></div> </div>
 
 <ol start="3">
 <li>Use the <code>Person</code> objects in templates. Note that we never declared any
 <code>fullName</code> in YAML. That property was defined in our <code>Person</code> object.</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1">
-        
-              <input
-                class="codeTabs__tabRadio"
-                type="radio"
-                id="t-e99347e0-b47c-11eb-a227-61af1d9a7bd1"
-                name="t-e9923671-b47c-11eb-a227-61af1d9a7bd1"
-                checked
-              >
-              <label
-                for="t-e99347e0-b47c-11eb-a227-61af1d9a7bd1"
-                class="codeTabs__tabLabel "
-              >
-                <span>nunjucks</span>
-              </label>
-            
-        <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b4218f0-b509-11eb-ac97-4d34d57e5b40" name="t-8b412e91-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b4218f0-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
     </span><span class="hljs-template-variable">{{person.fullName}}</span><span class="xml">
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
-</span>
-</code></pre>
-        </div>
-      </div>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span>
+</code></pre></div> </div>
             </div>
             
                 <div class="markdown__body__next">

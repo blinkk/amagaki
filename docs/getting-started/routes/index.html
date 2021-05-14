@@ -466,19 +466,19 @@ site is deployed to, allowing you to centrally configure hostnames.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a0707b0-b470-11eb-94ef-478bec8875b4"
-                name="t-7a05cf30-b470-11eb-94ef-478bec8875b4"
+                id="t-e9775b70-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e9769820-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a0707b0-b470-11eb-94ef-478bec8875b4"
+                for="t-e9775b70-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel "
               >
                 <span>yaml</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml">home: !pod.doc /content/pages/index.yaml
+          <pre><code class="language-yaml"><span class="hljs-attr">home:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
 </code></pre>
         </div>
       </div>
@@ -488,19 +488,20 @@ site is deployed to, allowing you to centrally configure hostnames.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a07cb00-b470-11eb-94ef-478bec8875b4"
-                name="t-7a0707b1-b470-11eb-94ef-478bec8875b4"
+                id="t-e9781ec0-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e9775b71-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a07cb00-b470-11eb-94ef-478bec8875b4"
+                for="t-e9781ec0-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel "
               >
                 <span>nunjucks</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-nunjucks">{{doc.home.url.path}}
+          <pre><code class="language-nunjucks"><span class="hljs-template-variable">{{doc.home.url.path}}</span><span class="xml">
+</span>
 </code></pre>
         </div>
       </div>
@@ -515,19 +516,19 @@ like:</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a086740-b470-11eb-94ef-478bec8875b4"
-                name="t-7a07cb01-b470-11eb-94ef-478bec8875b4"
+                id="t-e978e210-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e9781ec1-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a086740-b470-11eb-94ef-478bec8875b4"
+                for="t-e978e210-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>_collection.yaml</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml">$path: /pages/${doc.basename}/
+          <pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/${doc.basename}/</span>
 </code></pre>
         </div>
       </div>
@@ -563,19 +564,19 @@ context variables:</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a090380-b470-11eb-94ef-478bec8875b4"
-                name="t-7a086741-b470-11eb-94ef-478bec8875b4"
+                id="t-e979a560-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e978e211-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a090380-b470-11eb-94ef-478bec8875b4"
+                for="t-e979a560-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>/content/pages/contact.yaml</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml">$path: /pages/get-in-touch/
+          <pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/get-in-touch/</span>
 </code></pre>
         </div>
       </div>
@@ -589,19 +590,19 @@ path to <code>null</code>:</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a099fc0-b470-11eb-94ef-478bec8875b4"
-                name="t-7a090381-b470-11eb-94ef-478bec8875b4"
+                id="t-e97a68b0-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e979cc70-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a099fc0-b470-11eb-94ef-478bec8875b4"
+                for="t-e97a68b0-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>/content/pages/contact.yaml</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml">$path: null
+          <pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-literal">null</span>
 </code></pre>
         </div>
       </div>
@@ -613,21 +614,21 @@ document&#39;s content:</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a0a3c00-b470-11eb-94ef-478bec8875b4"
-                name="t-7a099fc1-b470-11eb-94ef-478bec8875b4"
+                id="t-e97b5310-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e97a68b1-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a0a3c00-b470-11eb-94ef-478bec8875b4"
+                for="t-e97b5310-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>/content/pages/contact.yaml</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-yaml">$path: /posts/${doc.fields.date}/${doc.fields.slug}/
-date: 2019-01-06
-slug: hello-world
+          <pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/posts/${doc.fields.date}/${doc.fields.slug}/</span>
+<span class="hljs-attr">date:</span> <span class="hljs-number">2019-01-06</span>
+<span class="hljs-attr">slug:</span> <span class="hljs-string">hello-world</span>
 </code></pre>
         </div>
       </div>
@@ -641,28 +642,28 @@ slug: hello-world
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a0ad840-b470-11eb-94ef-478bec8875b4"
-                name="t-7a0a3c01-b470-11eb-94ef-478bec8875b4"
+                id="t-e97c8b90-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e97b5311-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a0ad840-b470-11eb-94ef-478bec8875b4"
+                for="t-e97c8b90-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>amagaki.js</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-javascript">module.exports = function (pod) {
+          <pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
-    staticRoutes: [
+    <span class="hljs-attr">staticRoutes</span>: [
       {
-        path: &#39;/static/&#39;,
-        staticDir: &#39;/dist/&#39;,
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/static/&#x27;</span>,
+        <span class="hljs-attr">staticDir</span>: <span class="hljs-string">&#x27;/dist/&#x27;</span>,
       },
       {
-        path: &#39;/static/images/&#39;,
-        staticDir: &#39;/src/static/images/&#39;,
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/static/images/&#x27;</span>,
+        <span class="hljs-attr">staticDir</span>: <span class="hljs-string">&#x27;/src/static/images/&#x27;</span>,
       },
     ],
   });
@@ -679,21 +680,21 @@ common usage pattern.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-7a0b9b90-b470-11eb-94ef-478bec8875b4"
-                name="t-7a0ad841-b470-11eb-94ef-478bec8875b4"
+                id="t-e97e8760-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e97c8b91-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-7a0b9b90-b470-11eb-94ef-478bec8875b4"
+                for="t-e97e8760-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel "
               >
                 <span>nunjucks</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-nunjucks">&lt;link rel=&quot;stylesheet&quot; href=&quot;{{pod.staticFile(&#39;/dist/css/main.css&#39;).url.path}}&quot;&gt;
-&lt;script src=&quot;{{pod.staticFile(&#39;/dist/js/main.js&#39;).url.path}}&quot;&gt;&lt;/script&gt;
-&lt;img src=&quot;{{pod.staticFile(&#39;/src/static/images/cat.jpg&#39;).url.path}}&quot;&gt;
+          <pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/dist/css/main.css&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/dist/js/main.js&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/src/static/images/cat.jpg&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
 </code></pre>
         </div>
       </div>

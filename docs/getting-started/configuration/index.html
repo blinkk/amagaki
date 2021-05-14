@@ -450,35 +450,35 @@ at the content-level, on a per-document or per-collection basis.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-79fd6ac0-b470-11eb-94ef-478bec8875b4"
-                name="t-79fc8060-b470-11eb-94ef-478bec8875b4"
+                id="t-e96d9770-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e96b7490-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-79fd6ac0-b470-11eb-94ef-478bec8875b4"
+                for="t-e96d9770-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>amagaki.js</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-javascript">module.exports = function (pod) {
+          <pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
-    metadata: {
-      name: &#39;Amagaki Example&#39;,
+    <span class="hljs-attr">metadata</span>: {
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Amagaki Example&#x27;</span>,
     },
-    localization: {
-      defaultLocale: &#39;en&#39;,
-      locales: [&#39;en&#39;, &#39;fr&#39;, &#39;it&#39;, &#39;ja&#39;],
+    <span class="hljs-attr">localization</span>: {
+      <span class="hljs-attr">defaultLocale</span>: <span class="hljs-string">&#x27;en&#x27;</span>,
+      <span class="hljs-attr">locales</span>: [<span class="hljs-string">&#x27;en&#x27;</span>, <span class="hljs-string">&#x27;fr&#x27;</span>, <span class="hljs-string">&#x27;it&#x27;</span>, <span class="hljs-string">&#x27;ja&#x27;</span>],
     },
-    staticRoutes: [
+    <span class="hljs-attr">staticRoutes</span>: [
       {
-        path: &#39;/static/&#39;,
-        staticDir: &#39;/dist/&#39;,
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/static/&#x27;</span>,
+        <span class="hljs-attr">staticDir</span>: <span class="hljs-string">&#x27;/dist/&#x27;</span>,
       },
       {
-        path: &#39;/static/images/&#39;,
-        staticDir: &#39;/src/static/images/&#39;,
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/static/images/&#x27;</span>,
+        <span class="hljs-attr">staticDir</span>: <span class="hljs-string">&#x27;/src/static/images/&#x27;</span>,
       },
     ],
   });
@@ -494,12 +494,12 @@ at the content-level, on a per-document or per-collection basis.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-79fe7c30-b470-11eb-94ef-478bec8875b4"
-                name="t-79fd6ac1-b470-11eb-94ef-478bec8875b4"
+                id="t-e96ea8e0-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e96d9771-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-79fe7c30-b470-11eb-94ef-478bec8875b4"
+                for="t-e96ea8e0-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel codeTabs__tabLabel--filename"
               >
                 <span>amagaki.js</span>
@@ -507,9 +507,9 @@ at the content-level, on a per-document or per-collection basis.</p>
             
         <div class="codeTabs__blocks" tabindex="1">
           <pre><code class="language-javascript">pod.configure({
-    metadata: {
-        siteTitle: &#39;Amagaki&#39;,
-        siteDescription: &#39;A cool tool for hand-coding marketing websites.&#39;,
+    <span class="hljs-attr">metadata</span>: {
+        <span class="hljs-attr">siteTitle</span>: <span class="hljs-string">&#x27;Amagaki&#x27;</span>,
+        <span class="hljs-attr">siteDescription</span>: <span class="hljs-string">&#x27;A cool tool for hand-coding marketing websites.&#x27;</span>,
     },
 });
 </code></pre>
@@ -522,19 +522,19 @@ at the content-level, on a per-document or per-collection basis.</p>
               <input
                 class="codeTabs__tabRadio"
                 type="radio"
-                id="t-79ff3f80-b470-11eb-94ef-478bec8875b4"
-                name="t-79fe7c31-b470-11eb-94ef-478bec8875b4"
+                id="t-e96f6c30-b47c-11eb-a227-61af1d9a7bd1"
+                name="t-e96ea8e1-b47c-11eb-a227-61af1d9a7bd1"
                 checked
               >
               <label
-                for="t-79ff3f80-b470-11eb-94ef-478bec8875b4"
+                for="t-e96f6c30-b47c-11eb-a227-61af1d9a7bd1"
                 class="codeTabs__tabLabel "
               >
                 <span>nunjucks</span>
               </label>
             
         <div class="codeTabs__blocks" tabindex="1">
-          <pre><code class="language-nunjucks">{{pod.metadata.siteTitle}}
+          <pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.metadata.siteTitle}}</span>
 </code></pre>
         </div>
       </div>

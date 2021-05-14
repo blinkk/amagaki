@@ -46,12 +46,48 @@
   
   
   
-    
+    <picture>
+      
+        <source
+          type="image/webp"
+          srcset="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=rw-e365-w920"
+          media="(min-width: 0px)"
+        >
+      
+        <source
+          type="image/webp"
+          srcset="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=rw-e365-w1536"
+          media="(min-width: 460px)"
+        >
+      
+        <source
+          type="image/webp"
+          srcset="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=rw-e365-w2048"
+          media="(min-width: 768px)"
+        >
+      
+        <source
+          type="image/webp"
+          srcset="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=rw-e365-w2880"
+          media="(min-width: 1024px)"
+        >
+      
+        <source
+          type="image/webp"
+          srcset="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=rw-e365-w5760"
+          media="(min-width: 1440px)"
+        >
+      
+      
   <img
       decoding="async"
       loading="lazy"
-      src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M=w96"
+      src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
+        width="96"
+      
+      
+        height="96"
       
       
       
@@ -62,6 +98,7 @@
       
   >
 
+    </picture>
   
 
 
@@ -496,7 +533,7 @@ custom YAML type. For example, you should:</p>
 </ul>
 <h4 id="poddoc">!pod.doc</h4>
 <p>Returns a document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8afe8040-b509-11eb-ac97-4d34d57e5b40" name="t-8afd6ed0-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8afe8040-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-394a4b10-b50b-11eb-b543-87ea99b0acf9" name="t-394939a0-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-394a4b10-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
 <span class="hljs-type">!pod.doc</span> <span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>
 
 <p><span class="hljs-comment"># Single document, localized.</span>
@@ -505,7 +542,7 @@ custom YAML type. For example, you should:</p>
 <h4 id="poddocs">!pod.docs</h4>
 <p>Returns a list of documents. Either multiple docs can be enumerated explicitly,
 or glob syntax can be used to fetch documents using a glob pattern.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b002df0-b509-11eb-ac97-4d34d57e5b40" name="t-8afea750-b509-11eb-ac97-4d34d57e5b40" checked > <label for="t-8b002df0-b509-11eb-ac97-4d34d57e5b40" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-394bd1b0-b50b-11eb-b543-87ea99b0acf9" name="t-394a4b11-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-394bd1b0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/2019-01-06.md&#x27;</span>]
 
 <p><span class="hljs-comment"># All documents within the <code>posts</code> collection, with options.</span>

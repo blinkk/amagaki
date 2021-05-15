@@ -12,6 +12,9 @@
     display: grid
     grid-gap: $spacing-60
     grid-template-columns: 1fr 1fr
+    +tablet-lt
+        grid-gap: $spacing-20
+        grid-template-columns: 1fr
 
 .touts__touts__tout__title
     +type-heading-4

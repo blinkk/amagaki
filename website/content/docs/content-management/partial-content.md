@@ -20,15 +20,17 @@ partials, like this:
 
 {% filter codeTabs %}
 ```yaml
-# ...
 partials:
+ 
 # Renders: /views/partials/hero.njk
 # Loads:   /src/sass/partials/hero.sass
 - partial: hero  
   headline: Page headline
+  
 # Renders: /views/partials/spacer.njk
 # Loads:   /src/sass/partials/spacer.sass
 - partial: spacer
+ 
 # Renders: /views/partials/columns.njk
 # Loads:   /src/sass/partials/columns.sass
 - partial: columns

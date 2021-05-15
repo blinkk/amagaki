@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+<html lang="{{doc.locale.id}}">
 <meta charset="utf-8">
-<title>{{doc.fields.title}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" value="{{doc.fields.description}}">
-<link href="//fonts.googleapis.com/css?family=Nunito&amp;display=swap" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.css').url.path}}">
-<script src="{{pod.staticFile('/dist/js/main.js').url.path}}"></script>
+<title>{{doc.fields.title}}</title>
+<link href="//fonts.googleapis.com/css?family=Nunito&amp;display=swap" rel="stylesheet">
+<link href="{{pod.staticFile('/dist/css/main.css').url.path}}" rel="stylesheet">
+<script src="{{pod.staticFile('/dist/js/main.js').url.path}}" defer></script>
 <body>
 <div class="main">
     {% set partial = pod.doc('/content/partials/header.yaml').fields %}

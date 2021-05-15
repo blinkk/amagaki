@@ -15,12 +15,15 @@
     display: flex
     justify-content: space-between
     align-items: center
+    +tablet-lt
+        flex-direction: column
 
 .hero__chapter__parts
     flex: 60%
 
 .hero__chapter__parts__title
     +type-heading-2
+    font-weight: 700
     padding-bottom: 0
     border: 0
 
@@ -39,3 +42,5 @@
 
 .hero__chapter__image img
     width: 400px
+    +tablet-lt
+        max-width: 100%

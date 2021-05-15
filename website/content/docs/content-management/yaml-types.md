@@ -60,7 +60,7 @@ Returns a document.
 ```yaml
 # Single document.
 !pod.doc '/content/pages/index.yaml'
-
+ 
 # Single document, localized.
 !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
 ```
@@ -75,10 +75,10 @@ or glob syntax can be used to fetch documents using a glob pattern.
 ```yaml
 # Two documents.
 !pod.docs ['/content/pages/index.yaml', '/content/posts/2019-01-06.md']
-
+ 
 # All documents within the `posts` collection, with options.
 !pod.docs ['/content/posts/**', {sort: 'order'}]
-
+ 
 # All documents within the `pages` and `posts` collection, with options.
 !pod.docs [['/content/pages/**', '/content/posts/**'], {sort: 'order'}]
 ```

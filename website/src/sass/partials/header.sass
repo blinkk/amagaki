@@ -1,3 +1,4 @@
+@import ../utils/breakpoints
 @import ../utils/spacing
 @import ../utils/type
 
@@ -6,16 +7,20 @@
     border-bottom: 1px solid#e5e7eb
     padding: $spacing-15
 
+    @at-root :root
+        --headerHeight: 89px
+
 .header__content
     display: flex
     margin: 0 auto
     max-width: $spacing-max-width
+    +tablet-lt
+        flex-direction: column
 
 .header__content__logo
     align-items: center
     color: inherit
     display: flex
-    justify-content: center
     margin-right: $spacing-60
     text-decoration: none
 

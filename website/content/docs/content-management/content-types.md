@@ -27,7 +27,7 @@ Here’s what a Markdown document with front matter may look like:
 title: Hello World
 date: 2019-01-06
 description: This was my first day!
----
+--- 
 ## My story
 Hello, everyone. This is my story.
 ```

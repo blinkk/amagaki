@@ -1,3 +1,4 @@
+@import ../utils/breakpoints
 @import ../utils/spacing
 
 .markdown
@@ -16,6 +17,12 @@
     padding: $spacing-10 $spacing-20
     position: sticky
     top: 0
+
+    +tablet-lt
+        display: none
+        position: absolute
+        top: var(--headerHeight)
+        width: 100%
 
 .markdown__menu ul
     margin-block-start: .5em

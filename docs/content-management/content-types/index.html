@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -289,7 +267,7 @@
                                 
                             >  
                                 
-                                <a href="./../front-matter/">Front matter</a>
+                                <a href="./../front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -322,6 +300,20 @@
                             >  
                                 
                                 <a href="./../environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -499,17 +491,17 @@ modules will be YAML files (containing a list of partials used on a page).</p>
 define additional metadata for documents, and can be used to specify a
 document’s URL, template, or other properties.</p>
 <p>Here’s what a Markdown document with front matter may look like:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-392b9f80-b50b-11eb-b543-87ea99b0acf9" name="t-392a18e0-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-392b9f80-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>markdown</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f62e55b0-b73a-11eb-92d5-31a303584637" name="t-f62ccf10-b73a-11eb-92d5-31a303584637" checked > <label for="t-f62e55b0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>markdown</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 title: Hello World
 date: 2019-01-06
-<span class="hljs-section">description: This was my first day!
----</span>
+description: This was my first day!
+--- 
 <span class="hljs-section">## My story</span>
 Hello, everyone. This is my story.
 </code></pre></div> </div>
 
 <p>Here’s what a blueprint (<code>_collection.yaml</code>) may look like:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-392cb0f0-b50b-11eb-b543-87ea99b0acf9" name="t-392b9f81-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-392cb0f0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/posts/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/posts/${doc.date}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f62f6720-b73a-11eb-92d5-31a303584637" name="t-f62e55b1-b73a-11eb-92d5-31a303584637" checked > <label for="t-f62f6720-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/posts/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/posts/${doc.date}/</span>
 <span class="hljs-string">$view:</span> <span class="hljs-string">/views/base.njk</span>
 </code></pre></div> </div>
 

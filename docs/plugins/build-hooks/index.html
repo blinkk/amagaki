@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../../content-management/front-matter/">Front matter</a>
+                                <a href="./../../content-management/front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -314,6 +292,20 @@
                             >  
                                 
                                 <a href="./../../content-management/environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -496,7 +488,7 @@ object contains a diff, manifest, and metrics about the build.</p>
         href="https://blinkkcode.github.io/amagaki/api/interfaces/builder.buildresult.html"
         target="_blank"><span>Read BuildResult Reference</span><span class="material-icons">launch</span></a></p>
 <h2 id="example">Example</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-39770060-b50b-11eb-b543-87ea99b0acf9" name="t-3975a0d0-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-39770060-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f68cc960-b73a-11eb-92d5-31a303584637" name="t-f687c050-b73a-11eb-92d5-31a303584637" checked > <label for="t-f68cc960-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
     <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;BuilderPlugin&#x27;</span>);
     plugin.addBeforeBuildStep(<span class="hljs-function"><span class="hljs-params">builder</span> =&gt;</span> {
     <span class="hljs-comment">// Do something with the builder.</span>

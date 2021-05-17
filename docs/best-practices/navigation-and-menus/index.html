@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../../content-management/front-matter/">Front matter</a>
+                                <a href="./../../content-management/front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -314,6 +292,20 @@
                             >  
                                 
                                 <a href="./../../content-management/environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -492,7 +484,7 @@ sites should be automatically generated.</p>
 <h2 id="explicit-menu">Explicit menu</h2>
 <p>Assume we are creating a header menu. First, create a partial file that can be
 used to store the header’s content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-391bc100-b50b-11eb-b543-87ea99b0acf9" name="t-391a3a60-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-391bc100-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f61aa6a0-b73a-11eb-92d5-31a303584637" name="t-f6185cb0-b73a-11eb-92d5-31a303584637" checked > <label for="t-f61aa6a0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">My</span> <span class="hljs-string">Website</span>
 <span class="hljs-attr">menu:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
@@ -504,7 +496,7 @@ used to store the header’s content:</p>
 </code></pre></div> </div>
 
 <p>Next, create a template to render this content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-391e8020-b50b-11eb-b543-87ea99b0acf9" name="t-391be810-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-391e8020-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f61d8cd0-b73a-11eb-92d5-31a303584637" name="t-f61aa6a1-b73a-11eb-92d5-31a303584637" checked > <label for="t-f61d8cd0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header__logo&quot;</span>&gt;</span>
     </span><span class="hljs-template-variable">{{partial.title}}</span><span class="xml">
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>

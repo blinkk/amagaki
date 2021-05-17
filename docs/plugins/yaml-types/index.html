@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../../content-management/front-matter/">Front matter</a>
+                                <a href="./../../content-management/front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -314,6 +292,20 @@
                             >  
                                 
                                 <a href="./../../content-management/environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -507,7 +499,7 @@ the first and last name together.</p>
 <ol>
 <li>Use the custom type in YAML:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-398b4bb0-b50b-11eb-b543-87ea99b0acf9" name="t-39894fe0-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-398b4bb0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f69a36e0-b73a-11eb-92d5-31a303584637" name="t-f698fe60-b73a-11eb-92d5-31a303584637" checked > <label for="t-f69a36e0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-type">!Person</span>
     <span class="hljs-attr">firstName:</span> <span class="hljs-string">Tony</span>
     <span class="hljs-attr">lastName:</span> <span class="hljs-string">Stark</span>
@@ -522,7 +514,7 @@ the first and last name together.</p>
 <ol start="2">
 <li>Create the custom type:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-398cf960-b50b-11eb-b543-87ea99b0acf9" name="t-398b4bb1-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-398cf960-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f69c80d0-b73a-11eb-92d5-31a303584637" name="t-f69a36e1-b73a-11eb-92d5-31a303584637" checked > <label for="t-f69c80d0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">options</span>)</span> {
             <span class="hljs-built_in">this</span>.firstName = options.firstName;
@@ -546,7 +538,7 @@ the first and last name together.</p>
 <li>Use the <code>Person</code> objects in templates. Note that we never declared any
 <code>fullName</code> in YAML. That property was defined in our <code>Person</code> object.</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-398e0ad0-b50b-11eb-b543-87ea99b0acf9" name="t-398cf961-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-398e0ad0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f69d9240-b73a-11eb-92d5-31a303584637" name="t-f69c80d1-b73a-11eb-92d5-31a303584637" checked > <label for="t-f69d9240-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
     </span><span class="hljs-template-variable">{{person.fullName}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span>
 </code></pre></div> </div>

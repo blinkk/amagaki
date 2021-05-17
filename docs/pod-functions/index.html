@@ -227,37 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                                
-                            
-                            <li
-                                class="--active"
-                            >  
-                                
-                                    <div class="--active__marker">
-                                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="2" fill="#000"></circle></svg>
-                                    </div>
-                                
-                                <a href="./">Pod functions</a>
-                            </li>
-                        
-                            
-                                
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -289,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../content-management/front-matter/">Front matter</a>
+                                <a href="./../content-management/front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -327,9 +297,31 @@
                     </ul>
                 
                     
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                                
+                            
+                            <li
+                                class="--active"
+                            >  
+                                
+                                    <div class="--active__marker">
+                                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="2" fill="#000"></circle></svg>
+                                    </div>
+                                
+                                <a href="./">Pod functions</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
                     <li>5. Templates</li>
                     <ul>
                         
+                            
+                                
                             
                             <li
                                 
@@ -485,13 +477,67 @@
         <div class="markdown-body">
             <div>
                 <h1 id="pod-functions">Pod functions</h1>
-<p>TODO</p>
+<p>The term &quot;pod functions&quot; is how we refer to the set of Amagaki&#39;s primary
+functions that are available to use throughout YAML, JavaScript, and template
+contexts. Pod functions allow you to interact with the objects in your website
+in a simple, predictable way.</p>
+<p>Pod functions facilitate things like:</p>
+<ul>
+<li>Listing and getting documents</li>
+<li>Listing and getting collections</li>
+<li>Listing and getting static files</li>
+<li>Using pod metadata</li>
+<li>Using pod locales</li>
+</ul>
+<p>You will most frequently use pod functions via YAML type,s within YAML files,
+but when you are building plugins or templates, you may need to use the
+JavaScript API.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="yaml">YAML</h3>
+<div class="codeTabs" data-num-tabs="2"> <input class="codeTabs__tabRadio" type="radio" id="t-f6a29b50-b73a-11eb-92d5-31a303584637" name="t-f6a05160-b73a-11eb-92d5-31a303584637" checked > <label for="t-f6a29b50-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/index.yaml</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-f6a29b51-b73a-11eb-92d5-31a303584637" name="t-f6a05160-b73a-11eb-92d5-31a303584637" > <label for="t-f6a29b51-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/page.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$view:</span> <span class="hljs-string">/views/page.njk</span>
+<span class="hljs-comment"># Create a menu containing three documents.</span>
+<span class="hljs-attr">menu:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
+  <span class="hljs-attr">title:</span> <span class="hljs-string">Homepage</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/about.yaml</span>
+  <span class="hljs-attr">title:</span> <span class="hljs-string">About</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/contact.yaml</span>
+  <span class="hljs-attr">title:</span> <span class="hljs-string">Contact</span>
+</code></pre>
+<pre><code class="language-nunjucks"><span class="hljs-comment">{# Render the menu. #}</span><span class="xml">
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in doc.menu %}</span><span class="xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{item.doc.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{item.title}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span>
+</code></pre></div> </div>
+
+<p><a
+        class="button button button--low button--icon"
+        href=""
+        ><span>Learn about pod functions within YAML types</span><span class="material-icons">arrow_forward</span></a></p>
+<h3 id="javascript">JavaScript</h3>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f6a3acc0-b73a-11eb-92d5-31a303584637" name="t-f6a2c260-b73a-11eb-92d5-31a303584637" checked > <label for="t-f6a3acc0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-comment">// Get one document.</span>
+<span class="hljs-keyword">const</span> doc = pod.doc(<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>);
+ 
+<span class="hljs-comment">// List all documents within the posts collection.</span>
+<span class="hljs-keyword">const</span> docs = pod.docs(<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>);
+</code></pre></div> </div>
+
+<p><a
+        class="button button button--low button--icon"
+        href="https://blinkkcode.github.io/amagaki/api/"
+        ><span>See full API Reference</span><span class="material-icons">launch</span></a></p>
+<p><a
+        class="button button button--low button--icon"
+        href="https://blinkkcode.github.io/amagaki/api/"
+        ><span>See API Reference for pod functions</span><span class="material-icons">launch</span></a></p>
 
             </div>
             
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="./api-reference/">
-                        <span>API Reference</span>
+                    <a class="button button--tonal button--icon" href="./../templates/template-engines/">
+                        <span>Template engines</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>
                 </div>

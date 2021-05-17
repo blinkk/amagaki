@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../front-matter/">Front matter</a>
+                                <a href="./../front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -322,6 +300,20 @@
                             >  
                                 
                                 <a href="./../environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -533,23 +525,26 @@ custom YAML type. For example, you should:</p>
 </ul>
 <h4 id="poddoc">!pod.doc</h4>
 <p>Returns a document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-394a4b10-b50b-11eb-b543-87ea99b0acf9" name="t-394939a0-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-394a4b10-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f6514700-b73a-11eb-92d5-31a303584637" name="t-f64fe770-b73a-11eb-92d5-31a303584637" checked > <label for="t-f6514700-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
 <span class="hljs-type">!pod.doc</span> <span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>
-
-<p><span class="hljs-comment"># Single document, localized.</span>
+ 
+<span class="hljs-comment"># Single document, localized.</span>
 <span class="hljs-type">!pod.doc</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-type">!pod.locale</span> <span class="hljs-string">&#x27;de&#x27;</span>]
-</code></pre></div> </div></p>
+</code></pre></div> </div>
+
 <h4 id="poddocs">!pod.docs</h4>
 <p>Returns a list of documents. Either multiple docs can be enumerated explicitly,
 or glob syntax can be used to fetch documents using a glob pattern.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-394bd1b0-b50b-11eb-b543-87ea99b0acf9" name="t-394a4b11-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-394bd1b0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f652f4b0-b73a-11eb-92d5-31a303584637" name="t-f6514701-b73a-11eb-92d5-31a303584637" checked > <label for="t-f652f4b0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/2019-01-06.md&#x27;</span>]
+ 
+<span class="hljs-comment"># All documents within the `posts` collection, with options.</span>
+<span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>, {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]
+ 
+<span class="hljs-comment"># All documents within the `pages` and `posts` collection, with options.</span>
+<span class="hljs-type">!pod.docs</span> [[<span class="hljs-string">&#x27;/content/pages/**&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/**&#x27;</span>], {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]
+</code></pre></div> </div>
 
-<p><span class="hljs-comment"># All documents within the <code>posts</code> collection, with options.</span>
-<span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>, {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]</p>
-<p><span class="hljs-comment"># All documents within the <code>pages</code> and <code>posts</code> collection, with options.</span>
-<span class="hljs-type">!pod.docs</span> [[<span class="hljs-string">&#x27;/content/pages/<strong>&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/</strong>&#x27;</span>], {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]
-</code></pre></div> </div></p>
 <h3 id="custom-yaml-types">Custom YAML types</h3>
 <p>Custom YAML types are created through plugins. Custom YAML types can be used to
 represent objects that may be helpful for reusing throughout the content layer

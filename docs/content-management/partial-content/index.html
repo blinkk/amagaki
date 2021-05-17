@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../front-matter/">Front matter</a>
+                                <a href="./../front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -322,6 +300,20 @@
                             >  
                                 
                                 <a href="./../environments/">Environments</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>4. Pod functions</li>
+                    <ul>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
                             </li>
                         
                     </ul>
@@ -495,15 +487,17 @@ beyond the content injected into the partial.</p>
 <h2 id="the-partial-loop">The partial loop</h2>
 <p>Within a content document, the partial loop is represented by a list of
 partials, like this:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3940ae20-b50b-11eb-b543-87ea99b0acf9" name="t-393e8b40-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-3940ae20-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># ...</span>
-<span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f64698a0-b73a-11eb-92d5-31a303584637" name="t-f64427a0-b73a-11eb-92d5-31a303584637" checked > <label for="t-f64698a0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+ 
 <span class="hljs-comment"># Renders: /views/partials/hero.njk</span>
 <span class="hljs-comment"># Loads:   /src/sass/partials/hero.sass</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>  
   <span class="hljs-attr">headline:</span> <span class="hljs-string">Page</span> <span class="hljs-string">headline</span>
+  
 <span class="hljs-comment"># Renders: /views/partials/spacer.njk</span>
 <span class="hljs-comment"># Loads:   /src/sass/partials/spacer.sass</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">spacer</span>
+ 
 <span class="hljs-comment"># Renders: /views/partials/columns.njk</span>
 <span class="hljs-comment"># Loads:   /src/sass/partials/columns.sass</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">columns</span>
@@ -518,7 +512,7 @@ partials, like this:</p>
 <p>Within Amagaki’s default base template, the content document’s partials are
 looped over, rendering one at a time. Each partial’s rendering context is
 populated by its content from the partial loop:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-39443090-b50b-11eb-b543-87ea99b0acf9" name="t-3940ae21-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-39443090-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f64a1b10-b73a-11eb-92d5-31a303584637" name="t-f64698a1-b73a-11eb-92d5-31a303584637" checked > <label for="t-f64a1b10-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header__headline&quot;</span>&gt;</span>
       </span><span class="hljs-template-variable">{{partial.header.headline}}</span><span class="xml">

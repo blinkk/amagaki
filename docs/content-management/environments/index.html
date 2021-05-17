@@ -227,29 +227,7 @@
                     </ul>
                 
                     
-                    <li>3. Pod functions</li>
-                    <ul>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/">Pod functions</a>
-                            </li>
-                        
-                            
-                            <li
-                                
-                            >  
-                                
-                                <a href="./../../pod-functions/api-reference/">API Reference</a>
-                            </li>
-                        
-                    </ul>
-                
-                    
-                    <li>4. Content management</li>
+                    <li>3. Content management</li>
                     <ul>
                         
                             
@@ -281,7 +259,7 @@
                                 
                             >  
                                 
-                                <a href="./../front-matter/">Front matter</a>
+                                <a href="./../front-matter/">Front matter and data</a>
                             </li>
                         
                             
@@ -325,11 +303,25 @@
                     </ul>
                 
                     
-                    <li>5. Templates</li>
+                    <li>4. Pod functions</li>
                     <ul>
                         
                             
                                 
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../pod-functions/">Pod functions</a>
+                            </li>
+                        
+                    </ul>
+                
+                    
+                    <li>5. Templates</li>
+                    <ul>
+                        
                             
                             <li
                                 
@@ -496,7 +488,7 @@ below example, we are configuring two environments (prod, and staging).
 Environments accept arbitrary fields, allowing you to centrally manage global
 data (such as API keys or other configuration) and easily change it depending on
 the environment.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-39342b00-b50b-11eb-b543-87ea99b0acf9" name="t-39325640-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-39342b00-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f6375660-b73a-11eb-92d5-31a303584637" name="t-f6353380-b73a-11eb-92d5-31a303584637" checked > <label for="t-f6375660-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">environments</span>: {
       <span class="hljs-attr">prod</span>: {
@@ -521,7 +513,7 @@ the environment.</p>
 environment. <a
 href="https://blinkkcode.github.io/amagaki/api/classes/environment.environment-1.html">see
 Environment reference</a>.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-39356380-b50b-11eb-b543-87ea99b0acf9" name="t-39342b01-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-39356380-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f6397940-b73a-11eb-92d5-31a303584637" name="t-f6375661-b73a-11eb-92d5-31a303584637" checked > <label for="t-f6397940-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
 </span><span class="hljs-template-variable">{{pod.env.fields.apiKey}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> pod.env.name == &quot;prod&quot; %}</span><span class="xml">
 <span class="hljs-comment">&lt;!-- Output prod stuff. --&gt;</span>
@@ -532,7 +524,7 @@ Environment reference</a>.</p>
 <p>While this can be represented in template logic using an if statement like in
 the above examples,  changing content based on the environment is better
 represented using the !IfEnvironment YAML type. See the example below:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-393674f0-b50b-11eb-b543-87ea99b0acf9" name="t-39356381-b50b-11eb-b543-87ea99b0acf9" checked > <label for="t-393674f0-b50b-11eb-b543-87ea99b0acf9" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f63ab1c0-b73a-11eb-92d5-31a303584637" name="t-f6397941-b73a-11eb-92d5-31a303584637" checked > <label for="t-f63ab1c0-b73a-11eb-92d5-31a303584637" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
   <span class="hljs-attr">default:</span> <span class="hljs-string">&#x27;Hello World!&#x27;</span>
   <span class="hljs-attr">prod:</span> <span class="hljs-string">&#x27;&#x27;</span>
 </code></pre></div> </div>
@@ -549,8 +541,8 @@ environment: <code>amagaki build --env prod</code>.</p>
             </div>
             
                 <div class="markdown__body__next">
-                    <a class="button button--tonal button--icon" href="./../../templates/template-engines/">
-                        <span>Template engines</span>
+                    <a class="button button--tonal button--icon" href="./../../pod-functions/">
+                        <span>Pod functions</span>
                         <span class="material-icons">arrow_forward</span>
                     </a>
                 </div>

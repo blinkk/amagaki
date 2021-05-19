@@ -9,8 +9,11 @@
 body
     +type-body
     -webkit-font-smoothing: antialiased
+    color: var(--primaryTextColor)
     padding: 0
     margin: 0
+    +darkColorScheme
+        background-color: var(--backgroundColor)
 
 body a
     color: var(--primaryColor)
@@ -19,6 +22,11 @@ body a
 .help
     display: none
 
+.markdown-body
+    color: var(--primaryTextColor)
+
+.markdown-body a
+    color: var(--primaryColor)
+
 .markdown-body ul > li
     margin-top: 0.25em
-    

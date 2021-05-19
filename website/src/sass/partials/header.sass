@@ -3,8 +3,8 @@
 @import ../utils/type
 
 .header
-    background: #F4F5F7
-    border-bottom: 1px solid#e5e7eb
+    background: var(--secondaryBackgroundColor)
+    border-bottom: 1px solid var(--borderColor)
     padding: $spacing-15
 
     @at-root :root
@@ -23,6 +23,9 @@
     display: flex
     margin-right: $spacing-60
     text-decoration: none
+
+    +darkColorScheme
+        color: #cdd9e5
 
 .header__content__logo__image
     line-height: 0
@@ -47,7 +50,7 @@
     
 .header__content__menu__link
     border-radius: 5px
-    color: var(--secondaryTextColor)
+    color: var(--primaryTextColor)
     font-weight: 600
     padding: 5px 8px
     text-decoration: none
@@ -57,8 +60,11 @@
         margin-left: 10px
 
     &:hover
-        background-color: white
+        background-color: var(--borderColor)
         color: inherit
+
+    +darkColorScheme
+        color: #cdd9e5
 
 .header__content__aside
     display: flex

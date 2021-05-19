@@ -23,6 +23,9 @@ $button-primary-hover-color: var(--secondaryTextColor)
   text-rendering: optimizeLegibility
   transition: background-color .2s, box-shadow .2s, color .2s
 
+  +darkColorScheme
+    --primaryColor: #BB713E
+
   &:visited
     color: $button-primary-inverted-color
 
@@ -42,6 +45,8 @@ $button-primary-hover-color: var(--secondaryTextColor)
   &--medium
     background-color: $button-primary-inverted-color
     border-color: #dadce0
+    +darkColorScheme
+      border-color: var(--borderColor)
     color: $button-primary-color
     &:visited
       color: $button-primary-color
@@ -62,6 +67,8 @@ $button-primary-hover-color: var(--secondaryTextColor)
   &--low
     background-color: transparent
     border-color: #dadce0
+    +darkColorScheme
+      border-color: var(--borderColor)
     color: $button-primary-color
     &:visited
       color: $button-primary-color
@@ -85,6 +92,8 @@ $button-primary-hover-color: var(--secondaryTextColor)
       box-shadow: none
     &:active
       background-color: #aecbfa
+    +darkColorScheme
+      background-color: var(--secondaryBackgroundColor)
 
   &--link
     background-color: transparent

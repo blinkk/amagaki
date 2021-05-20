@@ -14,4 +14,4 @@ menu:
 - doc: !pod.doc /content/api.yaml
   title: API Reference
 aside:
-  githubProject: blinkkcode/amagaki
+  githubProject: blinkk/amagaki

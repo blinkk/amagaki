@@ -30,7 +30,7 @@ partials:
 
     {% filter codeTabs %}
     ```shell
-    git clone https://github.com/blinkkcode/amagaki-starter
+    git clone https://github.com/blinkk/amagaki-starter
     npm install
 
     # Start the dev server

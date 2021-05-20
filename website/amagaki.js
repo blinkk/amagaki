@@ -5,7 +5,7 @@ module.exports = function (pod) {
   pod.configure({
     metadata: {
       siteTitle: 'Amagaki',
-      githubEditRoot: 'https://github.com/blinkkcode/amagaki/edit/main/website',
+      githubEditRoot: 'https://github.com/blinkk/amagaki/edit/main/website',
     },
     staticRoutes: [
       {

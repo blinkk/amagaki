@@ -8,7 +8,7 @@
   "homepage": "https://amagaki.dev",
   "repository": {
     "type": "git",
-    "url": "git://github.com/blinkkcode/amagaki.git"
+    "url": "git://github.com/blinkk/amagaki.git"
   },
   "engines": {
     "node": ">=14"

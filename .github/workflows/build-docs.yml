@@ -13,7 +13,7 @@ jobs:
       - name: Checkout benchmark repo
         uses: actions/checkout@v2
         with:
-          repository: blinkkcode/amagaki-benchmark
+          repository: blinkk/amagaki-benchmark
           path: amagaki-benchmark
       - name: Cache node modules
         uses: actions/cache@v2
@@ -56,8 +56,8 @@ jobs:
         run: |
             # Preserve benchmark files.
             mkdir -p public/benchmark
-            curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/data.json --output public/benchmark/data.json
-            curl https://raw.githubusercontent.com/blinkkcode/amagaki/gh-pages/benchmark/index.html --output public/benchmark/index.html
+            curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/data.json --output public/benchmark/data.json
+            curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/index.html --output public/benchmark/index.html
 
             # Build the benchmark repository.
             cd amagaki-benchmark

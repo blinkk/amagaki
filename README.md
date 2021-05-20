@@ -138,17 +138,17 @@ A few proposed naming changes (TBD?):
 
 ## Benchmarks
 
-You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki benchmark](https://github.com/blinkkcode/amagaki-benchmark) test repository.
+You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki benchmark](https://github.com/blinkk/amagaki-benchmark) test repository.
 
-[github-image]: https://github.com/blinkkcode/amagaki/workflows/Run%20tests/badge.svg
-[github-url]: https://github.com/blinkkcode/amagaki/actions
-[codecov-image]: https://codecov.io/gh/blinkkcode/amagaki/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/blinkkcode/amagaki
-[david-image]: https://status.david-dm.org/gh/blinkkcode/amagaki.svg
-[david-url]: https://david-dm.org/blinkkcode/amagaki
+[github-image]: https://github.com/blinkk/amagaki/workflows/Run%20tests/badge.svg
+[github-url]: https://github.com/blinkk/amagaki/actions
+[codecov-image]: https://codecov.io/gh/blinkk/amagaki/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/blinkk/amagaki
+[david-image]: https://status.david-dm.org/gh/blinkk/amagaki.svg
+[david-url]: https://david-dm.org/blinkk/amagaki
 [gts-image]: https://img.shields.io/badge/code%20style-google-blueviolet.svg
 [gts-url]: https://github.com/google/gts
 [npm-image]: https://img.shields.io/npm/v/@amagaki/amagaki.svg
 [npm-url]: https://npmjs.org/package/@amagaki/amagaki
-[snyk-image]: https://snyk.io/test/github/blinkkcode/amagaki/badge.svg
-[snyk-url]: https://snyk.io/test/github/blinkkcode/amagaki
+[snyk-image]: https://snyk.io/test/github/blinkk/amagaki/badge.svg
+[snyk-url]: https://snyk.io/test/github/blinkk/amagaki

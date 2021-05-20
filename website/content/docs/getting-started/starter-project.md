@@ -14,7 +14,7 @@ development server.
 
 {% filter codeTabs %}
 ```shell
-git clone https://github.com/blinkkcode/amagaki-starter
+git clone https://github.com/blinkk/amagaki-starter
 npm install
 npm run dev
 ```
@@ -22,7 +22,7 @@ npm run dev
 
 {{button.button({
     label: 'Open on GitHub',
-    url: 'https://github.com/blinkkcode/amagaki-starter',
+    url: 'https://github.com/blinkk/amagaki-starter',
     external: true,
     class: 'button button--low',
     icon: 'launch'

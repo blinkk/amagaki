@@ -13,7 +13,7 @@ jobs:
       - name: Checkout benchmark repo
         uses: actions/checkout@v2
         with:
-          repository: blinkkcode/amagaki-benchmark
+          repository: blinkk/amagaki-benchmark
           path: benchmark
       - name: Cache node modules
         uses: actions/cache@v2

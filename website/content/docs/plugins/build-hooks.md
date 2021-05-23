@@ -26,9 +26,11 @@ object contains a diff, manifest, and metrics about the build.
 ```javascript:title=amagaki.js
 module.exports = function (pod) {
     const plugin = pod.plugins.get('BuilderPlugin');
+     
     plugin.addBeforeBuildStep(builder => {
     // Do something with the builder.
     });
+     
     plugin.addAfterBuildStep(buildResult => {
     // Do something with the build result.
     });

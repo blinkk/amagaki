@@ -379,6 +379,14 @@
                                 
                             >  
                                 
+                                <a href="./../../plugins/plugins-overview/">Plugins overview</a>
+                            </li>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
                                 <a href="./../../plugins/yaml-types/">YAML types</a>
                             </li>
                         
@@ -486,7 +494,7 @@ current document.</p>
 </ul>
 <p>The following code snippet will output the current document&#39;s collection, and
 its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3b561f10-b989-11eb-b335-cf6b0b2def59" name="t-3b44e100-b989-11eb-b335-cf6b0b2def59" checked > <label for="t-3b561f10-b989-11eb-b335-cf6b0b2def59" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8b744260-bbe1-11eb-8035-3399446f5572" name="t-8b6463e0-bbe1-11eb-8035-3399446f5572" checked > <label for="t-8b744260-bbe1-11eb-8035-3399446f5572" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> collection in doc.collection.parents|<span class="hljs-keyword">reverse</span> %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>

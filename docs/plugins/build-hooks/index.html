@@ -379,6 +379,14 @@
                                 
                             >  
                                 
+                                <a href="./../plugins-overview/">Plugins overview</a>
+                            </li>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
                                 <a href="./../yaml-types/">YAML types</a>
                             </li>
                         
@@ -488,11 +496,13 @@ object contains a diff, manifest, and metrics about the build.</p>
         href="https://blinkkcode.github.io/amagaki/api/interfaces/builder.buildresult.html"
         target="_blank"><span>Read BuildResult Reference</span><span class="material-icons">launch</span></a></p>
 <h2 id="example">Example</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bd9a6f0-b989-11eb-b335-cf6b0b2def59" name="t-3bd7f940-b989-11eb-b335-cf6b0b2def59" checked > <label for="t-3bd9a6f0-b989-11eb-b335-cf6b0b2def59" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8bee2d50-bbe1-11eb-8035-3399446f5572" name="t-8bec7fa0-bbe1-11eb-8035-3399446f5572" checked > <label for="t-8bee2d50-bbe1-11eb-8035-3399446f5572" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
     <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;BuilderPlugin&#x27;</span>);
+     
     plugin.addBeforeBuildStep(<span class="hljs-function"><span class="hljs-params">builder</span> =&gt;</span> {
     <span class="hljs-comment">// Do something with the builder.</span>
     });
+     
     plugin.addAfterBuildStep(<span class="hljs-function"><span class="hljs-params">buildResult</span> =&gt;</span> {
     <span class="hljs-comment">// Do something with the build result.</span>
     });

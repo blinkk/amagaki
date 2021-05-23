@@ -387,6 +387,14 @@
                                 
                             >  
                                 
+                                <a href="./../../plugins/plugins-overview/">Plugins overview</a>
+                            </li>
+                        
+                            
+                            <li
+                                
+                            >  
+                                
                                 <a href="./../../plugins/yaml-types/">YAML types</a>
                             </li>
                         
@@ -480,10 +488,10 @@
 <p>Static files should always be loaded using an Amagaki function. By default,
 static files can be placed in the <code>/src/static/</code> folder, and then can be loaded
 using the <code>staticFile</code> Amagaki function.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bfc9840-b989-11eb-b335-cf6b0b2def59" name="t-3bfb86d0-b989-11eb-b335-cf6b0b2def59" checked > <label for="t-3bfc9840-b989-11eb-b335-cf6b0b2def59" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">file:</span> <span class="hljs-type">!pod.staticFile</span> <span class="hljs-string">/src/static/image.jpg</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8c153d50-bbe1-11eb-8035-3399446f5572" name="t-8c1452f0-bbe1-11eb-8035-3399446f5572" checked > <label for="t-8c153d50-bbe1-11eb-8035-3399446f5572" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">file:</span> <span class="hljs-type">!pod.staticFile</span> <span class="hljs-string">/src/static/image.jpg</span>
 </code></pre></div> </div>
 
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bfdf7d0-b989-11eb-b335-cf6b0b2def59" name="t-3bfc9841-b989-11eb-b335-cf6b0b2def59" checked > <label for="t-3bfdf7d0-b989-11eb-b335-cf6b0b2def59" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/src/static/image.jpg&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8c173920-bbe1-11eb-8035-3399446f5572" name="t-8c153d51-bbe1-11eb-8035-3399446f5572" checked > <label for="t-8c173920-bbe1-11eb-8035-3399446f5572" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/src/static/image.jpg&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
 </code></pre></div> </div>
 
 <p>Avoid hardcoding paths to static files. When hardcoding paths, maintainability

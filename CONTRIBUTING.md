@@ -57,12 +57,17 @@ Keep the above in mind when adding features to Amagaki!
 - Include as few words as possible to convey what you're trying to say.
 - Use "Sentence case" for titles and labels. Avoid "Title Case" for labels.
 - Variable and function names should be concise but self-explanatory.
-- Git commit messages should start with a verb. The subject should not exceed
-  one line. Example:
 
-```
-Add support for localized documents
-```
+## Commit messages
+
+[Release Please](https://github.com/googleapis/release-please) is used to
+automatically create changelogs, releases, and versions.
+
+- Commit messages must follow the [Conventional
+  Commit](https://www.conventionalcommits.org/en/v1.0.0/) specification
+- Follow the [Angular
+  convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)
+  to see all commit types
 
 ## Pull request flow
 

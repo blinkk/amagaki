@@ -69,7 +69,7 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
   constructor(pod: Pod) {
     this.pod = pod;
     const loader = new NunjucksPodLoader(this.pod);
-    this.env = new nunjucks.Environment([loader], {
+    this.env = new nunjucks.Environment(loader, {
       autoescape: true,
     });
     this.env.addFilter('t', function (this: any, value) {
@@ -91,12 +91,28 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     });
   }
 
-  async render(path: string, context: any): Promise<string> {
-    return this.env.render(path, context);
+  render(path: string, context: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.env.render(path, context, (err, res) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(res || '');
+      });
+    });
   }
 
-  async renderFromString(template: string, context: any): Promise<string> {
-    return this.env.renderString(template, context);
+  renderFromString(template: string, context: any): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.env.renderString(template, context, (err, res) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(res || '');
+      });
+    });
   }
 }
 
@@ -104,20 +120,36 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
  * Loader for loading files from the pod for the nunjucks template engine.
  */
 class NunjucksPodLoader extends nunjucks.Loader {
-  pod: Pod;
+  private readonly pod: Pod;
+  async = true;
 
   constructor(pod: Pod) {
     super();
     this.pod = pod;
   }
 
-  getSource(name: string) {
-    const content = this.pod.readFile(name);
-    const parts = utils.splitFrontMatter(content);
-    return {
-      src: parts.body || '',
-      path: name,
+  getSource(name: string): nunjucks.LoaderSource;
+  getSource(
+    name: string,
+    callback: nunjucks.Callback<Error, nunjucks.LoaderSource>
+  ): void;
+  getSource(
+    name: string,
+    callback?: nunjucks.Callback<Error, nunjucks.LoaderSource>
+  ): nunjucks.LoaderSource | void {
+    const res: nunjucks.LoaderSource = {
+      src: '',
+      path: '',
       noCache: this.pod.env.dev, // Avoid caching Nunjucks templates in dev.
     };
+    const content = this.pod.readFile(name);
+    const parts = utils.splitFrontMatter(content);
+    res.src = parts.body || '';
+    res.path = name;
+    if (callback) {
+      callback(null, res);
+      return;
+    }
+    return res;
   }
 }

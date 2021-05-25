@@ -84,7 +84,7 @@ export class Plugins {
    * @param hookName Name of the hook being triggered.
    * @param args Any arguments that need to be passed to the triggered event handler.
    */
-  trigger(hookName: string, ...args: any[]) {
+  async trigger(hookName: string, ...args: any[]) {
     const triggerTimer = this.pod.profiler.timer(
       `plugins.hook.${hookName}`,
       `Hook: ${hookName}`,
@@ -107,7 +107,7 @@ export class Plugins {
             }
           );
           try {
-            plugin[eventMethodName](...args);
+            await plugin[eventMethodName](...args);
           } finally {
             pluginTimer.stop();
           }

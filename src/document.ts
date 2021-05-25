@@ -17,7 +17,7 @@ interface DocumentParts {
   fields?: any;
 }
 
-interface TemplateContext {
+export interface TemplateContext {
   doc: Document;
   env: Environment;
   pod: Pod;
@@ -261,16 +261,34 @@ export class Document {
     await this.resolveFields(defaultContext);
 
     // When `$view: self` is used, use the document's body as the template.
+    let result;
     if (this.view === Document.SelfReferencedView) {
       const templateEngine = this.pod.engines.getEngineByFilename(this.podPath);
-      return templateEngine.renderFromString(
-        this.body as string,
+      const templateSource = this.body;
+      await this.pod.plugins.trigger('beforeRender', {
+        context: defaultContext,
+        engine: templateEngine,
+        templateSource: templateSource,
+      });
+      result = await templateEngine.renderFromString(
+        templateSource as string,
+        defaultContext
+      );
+    } else {
+      const templateEngine = this.pod.engines.getEngineByFilename(this.view);
+      const templateSource = this.view;
+      await this.pod.plugins.trigger('beforeRender', {
+        context: defaultContext,
+        engine: templateEngine,
+        templateSource: templateSource,
+      });
+      result = await templateEngine.render(
+        templateSource as string,
         defaultContext
       );
     }
-
-    const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-    return templateEngine.render(this.view, defaultContext);
+    await this.pod.plugins.trigger('afterRender', result);
+    return result;
   }
 
   /**

@@ -17,6 +17,7 @@ import {BuilderPlugin} from './plugins/builder';
 import {Cache} from './cache';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
+import {RenderPlugin} from './plugins/render';
 import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './static';
 import {TemplateEngineManager} from './templateEngine';
@@ -49,6 +50,7 @@ export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
     BuilderPlugin,
     NunjucksPlugin,
+    RenderPlugin,
     ServerPlugin,
     YamlPlugin,
   ];

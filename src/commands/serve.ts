@@ -3,8 +3,7 @@ import * as fs from 'fs';
 
 import {GlobalOptions} from './global';
 import {Pod} from '../pod';
-import {Watcher} from '../watcher';
-import {createApp} from '../server';
+import {Server} from '../server';
 
 interface ServeOptions {
   fcd?: string;
@@ -34,16 +33,7 @@ export class ServeCommand {
     if (this.globalOptions.env) {
       pod.setEnvironment(this.globalOptions.env);
     }
-    const watcher = new Watcher(pod);
-    const app = createApp(pod);
-    app.listen(port, () => {
-      console.log('   Pod:'.green, `${pod.root}`);
-      console.log(
-        'Server:'.green,
-        `${pod.env.scheme}://${pod.env.host}:${port}/`
-      );
-      console.log(' Ready. Press ctrl+c to quit.'.green);
-      watcher.start();
-    });
+    const server = new Server(pod);
+    server.start(port);
   }
 }

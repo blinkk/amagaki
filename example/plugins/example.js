@@ -1,5 +1,3 @@
-const yaml = require('js-yaml');
-
 class ExamplePlugin {
   constructor(pod, config) {
     this.pod = pod;
@@ -15,18 +13,16 @@ class ExamplePlugin {
   }
 
   createYamlTypesHook(yamlTypeManager) {
-    yamlTypeManager.addType(
-      new yaml.Type('!a.Foo', {
-        kind: 'scalar',
-        resolve: () => {
-          return true;
-        },
-        construct: value => {
-          return `Foo: ${value}`;
-        },
-        represent: value => value,
-      })
-    );
+    yamlTypeManager.addType('!a.Foo', {
+      kind: 'scalar',
+      resolve: () => {
+        return true;
+      },
+      construct: value => {
+        return `Foo: ${value}`;
+      },
+      represent: value => value,
+    });
   }
 }
 

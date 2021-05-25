@@ -492,7 +492,7 @@ assets (or really, to anything that has a route).</p>
 it ensures you’ll never have a broken link internally, and also empowers you to
 change your URL format halfway through a project with few repercussions.</p>
 <p>From your content, use a custom YAML type to refer to another document:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d339d20-bd77-11eb-86a2-b14885c3d154" name="t-8d315330-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d339d20-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b1f8ce0-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b1d42f0-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b1f8ce0-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
 <span class="hljs-string">...</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">button:</span>
   <span class="hljs-attr">label:</span> <span class="hljs-string">Go</span> <span class="hljs-string">home</span>
@@ -501,7 +501,7 @@ change your URL format halfway through a project with few repercussions.</p>
 </code></pre></div> </div>
 
 <p>Then, within a template:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d34fcb0-bd77-11eb-86a2-b14885c3d154" name="t-8d339d21-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d34fcb0-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{partial.button.doc.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.button.label}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b211380-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b1f8ce1-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b211380-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{partial.button.doc.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.button.label}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
 </code></pre></div> </div>
 
 
@@ -509,12 +509,12 @@ change your URL format halfway through a project with few repercussions.</p>
 not advised as it begins to couple content to your views. It’s a best practice
 to keep your content decoupled from your templates, so your content can be
 easily managed later, and so your templates can be reused.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d36aa60-bd77-11eb-86a2-b14885c3d154" name="t-8d34fcb1-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d36aa60-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> page = pod.doc(&#x27;/content/pages/index.yaml&#x27;) %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b22c130-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b211381-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b22c130-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> page = pod.doc(&#x27;/content/pages/index.yaml&#x27;) %}</span><span class="xml">
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{page.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{page.fields.title}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
 </code></pre></div> </div>
 
 <p>Remember, this also works for static files:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d383100-bd77-11eb-86a2-b14885c3d154" name="t-8d36aa61-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d383100-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> css = pod.staticFile(&#x27;/dist/css/main.min.css&#x27;) %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b2420c0-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b22c131-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b2420c0-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> css = pod.staticFile(&#x27;/dist/css/main.min.css&#x27;) %}</span><span class="xml">
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{css.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
 </code></pre></div> </div>
 
@@ -546,7 +546,9 @@ how to configure the URLs for documents and static files, see the URLs section.<
     <link rel="stylesheet" href="./../../../static/css/footer.min.css">
     
     
-    <div class="footer">
+    
+
+<div class="footer">
     <div class="footer__content">
         <div class="footer__content__menu">
             

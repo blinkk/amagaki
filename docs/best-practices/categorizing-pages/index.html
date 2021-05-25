@@ -501,15 +501,15 @@ create a subcollection folder within that collection.</p>
             └── post.md
 </code></pre>
 <p>To list categories within the <code>posts</code> collection:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d28c7b0-bd77-11eb-86a2-b14885c3d154" name="t-8d271a00-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d28c7b0-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts&#x27;).subcollections}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b141b30-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b121f60-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b141b30-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts&#x27;).subcollections}}</span>
 </code></pre></div> </div>
 
 <p>To list posts within a subcollection:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8d2a0030-bd77-11eb-86a2-b14885c3d154" name="t-8d28eec0-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d2a0030-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts/a&#x27;).docs()}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0b152ca0-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b141b31-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b152ca0-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts/a&#x27;).docs()}}</span>
 </code></pre></div> </div>
 
 <p>You can also use glob syntax to fetch posts from a specific category:</p>
-<div class="codeTabs" data-num-tabs="3"> <input class="codeTabs__tabRadio" type="radio" id="t-8d2d5b90-bd77-11eb-86a2-b14885c3d154" name="t-8d2a0031-bd77-11eb-86a2-b14885c3d154" checked > <label for="t-8d2d5b90-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-8d2d5b91-bd77-11eb-86a2-b14885c3d154" name="t-8d2a0031-bd77-11eb-86a2-b14885c3d154" > <label for="t-8d2d5b91-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>javascript</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-8d2d5b92-bd77-11eb-86a2-b14885c3d154" name="t-8d2a0031-bd77-11eb-86a2-b14885c3d154" > <label for="t-8d2d5b92-bd77-11eb-86a2-b14885c3d154" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.docs([&#x27;/content/posts/**&#x27;])}}</span>
+<div class="codeTabs" data-num-tabs="3"> <input class="codeTabs__tabRadio" type="radio" id="t-0b18d620-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b152ca1-bd81-11eb-a0b0-0d3b4379ee2e" checked > <label for="t-0b18d620-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-0b18d621-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b152ca1-bd81-11eb-a0b0-0d3b4379ee2e" > <label for="t-0b18d621-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>javascript</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-0b18d622-bd81-11eb-a0b0-0d3b4379ee2e" name="t-0b152ca1-bd81-11eb-a0b0-0d3b4379ee2e" > <label for="t-0b18d622-bd81-11eb-a0b0-0d3b4379ee2e" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.docs([&#x27;/content/posts/**&#x27;])}}</span>
 </code></pre>
 <pre><code class="language-javascript">pod.docs([<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>])
 </code></pre>
@@ -540,7 +540,9 @@ create a subcollection folder within that collection.</p>
     <link rel="stylesheet" href="./../../../static/css/footer.min.css">
     
     
-    <div class="footer">
+    
+
+<div class="footer">
     <div class="footer__content">
         <div class="footer__content__menu">
             

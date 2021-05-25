@@ -110,10 +110,19 @@ partials:
   size: large
 
 - partial: simpleMarkdown
+  contributors: !GetGithubContributors 'blinkk/amagaki'
   body: |
     ## The team
 
     Amagaki is an independent project released under the MIT License largely maintained by Blinkk, a small web development studio. We use Amagaki to build projects for ourselves, our stakeholders, and partners.
+
+    <div class="simpleMarkdown__body__contributors">
+      {% for person in partial.contributors %}
+        <a href="{{person.html_url}}">
+          <img src="{{person.avatar_url}}" alt="{{person.login}}" loading="lazy">
+        </a>
+      {% endfor %}
+    </div>
 
     ### Other projects
 

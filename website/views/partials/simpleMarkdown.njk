@@ -2,7 +2,7 @@
     <div class="simpleMarkdown__container">
         <div class="simpleMarkdown__body">
             <div class="markdown-body">
-                {{partial.body|render|markdown|safe}}
+                {{partial.body|render({partial: partial})|markdown|safe}}
             </div>
         </div>
     </div>

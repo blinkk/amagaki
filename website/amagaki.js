@@ -1,4 +1,5 @@
 const codeTabs = require('./plugins/codeTabs');
+const fetch = require('node-fetch');
 const fsPath = require('path');
 
 module.exports = function (pod) {
@@ -17,7 +18,30 @@ module.exports = function (pod) {
 
   codeTabs.register(pod);
 
+  const yamlPlugin = pod.plugins.get('YamlPlugin');
+  yamlPlugin.addType('!GetGithubContributors', {
+    kind: 'scalar',
+    construct: project => {
+      const cache = {};
+      return async () => {
+        if (cache[project]) {
+          return cache[project];
+        }
+        const resp = await fetch(
+          `https://api.github.com/repos/${project}/contributors`,
+          {
+            headers: {Authorization: `token: ${process.env.GITHUB_TOKEN}`},
+          }
+        );
+        const result = await resp.json();
+        cache[project] = result;
+        return result;
+      };
+    },
+  });
+
   const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
+
   nunjucksPlugin.addFilter('url', value => {
     if (value.doc) {
       return value.doc.url.path;
@@ -26,9 +50,10 @@ module.exports = function (pod) {
     }
   });
 
-  nunjucksPlugin.addFilter('render', function (value) {
+  nunjucksPlugin.addFilter('render', function (value, context) {
     const nunjucksEngine = pod.engines.getEngineByExtension('.njk');
-    return nunjucksEngine.env.renderString(value, this.ctx);
+    const defaultContext = Object.assign(this.ctx, context || {});
+    return nunjucksEngine.env.renderString(value, defaultContext);
   });
 
   nunjucksPlugin.addFilter('interpolate', function (value) {

@@ -110,7 +110,7 @@ partials:
   size: large
 
 - partial: simpleMarkdown
-  contributors: !GetGithubContributors 'blinkk/amagaki'
+  contributors: !GetGithubContributors ['blinkk/amagaki', 'blinkk/degu']
   body: |
     ## The team
 

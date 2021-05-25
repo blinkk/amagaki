@@ -20,22 +20,39 @@ module.exports = function (pod) {
 
   const yamlPlugin = pod.plugins.get('YamlPlugin');
   yamlPlugin.addType('!GetGithubContributors', {
-    kind: 'scalar',
-    construct: project => {
+    kind: 'sequence',
+    construct: projects => {
       const cache = {};
       return async () => {
-        if (cache[project]) {
-          return cache[project];
+        const cacheKey = projects.join(',');
+        if (cache[cacheKey]) {
+          return cache[cacheKey];
         }
-        const resp = await fetch(
-          `https://api.github.com/repos/${project}/contributors`,
-          {
-            headers: {Authorization: `token: ${process.env.GITHUB_TOKEN}`},
+        const headers = process.env.GITHUB_TOKEN
+          ? {Authorization: `token ${process.env.GITHUB_TOKEN}`}
+          : {};
+        const result = projects.map(project => {
+          return fetch(`https://api.github.com/repos/${project}/contributors`, {
+            headers: headers,
+          }).then(
+            resp => resp.json(),
+            err => console.error(err)
+          );
+        });
+        // Flatten contributors from multiple projects into a single array.
+        // Remove duplicates and exclude bots.
+        const allContributors = [].concat.apply([], await Promise.all(result));
+        const contributors = new Map();
+        for (const contributor of allContributors) {
+          if (
+            !contributors.has(contributor.login) &&
+            !contributor.login.endsWith('[bot]')
+          ) {
+            contributors.set(contributor.login, contributor);
           }
-        );
-        const result = await resp.json();
-        cache[project] = result;
-        return result;
+        }
+        cache[cacheKey] = contributors.values();
+        return cache[cacheKey];
       };
     },
   });

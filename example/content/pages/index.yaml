@@ -24,9 +24,6 @@ partials:
   - primary:
       title: Magna do magna occaecat irure.
       body: Esse in dolor anim excepteur incididunt laborum pariatur consequat. Occaecat officia elit nisi Lorem ex ex mollit aliqua ipsum fugiat quis amet sit. Mollit dolore cillum ea commodo ullamco cillum minim nisi et reprehenderit consectetur aute fugiat.
-      buttons:
-      - label: !a.Bar Learn more
-        url: https://example.com
   - asset:
       url: https://placeholder-dot-madebygoog.appspot.com/4x3.svg
   title: 5050 title

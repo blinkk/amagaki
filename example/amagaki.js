@@ -45,10 +45,10 @@ module.exports = function (pod) {
 
   // Shortcut method for adding custom yaml types.
   const yamlPlugin = pod.plugins.get('YamlPlugin');
-  yamlPlugin.addType('!a.Bar', {
+  yamlPlugin.addType('!a.Foo', {
     kind: 'scalar',
     resolve: () => true,
-    construct: value => `Bar: ${value}`,
+    construct: value => `Foo: ${value}`,
     represent: value => value,
   });
 };

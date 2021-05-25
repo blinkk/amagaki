@@ -11,19 +11,6 @@ class ExamplePlugin {
       });
     }
   }
-
-  createYamlTypesHook(yamlTypeManager) {
-    yamlTypeManager.addType('!a.Foo', {
-      kind: 'scalar',
-      resolve: () => {
-        return true;
-      },
-      construct: value => {
-        return `Foo: ${value}`;
-      },
-      represent: value => value,
-    });
-  }
 }
 
 module.exports = ExamplePlugin;

@@ -48,6 +48,7 @@ jobs:
             npm ci
             npm run build
             cp -r build/* ../public/
+            echo "amagaki.dev" > ../public/CNAME
       - name: Build docs
         run: |
             rm -fr ./public/api

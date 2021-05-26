@@ -1,4 +1,6 @@
-module.exports = function (pod) {
+import {Pod} from '../../src/pod';
+
+export default function (pod: Pod) {
   pod.configure({
     environments: {
       prod: {
@@ -15,4 +17,4 @@ module.exports = function (pod) {
       },
     },
   });
-};
+}

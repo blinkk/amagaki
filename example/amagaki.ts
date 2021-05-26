@@ -1,8 +1,15 @@
+import * as express from 'express';
+
+import {NunjucksPlugin} from '../src/plugins/nunjucks';
+import {Pod} from '../src/pod';
+import {ServerPlugin} from '../src/plugins/server';
+import {YamlPlugin} from '../src/plugins/yaml';
+
 const ExamplePlugin = require('./plugins/example');
 
-module.exports = function (pod) {
+export default function (pod: Pod) {
   pod.configure({
-    metadata: {
+    meta: {
       name: 'Amagaki Example',
     },
     localization: {
@@ -31,24 +38,27 @@ module.exports = function (pod) {
 
   pod.plugins.register(ExamplePlugin, {});
 
-  const serverPlugin = pod.plugins.get('ServerPlugin');
-  serverPlugin.register(app => {
-    app.use('/foo', (req, res) => {
+  const serverPlugin = pod.plugins.get('ServerPlugin') as ServerPlugin;
+  serverPlugin.register((app: express.Application) => {
+    app.use('/foo', (req: express.Request, res: express.Response) => {
       res.send('This is a response from custom middleware.');
     });
   });
 
   // Shortcut method for adding custom nunjucks filter and global.
-  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
-  nunjucksPlugin.addFilter('testShortcutFilter', value => `${value}--SHORTCUT`);
+  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin') as NunjucksPlugin;
+  nunjucksPlugin.addFilter(
+    'testShortcutFilter',
+    (value: string) => `${value}--SHORTCUT`
+  );
   nunjucksPlugin.addGlobal('copyrightYear', () => new Date().getFullYear());
 
   // Shortcut method for adding custom yaml types.
-  const yamlPlugin = pod.plugins.get('YamlPlugin');
+  const yamlPlugin = pod.plugins.get('YamlPlugin') as YamlPlugin;
   yamlPlugin.addType('!a.Foo', {
     kind: 'scalar',
     resolve: () => true,
     construct: value => `Foo: ${value}`,
     represent: value => value,
   });
-};
+}

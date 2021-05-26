@@ -3,7 +3,11 @@ import * as yaml from 'js-yaml';
 
 import {Collection, CollectionListOptions} from './collection';
 import {Document, DocumentListOptions} from './document';
-import {Environment, EnvironmentOptions} from './environment';
+import {
+  Environment,
+  EnvironmentConfigOptions,
+  EnvironmentOptions,
+} from './environment';
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
 import {Router, StaticDirConfig} from './router';
@@ -27,16 +31,16 @@ export interface LocalizationConfig {
 }
 
 export interface MetadataConfig {
-  name: string;
+  name?: string;
   [x: string]: any;
 }
 
 export interface PodConfig {
   basePath?: string;
   localization?: LocalizationConfig;
-  meta: MetadataConfig;
+  meta?: MetadataConfig;
   staticRoutes?: Array<StaticDirConfig>;
-  environments?: Record<string, EnvironmentOptions>;
+  environments?: Record<string, EnvironmentConfigOptions>;
 }
 
 /**
@@ -56,7 +60,7 @@ export class Pod {
     defaultLocale: 'en',
     locales: ['en'],
   };
-  static DefaultConfigFile = 'amagaki.js';
+  static DefaultConfigFiles = ['amagaki.js', 'amagaki.ts'];
   static DefaultContentPodPath = '/content/';
   readonly builder: Builder;
   readonly cache: Cache;
@@ -92,19 +96,28 @@ export class Pod {
     };
     this.cache = new Cache(this);
 
-    // Register built-in plugins before the amagaki.js config to be consistent with
+    // Register built-in plugins before the amagaki config to be consistent with
     // external plugin hooks and allow external plugins to work with the built-in
     // plugins.
     for (const BuiltInPlugin of Pod.BuiltInPlugins) {
       this.plugins.register(BuiltInPlugin, {});
     }
 
-    // Setup the pod using the amagaki.js file.
-    if (this.fileExists(Pod.DefaultConfigFile)) {
-      const configFilename = this.getAbsoluteFilePath(Pod.DefaultConfigFile);
-      // tslint:disable-next-line
-      const amagakiConfigFunc: Function = require(configFilename);
-      amagakiConfigFunc(this);
+    // Setup the pod using the `amagaki.{js|ts}` file.
+    // Use `sucrase` for runtime TS compilation.
+    for (const podPath of Pod.DefaultConfigFiles) {
+      if (this.fileExists(podPath)) {
+        if (podPath.endsWith('.ts')) {
+          require('sucrase/register/ts');
+        }
+        const configFilename = this.getAbsoluteFilePath(podPath);
+        // tslint:disable-next-line
+        const amagakiConfig = require(configFilename);
+        amagakiConfig && typeof amagakiConfig.default === 'function'
+          ? amagakiConfig.default(this)
+          : amagakiConfig(this);
+        break;
+      }
     }
   }
 
@@ -296,7 +309,7 @@ export class Pod {
   /**
    * Returns the meta information from the pod config.
    */
-  get meta(): MetadataConfig {
+  get meta(): MetadataConfig | undefined {
     return this.config.meta;
   }
 

@@ -7,6 +7,15 @@ export interface EnvironmentOptions {
   fields?: any;
 }
 
+export interface EnvironmentConfigOptions {
+  host?: string;
+  port?: string;
+  scheme?: string;
+  name?: string;
+  dev?: boolean;
+  fields?: any;
+}
+
 export interface UpdateEnvironmentOptions {
   host?: string;
   port?: string;

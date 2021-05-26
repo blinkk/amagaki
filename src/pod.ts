@@ -176,7 +176,7 @@ export class Pod {
 
   /**
    * Returns the default locale for the pod. The default locale can be
-   * overwritten in `amagaki.js`.
+   * overwritten in `amagaki.ts`.
    */
   get defaultLocale() {
     return this.locale(
@@ -293,7 +293,7 @@ export class Pod {
 
   /**
    * Returns a set of the pod's global locales. Global locales are defined in
-   * `amagaki.js`.
+   * `amagaki.ts`.
    */
   get locales(): Set<Locale> {
     return LocaleSet.fromIds(this.localization.locales || [], this);
@@ -387,13 +387,13 @@ export class Pod {
 
   /**
    * Sets the environment using settings specified from one of the
-   * preconfigured environments in `amagaki.js`. This is useful for changing
+   * preconfigured environments in `amagaki.ts`. This is useful for changing
    * behavior depending on your build environment, such as outputting different
    * content between dev, staging, and prod.
    */
   setEnvironment(name: string) {
     if (!this.config.environments?.[name]) {
-      throw new Error(`Environment ${name} is not configured in amagaki.js.`);
+      throw new Error(`Environment ${name} is not configured in amagaki.ts.`);
     }
     this.env.name = name;
     this.env.updateFromConfig(this.config.environments[name]);

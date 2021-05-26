@@ -197,7 +197,7 @@ export class Document {
    * Returns the default locale for the document. The default locale of a
    * document can be specified one of three ways, in order:
    * `$localization?defaultLocale` field within the document's fields, the
-   * collection's `_collection.yaml`, or the pod's `amagaki.js`.
+   * collection's `_collection.yaml`, or the pod's `amagaki.ts`.
    */
   get defaultLocale() {
     // TODO: Allow docs and collections to override default locales.
@@ -336,7 +336,7 @@ export class Document {
    * Returns the document's set of locale objects. In order, the locales are
    * determined by the `$localization:locales` from the document's fields, or if
    * not specified, inherited from the `_collection.yaml`, or if not specified
-   * there, then `amagaki.js`.
+   * there, then `amagaki.ts`.
    */
   get locales(): Set<Locale> {
     if (this.fields?.['$localization']?.['locales']) {

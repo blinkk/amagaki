@@ -53,7 +53,7 @@ export class Environment {
 
   /**
    * Updates the environment properties dynamically. Meant to be used in
-   * conjunction with options supplied in `amagaki.js`. If a field is
+   * conjunction with options supplied in `amagaki.ts`. If a field is
    * unspecified, the field is unmodified and the original value is preserved.
    */
   updateFromConfig(options: UpdateEnvironmentOptions) {

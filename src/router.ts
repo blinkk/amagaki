@@ -24,7 +24,7 @@ export class Router {
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
       // Default static routes. This can be overridden by the presence of any
-      // static routes configured in `amagaki.js`.
+      // static routes configured in `amagaki.ts`.
       new StaticDirectoryRouteProvider(this, {
         path: this.pod.basePath
           ? `${cleanBasePath(this.pod.basePath)}/static/`
@@ -158,7 +158,7 @@ export class CollectionRouteProvider extends RouteProvider {
     ][0] as DocumentRouteProvider;
     // NOTE: See if we want to do assemble routes by walking all /content/
     // files. In Grow.dev, this was too slow. In Amagaki, we could alternatively
-    // require users to specify routes in amagaki.js.
+    // require users to specify routes in amagaki.ts.
     const routes: Array<Route> = [];
 
     function addRoute(podPath: string, locale?: Locale) {

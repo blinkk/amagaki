@@ -51,7 +51,7 @@ module.exports = function (pod) {
             contributors.set(contributor.login, contributor);
           }
         }
-        cache[cacheKey] = contributors.values();
+        cache[cacheKey] = Array.from(contributors.values());
         return cache[cacheKey];
       };
     },

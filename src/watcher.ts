@@ -2,13 +2,18 @@ import * as events from 'events';
 import * as fs from 'fs';
 
 import {Pod} from './pod';
+import {Server} from './server';
+
+const AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
 
 export class Watcher extends events.EventEmitter {
-  pod: Pod;
+  private pod: Pod;
+  private server: Server;
 
-  constructor(pod: Pod) {
+  constructor(pod: Pod, server: Server) {
     super();
     this.pod = pod;
+    this.server = server;
   }
 
   private warmup(showLog: Boolean) {
@@ -31,12 +36,28 @@ export class Watcher extends events.EventEmitter {
   }
 
   start() {
-    // TODO: Clear based on dependency graph and file type.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    fs.watch(this.pod.root, {recursive: true}, (event, filename) => {
-      // const podPath = `/${filename}`;
-      this.pod.cache.reset();
+    const reloadRegex = new RegExp(AUTORELOAD_PATHS.join('|'));
+    let timer = 0;
+    fs.watch(this.pod.root, {recursive: true}, (_event, filename) => {
+      // `filename` is either a numeric file descriptor or filename. Short
+      // circuit if this is a file descriptor.
+      const podPath = `/${filename}`;
+      if (!this.pod.fileExists(podPath)) {
+        return;
+      }
+      // `fs.watch` may trigger many times within a small window.
+      // Only run once within a 300ms window.
+      if (Date.now() - timer < 300) {
+        return;
+      }
+      if (podPath.match(reloadRegex)) {
+        this.server.reloadPod();
+      } else {
+        // TODO: Clear based on dependency graph and file type.
+        this.pod.cache.reset();
+      }
       this.warmup(false);
+      timer = Date.now();
     });
     this.warmup(true);
   }

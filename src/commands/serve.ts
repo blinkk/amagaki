@@ -33,7 +33,10 @@ export class ServeCommand {
     if (this.globalOptions.env) {
       pod.setEnvironment(this.globalOptions.env);
     }
-    const server = new Server(pod);
-    server.start(port);
+    const server = new Server(pod, port);
+    server.start({
+      log: true,
+      watch: true,
+    });
   }
 }

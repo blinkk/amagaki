@@ -111,6 +111,8 @@ export class Pod {
           require('sucrase/register/ts');
         }
         const configFilename = this.getAbsoluteFilePath(podPath);
+        // Allow runtime reloading of the config file.
+        delete require.cache[require.resolve(configFilename)];
         // tslint:disable-next-line
         const amagakiConfig = require(configFilename);
         amagakiConfig && typeof amagakiConfig.default === 'function'

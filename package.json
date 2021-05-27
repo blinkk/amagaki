@@ -30,6 +30,9 @@
     "test:watch": "ava --watch"
   },
   "ava": {
+    "nonSemVerExperiments": {
+      "sharedWorkers": true
+    },
     "require": [
       "ts-node/register"
     ],
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@ava/get-port": "^0.1.1",
     "@types/async": "^3.2.6",
     "@types/cli-progress": "^3.9.1",
     "@types/cli-table": "^0.3.0",

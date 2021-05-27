@@ -125,4 +125,9 @@ export class Server extends events.EventEmitter {
     this.start();
     this.emit(Server.Events.RELOAD);
   }
+
+  /** Stops the web server. */
+  stop() {
+    this.httpServer?.close();
+  }
 }

@@ -455,4 +455,14 @@ export class Pod {
 
     return this.cache.yamlSchema as yaml.Schema;
   }
+
+  warmup() {
+    const seconds = this.router.warmup();
+    if (this.router.routes.length > 5000) {
+      console.log(
+        'Warmed up: '.blue +
+          `${this.router.routes.length} routes in ${seconds.toFixed(2)}s`
+      );
+    }
+  }
 }

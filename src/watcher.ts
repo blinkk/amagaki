@@ -2,43 +2,38 @@ import * as events from 'events';
 import * as fs from 'fs';
 
 import {Pod} from './pod';
-import {Server} from './server';
 
-const AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
+export interface WatcherFileChangeEvent {
+  event: string;
+  podPath: string;
+}
 
+/**
+ * Watcher observes changes to files within the pod and emits file change
+ * events. Change events are debounced within a small window to avoid sending
+ * multiple overlapping events, because some editors may use a swap file, which
+ * sends several events in succession. The watcher is primarily used in
+ * conjunction with the server, during development, so the server can do things
+ * like reload itself or reset its caches.
+ */
 export class Watcher extends events.EventEmitter {
   private pod: Pod;
-  private server: Server;
+  static Events = {
+    FILE_CHANGE: 'fileChange',
+  };
+  static DebounceWindow = 300;
+  watching: boolean;
 
-  constructor(pod: Pod, server: Server) {
+  constructor(pod: Pod) {
     super();
     this.pod = pod;
-    this.server = server;
-  }
-
-  private warmup(showLog: Boolean) {
-    // Catch errors so they can be fixed without restarting the server. Errors
-    // are displayed interactively when rendering pages so they can be fixed
-    // without restarting the server.
-    try {
-      const seconds = this.pod.router.warmup();
-      if (this.pod.router.routes.length > 5000) {
-        console.log(
-          'Warmed up: '.blue +
-            `${this.pod.router.routes.length} routes in ${seconds.toFixed(2)}s`
-        );
-      }
-    } catch (err) {
-      if (showLog) {
-        console.error(err);
-      }
-    }
+    this.watching = false;
   }
 
   start() {
-    const reloadRegex = new RegExp(AUTORELOAD_PATHS.join('|'));
+    this.watching = true;
     let timer = 0;
-    fs.watch(this.pod.root, {recursive: true}, (_event, filename) => {
+    fs.watch(this.pod.root, {recursive: true}, (event, filename) => {
       // `filename` is either a numeric file descriptor or filename. Short
       // circuit if this is a file descriptor.
       const podPath = `/${filename}`;
@@ -47,19 +42,14 @@ export class Watcher extends events.EventEmitter {
       }
       // `fs.watch` may trigger many times within a small window.
       // Only run once within a 300ms window.
-      if (Date.now() - timer < 300) {
+      if (Date.now() - timer < Watcher.DebounceWindow) {
         return;
       }
-      if (podPath.match(reloadRegex)) {
-        this.server.reload();
-        console.log('Reloaded:'.green, `${this.pod.root}`);
-      } else {
-        // TODO: Clear based on dependency graph and file type.
-        this.pod.cache.reset();
-      }
-      this.warmup(false);
+      this.emit(Watcher.Events.FILE_CHANGE, {
+        event: event,
+        podPath: podPath,
+      });
       timer = Date.now();
     });
-    this.warmup(true);
   }
 }

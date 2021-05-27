@@ -1,6 +1,9 @@
+import * as events from 'events';
 import * as fsPath from 'path';
 import * as http from 'http';
 import * as nunjucks from 'nunjucks';
+
+import {Watcher, WatcherFileChangeEvent} from './watcher';
 
 import {Pod} from './pod';
 import {StaticRoute} from './router';
@@ -11,14 +14,40 @@ interface ServerOptions {
   port: string | number;
 }
 
-export class Server {
+export interface ServerListeningEvent {
+  app: Express.Application;
+}
+
+export class Server extends events.EventEmitter {
   private pod: Pod;
-  httpServer?: http.Server;
+  private httpServer?: http.Server;
   port: string | number;
+  watcher: Watcher;
+
+  static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
+  static Events = {
+    RELOAD: 'reload',
+    LISTENING: 'listening',
+  };
 
   constructor(pod: Pod, options: ServerOptions) {
+    super();
     this.pod = pod;
     this.port = options.port;
+    this.watcher = new Watcher(pod);
+
+    // Reload the server or reset the cache when necessary.
+    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
+    this.watcher.on(Watcher.Events.FILE_CHANGE, (e: WatcherFileChangeEvent) => {
+      if (e.podPath.match(reloadRegex)) {
+        // TODO: Handle errors gracefully, so the developer can fix the error without
+        // needing to manually restart the server.
+        this.reload();
+      } else {
+        // TODO: Clear based on dependency graph and file type.
+        this.pod.cache.reset();
+      }
+    });
   }
 
   /**
@@ -70,6 +99,20 @@ export class Server {
   start() {
     const app = this.createApp();
     this.httpServer = app.listen(this.port);
+    this.emit(Server.Events.LISTENING, <ServerListeningEvent>{
+      app: this.httpServer,
+    });
+    // Catch errors so they can be fixed without restarting the server. Errors
+    // are displayed interactively when rendering pages so they can be fixed
+    // without restarting the server.
+    try {
+      this.pod.warmup();
+    } catch (err) {
+      console.error(err);
+    }
+    if (!this.watcher.watching) {
+      this.watcher.start();
+    }
   }
 
   /**
@@ -80,5 +123,6 @@ export class Server {
     this.httpServer && this.httpServer.close();
     this.pod = new Pod(this.pod.root, this.pod.env);
     this.start();
+    this.emit(Server.Events.RELOAD);
   }
 }

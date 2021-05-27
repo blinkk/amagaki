@@ -4,25 +4,21 @@ import * as nunjucks from 'nunjucks';
 
 import {Pod} from './pod';
 import {StaticRoute} from './router';
-import {Watcher} from './watcher';
 
 import express = require('express');
 
-interface ServerStartOptions {
-  log: boolean;
-  watch: boolean;
+interface ServerOptions {
+  port: string | number;
 }
 
 export class Server {
   private pod: Pod;
-  private httpServer?: http.Server;
-  private watcher: Watcher;
-  private port: string | number;
+  httpServer?: http.Server;
+  port: string | number;
 
-  constructor(pod: Pod, port: string | number) {
+  constructor(pod: Pod, options: ServerOptions) {
     this.pod = pod;
-    this.port = port;
-    this.watcher = new Watcher(pod, this);
+    this.port = options.port;
   }
 
   /**
@@ -71,33 +67,18 @@ export class Server {
   /**
    * Starts the web server.
    */
-  start(options: ServerStartOptions) {
+  start() {
     const app = this.createApp();
-    this.httpServer = app.listen(this.port, () => {
-      // Only output first time server is started.
-      if (options.log) {
-        console.log('   Pod:'.green, `${this.pod.root}`);
-        console.log(
-          'Server:'.green,
-          `${this.pod.env.scheme}://${this.pod.env.host}:${this.port}/`
-        );
-        console.log(' Ready. Press ctrl+c to quit.'.green);
-      }
-    });
-    options.watch && this.watcher.start();
+    this.httpServer = app.listen(this.port);
   }
 
   /**
-   * Reinstantiates the pod, which has the effect of reloading any dependencies
-   * defined within `amagaki.ts`.
+   * Reinstantiates the pod and restarts the server, which has the side effect
+   * of reloading any changes from `amagaki.ts`.
    */
-  reloadPod() {
+  reload() {
     this.httpServer && this.httpServer.close();
-    console.log('Reloaded:'.green, `${this.pod.root}`);
     this.pod = new Pod(this.pod.root, this.pod.env);
-    this.start({
-      log: false,
-      watch: false,
-    });
+    this.start();
   }
 }

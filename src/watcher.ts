@@ -51,7 +51,8 @@ export class Watcher extends events.EventEmitter {
         return;
       }
       if (podPath.match(reloadRegex)) {
-        this.server.reloadPod();
+        this.server.reload();
+        console.log('Reloaded:'.green, `${this.pod.root}`);
       } else {
         // TODO: Clear based on dependency graph and file type.
         this.pod.cache.reset();

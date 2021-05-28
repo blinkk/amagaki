@@ -1,9 +1,8 @@
+import * as chokidar from 'chokidar';
 import * as events from 'events';
 import * as fsPath from 'path';
 import * as http from 'http';
 import * as nunjucks from 'nunjucks';
-
-import {Watcher, WatcherFileChangeEvent} from './watcher';
 
 import {Pod} from './pod';
 import {StaticRoute} from './router';
@@ -22,7 +21,7 @@ export class Server extends events.EventEmitter {
   private pod: Pod;
   private httpServer?: http.Server;
   port: string | number;
-  watcher: Watcher;
+  watcher?: chokidar.FSWatcher;
 
   static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
   static Events = {
@@ -34,20 +33,6 @@ export class Server extends events.EventEmitter {
     super();
     this.pod = pod;
     this.port = options.port;
-    this.watcher = new Watcher(pod);
-
-    // Reload the server or reset the cache when necessary.
-    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
-    this.watcher.on(Watcher.Events.FILE_CHANGE, (e: WatcherFileChangeEvent) => {
-      if (e.podPath.match(reloadRegex)) {
-        // TODO: Handle errors gracefully, so the developer can fix the error without
-        // needing to manually restart the server.
-        this.reload();
-      } else {
-        // TODO: Clear based on dependency graph and file type.
-        this.pod.cache.reset();
-      }
-    });
   }
 
   /**
@@ -110,9 +95,33 @@ export class Server extends events.EventEmitter {
     } catch (err) {
       console.error(err);
     }
-    if (!this.watcher.watching) {
-      this.watcher.start();
+    if (!this.watcher) {
+      this.watch();
     }
+  }
+
+  /**
+   * Initializes a watcher and handles autoreloading and cache resetting.
+   */
+  watch() {
+    this.watcher = chokidar.watch(this.pod.root, {
+      ignored: /node_modules/,
+      cwd: this.pod.root,
+    });
+
+    // Reload the server or reset the cache when necessary.
+    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
+    this.watcher.on('change', path => {
+      const podPath = `/${path}`;
+      if (podPath.match(reloadRegex)) {
+        // TODO: Handle errors gracefully, so the developer can fix the error without
+        // needing to manually restart the server.
+        this.reload();
+      } else {
+        // TODO: Clear based on dependency graph and file type.
+        this.pod.cache.reset();
+      }
+    });
   }
 
   /**

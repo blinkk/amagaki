@@ -111,6 +111,8 @@ export class Pod {
           require('sucrase/register/ts');
         }
         const configFilename = this.getAbsoluteFilePath(podPath);
+        // Allow runtime reloading of the config file.
+        delete require.cache[require.resolve(configFilename)];
         // tslint:disable-next-line
         const amagakiConfig = require(configFilename);
         amagakiConfig && typeof amagakiConfig.default === 'function'
@@ -313,6 +315,9 @@ export class Pod {
     return this.config.meta;
   }
 
+  /**
+   * Reads a file into a string.
+   */
   readFile(path: string) {
     const timer = this.profiler.timer('file.read', 'File read');
     try {
@@ -322,6 +327,9 @@ export class Pod {
     }
   }
 
+  /**
+   * Reads YAML content from a file into an object.
+   */
   readYaml(podPath: string) {
     if (this.cache.yamls[podPath]) {
       return this.cache.yamls[podPath];
@@ -339,6 +347,11 @@ export class Pod {
     return this.cache.yamls[podPath];
   }
 
+  /**
+   * Reads YAML content into an object.
+   * @param content The YAML content as string to read.
+   * @param cacheKey A key used for caching the read.
+   */
   readYamlString(content: string, cacheKey: string) {
     if (this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
@@ -354,6 +367,20 @@ export class Pod {
     }
 
     return this.cache.yamlStrings[cacheKey];
+  }
+
+  /**
+   * Dumps an object to a YAML string, using the pod's schema.
+   */
+  dumpYaml(data: string) {
+    const timer = this.profiler.timer('yaml.dump', 'Yaml dump');
+    try {
+      return yaml.dump(data, {
+        schema: this.yamlSchema,
+      });
+    } finally {
+      timer.stop();
+    }
   }
 
   /**
@@ -427,5 +454,15 @@ export class Pod {
     }
 
     return this.cache.yamlSchema as yaml.Schema;
+  }
+
+  warmup() {
+    const seconds = this.router.warmup();
+    if (this.router.routes.length > 5000) {
+      console.log(
+        'Warmed up: '.blue +
+          `${this.router.routes.length} routes in ${seconds.toFixed(2)}s`
+      );
+    }
   }
 }

@@ -7,6 +7,9 @@ export default function (pod: Pod) {
       default: {},
       prod: {},
     },
+    localization: {
+      locales: ['en', 'de'],
+    },
   });
 
   const yamlPlugin = pod.plugins.get('YamlPlugin') as YamlPlugin;

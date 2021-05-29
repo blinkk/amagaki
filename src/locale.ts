@@ -124,3 +124,17 @@ export class Locale {
     return RTL_REGEX.test(this.id);
   }
 }
+
+export class LocalizableData {
+  pod: Pod;
+  data: any;
+
+  constructor(pod: Pod, data: Record<string, any>) {
+    this.pod = pod;
+    this.data = data;
+  }
+
+  localize(locale: Locale) {
+    return this.data[locale.id] || this.data['default'];
+  }
+}

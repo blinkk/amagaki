@@ -49,6 +49,19 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
   t.deepEqual(doc.fields.yaml.deep1, 'value1');
   t.deepEqual(doc.fields.yaml.deep2, 'value3');
   t.deepEqual(doc.fields.IfEnvironment, 'Default Value');
+  t.deepEqual(doc.fields.IfLocale, 'en Value');
+
+  const deDoc = pod.doc(
+    '/content/pages/index.yaml',
+    pod.locale('de')
+  ) as Document;
+  t.deepEqual(deDoc.fields.IfLocale, 'de Value');
+
+  const jaDoc = pod.doc(
+    '/content/pages/index.yaml',
+    pod.locale('ja')
+  ) as Document;
+  t.deepEqual(jaDoc.fields.IfLocale, 'Default Value');
 });
 
 test('Async YAML types', async (t: ExecutionContext) => {

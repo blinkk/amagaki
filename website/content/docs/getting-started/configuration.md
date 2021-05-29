@@ -59,7 +59,7 @@ Specify custom metadata:
 {% filter codeTabs %}
 ```javascript:title=amagaki.js
 pod.configure({
-    metadata: {
+    meta: {
         siteTitle: 'Amagaki',
         siteDescription: 'A cool tool for hand-coding marketing websites.',
     },
@@ -72,6 +72,6 @@ Metadata can be accessed using a pod function:
 {% filter codeTabs %}
 ```nunjucks
 {%- raw %}
-{{pod.metadata.siteTitle}}
+{{pod.meta.siteTitle}}
 {% endraw %}```
 {% endfilter %}

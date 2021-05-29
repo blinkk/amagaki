@@ -1,6 +1,6 @@
 import * as yaml from 'js-yaml';
 
-import {Locale, LocaleSet} from '../locale';
+import {Locale, LocaleSet, LocalizableData} from '../locale';
 
 import {Collection} from '../collection';
 import {Document} from '../document';
@@ -278,7 +278,9 @@ export class YamlPlugin implements PluginComponent {
     );
 
     /**
-     * !pod.string {prefer: 'Preferred String', value: 'Original String'}
+     * !pod.string
+     *   prefer: Preferred String
+     *   value: Original String
      */
     yamlTypeManager.addType(
       new yaml.Type('!pod.string', {
@@ -335,7 +337,9 @@ export class YamlPlugin implements PluginComponent {
     );
 
     /**
-     * !IfEnvironment {default: 'foo', prod: 'bar'}
+     * !IfEnvironment
+     *   default: foo
+     *   prod: bar
      */
     yamlTypeManager.addType(
       new yaml.Type('!IfEnvironment', {
@@ -347,6 +351,25 @@ export class YamlPlugin implements PluginComponent {
           return value[this.pod.env.name] || Environment.DefaultName;
         },
         // TODO: Represent serialized IfEnvironment values so they can be round-tripped.
+      })
+    );
+
+    /**
+     * !IfLocale
+     *   default: foo
+     *   de: German
+     *   it: Italian
+     */
+    yamlTypeManager.addType(
+      new yaml.Type('!IfLocale', {
+        kind: 'mapping',
+        resolve: data => {
+          return typeof data === 'object';
+        },
+        construct: value => {
+          return new LocalizableData(this.pod, value);
+        },
+        // TODO: Represent serialized IfLocale values so they can be round-tripped.
       })
     );
 

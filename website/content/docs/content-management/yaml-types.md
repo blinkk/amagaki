@@ -42,7 +42,7 @@ custom YAML type. For example, you should:
 - `!pod.docs`
 - `!pod.collection`
 - `!pod.collections`
-- `!pod.metadata` (WIP)
+- `!pod.meta` (WIP)
 - `!pod.string`
 - `!pod.staticFile`
 - `!pod.yaml`
@@ -50,7 +50,7 @@ custom YAML type. For example, you should:
 - `!pod.locales`
 - `!pod.config` (WIP)
 - `!IfEnvironment`
-- `!IfLocale` (WIP)
+- `!IfLocale`
 
 #### !pod.doc
 

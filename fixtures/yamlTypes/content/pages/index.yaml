@@ -1,3 +1,10 @@
+$path: /${doc.basename}/
+$localization:
+  path: /${doc.locale}/${doc.basename}/
+  locales:
+  - en
+  - de
+  - ja
 doc:
   simple: !pod.doc '/content/pages/index.yaml'
   options: !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
@@ -25,3 +32,7 @@ yaml:
 IfEnvironment: !IfEnvironment
   default: 'Default Value'
   prod: 'Prod Value'
+IfLocale: !IfLocale
+  default: 'Default Value'
+  en: 'en Value'
+  de: 'de Value'

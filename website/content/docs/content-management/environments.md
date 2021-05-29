@@ -43,10 +43,7 @@ module.exports = function (pod) {
 
 ### In templates
 
-In templates, the `pod.env` variable is available. It returns the pod’s current
-environment. <a
-href="https://blinkkcode.github.io/amagaki/api/classes/environment.environment-1.html">see
-Environment reference</a>.
+In templates, the `pod.env` variable is available. It returns the pod’s current environment. <a href="https://blinkkcode.github.io/amagaki/api/classes/environment.environment-1.html">See Environment reference</a>.
 
 {% filter codeTabs %}{% raw %}
 ```nunjucks

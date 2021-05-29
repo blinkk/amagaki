@@ -17,7 +17,7 @@ scalability issues.
 
 Front matter can be used within Markdown-formatted content documents like so:
 
-{% filter codeTabs %}
+{% filter codeTabs %}{% raw %}
 ```markdown:title=/content/index.md
 ---
 date: 2021-01-06
@@ -26,11 +26,11 @@ author:
   email: lorem@example.com
 ---
 # This is my page title.
-
+ 
 By: <a href="mailto:{{doc.fields.email}}">{{doc.fields.name}}</a>
 Published: {{doc.fields.date}}
 ```
-{% endfilter %
+{% endraw %}{% endfilter %}
 
 ## Within structured content documents
 

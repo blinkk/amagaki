@@ -75,7 +75,7 @@ No other starters have been added yet. Add one below.
 
 {{button.button({
     label: 'Add your starter',
-    url: pod.config.metadata.githubEditRoot + doc.podPath,
+    url: pod.config.meta.githubEditRoot + doc.podPath,
     external: true,
     class: 'button button--small button--tonal button--reverse',
     icon: 'add'

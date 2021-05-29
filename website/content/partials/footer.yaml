@@ -1,6 +1,6 @@
 partial: footer
 menu:
-- url: ${pod.config.metadata.githubEditRoot}${doc.podPath}
+- url: ${pod.config.meta.githubEditRoot}${doc.podPath}
   title: Edit this page
 - doc: !pod.doc /content/docs/index.md
   title: Manual

@@ -1,10 +1,13 @@
-const {JSDOM} = require('jsdom');
-const commonTags = require('common-tags');
-const hljs = require('highlight.js');
-const marked = require('marked');
-const uuid = require('uuid');
+import * as commonTags from 'common-tags';
+import * as uuid from 'uuid';
 
-const register = pod => {
+import {JSDOM} from 'jsdom';
+import {NunjucksPlugin} from 'amagaki/src/plugins/nunjucks';
+import {Pod} from 'amagaki/src/pod';
+import hljs from 'highlight.js';
+import marked from 'marked';
+
+export const register = (pod: Pod) => {
   marked.setOptions({
     breaks: true,
     gfm: true,
@@ -14,8 +17,8 @@ const register = pod => {
       return hljs.highlight(code, {language}).value;
     },
   });
-  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin');
-  nunjucksPlugin.addFilter('codeTabs', function (value) {
+  const nunjucksPlugin = pod.plugins.get('NunjucksPlugin') as NunjucksPlugin;
+  nunjucksPlugin.addFilter('codeTabs', function (value: string) {
     const tabSetId = `t-${uuid.v1()}`;
     const titleRegex = /:title=(.*)$/gim;
     const titles = (value.match(titleRegex) || []).map(item => {
@@ -63,8 +66,4 @@ const register = pod => {
     `
     );
   });
-};
-
-module.exports = {
-  register: register,
 };

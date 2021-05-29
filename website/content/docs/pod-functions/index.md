@@ -49,7 +49,7 @@ menu:
 
 {{button.button({
     label: 'Learn about pod functions within YAML types',
-    doc: '/content/plugins/yaml-types.md',
+    doc: '/content/docs/plugins/yaml-types.md',
     class: 'button button--low',
     icon: 'arrow_forward'
 })}}

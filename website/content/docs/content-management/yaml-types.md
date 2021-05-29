@@ -98,7 +98,7 @@ Often, custom YAML types will be used for things like:
 
 {{button.button({
     label: 'Learn how to create custom YAML types',
-    doc: '/content/plugins/yaml-types.md',
+    doc: '/content/docs/plugins/yaml-types.md',
     class: 'button button--low',
     icon: 'arrow_forward'
 })}}

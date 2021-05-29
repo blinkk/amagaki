@@ -197,7 +197,7 @@ export class StaticDirectoryRouteProvider extends RouteProvider {
 
   constructor(router: Router, config: StaticDirConfig) {
     super(router);
-    this.type = 'static_dir';
+    this.type = 'staticDir';
     this.config = config;
   }
 

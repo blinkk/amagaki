@@ -53,7 +53,7 @@ export class Server extends events.EventEmitter {
             );
           return;
         }
-        if (route.provider.type === 'static_dir') {
+        if (route.provider.type === 'staticDir') {
           res.sendFile(
             this.pod.getAbsoluteFilePath(
               (route as StaticRoute).staticFile.podPath

@@ -335,7 +335,7 @@ export class Builder {
       async createdPath => {
         try {
           // Copy the file, or build it if it's a dynamic route.
-          if (createdPath.route.provider.type === 'static_dir') {
+          if (createdPath.route.provider.type === 'staticDir') {
             return this.copyFileAsync(
               createdPath.tempPath,
               (createdPath.route as StaticRoute).staticFile.podPath
@@ -400,7 +400,7 @@ export class Builder {
         });
         // Then, update the metrics by getting file sizes.
         const statResult = await fs.promises.stat(createdPath.tempPath);
-        if (createdPath.route.provider.type === 'static_dir') {
+        if (createdPath.route.provider.type === 'staticDir') {
           buildMetrics.numStaticRoutes += 1;
           buildMetrics.outputSizeStaticFiles += statResult.size;
         } else {

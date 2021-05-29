@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-import * as packageData from '../package.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: File is located two directories down when packed.
+import * as packageData from '../../package.json';
 
 import {BuildCommand} from './commands/build';
 import {ServeCommand} from './commands/serve';

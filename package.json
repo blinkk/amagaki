@@ -13,6 +13,9 @@
   "engines": {
     "node": ">=14"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:example": "node ./dist/src/index.js build example",
     "check": "gts check",

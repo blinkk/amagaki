@@ -298,19 +298,21 @@ export class Builder {
       fsPath.join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
     );
 
-    bar.start(this.pod.router.routes.length, artifacts.length, {
+    const routes = await this.pod.router.routes();
+
+    bar.start(routes.length, artifacts.length, {
       customDuration: Builder.formatProgressBarTime(0),
     });
     const createdPaths: Array<CreatedPath> = [];
 
-    if (this.pod.router.routes.length === 0) {
+    if (routes.length === 0) {
       throw new Error(
         `Nothing to build. No routes found for pod rooted at: ${this.pod.root}. Ensure this is the right directory, and ensure that there is either content or static files to build.`
       );
     }
 
     // Collect the routes and assemble the temporary directory mapping.
-    this.pod.router.routes.forEach(route => {
+    for (const route of routes) {
       const normalPath = Builder.normalizePath(route.url.path);
       const tempPath = fsPath.join(
         tempDirRoot,
@@ -326,7 +328,7 @@ export class Builder {
         normalPath: normalPath,
         realPath: realPath,
       });
-    });
+    }
 
     // Copy all static files and build all other routes.
     await async.eachLimit(

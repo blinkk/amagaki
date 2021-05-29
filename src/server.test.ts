@@ -11,8 +11,8 @@ test('Server start', async (t: ExecutionContext) => {
   const server = new Server(pod, {
     port: port,
   });
-  server.start();
-  server.reload();
+  await server.start();
+  await server.reload();
   server.stop();
   t.pass();
 });

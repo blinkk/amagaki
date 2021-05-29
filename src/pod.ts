@@ -456,12 +456,12 @@ export class Pod {
     return this.cache.yamlSchema as yaml.Schema;
   }
 
-  warmup() {
-    const seconds = this.router.warmup();
-    if (this.router.routes.length > 5000) {
+  async warmup() {
+    const seconds = await this.router.warmup();
+    const routes = await this.router.routes();
+    if (routes.length > 5000) {
       console.log(
-        'Warmed up: '.blue +
-          `${this.router.routes.length} routes in ${seconds.toFixed(2)}s`
+        'Warmed up: '.blue + `${routes.length} routes in ${seconds.toFixed(2)}s`
       );
     }
   }

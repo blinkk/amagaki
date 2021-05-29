@@ -5,7 +5,7 @@ import test from 'ava';
 
 test('Environment fields', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/environment/');
-  const route = pod.router.resolve('/') as Route;
+  const route = (await pod.router.resolve('/')) as Route;
   t.is('default,,http://localhost/', await route.build());
   pod.setEnvironment('prod');
   t.is('prod,foo,https://example.com/', await route.build());

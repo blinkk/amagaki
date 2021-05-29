@@ -14,7 +14,8 @@ const fixtures = fs
 for (const fixture of fixtures) {
   test(`Build fixture: ${fixture}`, async (t: ExecutionContext) => {
     const pod = new Pod(`./fixtures/${fixture}/`);
-    if (!pod.router.routes.length) {
+    const routes = await pod.router.routes();
+    if (!routes.length) {
       t.pass(
         `NOTE: Skipped testing fixture ${fixture} as no routes were found.`
       );

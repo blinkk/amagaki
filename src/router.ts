@@ -36,14 +36,14 @@ export class Router {
     });
   }
 
-  resolve(path: string): Route | null {
+  async resolve(path: string): Promise<Route | null> {
     // NOTE: Instead of using a route trie with placeholders, and resolving
     // request paths against that tree, we currently generate all concrete
     // routes, and match request paths to the concrete URLs. If this does not
     // prove to be a robust solution, this approach can be replaced with a route
     // trie and matching abstract routes.
-    for (let i = 0; i < this.routes.length; i++) {
-      const route = this.routes[i];
+    const routes = await this.routes();
+    for (const route of routes) {
       if (route.url.path === path) {
         return route;
       }
@@ -51,20 +51,21 @@ export class Router {
     return null;
   }
 
-  warmup() {
+  async warmup() {
     const now = new Date().getTime() / 1000;
     // Warm up by referencing (building) the routes.
-    this.routes.length;
+    await this.routes();
     return new Date().getTime() / 1000 - now;
   }
 
-  get routes() {
+  async routes() {
     if (this.pod.cache.routes.length) {
       return this.pod.cache.routes;
     }
-    Object.values(this.providers).forEach(providers => {
-      providers.forEach(provider => {
-        provider.routes.forEach(route => {
+    for (const providers of Object.values(this.providers)) {
+      for (const provider of providers) {
+        const routes = await provider.routes();
+        for (const route of routes) {
           const routeUrl = route.url.path;
           if (routeUrl in this.pod.cache.routeMap) {
             // Reset the cache so subsequent requests continue to error until
@@ -77,9 +78,9 @@ export class Router {
           }
           this.pod.cache.routes.push(route);
           this.pod.cache.routeMap[route.url.path] = route;
-        });
-      });
-    });
+        }
+      }
+    }
     return this.pod.cache.routes;
   }
 
@@ -130,7 +131,7 @@ export class RouteProvider {
     this.type = 'default';
   }
 
-  get routes(): Array<Route> {
+  async routes(): Promise<Route[]> {
     return [];
   }
 }
@@ -140,10 +141,6 @@ export class DocumentRouteProvider extends RouteProvider {
     super(router);
     this.type = 'doc';
   }
-
-  get routes(): Array<Route> {
-    return [];
-  }
 }
 
 export class CollectionRouteProvider extends RouteProvider {
@@ -152,7 +149,7 @@ export class CollectionRouteProvider extends RouteProvider {
     this.type = 'collection';
   }
 
-  get routes(): Array<Route> {
+  async routes(): Promise<Route[]> {
     const docProvider = this.router.providers[
       'doc'
     ][0] as DocumentRouteProvider;
@@ -201,7 +198,7 @@ export class StaticDirectoryRouteProvider extends RouteProvider {
     this.config = config;
   }
 
-  get routes(): Array<Route> {
+  async routes(): Promise<Route[]> {
     const routes: Array<Route> = [];
     if (this.pod.fileExists(this.config.staticDir)) {
       const cleanPath = cleanBasePath(this.config.path);

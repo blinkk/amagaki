@@ -47,6 +47,6 @@ export class ServeCommand {
       );
       console.log(' Ready. Press ctrl+c to quit.'.green);
     });
-    server.start();
+    await server.start();
   }
 }

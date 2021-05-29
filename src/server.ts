@@ -44,7 +44,7 @@ export class Server extends events.EventEmitter {
     app.disable('x-powered-by');
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {
-        const route = this.pod.router.resolve(req.path);
+        const route = await this.pod.router.resolve(req.path);
         if (!route) {
           res
             .status(404)
@@ -81,7 +81,7 @@ export class Server extends events.EventEmitter {
   /**
    * Starts the web server.
    */
-  start() {
+  async start() {
     const app = this.createApp();
     this.httpServer = app.listen(this.port);
     this.emit(Server.Events.LISTENING, <ServerListeningEvent>{
@@ -91,7 +91,7 @@ export class Server extends events.EventEmitter {
     // are displayed interactively when rendering pages so they can be fixed
     // without restarting the server.
     try {
-      this.pod.warmup();
+      await this.pod.warmup();
     } catch (err) {
       console.error(err);
     }
@@ -128,10 +128,10 @@ export class Server extends events.EventEmitter {
    * Reinstantiates the pod and restarts the server, which has the side effect
    * of reloading any changes from `amagaki.ts`.
    */
-  reload() {
-    this.httpServer && this.httpServer.close();
+  async reload() {
+    this.stop();
     this.pod = new Pod(this.pod.root, this.pod.env);
-    this.start();
+    await this.start();
     this.emit(Server.Events.RELOAD);
   }
 

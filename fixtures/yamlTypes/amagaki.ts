@@ -3,6 +3,11 @@ import {YamlPlugin} from '../../src/plugins/yaml';
 
 export default function (pod: Pod) {
   pod.configure({
+    meta: {
+      foo: {
+        bar: 'value',
+      },
+    },
     environments: {
       default: {},
       prod: {},

@@ -1,3 +1,4 @@
+import * as utils from '../utils';
 import * as yaml from 'js-yaml';
 
 import {Locale, LocaleSet, LocalizableData} from '../locale';
@@ -317,18 +318,12 @@ export class YamlPlugin implements PluginComponent {
           // value can be: /content/partials/base.yaml?foo.bar.baz
           const parts = value.split('?');
           const podPath = parts[0];
-          let result = this.pod.readYaml(podPath);
+          const result = this.pod.readYaml(podPath);
           if (parts.length > 1) {
-            const query = parts[1].split('.');
-            while (query.length > 0) {
-              const key = query.shift();
-              result = result[key];
-              if (result === undefined) {
-                break;
-              }
-            }
+            return utils.queryObject(parts[1], result);
+          } else {
+            return result;
           }
-          return result;
         },
         represent: string => {
           return string;
@@ -350,7 +345,7 @@ export class YamlPlugin implements PluginComponent {
         construct: value => {
           return value[this.pod.env.name] || Environment.DefaultName;
         },
-        // TODO: Represent serialized IfEnvironment values so they can be round-tripped.
+        // TODO: Represent serialized values so they can be round-tripped.
       })
     );
 
@@ -369,7 +364,21 @@ export class YamlPlugin implements PluginComponent {
         construct: value => {
           return new LocalizableData(this.pod, value);
         },
-        // TODO: Represent serialized IfLocale values so they can be round-tripped.
+        // TODO: Represent serialized values so they can be round-tripped.
+      })
+    );
+
+    /**
+     * !pod.meta
+     * !pod.meta 'foo.bar'
+     */
+    yamlTypeManager.addType(
+      new yaml.Type('!pod.meta', {
+        kind: 'scalar',
+        construct: value => {
+          return utils.queryObject(value, this.pod.config.meta);
+        },
+        // TODO: Represent serialized values so they can be round-tripped.
       })
     );
 

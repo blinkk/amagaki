@@ -36,3 +36,7 @@ IfLocale: !IfLocale
   default: 'Default Value'
   en: 'en Value'
   de: 'de Value'
+meta: !pod.meta
+metaFoo: !pod.meta 'foo'
+metaFooBar: !pod.meta 'foo.bar'
+metaFooBarBaz: !pod.meta 'foo.bar.baz'

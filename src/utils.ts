@@ -171,3 +171,27 @@ export function walk(path: string, newFiles?: string[], removePrefix?: string) {
   });
   return files;
 }
+
+/**
+ * Returns data queried from a YAML file. Use by specifying a query, such as
+ * 'foo.bar'. This will return the value nested under the keys: `{foo: {bar:
+ * 'value'}}`.
+ * @param parts A string containing dots, indicating the query.
+ * @param data An object mapping keys to values.
+ * @returns The YAML content at the specified query.
+ */
+export function queryObject(query: string | undefined, data: any) {
+  if (!query) {
+    return data;
+  }
+  let result = data;
+  const queryParts = query.split('.');
+  while (queryParts.length > 0) {
+    const key = queryParts.shift() as string;
+    result = result[key];
+    if (result === undefined) {
+      break;
+    }
+  }
+  return result;
+}

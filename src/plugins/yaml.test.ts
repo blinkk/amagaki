@@ -50,6 +50,9 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
   t.deepEqual(doc.fields.yaml.deep2, 'value3');
   t.deepEqual(doc.fields.IfEnvironment, 'Default Value');
   t.deepEqual(doc.fields.IfLocale, 'en Value');
+  t.deepEqual(doc.fields.meta, {foo: {bar: 'value'}});
+  t.deepEqual(doc.fields.metaFoo, {bar: 'value'});
+  t.deepEqual(doc.fields.metaFooBarBaz, undefined);
 
   const deDoc = pod.doc(
     '/content/pages/index.yaml',

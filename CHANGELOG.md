@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://www.github.com/blinkk/amagaki/compare/v0.5.0...v0.6.0) (2021-05-30)
+
+
+### Features
+
+* add await filter, remove dead test filter ([b228fdc](https://www.github.com/blinkk/amagaki/commit/b228fdce88ae1da9cd37bfd56432b8ea4d6fa9a6))
+* add IfLocale yaml type ([fa433b6](https://www.github.com/blinkk/amagaki/commit/fa433b670f2a663acc93da5b6370e52e541fb6f6))
+* implement pod.meta yaml type ([2164877](https://www.github.com/blinkk/amagaki/commit/2164877e2a989f1984adaf288a399573fe1352bb))
+
+
+### Bug Fixes
+
+* fix packaged version ([59f9e7f](https://www.github.com/blinkk/amagaki/commit/59f9e7f71c4eaadffab6af6eea589593f8ab10ef))
+
 ## [0.5.0](https://www.github.com/blinkk/amagaki/compare/v0.4.0...v0.5.0) (2021-05-28)
 
 

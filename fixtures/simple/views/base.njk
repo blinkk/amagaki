@@ -10,10 +10,10 @@
     {% set partial = pod.doc('/content/partials/header.yaml').fields %}
     {% include "/views/partials/header.njk" %}
     {% if doc.fields.partials %}
-        {% for partial in doc.fields.partials %}
+        {% asyncEach partial in doc.fields.partials %}
             <div class="help">{{partial.partial}}</div>
             {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
-        {% endfor %}
+        {% endeach %}
     {% else %}
         <div class="main__body">
             {{doc.body|markdown|safe}}

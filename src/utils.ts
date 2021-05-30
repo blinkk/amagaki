@@ -82,10 +82,6 @@ export function formatBytes(bytes: number) {
   return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
 }
 
-export function getLocalizedValue(doc: Document, item: any, key: string) {
-  return doc.locale ? item[`${key}@${doc.locale.id}`] || item[key] : item[key];
-}
-
 export function interpolate(pod: Pod, string: string, params: any) {
   // Cache created functions to avoid memory leak.
   const names = Object.keys(params);

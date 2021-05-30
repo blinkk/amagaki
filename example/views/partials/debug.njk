@@ -19,15 +19,6 @@
         {{key}}: {{val}}
     {% endfor %}
 
-    {# NOTE: This creates some slowdown.
-    Routes ({{pod.router.routes.length}}):
-    <ul>
-        {% for route in pod.router.routes %}
-            <li><a href="{{route.url.path}}">{{route}}</a>
-        {% endfor %}
-    </ul>
-    #}
-
     Test plugins:
     {{"Hello World"|testPluginFilter}}, {{"Hello World"|testShortcutFilter}}, {{copyrightYear()}}
 </div>

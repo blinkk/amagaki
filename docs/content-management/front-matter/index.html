@@ -485,7 +485,59 @@
         <div class="markdown-body">
             <div>
                 <h1 id="front-matter-and-data">Front matter and data</h1>
-<p>TODO</p>
+<p>All content documents can contain front matter. Front matter is used to organize
+the data used on each page – facilitating the best practice of separating
+content from presentation.</p>
+<p>Generally, avoid inserting content into your template. While it may seem
+convenient, doing so is a common pitfall. When content is inserted directly into
+a template, the template cannot be reused, which creates maintainability and
+scalability issues.</p>
+<h2 id="within-markdown-and-text-formats">Within Markdown and text formats</h2>
+<p>Front matter can be used within Markdown-formatted content documents like so:</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-58e1b160-c0e2-11eb-9d53-a9c49790f6ed" name="t-58e09ff0-c0e2-11eb-9d53-a9c49790f6ed" checked > <label for="t-58e1b160-c0e2-11eb-9d53-a9c49790f6ed" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+date: 2021-01-06
+author:
+  name: Lorem ipsum
+<span class="hljs-section">  email: lorem@example.com
+---</span>
+<span class="hljs-section"># This is my page title.</span>
+ 
+By: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;mailto:{{doc.fields.email}}&quot;</span>&gt;</span></span>{{doc.fields.name}}<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+Published: {{doc.fields.date}}
+</code></pre></div> </div>
+
+<h2 id="within-structured-content-documents">Within structured content documents</h2>
+<p>Documents can also be entirely composed of front matter. Here&#39;s an example. This
+example assumes your project is using the partial loop.</p>
+<p>First, place data into your document:</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-58e33800-c0e2-11eb-9d53-a9c49790f6ed" name="t-58e1b161-c0e2-11eb-9d53-a9c49790f6ed" checked > <label for="t-58e33800-c0e2-11eb-9d53-a9c49790f6ed" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>
+  <span class="hljs-attr">headline:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Hello</span> <span class="hljs-string">World!</span>
+  <span class="hljs-attr">body:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">This</span> <span class="hljs-string">is</span> <span class="hljs-string">the</span> <span class="hljs-string">body</span> <span class="hljs-string">copy</span> <span class="hljs-string">for</span> <span class="hljs-string">my</span> <span class="hljs-string">website.</span>
+  <span class="hljs-attr">buttons:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">label:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Watch</span> <span class="hljs-string">video</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">https://youtube.com/foo</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">label:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Learn</span> <span class="hljs-string">more</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">https://example.com</span>
+</code></pre></div> </div>
+
+<p>Then, reference that front matter within the template:</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-58e5f720-c0e2-11eb-9d53-a9c49790f6ed" name="t-58e33801-c0e2-11eb-9d53-a9c49790f6ed" checked > <label for="t-58e5f720-c0e2-11eb-9d53-a9c49790f6ed" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__headline&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.headline}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__body&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.body}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__buttons&quot;</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> button in partial.buttons %}</span><span class="xml">
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__buttons__button&quot;</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{button.url}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{button.label}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+</code></pre></div> </div>
+
+<p>As you can see from this example, the template contains no content, just
+references to the content stored in the document. This makes the <code>hero</code> template
+reusable across multiple pages, and even multiple times within the same page.}</p>
 
             </div>
             

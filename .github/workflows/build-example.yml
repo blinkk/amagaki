@@ -24,4 +24,4 @@ jobs:
         run: |
                 npm install
                 npm run dev:start
-                node ./dist/src/index.js build example
+                node ./dist/src/commands/index.js build example

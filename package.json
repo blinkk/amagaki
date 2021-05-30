@@ -1,7 +1,7 @@
 {
   "name": "@amagaki/amagaki",
   "bin": {
-    "amagaki": "./src/index.js"
+    "amagaki": "./dist/src/index.js"
   },
   "version": "0.6.0",
   "license": "MIT",

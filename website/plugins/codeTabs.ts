@@ -1,9 +1,11 @@
+/* eslint-disable node/no-unpublished-import */
+
 import * as commonTags from 'common-tags';
 import * as uuid from 'uuid';
 
 import {JSDOM} from 'jsdom';
-import {NunjucksPlugin} from 'amagaki/src/plugins/nunjucks';
-import {Pod} from 'amagaki/src/pod';
+import {NunjucksPlugin} from '../../dist/src/plugins/nunjucks';
+import {Pod} from '../../dist/src/pod';
 import hljs from 'highlight.js';
 import marked from 'marked';
 
@@ -27,9 +29,9 @@ export const register = (pod: Pod) => {
     value = value.replace(titleRegex, '');
     const html = marked(value).trim();
     const dom = new JSDOM(html);
-    const languages = Array.from(
+    const languages = (Array.from(
       dom.window.document.querySelectorAll('code')
-    ).map(el => {
+    ) as HTMLElement[]).map(el => {
       return el.className.replace('language-', '');
     });
     return this.env.filters.safe(

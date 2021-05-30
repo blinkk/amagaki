@@ -1,7 +1,9 @@
+/* eslint-disable node/no-unpublished-import */
+
 import * as fetch from 'node-fetch';
 
-import {Pod} from 'amagaki/src/pod';
-import {YamlPlugin} from 'amagaki/src/plugins/yaml';
+import {Pod} from '../../dist/src/pod';
+import {YamlPlugin} from '../../dist/src/plugins/yaml';
 
 export const register = (pod: Pod) => {
   const yamlPlugin = pod.plugins.get('YamlPlugin') as YamlPlugin;

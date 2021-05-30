@@ -40,7 +40,7 @@ export class ServeCommand {
       console.log('Reloaded:'.green, `${pod.root}`);
     });
     server.once(Server.Events.LISTENING, () => {
-      console.log('   Pod:'.green, `${pod.root}`);
+      console.log('🍊 Pod:'.green, `${pod.root}`);
       console.log(
         'Server:'.green,
         `${pod.env.scheme}://${pod.env.host}:${port}/`

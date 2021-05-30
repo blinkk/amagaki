@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.1](https://www.github.com/blinkk/amagaki/compare/v0.6.0...v0.6.1) (2021-05-30)
+
+
+### Bug Fixes
+
+* fix package bin path ([80ac1f1](https://www.github.com/blinkk/amagaki/commit/80ac1f1e809505cd37578798b6b432bf5fc626ef))
+
 ## [0.6.0](https://www.github.com/blinkk/amagaki/compare/v0.5.0...v0.6.0) (2021-05-30)
 
 

@@ -7,138 +7,61 @@
 [![codecov][codecov-image]][codecov-url]
 [![TypeScript Style Guide][gts-image]][gts-url]
 
-Amagaki is an experimental static site generator based on
-[Grow.dev](https://grow.dev/).
+Amagaki is a marketing website generator. It's written in TypeScript and TS is a
+first-class citizen. It's specifically built for hand-coding marketing and
+informational websites. Flexible URLs, benchmarking, localization, a plugin
+system, and multiple template engines are all built-in.
 
-## Try it out
+Amagaki takes concepts from [Grow.dev](https://github.com/grow/grow) and evolves
+them to a TypeScript-first ecosystem.
 
-```
-# Install dependencies.
-npm install
-
-# Build Amagaki (and start development watcher).
-npm run dev
-
-# Build the example site.
-node ./dist/src/index.js build example
-
-# Run the Amagaki dev server for the example site.
-node ./dist/src/index.js serve example
-```
+## [🍊 Start here with the documentation](https://amagaki.dev)
 
 ## Key concepts
 
 - TypeScript and Node
 - Minimal core dependencies
 - Inbuilt build metrics (memory usage, generated file size, routes, locales,
-  translation recording)
+  translations)
 - Multiple template languages (Nunjucks as default)
-- Still a static site generator (not a frontend framework)
-- Still renders pages at request time (unlike other static generators which
-  watch and rebuild)
-- Still has localization as an inbuilt feature
+- A static site generator (not a frontend framework)
+- Renders pages at request time (unlike other static generators which watch and rebuild)
+- Localization is an inbuilt feature
+- Custom YAML types for extending the content layer
+- Plugin system
+- Benchmarking inbuilt
 
-## New features from Grow.dev
+## Try it out
 
-- TypeScript and Node (with forced linting and autofixing) in the Amagaki
-  codebase
+Amagaki is distributed as an npm package. We recommend using our
+[starter](https://github.com/blinkk/amagaki-starter) when starting from scratch.
 
-- Route providers generate all routes. (`Document` and `StaticFile` as default).
-  Can be expanded with custom route providers (i.e. for headless CMS). Because
-  route providers are more pluggable, we can also more easily do more custom
-  things like paginated (i.e. a `PaginatedCollectionProvider` or similar).
+```shell
+git clone https://github.com/blinkk/amagaki-starter
+npm install
 
-- Always-on translation recording. Missing strings are always recorded when
-  building individual and bulk pages.
+# Start the dev server
+npm run dev
 
-- Expanded options for URL formats. URL formats (i.e. `$path`) are interpolated
-  JavaScript strings, so they are more customizable.
-
-```
-# In Amagaki
-$path: /pages/${doc.basename.toLowerCase()}/
+# Build the site
+npm run build
 ```
 
-- More defaults for URLs, static file directories, and environments. Sites can
-  be built without any configuration files as long as content and templates are
-  in the right places.
+If you are integrating into an existing project, you can install Amagaki directly.
 
-- YAML types will be extendable via extensions. Site authors can create
-  site-specific YAML types to improve consistency of content across the site.
-  For example, a site author could create an `!Asset` type, that validates its
-  properties and serializes into a custom `Asset` class defined in a custom
-  TypeScript extension for the site.
+```shell
+# Install Amagaki
+npm install --save @amagaki/amagaki
 
-- Can support multiple template languages or Markdown flavors.
+# Start the dev server
+npx amagaki serve
 
-- Need to prototype this: single-page client-side rendering (i.e. Amagaki in a
-  Chrome tab). Theoretically, this would allow us to build an interactive editor
-  that lets operators change content and see an instant preview of the changes
-  (all without a backend server).
-
-## What about the Live Editor (grow-ext-editor)?
-
-A new version of the live editor is being created that will support amagaki projects.
-
-## Key differences from Grow.dev
-
-- Instant dev server startup. All routing and document instantiation is done
-  lazily. The dev server starts instantly.
-
-- Focus on minimizing memory usage when building both one and multiple pages.
-  Memory usage outputted after builds are complete. Static files are
-  streamed/copied rather than rendered into memory.
-
-- Removal of implicit `@locale`-based localized content management in YAML
-  files. `@locale`-based content management is still supported, but usage in the
-  template now must be explicit.
-
-For example:
-
+# Build the site
+npx amagaki build
 ```
-## /content/pages/index.yaml
-foo: Hello World
-foo@ja_JP: こんにちは世界
-
-# In Grow.dev
-## /views/base.html
-{{doc.foo}}
-
-# In Amagaki
-{{l('doc.foo')}} or {{doc|l('foo')}}
-```
-
-- Removal of Babel and gettext translations; translations are now stored in
-  proprietary YAML files which support additional translation request lifecycle
-  behavior (i.e. "preferred" translations for ovewriting source copy without
-  breaking translations and auto-extracting context for translators).
-
-```
-# In Grow.dev
-{{_(doc.title)}}
-
-# In Amagaki
-{{doc.title|t}}
-```
-
-- Removal of `deployments` concept. Instead, all builds are assumed local.
-  Environment options (i.e. dev, staging, prod URLs) are preserved from
-  Grow.dev. Deployment to servers now managed as a separate post-build step.
-
-- More minimal core. Preprocessor integrations (i.e. with Google Sheets) to be
-  implemented as extensions.
-
-A few proposed naming changes (TBD?):
-
-- `_blueprint.yaml` is now `_collection.yaml`
-- `podspec.yaml` is now `amagaki.yaml`
-- `!g.doc`, `!g.static`, `!g.yaml`, etc. are now `!pod.doc`, `!pod.staticFile`, `!a.Content`
-- `!g.string` is now `!pod.string` which is similar but has more features
-- `.grow/index.proto.json` is now `.amagaki/build.json` (the `files`, `commit`, and `branch` values are preserved. the `deployed` key is changed to `built` and the `author` key is removed as it is a duplicate of the `commit.author` value)
-
 ## Benchmarks
 
-You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki benchmark](https://github.com/blinkk/amagaki-benchmark) test repository.
+You can view the [benchmark history](https://blinkkcode.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki-benchmark](https://github.com/blinkk/amagaki-benchmark) test repository.
 
 [github-image]: https://github.com/blinkk/amagaki/workflows/Run%20tests/badge.svg
 [github-url]: https://github.com/blinkk/amagaki/actions

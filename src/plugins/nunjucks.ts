@@ -1,7 +1,7 @@
 import * as nunjucks from 'nunjucks';
 import * as utils from '../utils';
 
-import {formatBytes, getLocalizedValue} from '../utils';
+import {formatBytes} from '../utils';
 
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
@@ -76,13 +76,20 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
       // Use `function` to preserve scope. `this` is the Nunjucks template.
       return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);
     });
-    this.env.addFilter('localize', function (this: any, parent, key) {
-      // Use `function` to preserve scope. `this` is the Nunjucks template.
-      return getLocalizedValue(this.ctx.doc, parent, key);
-    });
     this.env.addFilter('formatBytes', value => {
       return formatBytes(value);
     });
+    this.env.addFilter(
+      'await',
+      async (func, callback) => {
+        try {
+          callback(null, await func);
+        } catch (err) {
+          callback(err);
+        }
+      },
+      true
+    );
     this.env.addFilter('markdown', value => {
       if (!value) {
         return '';

@@ -23,5 +23,4 @@ jobs:
       - name: Build example site
         run: |
                 npm install
-                npm run dev:start
-                npx amagaki build example
+                npm run build:example

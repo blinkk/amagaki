@@ -63,7 +63,7 @@ jobs:
             # Build the benchmark repository.
             cd amagaki-benchmark
             npm install
-            node ../dist/src/commands/index.js build
+            npx amagaki build
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:

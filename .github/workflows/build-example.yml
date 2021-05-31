@@ -24,4 +24,4 @@ jobs:
         run: |
                 npm install
                 npm run dev:start
-                node ./dist/src/commands/index.js build example
+                npx amagaki build example

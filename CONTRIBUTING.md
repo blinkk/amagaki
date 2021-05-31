@@ -100,9 +100,9 @@ versions on your system.
 2. Run `npm install`.
 3. Run `npm run dev` in one Terminal to start the watcher. The watcher invokes
    the TypeScript compiler when code is changed.
-4. Run `node ./dist/src/commands/index.js` to invoke the CLI from the local project
+4. Run `node ./dist/src/cli.js` to invoke the CLI from the local project
    directory.
-5. Run `node ./dist/src/commands/index.js build example` to test building the included
+5. Run `node ./dist/src/cli.js build example` to test building the included
    example site.
 
 ### Running against other sites locally

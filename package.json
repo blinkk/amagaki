@@ -11,20 +11,20 @@
     "node": ">=14"
   },
   "bin": {
-    "amagaki": "./dist/src/commands/index.js"
+    "amagaki": "./dist/src/cli.js"
   },
   "main": "./dist/src/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build:example": "node ./dist/src/commands/index.js build example",
+    "build:example": "node ./dist/src/cli.js build example",
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc",
     "copy": "mkdir -p dist/src/static; cp src/static/* dist/src/static",
     "dev:start": "npm run copy; npm run compile",
-    "start:example": "node ./dist/src/commands/index.js serve example",
+    "start:example": "node ./dist/src/cli.js serve example",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
     "docs": "typedoc",
     "docs:ci": "typedoc --out public/api",

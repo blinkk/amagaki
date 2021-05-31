@@ -8,7 +8,7 @@ import {Document} from '../document';
 import {Environment} from '../environment';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
-import {StaticFile} from '../static';
+import {StaticFile} from '../staticFile';
 import {TranslationString} from '../string';
 
 interface YamlTypeArguments {

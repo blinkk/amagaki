@@ -2,8 +2,7 @@
 
 import * as fetch from 'node-fetch';
 
-import {Pod} from '../../dist/src/pod';
-import {YamlPlugin} from '../../dist/src/plugins/yaml';
+import {Pod, YamlPlugin} from '../../dist/src/';
 
 export const register = (pod: Pod) => {
   const yamlPlugin = pod.plugins.get('YamlPlugin') as YamlPlugin;

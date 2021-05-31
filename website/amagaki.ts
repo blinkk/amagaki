@@ -6,13 +6,11 @@ import * as githubContributors from './plugins/githubContributors';
 import * as utils from '../dist/src/utils';
 
 import {
+  Document,
   NunjucksPlugin,
   NunjucksTemplateEngine,
-} from '../dist/src/plugins/nunjucks';
-
-import {Document} from '../dist/src/document';
-import {Pod} from '../dist/src/pod';
-import {Url} from '../dist/src/url';
+  Pod,
+} from '../dist/src/';
 
 export default (pod: Pod) => {
   pod.configure({

@@ -1,0 +1,4 @@
+stringType: !pod.string
+  prefer: Hello Universe
+  value: Hello World
+nativeType: Goodbye

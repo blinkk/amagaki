@@ -1,0 +1,6 @@
+$path: /${doc.basename}/
+$localization:
+  path: /${doc.locale.id}/${doc.basename}/
+  locales:
+  - en
+  - de

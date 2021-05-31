@@ -4,6 +4,8 @@ import {TranslationString} from './string';
 
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
 
+export type Translatable = string | TranslationString;
+
 export class LocaleSet extends Set {
   static fromIds(localeIds: Array<string>, pod: Pod): LocaleSet {
     return new LocaleSet(localeIds.map(locale => pod.locale(locale)));
@@ -53,7 +55,7 @@ export class Locale {
   }
 
   /** Normalizes a string into a `TranslationString` object. */
-  toTranslationString(value: string | TranslationString) {
+  toTranslationString(value: Translatable) {
     if (typeof value === 'string') {
       return this.pod.string(
         {
@@ -85,12 +87,18 @@ export class Locale {
     }
   }
 
-  getTranslation(value: string | TranslationString, location?: Document) {
+  getTranslation(value: Translatable, location?: Document) {
     if (!value) {
       return value;
     }
 
     const string = this.toTranslationString(value);
+
+    // Return the preferred string without checking translations, if in the
+    // default locale.
+    if (string.prefer && this === this.pod.defaultLocale) {
+      return string.prefer;
+    }
 
     this.recordString(string, location);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {

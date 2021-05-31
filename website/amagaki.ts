@@ -3,14 +3,14 @@
 import * as codeTabs from './plugins/codeTabs';
 import * as fsPath from 'path';
 import * as githubContributors from './plugins/githubContributors';
-import * as utils from '../dist/src/utils';
 
 import {
   Document,
   NunjucksPlugin,
   NunjucksTemplateEngine,
   Pod,
-} from '../dist/src/';
+  interpolate,
+} from '@amagaki/amagaki';
 
 export default (pod: Pod) => {
   pod.configure({
@@ -48,7 +48,7 @@ export default (pod: Pod) => {
   });
 
   nunjucksPlugin.addFilter('interpolate', function (value: string) {
-    return utils.interpolate(pod, value, this.ctx);
+    return interpolate(pod, value, this.ctx);
   });
 
   nunjucksPlugin.addFilter('relative', function (value: string | undefined) {

@@ -3,7 +3,7 @@
 import * as commonTags from 'common-tags';
 import * as uuid from 'uuid';
 
-import {NunjucksPlugin, Pod} from '../../dist/src/';
+import {NunjucksPlugin, Pod} from '@amagaki/amagaki';
 import {JSDOM} from 'jsdom';
 import hljs from 'highlight.js';
 import marked from 'marked';

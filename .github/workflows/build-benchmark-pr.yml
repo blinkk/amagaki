@@ -46,7 +46,7 @@ jobs:
                 npm run dev:start
                 cd benchmark
                 npm install
-                node ../dist/src/commands/index.js build
+                npx amagaki build
       - name: Store benchmark result
         uses: rhysd/github-action-benchmark@v1
         with:

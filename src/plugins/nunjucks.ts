@@ -8,6 +8,8 @@ import marked from 'marked';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 import {TemplateEngineComponent} from '../templateEngine';
+import {Document} from '../document';
+import {Url} from '../url';
 
 /**
  * Plugin providing support for the nunjucks template engine.
@@ -97,6 +99,12 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
       }
       return marked(value);
     });
+    this.env.addFilter(
+      'relative',
+      function (this: any, value: Document | string) {
+        return Url.relative(value, this.ctx.doc);
+      }
+    );
   }
 
   render(path: string, context: any): Promise<string> {

@@ -1,7 +1,6 @@
 /* eslint-disable node/no-unpublished-import */
 
 import * as codeTabs from './plugins/codeTabs';
-import * as fsPath from 'path';
 import * as githubContributors from './plugins/githubContributors';
 
 import {
@@ -9,6 +8,7 @@ import {
   NunjucksPlugin,
   NunjucksTemplateEngine,
   Pod,
+  Url,
   interpolate,
 } from '@amagaki/amagaki';
 
@@ -49,21 +49,5 @@ export default (pod: Pod) => {
 
   nunjucksPlugin.addFilter('interpolate', function (value: string) {
     return interpolate(pod, value, this.ctx);
-  });
-
-  nunjucksPlugin.addFilter('relative', function (value: string | undefined) {
-    if (
-      !value ||
-      typeof value !== 'string' ||
-      value.startsWith('http') ||
-      !this.ctx.doc
-    ) {
-      return value;
-    }
-    const result = fsPath.relative(this.ctx.doc.url.path, value);
-    if (!result || result === '/') {
-      return './';
-    }
-    return value.endsWith('/') ? `./${result}/` : `./${result}`;
   });
 };

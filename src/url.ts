@@ -1,3 +1,5 @@
+import * as fsPath from 'path';
+import {Document} from './document';
 import {Environment} from './environment';
 
 interface UrlOptions {
@@ -7,6 +9,8 @@ interface UrlOptions {
   port?: string;
   env?: Environment;
 }
+
+const ABSOLUTE_URL_REGEX = new RegExp('^(//|[a-z]+:)', 'i');
 
 export class Url {
   path: string;
@@ -45,5 +49,26 @@ export class Url {
       return `${this.scheme}://${this.host}:${this.port}${this.path}`;
     }
     return `${this.scheme}://${this.host}${this.path}`;
+  }
+
+  /**
+   * Returns a URL relative to another URL. Accepts both `Document` objects
+   * (i.e. for returning the URL of one document relative to another) or URLs as
+   * strings. Accepts both full URLs or paths only.
+   * @param other The `Document` or URL being linked to.
+   * @param base The `Document` or URL being linked from.
+   * @returns The URL of `other` relative to `base`.
+   */
+  static relative(other: Document | string, base: Document | string) {
+    const otherUrl = other instanceof Document ? other.url?.path : other;
+    const baseUrl = base instanceof Document ? base.url?.path : base;
+    if (!otherUrl || !baseUrl || ABSOLUTE_URL_REGEX.test(otherUrl)) {
+      return otherUrl;
+    }
+    const result = fsPath.relative(baseUrl, otherUrl);
+    if (!result || result === '/') {
+      return otherUrl.endsWith('/') ? './' : '.';
+    }
+    return otherUrl.endsWith('/') ? `./${result}/` : `./${result}`;
   }
 }

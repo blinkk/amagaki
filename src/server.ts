@@ -14,7 +14,7 @@ interface ServerOptions {
 }
 
 export interface ServerListeningEvent {
-  app: Express.Application;
+  app: http.Server;
 }
 
 export class Server extends events.EventEmitter {
@@ -38,7 +38,7 @@ export class Server extends events.EventEmitter {
   /**
    * Returns the `Express` server application.
    */
-  createApp() {
+  createApp(): express.Express {
     const app = express();
     this.pod.plugins.trigger('createServer', app);
     app.disable('x-powered-by');

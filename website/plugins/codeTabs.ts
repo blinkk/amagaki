@@ -3,9 +3,8 @@
 import * as commonTags from 'common-tags';
 import * as uuid from 'uuid';
 
+import {NunjucksPlugin, Pod} from '../../dist/src/';
 import {JSDOM} from 'jsdom';
-import {NunjucksPlugin} from '../../dist/src/plugins/nunjucks';
-import {Pod} from '../../dist/src/pod';
 import hljs from 'highlight.js';
 import marked from 'marked';
 

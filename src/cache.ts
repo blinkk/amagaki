@@ -5,7 +5,7 @@ import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
 import {Route} from './router';
-import {StaticFile} from './static';
+import {StaticFile} from './staticFile';
 import {TranslationString} from './string';
 
 export class Cache {

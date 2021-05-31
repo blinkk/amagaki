@@ -3,10 +3,11 @@ import * as utils from '../utils';
 
 import {formatBytes} from '../utils';
 
+import marked from 'marked';
+
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 import {TemplateEngineComponent} from '../templateEngine';
-import marked from 'marked';
 
 /**
  * Plugin providing support for the nunjucks template engine.

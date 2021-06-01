@@ -27,7 +27,7 @@ document are available. Some commonly used ones are:
 
 {{button.button({
     label: 'Read Document API Reference',
-    url: 'https://blinkkcode.github.io/amagaki/api/classes/document.document-1.html',
+    url: 'https://blinkk.github.io/amagaki/api/classes/document.document-1.html',
     external: true,
     class: 'button button--low',
     icon: 'launch'
@@ -47,7 +47,7 @@ which can be invoked from your templates. Some commonly used ones are:
 
 {{button.button({
     label: 'Read Pod API Reference',
-    url: 'https://blinkkcode.github.io/amagaki/api/classes/pod.pod-1.html',
+    url: 'https://blinkk.github.io/amagaki/api/classes/pod.pod-1.html',
     external: true,
     class: 'button button--low',
     icon: 'launch'
@@ -64,7 +64,7 @@ properties of the route are:
 
 {{button.button({
     label: 'Read Route API Reference',
-    url: 'https://blinkkcode.github.io/amagaki/api/classes/router.route.html',
+    url: 'https://blinkk.github.io/amagaki/api/classes/router.route.html',
     external: true,
     class: 'button button--low',
     icon: 'launch'

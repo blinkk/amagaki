@@ -60,7 +60,7 @@ menu:
 ```javascript
 // Get one document.
 const doc = pod.doc('/content/pages/index.yaml');
- 
+
 // List all documents within the posts collection.
 const docs = pod.docs('/content/posts/**');
 ```
@@ -68,14 +68,14 @@ const docs = pod.docs('/content/posts/**');
 
 {{button.button({
     label: 'See full API Reference',
-    url: 'https://blinkkcode.github.io/amagaki/api/',
+    url: 'https://blinkk.github.io/amagaki/api/',
     class: 'button button--low',
     icon: 'launch'
 })}}
 
 {{button.button({
     label: 'See API Reference for pod functions',
-    url: 'https://blinkkcode.github.io/amagaki/api/',
+    url: 'https://blinkk.github.io/amagaki/api/',
     class: 'button button--low',
     icon: 'launch'
 })}}

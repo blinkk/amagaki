@@ -82,9 +82,9 @@ partials:
 - partial: simpleMarkdown
   body: |
     ## Why?
-    
+
     We know there are dozens and dozens of static site generators. Amagaki was built specifically for two reasons:
-    
+
     - **TypeScript.** There aren’t a lot of robust TypeScript static site generators. Amagaki aims to be the best. We are betting on the evolution of TypeScript and the JavaScript ecosystem, and want to empower developers to use the same tools to extend Amagaki as they use to build their website.
 
     - **A laser focus on the marketing website lifecycle.** Marketing websites face certain challenges and sit somewhere in between blogs and webapps. For example, a popular tool like Jekyll may have too few features for a marketing website, and Next.js may have too many. Hugo and Grow are great, but they are in non-JavaScript languages. Something has to bridge the gap.
@@ -92,7 +92,7 @@ partials:
     ### More on marketing sites
 
     Marketing websites are often constructed with elements such as repeatable content types, reusable modules, frontend components, and translations. Amagaki makes it easy to separate content and views, allowing developers to follow this critical maintainability best practice. All while just writing HTML (templates), CSS (Sass), and JS (TypeScript).
-    
+
     And, often, stakeholders require developers to stage updates on a dime and push content updates rapidly. Amagaki facilitates this workflow with confidence.
 
 - partial: spacer
@@ -103,7 +103,7 @@ partials:
     ## The editor (coming soon)
 
     You’re using a static site generator, but you want to empower stakeholders with the ability to edit and publish content themselves; and you want to avoid a complicated headless CMS integration. That’s where Editor.dev comes in.
-    
+
     Amagaki was built to pair with Editor.dev – a robust, minimal configuration, user-friendly way to empower non-technical users to assemble pages, update copy, images, and translations, and interact with your website content – all without requiring integrations.
 
 - partial: spacer
@@ -126,9 +126,9 @@ partials:
 
     ### Other projects
 
-    - [Editor.dev](https://github.com/blinkkcode/live-edit)
-    - [Fileset](https://github.com/blinkkcode/fileset)
-    - [Degu](https://github.com/blinkkcode/degu)
+    - [Editor.dev](https://github.com/blinkk/live-edit)
+    - [Fileset](https://github.com/blinkk/fileset)
+    - [Degu](https://github.com/blinkk/degu)
 
 - partial: spacer
   size: large

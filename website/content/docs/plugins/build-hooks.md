@@ -14,7 +14,7 @@ object contains a diff, manifest, and metrics about the build.
 
 {{button.button({
     label: 'Read BuildResult Reference',
-    url: 'https://blinkkcode.github.io/amagaki/api/interfaces/builder.buildresult.html',
+    url: 'https://blinkk.github.io/amagaki/api/interfaces/builder.buildresult.html',
     external: true,
     class: 'button button--low',
     icon: 'launch'
@@ -26,11 +26,11 @@ object contains a diff, manifest, and metrics about the build.
 ```javascript:title=amagaki.js
 module.exports = function (pod) {
     const plugin = pod.plugins.get('BuilderPlugin');
-     
+
     plugin.addBeforeBuildStep(builder => {
     // Do something with the builder.
     });
-     
+
     plugin.addAfterBuildStep(buildResult => {
     // Do something with the build result.
     });

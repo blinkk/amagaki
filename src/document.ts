@@ -223,7 +223,7 @@ export class Document {
       const deepWalker = new DeepWalk();
 
       // Walk data twice, once to invoke async functions and once to await them.
-      // Follows pattern from https://github.com/blinkkcode/live-edit-connector/blob/main/src/utility/yamlSchemas.ts
+      // Follows pattern from https://github.com/blinkk/live-edit-connector/blob/main/src/utility/yamlSchemas.ts
       this.parts.fields = await deepWalker.walk(
         this.parts.fields,
         async (value: any) => {

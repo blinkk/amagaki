@@ -276,7 +276,7 @@ export class Builder {
   }
 
   async export(): Promise<BuildResult> {
-    this.pod.plugins.trigger('beforeBuild', this);
+    await this.pod.plugins.trigger('beforeBuild', this);
     const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
       branch: null,
@@ -495,7 +495,7 @@ export class Builder {
       manifest: buildManifest,
       metrics: buildMetrics,
     };
-    this.pod.plugins.trigger('afterBuild', result);
+    await this.pod.plugins.trigger('afterBuild', result);
     return result;
   }
 

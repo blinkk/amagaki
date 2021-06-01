@@ -40,7 +40,7 @@ export class Server extends events.EventEmitter {
    */
   createApp(): express.Express {
     const app = express();
-    this.pod.plugins.trigger('createServer', app);
+    this.pod.plugins.triggerSync('createServer', app);
     app.disable('x-powered-by');
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {

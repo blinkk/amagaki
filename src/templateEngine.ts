@@ -51,7 +51,7 @@ export class TemplateEngineManager {
       this.engines[extension] = new this.extToClass[extension](this.pod);
 
       // Trigger the plugin hook for new template engines.
-      this.pod.plugins.trigger(
+      this.pod.plugins.triggerSync(
         'createTemplateEngine',
         this.engines[extension],
         extension

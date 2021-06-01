@@ -38,9 +38,9 @@ export class Server extends events.EventEmitter {
   /**
    * Returns the `Express` server application.
    */
-  createApp(): express.Express {
+  async createApp(): Promise<express.Express> {
     const app = express();
-    this.pod.plugins.triggerSync('createServer', app);
+    await this.pod.plugins.trigger('createServer', app);
     app.disable('x-powered-by');
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {
@@ -82,7 +82,7 @@ export class Server extends events.EventEmitter {
    * Starts the web server.
    */
   async start() {
-    const app = this.createApp();
+    const app = await this.createApp();
     this.httpServer = app.listen(this.port);
     this.emit(Server.Events.LISTENING, <ServerListeningEvent>{
       app: this.httpServer,

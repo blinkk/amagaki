@@ -21,9 +21,9 @@ export class ServerPlugin implements PluginComponent {
     this.callbacks.push(func);
   }
 
-  createServerHook(app: express.Application) {
-    this.callbacks.forEach(callback => {
-      callback(app);
-    });
+  async createServerHook(app: express.Application) {
+    for (const callback of this.callbacks) {
+      await callback(app);
+    }
   }
 }

@@ -25,5 +25,6 @@ jobs:
                 npm install --dev
                 npm run test
       - name: Run external tests
+        working-directory: tests
         run: |
-                ./tests/runAll.sh
+                ./runAll.sh

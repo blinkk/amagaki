@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@amagaki/amagaki": "file:../../amagaki-amagaki-0.6.1.tgz",
     "typescript": "^4.3.2"
   }
 }

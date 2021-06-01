@@ -5,7 +5,7 @@ import * as utils from './utils';
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
-import {StaticFile} from './static';
+import {StaticFile} from './staticFile';
 import {Url} from './url';
 
 export interface StaticDirConfig {

@@ -22,7 +22,7 @@ import {Cache} from './cache';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {ServerPlugin} from './plugins/server';
-import {StaticFile} from './static';
+import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
 
 export interface LocalizationConfig {

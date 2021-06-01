@@ -23,5 +23,4 @@ jobs:
       - name: Build example site
         run: |
                 npm install
-                npm run dev:start
-                node ./dist/src/index.js build example
+                npm run build:example

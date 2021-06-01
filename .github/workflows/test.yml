@@ -20,7 +20,11 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Run tests
+      - name: Run npm tests
         run: |
                 npm install --dev
                 npm run test
+      - name: Run external tests
+        working-directory: tests
+        run: |
+                ./runAll.sh

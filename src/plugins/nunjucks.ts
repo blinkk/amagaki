@@ -1,12 +1,73 @@
 import * as nunjucks from 'nunjucks';
 import * as utils from '../utils';
 
-import {formatBytes} from '../utils';
-
+import {Document} from '../document';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 import {TemplateEngineComponent} from '../templateEngine';
+import {Translatable} from '../locale';
+import {Url} from '../url';
+import {formatBytes} from '../utils';
 import marked from 'marked';
+
+/**
+ * Built-in Nunjucks filters.
+ */
+class NunjucksBuiltInFilters {
+  /**
+   * Awaits an async function. Usage: `{{asyncFunction()|await}}`
+   * @param func The async function to await.
+   * @param callback The callback invoked by async Nunjucks filters.
+   */
+  static async await(func: Function, callback: Function) {
+    try {
+      callback(null, await func);
+    } catch (err) {
+      callback(err);
+    }
+  }
+
+  /**
+   * Formats bytes in a human-readable way.
+   * @param value Number in bytes.
+   * @returns Bytes formatted in a human-readable way.
+   */
+  static formatBytes(value: number) {
+    return formatBytes(value);
+  }
+
+  /**
+   * Converts Markdown to HTML.
+   * @param value Markdown to convert.
+   * @returns Markdown converted to HTML.
+   */
+  static markdown(value: string) {
+    if (!value) {
+      return '';
+    }
+    return marked(value);
+  }
+
+  /**
+   * Returns a URL relative to the current document.
+   * @param this Nunjucks context.
+   * @param value Destination URL.
+   * @returns The URL relative to the current document.
+   */
+  static relative(this: any, value: Document | string) {
+    return Url.relative(value, this.ctx.doc);
+  }
+
+  /**
+   * Returns a translation in the current document's locale, for a string.
+   * @param this Nunjucks context.
+   * @param value A native string or a `String` object.
+   * @returns The translation of `value`.
+   */
+  static t(this: any, value: Translatable) {
+    return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);
+  }
+}
 
 /**
  * Plugin providing support for the nunjucks template engine.
@@ -72,30 +133,11 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.env = new nunjucks.Environment(loader, {
       autoescape: true,
     });
-    this.env.addFilter('t', function (this: any, value) {
-      // Use `function` to preserve scope. `this` is the Nunjucks template.
-      return this.ctx.doc.locale.getTranslation(value, this.ctx.doc);
-    });
-    this.env.addFilter('formatBytes', value => {
-      return formatBytes(value);
-    });
-    this.env.addFilter(
-      'await',
-      async (func, callback) => {
-        try {
-          callback(null, await func);
-        } catch (err) {
-          callback(err);
-        }
-      },
-      true
-    );
-    this.env.addFilter('markdown', value => {
-      if (!value) {
-        return '';
-      }
-      return marked(value);
-    });
+    this.env.addFilter('await', NunjucksBuiltInFilters.await, true);
+    this.env.addFilter('formatBytes', NunjucksBuiltInFilters.formatBytes);
+    this.env.addFilter('markdown', NunjucksBuiltInFilters.markdown);
+    this.env.addFilter('relative', NunjucksBuiltInFilters.relative);
+    this.env.addFilter('t', NunjucksBuiltInFilters.t);
   }
 
   render(path: string, context: any): Promise<string> {

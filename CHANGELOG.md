@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.6.2](https://www.github.com/blinkk/amagaki/compare/v0.6.1...v0.6.2) (2021-05-30)
+
+
+### Bug Fixes
+
+* remove superfluous file ([cf760c2](https://www.github.com/blinkk/amagaki/commit/cf760c2d7fc0e5b562ab25b1da4eddac66e36365))
+
 ### [0.6.1](https://www.github.com/blinkk/amagaki/compare/v0.6.0...v0.6.1) (2021-05-30)
 
 

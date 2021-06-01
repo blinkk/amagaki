@@ -9,12 +9,10 @@
     body {
         -webkit-font-smoothing: subpixel-antialiased;
         font-family: 'Nunito', sans-serif;
-        margin: 0 auto;
-        max-width: 600px;
         padding-bottom: 80px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 100px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 40px;
     }
     h2 {
         font-size: 20px;
@@ -39,13 +37,19 @@
         height: 100px;
         width: 100px;
     }
+
+    .message {
+        max-width: 600px;
+    }
 </style>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"/></svg>
+<div class="message">
 <h1>Something went&nbsp;wrong</h1>
 <h2>What happened?</h2>
 <p>There was a problem rendering the page. This usually indicates a problem with code or the content that was entered.</p>
 <h2>What can I do?</h2>
 <p>Check the code or content for issues. The information below may be used by a developer to fix the problem.</p>
 <h2>Debug information for developers</h2>
+</div>
 <pre>{{error.stack}}</code></pre>

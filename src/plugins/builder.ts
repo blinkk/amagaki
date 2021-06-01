@@ -31,27 +31,27 @@ export class BuilderPlugin implements PluginComponent {
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
     this.config = config;
-    this.beforeBuildCallbacks = [];
     this.afterBuildCallbacks = [];
-  }
-
-  addBeforeBuildStep(func: beforeBuildCallback) {
-    this.beforeBuildCallbacks.push(func);
+    this.beforeBuildCallbacks = [];
   }
 
   addAfterBuildStep(func: afterBuildCallback) {
     this.afterBuildCallbacks.push(func);
   }
 
-  async beforeBuildHook(builder: Builder): Promise<void> {
-    for (const callback of this.beforeBuildCallbacks) {
-      await callback(builder);
-    }
+  addBeforeBuildStep(func: beforeBuildCallback) {
+    this.beforeBuildCallbacks.push(func);
   }
 
   async afterBuildHook(buildResult: BuildResult): Promise<void> {
     for (const callback of this.afterBuildCallbacks) {
       await callback(buildResult);
+    }
+  }
+
+  async beforeBuildHook(builder: Builder): Promise<void> {
+    for (const callback of this.beforeBuildCallbacks) {
+      await callback(builder);
     }
   }
 }

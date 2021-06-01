@@ -1,14 +1,23 @@
 import express = require('express');
 
+import {BuildResult, Builder} from './builder';
+
 import {Pod} from './pod';
 import {TemplateEngineComponent} from './templateEngine';
 import {YamlTypeManager} from './plugins/yaml';
-import {Timer} from './profile';
 
 /**
  * Interface for defining plugins to work with Amagaki.
  */
 export interface PluginComponent {
+  /**
+   * Hook for working with the build result after a build is complete.
+   */
+  afterBuildHook?: (result: BuildResult) => Promise<void>;
+  /**
+   * Hook for working with the builder before the build is executed.
+   */
+  beforeBuildHook?: (builder: Builder) => Promise<void>;
   /**
    * Hook for interfacing with the Express server.
    */
@@ -27,21 +36,10 @@ export interface PluginComponent {
    * @see {@link YamlTypeManager} for adding custom yaml types.
    */
   createYamlTypesHook?: (yamlTypeManager: YamlTypeManager) => void;
-  /**
-   * Plugins can define any other properties and methods.
-   *
-   * Methods ending in `Hook` are reserved for future plugin hook handlers.
-   */
-  [x: string]: any;
 }
 
 export interface PluginConstructor {
   new (pod: Pod, config: Record<string, any>): PluginComponent;
-}
-
-interface TriggerMonitor {
-  promise: Promise<void>;
-  timer: Timer;
 }
 
 /**
@@ -104,7 +102,7 @@ export class Plugins {
     try {
       // Start the triggering of the async hooks.
       for (const plugin of this.plugins) {
-        if (plugin[eventMethodName]) {
+        if ((plugin as any)[eventMethodName]) {
           const timer = this.pod.profiler.timer(
             `plugins.hook.${hookName}.${plugin.constructor.name}`,
             `${plugin.constructor.name} hook: ${hookName}`,
@@ -113,9 +111,9 @@ export class Plugins {
               plugin: plugin.constructor.name,
             }
           );
-          const triggerPromise: Promise<void> = plugin[eventMethodName](
-            ...args
-          );
+          const triggerPromise: Promise<void> = (plugin as any)[
+            eventMethodName
+          ](...args);
           triggerPromises.push(triggerPromise);
 
           // Stop the timer whenever the promise is complete.
@@ -151,7 +149,7 @@ export class Plugins {
 
     try {
       for (const plugin of this.plugins) {
-        if (plugin[eventMethodName]) {
+        if ((plugin as any)[eventMethodName]) {
           const pluginTimer = this.pod.profiler.timer(
             `plugins.hook.${hookName}.${plugin.constructor.name}`,
             `${plugin.constructor.name} hook: ${hookName}`,
@@ -161,7 +159,7 @@ export class Plugins {
             }
           );
           try {
-            plugin[eventMethodName](...args);
+            (plugin as any)[eventMethodName](...args);
           } finally {
             pluginTimer.stop();
           }

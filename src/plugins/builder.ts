@@ -3,6 +3,9 @@ import {BuildResult, Builder} from '../builder';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
 
+export type afterBuildCallback = (result: BuildResult) => Promise<void>;
+export type beforeBuildCallback = (builder: Builder) => Promise<void>;
+
 /**
  * Plugin providing access to build steps.
  *
@@ -22,8 +25,8 @@ import {Pod} from '../pod';
 export class BuilderPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
-  private beforeBuildCallbacks: Array<Function>;
-  private afterBuildCallbacks: Array<Function>;
+  private afterBuildCallbacks: Array<afterBuildCallback>;
+  private beforeBuildCallbacks: Array<beforeBuildCallback>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
@@ -32,23 +35,23 @@ export class BuilderPlugin implements PluginComponent {
     this.afterBuildCallbacks = [];
   }
 
-  addBeforeBuildStep(func: Function) {
+  addBeforeBuildStep(func: beforeBuildCallback) {
     this.beforeBuildCallbacks.push(func);
   }
 
-  addAfterBuildStep(func: Function) {
+  addAfterBuildStep(func: afterBuildCallback) {
     this.afterBuildCallbacks.push(func);
   }
 
-  beforeBuildHook(builder: Builder) {
-    this.beforeBuildCallbacks.forEach(callback => {
-      callback(builder);
-    });
+  async beforeBuildHook(builder: Builder): Promise<void> {
+    for (const callback of this.beforeBuildCallbacks) {
+      await callback(builder);
+    }
   }
 
-  afterBuildHook(buildResult: BuildResult) {
-    this.afterBuildCallbacks.forEach(callback => {
-      callback(buildResult);
-    });
+  async afterBuildHook(buildResult: BuildResult): Promise<void> {
+    for (const callback of this.afterBuildCallbacks) {
+      await callback(buildResult);
+    }
   }
 }

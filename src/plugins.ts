@@ -21,7 +21,7 @@ export interface PluginComponent {
   /**
    * Hook for interfacing with the Express server.
    */
-  createServerHook?: (app: express.Application) => void;
+  createServerHook?: (app: express.Express) => Promise<void>;
   /**
    * Hook for manipulating the template engine after it is initially created.
    *

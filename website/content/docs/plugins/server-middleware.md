@@ -17,16 +17,31 @@ made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
 functionality that enhances development velocity and the development workflow.
 
-## Example
+## Examples
 
 {% filter codeTabs %}
-```javascript:title=amagaki.js
-module.exports = function (pod) {
-    const serverPlugin = pod.plugins.get('ServerPlugin');
+```typescript:title=amagaki.ts
+export default function (pod: Pod) {
+    const serverPlugin = pod.plugins.get('ServerPlugin') as ServerPlugin;
+
+    // Immediate example. Use for registering Express middleware.
     serverPlugin.register(app => {
         app.use('/foo', (req, res) => {
             res.send('This is a response from custom middleware.');
         });
+    });
+
+    // Async example. Use for running some task prior to server startup.
+    serverPlugin.register(async () => {
+        const promise = () => {
+            return new Promise<void>(resolve => {
+                setTimeout(() => {
+                    console.log('tested');
+                    resolve();
+                }, 2000);
+            });
+        };
+        await promise();
     });
 };
 ```

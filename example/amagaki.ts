@@ -39,7 +39,16 @@ export default function (pod: Pod) {
   pod.plugins.register(ExamplePlugin, {});
 
   const serverPlugin = pod.plugins.get('ServerPlugin') as ServerPlugin;
-  serverPlugin.register((app: express.Application) => {
+  serverPlugin.register(async (app: express.Express) => {
+    const promise = () => {
+      return new Promise<void>(resolve => {
+        setTimeout(() => {
+          console.log('tested');
+          resolve();
+        }, 2000);
+      });
+    };
+    await promise();
     app.use('/foo', (req: express.Request, res: express.Response) => {
       res.send('This is a response from custom middleware.');
     });

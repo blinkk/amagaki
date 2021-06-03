@@ -447,7 +447,7 @@ export class Pod {
     const timer = this.profiler.timer('yaml.schema', 'Yaml schema');
     try {
       const yamlTypeManager = new YamlTypeManager();
-      this.plugins.trigger('createYamlTypes', yamlTypeManager);
+      this.plugins.triggerSync('createYamlTypes', yamlTypeManager);
       this.cache.yamlSchema = yaml.DEFAULT_SCHEMA.extend(yamlTypeManager.types);
     } finally {
       timer.stop();

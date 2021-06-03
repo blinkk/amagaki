@@ -497,16 +497,33 @@ behavior</li>
 made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
 functionality that enhances development velocity and the development workflow.</p>
-<h2 id="example">Example</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dcaff7c0-c328-11eb-98c4-3557a2765a41" name="t-dcae9830-c328-11eb-98c4-3557a2765a41" checked > <label for="t-dcaff7c0-c328-11eb-98c4-3557a2765a41" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
-    <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>);
-    serverPlugin.register(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> {
-        app.use(<span class="hljs-string">&#x27;/foo&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
-            res.send(<span class="hljs-string">&#x27;This is a response from custom middleware.&#x27;</span>);
-        });
+<h2 id="examples">Examples</h2>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7da43fe0-c40c-11eb-a00b-b343a8cad11e" name="t-7da132a0-c40c-11eb-a00b-b343a8cad11e" checked > <label for="t-7da43fe0-c40c-11eb-a00b-b343a8cad11e" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod: Pod</span>) </span>{
+    <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>) <span class="hljs-keyword">as</span> ServerPlugin;
+
+<pre><code>&lt;span class=&quot;hljs-comment&quot;&gt;// Immediate example. Use for registering Express middleware.&lt;/span&gt;
+serverPlugin.register(&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;app&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
+    app.use(&lt;span class=&quot;hljs-string&quot;&gt;&amp;#x27;/foo&amp;#x27;&lt;/span&gt;, &lt;span class=&quot;hljs-function&quot;&gt;(&lt;span class=&quot;hljs-params&quot;&gt;req, res&lt;/span&gt;) =&amp;gt;&lt;/span&gt; {
+        res.send(&lt;span class=&quot;hljs-string&quot;&gt;&amp;#x27;This is a response from custom middleware.&amp;#x27;&lt;/span&gt;);
     });
-};
-</code></pre></div> </div>
+});
+
+&lt;span class=&quot;hljs-comment&quot;&gt;// Async example. Use for running some task prior to server startup.&lt;/span&gt;
+serverPlugin.register(&lt;span class=&quot;hljs-keyword&quot;&gt;async&lt;/span&gt; () =&amp;gt; {
+    &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; promise = &lt;span class=&quot;hljs-function&quot;&gt;() =&amp;gt;&lt;/span&gt; {
+        &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;hljs-built_in&quot;&gt;Promise&lt;/span&gt;&amp;lt;&lt;span class=&quot;hljs-built_in&quot;&gt;void&lt;/span&gt;&amp;gt;(&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;resolve&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
+            &lt;span class=&quot;hljs-built_in&quot;&gt;setTimeout&lt;/span&gt;(&lt;span class=&quot;hljs-function&quot;&gt;() =&amp;gt;&lt;/span&gt; {
+                &lt;span class=&quot;hljs-built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;hljs-string&quot;&gt;&amp;#x27;tested&amp;#x27;&lt;/span&gt;);
+                resolve();
+            }, &lt;span class=&quot;hljs-number&quot;&gt;2000&lt;/span&gt;);
+        });
+    };
+    &lt;span class=&quot;hljs-keyword&quot;&gt;await&lt;/span&gt; promise();
+});
+</code></pre>
+<p>};
+</code></pre></div> </div></p>
+
             </div>
             
                 <div class="markdown__body__next">

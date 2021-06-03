@@ -1,0 +1,17 @@
+---
+$path: /${doc.basename}/
+$view: self
+$localization:
+  path: /${doc.locale.id}/${doc.basename}/
+  locales:
+  - en
+  - de
+title: !pod.string 'Foo'
+body: !pod.string 'Qaz'
+preference: !pod.string
+  prefer: 'Prefer'
+  value: 'Foo'
+---
+{{doc.fields.title}}
+{{doc.fields.body}}
+{{doc.fields.preference}}

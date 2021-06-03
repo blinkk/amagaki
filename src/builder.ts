@@ -34,26 +34,29 @@ interface Commit {
   message: string;
 }
 
-interface BuildManifest {
+export interface BuildManifest {
   branch: string | null;
   built: string;
   commit: Commit | null;
   files: Array<PodPathSha>;
 }
 
-interface BuildDiffPaths {
+export interface BuildDiffPaths {
   adds: Array<string>;
   edits: Array<string>;
   noChanges: Array<string>;
   deletes: Array<string>;
 }
 
-interface BuildMetrics {
+type LocaleToMissingTranslations = Record<string, number>;
+
+export interface BuildMetrics {
   memoryUsage: number;
-  numStaticRoutes: number;
+  localesToNumMissingTranslations: LocaleToMissingTranslations;
   numDocumentRoutes: number;
-  outputSizeStaticFiles: number;
+  numStaticRoutes: number;
   outputSizeDocuments: number;
+  outputSizeStaticFiles: number;
 }
 
 export interface BuildResult {
@@ -73,6 +76,7 @@ export class Builder {
   benchmarkPodPath: string;
   pod: Pod;
   manifestPodPath: string;
+  metricsPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
@@ -93,6 +97,11 @@ export class Builder {
       this.outputDirectoryPodPath,
       '.amagaki',
       'manifest.json'
+    );
+    this.metricsPodPath = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.amagaki',
+      'metrics.json'
     );
     this.benchmarkPodPath = fsPath.join(
       this.outputDirectoryPodPath,
@@ -288,6 +297,7 @@ export class Builder {
       numStaticRoutes: 0,
       numDocumentRoutes: 0,
       memoryUsage: 0,
+      localesToNumMissingTranslations: {},
       outputSizeDocuments: 0,
       outputSizeStaticFiles: 0,
     };
@@ -422,22 +432,18 @@ export class Builder {
       }
     );
 
+    buildMetrics.memoryUsage = process.memoryUsage().heapUsed;
+
     if (showMoveProgressBar) {
       moveBar.stop();
     }
-
-    // Write the manifest.
-    await this.writeFileAsync(
-      this.pod.getAbsoluteFilePath(this.manifestPodPath),
-      JSON.stringify(buildManifest, null, 2)
-    );
 
     // Clean up.
     this.deleteDirectoryRecursive(tempDirRoot);
 
     // Output build metrics.
     console.log(
-      'Memory usage: '.blue + utils.formatBytes(process.memoryUsage().heapUsed)
+      'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
     );
     if (buildMetrics.numDocumentRoutes) {
       console.log(
@@ -455,20 +461,42 @@ export class Builder {
           )})`
       );
     }
-    let numMissingTranslations = 0;
-    let numMissingLocales = 0;
-    Object.values(this.pod.cache.locales).forEach(locale => {
-      numMissingTranslations += locale.recordedStrings.size;
-      if (locale.recordedStrings.size) {
-        numMissingLocales += 1;
+
+    const localesToMissingTranslations: LocaleToMissingTranslations = {};
+    let totalMissingTranslations = 0;
+    for (const locale of Object.values(this.pod.cache.locales)) {
+      if (locale === this.pod.defaultLocale) {
+        continue;
       }
-    });
-    if (numMissingTranslations) {
+      localesToMissingTranslations[locale.id] = 0;
+      for (const string of locale.recordedStrings.keys()) {
+        if (string.missing) {
+          localesToMissingTranslations[locale.id] += 1;
+          totalMissingTranslations += 1;
+        }
+      }
+    }
+    buildMetrics.localesToNumMissingTranslations = localesToMissingTranslations;
+    if (totalMissingTranslations) {
       console.log(
         'Missing translations: '.blue +
-          `${numMissingTranslations} (across ${numMissingLocales} locales)`
+          `${totalMissingTranslations} (across ${
+            Object.keys(buildMetrics.localesToNumMissingTranslations).length
+          } locales)`
       );
     }
+
+    // Write the manifest and metrics.
+    await Promise.all([
+      this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(this.manifestPodPath),
+        JSON.stringify(buildManifest, null, 2)
+      ),
+      this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(this.metricsPodPath),
+        JSON.stringify(buildMetrics, null, 2)
+      ),
+    ]);
 
     const buildDiff = this.cleanOutputUsingManifests(
       existingManifest,

@@ -54,6 +54,11 @@ export class Locale {
     return this.pod.readYaml(this.podPath)['translations'];
   }
 
+  /** Returns whether the locale uses an RTL (right to left) language. */
+  get rtl() {
+    return RTL_REGEX.test(this.id);
+  }
+
   /** Normalizes a string into a `TranslationString` object. */
   toTranslationString(value: Translatable) {
     if (typeof value === 'string') {
@@ -93,6 +98,7 @@ export class Locale {
     }
 
     const string = this.toTranslationString(value);
+    this.recordString(string, location);
 
     // Return the preferred string without checking translations, if in the
     // default locale.
@@ -100,8 +106,8 @@ export class Locale {
       return string.prefer;
     }
 
-    this.recordString(string, location);
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
+      string.missing = true;
       return string.value;
     }
 
@@ -115,6 +121,7 @@ export class Locale {
       if (preferredValue) {
         return preferredValue;
       }
+      string.missing = true;
     }
 
     // Collect the string because the preferred translation is missing.
@@ -124,12 +131,8 @@ export class Locale {
     }
 
     // No translation was found at all, fall back to the source string.
+    string.missing = true;
     return string.value;
-  }
-
-  /** Returns whether the locale uses an RTL (right to left) language. */
-  get rtl() {
-    return RTL_REGEX.test(this.id);
   }
 }
 

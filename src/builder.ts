@@ -53,6 +53,7 @@ type LocaleToMissingTranslations = Record<string, number>;
 export interface BuildMetrics {
   memoryUsage: number;
   localesToNumMissingTranslations: LocaleToMissingTranslations;
+  numMissingTranslations: number;
   numDocumentRoutes: number;
   numStaticRoutes: number;
   outputSizeDocuments: number;
@@ -294,10 +295,11 @@ export class Builder {
       files: [],
     };
     const buildMetrics: BuildMetrics = {
-      numStaticRoutes: 0,
-      numDocumentRoutes: 0,
-      memoryUsage: 0,
       localesToNumMissingTranslations: {},
+      memoryUsage: 0,
+      numDocumentRoutes: 0,
+      numMissingTranslations: 0,
+      numStaticRoutes: 0,
       outputSizeDocuments: 0,
       outputSizeStaticFiles: 0,
     };
@@ -441,29 +443,7 @@ export class Builder {
     // Clean up.
     this.deleteDirectoryRecursive(tempDirRoot);
 
-    // Output build metrics.
-    console.log(
-      'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
-    );
-    if (buildMetrics.numDocumentRoutes) {
-      console.log(
-        'Documents: '.blue +
-          `${buildMetrics.numDocumentRoutes} (${utils.formatBytes(
-            buildMetrics.outputSizeDocuments
-          )})`
-      );
-    }
-    if (buildMetrics.numStaticRoutes) {
-      console.log(
-        'Static files: '.blue +
-          `${buildMetrics.numStaticRoutes} (${utils.formatBytes(
-            buildMetrics.outputSizeStaticFiles
-          )})`
-      );
-    }
-
     const localesToMissingTranslations: LocaleToMissingTranslations = {};
-    let totalMissingTranslations = 0;
     for (const locale of Object.values(this.pod.cache.locales)) {
       if (locale === this.pod.defaultLocale) {
         continue;
@@ -472,19 +452,11 @@ export class Builder {
       for (const string of locale.recordedStrings.keys()) {
         if (string.missing) {
           localesToMissingTranslations[locale.id] += 1;
-          totalMissingTranslations += 1;
+          buildMetrics.numMissingTranslations += 1;
         }
       }
     }
     buildMetrics.localesToNumMissingTranslations = localesToMissingTranslations;
-    if (totalMissingTranslations) {
-      console.log(
-        'Missing translations: '.blue +
-          `${totalMissingTranslations} (across ${
-            Object.keys(buildMetrics.localesToNumMissingTranslations).length
-          } locales)`
-      );
-    }
 
     // Write the manifest and metrics.
     await Promise.all([
@@ -505,26 +477,56 @@ export class Builder {
 
     // After diff has been computed, actually delete files.
     this.deleteOutputFiles(buildDiff.deletes);
+    const result: BuildResult = {
+      diff: buildDiff,
+      manifest: buildManifest,
+      metrics: buildMetrics,
+    };
+    this.logResult(buildDiff, buildMetrics);
+    await this.pod.plugins.trigger('afterBuild', result);
+    return result;
+  }
 
+  logResult(buildDiff: BuildDiffPaths, buildMetrics: BuildMetrics) {
+    console.log(
+      'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
+    );
+    if (buildMetrics.numDocumentRoutes) {
+      console.log(
+        'Documents: '.blue +
+          `${buildMetrics.numDocumentRoutes} (${utils.formatBytes(
+            buildMetrics.outputSizeDocuments
+          )})`
+      );
+    }
+    if (buildMetrics.numStaticRoutes) {
+      console.log(
+        'Static files: '.blue +
+          `${buildMetrics.numStaticRoutes} (${utils.formatBytes(
+            buildMetrics.outputSizeStaticFiles
+          )})`
+      );
+    }
+    if (buildMetrics.numMissingTranslations) {
+      console.log(
+        'Missing translations: '.blue +
+          Object.entries(buildMetrics.localesToNumMissingTranslations)
+            .map(([locale, numMissingTranslations]) => {
+              return `${locale} (${numMissingTranslations})`;
+            })
+            .join(', ')
+      );
+    }
     console.log(
       'Changes: '.blue +
         `${buildDiff.adds.length} adds, `.green +
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
     );
-
     console.log(
-      'Build complete:'.blue +
-        ` ${this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)}`
+      'Build complete: '.blue +
+        this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)
     );
-
-    const result: BuildResult = {
-      diff: buildDiff,
-      manifest: buildManifest,
-      metrics: buildMetrics,
-    };
-    await this.pod.plugins.trigger('afterBuild', result);
-    return result;
   }
 
   async exportBenchmark() {

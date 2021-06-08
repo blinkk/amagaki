@@ -494,7 +494,7 @@ a template, the template cannot be reused, which creates maintainability and
 scalability issues.</p>
 <h2 id="within-markdown-and-text-formats">Within Markdown and text formats</h2>
 <p>Front matter can be used within Markdown-formatted content documents like so:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9f2df1d0-c7f7-11eb-bc71-9db7f01d639d" name="t-9f2c9240-c7f7-11eb-bc71-9db7f01d639d" checked > <label for="t-9f2df1d0-c7f7-11eb-bc71-9db7f01d639d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ac8b2770-c8a2-11eb-a908-2b509c65394d" name="t-ac89c7e0-c8a2-11eb-a908-2b509c65394d" checked > <label for="t-ac8b2770-c8a2-11eb-a908-2b509c65394d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 date: 2021-01-06
 author:
   name: Lorem ipsum
@@ -510,7 +510,7 @@ Published: {{doc.fields.date}}
 <p>Documents can also be entirely composed of front matter. Here&#39;s an example. This
 example assumes your project is using the partial loop.</p>
 <p>First, place data into your document:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9f2fc690-c7f7-11eb-bc71-9db7f01d639d" name="t-9f2df1d1-c7f7-11eb-bc71-9db7f01d639d" checked > <label for="t-9f2fc690-c7f7-11eb-bc71-9db7f01d639d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ac8cfc30-c8a2-11eb-a908-2b509c65394d" name="t-ac8b2771-c8a2-11eb-a908-2b509c65394d" checked > <label for="t-ac8cfc30-c8a2-11eb-a908-2b509c65394d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>
   <span class="hljs-attr">headline:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Hello</span> <span class="hljs-string">World!</span>
   <span class="hljs-attr">body:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">This</span> <span class="hljs-string">is</span> <span class="hljs-string">the</span> <span class="hljs-string">body</span> <span class="hljs-string">copy</span> <span class="hljs-string">for</span> <span class="hljs-string">my</span> <span class="hljs-string">website.</span>
@@ -522,7 +522,7 @@ example assumes your project is using the partial loop.</p>
 </code></pre></div> </div>
 
 <p>Then, reference that front matter within the template:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9f3321f0-c7f7-11eb-bc71-9db7f01d639d" name="t-9f2fc691-c7f7-11eb-bc71-9db7f01d639d" checked > <label for="t-9f3321f0-c7f7-11eb-bc71-9db7f01d639d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ac911ae0-c8a2-11eb-a908-2b509c65394d" name="t-ac8cfc31-c8a2-11eb-a908-2b509c65394d" checked > <label for="t-ac911ae0-c8a2-11eb-a908-2b509c65394d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__headline&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.headline}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__body&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.body}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__buttons&quot;</span>&gt;</span>

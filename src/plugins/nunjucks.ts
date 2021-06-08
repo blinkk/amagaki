@@ -13,7 +13,7 @@ import marked from 'marked';
 /**
  * Built-in Nunjucks filters.
  */
-class NunjucksBuiltInFilters {
+export class NunjucksBuiltInFilters {
   /**
    * Awaits an async function. Usage: `{{asyncFunction()|await}}`
    * @param func The async function to await.

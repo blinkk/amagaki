@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://www.github.com/blinkk/amagaki/compare/v0.6.2...v1.0.0) (2021-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Async triggers for plugins (#90)
+
+### Features
+
+* Async triggers for plugins ([#90](https://www.github.com/blinkk/amagaki/issues/90)) ([f2dcd73](https://www.github.com/blinkk/amagaki/commit/f2dcd73d25f70339830d5d7d9f106dbb0e187705))
+
 ### [0.6.2](https://www.github.com/blinkk/amagaki/compare/v0.6.1...v0.6.2) (2021-05-30)
 
 

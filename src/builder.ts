@@ -34,26 +34,30 @@ interface Commit {
   message: string;
 }
 
-interface BuildManifest {
+export interface BuildManifest {
   branch: string | null;
   built: string;
   commit: Commit | null;
   files: Array<PodPathSha>;
 }
 
-interface BuildDiffPaths {
+export interface BuildDiffPaths {
   adds: Array<string>;
   edits: Array<string>;
   noChanges: Array<string>;
   deletes: Array<string>;
 }
 
-interface BuildMetrics {
+type LocaleToMissingTranslations = Record<string, number>;
+
+export interface BuildMetrics {
   memoryUsage: number;
-  numStaticRoutes: number;
+  localesToNumMissingTranslations: LocaleToMissingTranslations;
+  numMissingTranslations: number;
   numDocumentRoutes: number;
-  outputSizeStaticFiles: number;
+  numStaticRoutes: number;
   outputSizeDocuments: number;
+  outputSizeStaticFiles: number;
 }
 
 export interface BuildResult {
@@ -73,6 +77,7 @@ export class Builder {
   benchmarkPodPath: string;
   pod: Pod;
   manifestPodPath: string;
+  metricsPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
@@ -93,6 +98,11 @@ export class Builder {
       this.outputDirectoryPodPath,
       '.amagaki',
       'manifest.json'
+    );
+    this.metricsPodPath = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.amagaki',
+      'metrics.json'
     );
     this.benchmarkPodPath = fsPath.join(
       this.outputDirectoryPodPath,
@@ -285,9 +295,11 @@ export class Builder {
       files: [],
     };
     const buildMetrics: BuildMetrics = {
-      numStaticRoutes: 0,
-      numDocumentRoutes: 0,
+      localesToNumMissingTranslations: {},
       memoryUsage: 0,
+      numDocumentRoutes: 0,
+      numMissingTranslations: 0,
+      numStaticRoutes: 0,
       outputSizeDocuments: 0,
       outputSizeStaticFiles: 0,
     };
@@ -422,22 +434,62 @@ export class Builder {
       }
     );
 
+    buildMetrics.memoryUsage = process.memoryUsage().heapUsed;
+
     if (showMoveProgressBar) {
       moveBar.stop();
     }
 
-    // Write the manifest.
-    await this.writeFileAsync(
-      this.pod.getAbsoluteFilePath(this.manifestPodPath),
-      JSON.stringify(buildManifest, null, 2)
-    );
-
     // Clean up.
     this.deleteDirectoryRecursive(tempDirRoot);
 
-    // Output build metrics.
+    const localesToMissingTranslations: LocaleToMissingTranslations = {};
+    for (const locale of Object.values(this.pod.cache.locales)) {
+      if (locale === this.pod.defaultLocale) {
+        continue;
+      }
+      localesToMissingTranslations[locale.id] = 0;
+      for (const string of locale.recordedStrings.keys()) {
+        if (string.missing) {
+          localesToMissingTranslations[locale.id] += 1;
+          buildMetrics.numMissingTranslations += 1;
+        }
+      }
+    }
+    buildMetrics.localesToNumMissingTranslations = localesToMissingTranslations;
+
+    // Write the manifest and metrics.
+    await Promise.all([
+      this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(this.manifestPodPath),
+        JSON.stringify(buildManifest, null, 2)
+      ),
+      this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(this.metricsPodPath),
+        JSON.stringify(buildMetrics, null, 2)
+      ),
+    ]);
+
+    const buildDiff = this.cleanOutputUsingManifests(
+      existingManifest,
+      buildManifest
+    );
+
+    // After diff has been computed, actually delete files.
+    this.deleteOutputFiles(buildDiff.deletes);
+    const result: BuildResult = {
+      diff: buildDiff,
+      manifest: buildManifest,
+      metrics: buildMetrics,
+    };
+    this.logResult(buildDiff, buildMetrics);
+    await this.pod.plugins.trigger('afterBuild', result);
+    return result;
+  }
+
+  logResult(buildDiff: BuildDiffPaths, buildMetrics: BuildMetrics) {
     console.log(
-      'Memory usage: '.blue + utils.formatBytes(process.memoryUsage().heapUsed)
+      'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
     );
     if (buildMetrics.numDocumentRoutes) {
       console.log(
@@ -455,48 +507,26 @@ export class Builder {
           )})`
       );
     }
-    let numMissingTranslations = 0;
-    let numMissingLocales = 0;
-    Object.values(this.pod.cache.locales).forEach(locale => {
-      numMissingTranslations += locale.recordedStrings.size;
-      if (locale.recordedStrings.size) {
-        numMissingLocales += 1;
-      }
-    });
-    if (numMissingTranslations) {
+    if (buildMetrics.numMissingTranslations) {
       console.log(
         'Missing translations: '.blue +
-          `${numMissingTranslations} (across ${numMissingLocales} locales)`
+          Object.entries(buildMetrics.localesToNumMissingTranslations)
+            .map(([locale, numMissingTranslations]) => {
+              return `${locale} (${numMissingTranslations})`;
+            })
+            .join(', ')
       );
     }
-
-    const buildDiff = this.cleanOutputUsingManifests(
-      existingManifest,
-      buildManifest
-    );
-
-    // After diff has been computed, actually delete files.
-    this.deleteOutputFiles(buildDiff.deletes);
-
     console.log(
       'Changes: '.blue +
         `${buildDiff.adds.length} adds, `.green +
         `${buildDiff.edits.length} edits, `.yellow +
         `${buildDiff.deletes.length} deletes`.red
     );
-
     console.log(
-      'Build complete:'.blue +
-        ` ${this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)}`
+      'Build complete: '.blue +
+        this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)
     );
-
-    const result: BuildResult = {
-      diff: buildDiff,
-      manifest: buildManifest,
-      metrics: buildMetrics,
-    };
-    await this.pod.plugins.trigger('afterBuild', result);
-    return result;
   }
 
   async exportBenchmark() {

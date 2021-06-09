@@ -245,11 +245,16 @@ export class Collection {
   }
 
   /**
-   * Returns a list of the parent collections.
+   * Returns a list of the parent collections, up to the top-most collection.
    *
    * This may be useful for situations where you need to walk through content
    * relationships. Examples include generating site navigation menus,
    * breadcrumbs, or various listings of collections and their documents.
+   *
+   * Note that a collection only exists if its folder contains a
+   * `_collection.yaml`. In other words, a collection `/content/foo/bar` will
+   * only return `/content/foo` in its list of parents if
+   * `/content/foo/_blueprint.yaml` exists.
    */
   get parents() {
     const parents = [];

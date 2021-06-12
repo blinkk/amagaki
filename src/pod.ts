@@ -417,7 +417,7 @@ export class Pod {
    */
   setEnvironment(name: string) {
     if (!this.config.environments?.[name]) {
-      throw new Error(`Environment ${name} is not configured in amagaki.ts.`);
+      throw new Error(`Environment "${name}" is not configured in amagaki.ts.`);
     }
     this.env.name = name;
     this.env.updateFromConfig(this.config.environments[name]);

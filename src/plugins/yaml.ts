@@ -17,7 +17,7 @@ interface YamlTypeArguments {
 }
 
 /**
- * Plugin providing built-in custom yaml types.
+ * Plugin providing built-in custom YAML types.
  */
 export class YamlPlugin implements PluginComponent {
   config: Record<string, any>;
@@ -45,7 +45,7 @@ export class YamlPlugin implements PluginComponent {
     );
   }
 
-  // Shortcut for adding custom yaml types without creating a full plugin.
+  // Shortcut for adding custom YAML types without creating a full plugin.
   addType(tag: string, options: yaml.TypeConstructorOptions) {
     this.shortcutTypes.push({
       tag: tag,
@@ -57,297 +57,273 @@ export class YamlPlugin implements PluginComponent {
     /**
      * !pod.collection '/content/pages/_collection.yaml'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.collection', {
-        kind: 'scalar',
-        resolve: podPath => {
-          return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
-        },
-        construct: podPath => {
-          return this.pod.collection(podPath);
-        },
-        represent: value => {
-          const collection = value as Collection;
-          return collection.podPath;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.collection', {
+      kind: 'scalar',
+      resolve: podPath => {
+        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+      },
+      construct: podPath => {
+        return this.pod.collection(podPath);
+      },
+      represent: value => {
+        const collection = value as Collection;
+        return collection.podPath;
+      },
+    });
 
     /**
      * !pod.collections ['/content/pages/_collection.yaml', '/content/posts/_collection.yaml']
      * !pod.collections [['/content/pages/_collection.yaml', '/content/posts/_collection.yaml'], {sort: 'order'}]
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.collections', {
-        kind: 'sequence',
-        resolve: parts => {
-          return (
-            // Options version.
-            this.partsLikeGlobOptions(parts) ||
-            // Simple version.
-            parts.every((part: any) => {
-              return (
-                typeof part === 'string' &&
-                part.startsWith(Pod.DefaultContentPodPath)
-              );
-            })
-          );
-        },
-        construct: parts => {
-          const patterns = parts;
-          if (this.partsLikeGlobOptions(parts)) {
-            // Options version.
-            const options = parts.pop();
-            return this.pod.collections(
-              patterns.length === 1 ? patterns[0] : patterns,
-              options
+    yamlTypeManager.addType('!pod.collections', {
+      kind: 'sequence',
+      resolve: parts => {
+        return (
+          // Options version.
+          this.partsLikeGlobOptions(parts) ||
+          // Simple version.
+          parts.every((part: any) => {
+            return (
+              typeof part === 'string' &&
+              part.startsWith(Pod.DefaultContentPodPath)
             );
-          } else {
-            // Simple version.
-            return this.pod.collections(patterns);
-          }
-        },
-        represent: value => {
-          const doc = value as Document;
-          return [doc.podPath, doc.locale];
-        },
-      })
-    );
+          })
+        );
+      },
+      construct: parts => {
+        const patterns = parts;
+        if (this.partsLikeGlobOptions(parts)) {
+          // Options version.
+          const options = parts.pop();
+          return this.pod.collections(
+            patterns.length === 1 ? patterns[0] : patterns,
+            options
+          );
+        } else {
+          // Simple version.
+          return this.pod.collections(patterns);
+        }
+      },
+      represent: value => {
+        const doc = value as Document;
+        return [doc.podPath, doc.locale];
+      },
+    });
 
     /**
      * !pod.doc '/content/pages/index.yaml'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.doc', {
-        kind: 'scalar',
-        resolve: podPath => {
-          return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
-        },
-        construct: podPath => {
-          return this.pod.doc(podPath);
-        },
-        represent: value => {
-          const doc = value as Document;
-          return doc.podPath;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.doc', {
+      kind: 'scalar',
+      resolve: podPath => {
+        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+      },
+      construct: podPath => {
+        return this.pod.doc(podPath);
+      },
+      represent: value => {
+        const doc = value as Document;
+        return doc.podPath;
+      },
+    });
 
     /**
      * !pod.doc ['/content/pages/index.yaml', 'de']
      * !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.doc', {
-        kind: 'sequence',
-        resolve: parts => {
-          const podPath = parts[0];
-          return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
-        },
-        construct: parts => {
-          const podPath = parts[0];
-          const localeIdOrLocale = parts[1];
-          const locale =
-            typeof localeIdOrLocale === 'string'
-              ? this.pod.locale(localeIdOrLocale)
-              : localeIdOrLocale;
-          return this.pod.doc(podPath, locale);
-        },
-        represent: value => {
-          const doc = value as Document;
-          return [doc.podPath, doc.locale];
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.doc', {
+      kind: 'sequence',
+      resolve: parts => {
+        const podPath = parts[0];
+        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+      },
+      construct: parts => {
+        const podPath = parts[0];
+        const localeIdOrLocale = parts[1];
+        const locale =
+          typeof localeIdOrLocale === 'string'
+            ? this.pod.locale(localeIdOrLocale)
+            : localeIdOrLocale;
+        return this.pod.doc(podPath, locale);
+      },
+      represent: value => {
+        const doc = value as Document;
+        return [doc.podPath, doc.locale];
+      },
+    });
 
     /**
      * !pod.docs ['/content/pages/index.yaml', '/content/pages/foo.yaml']
      * !pod.docs ['/content/posts/**', {sort: 'order'}]
      * !pod.docs [['/content/posts/**'], {sort: 'order'}]
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.docs', {
-        kind: 'sequence',
-        resolve: parts => {
-          return (
-            // Options version.
-            this.partsLikeGlobOptions(parts) ||
-            // Simple version.
-            parts.every((part: any) => {
-              return (
-                typeof part === 'string' &&
-                part.startsWith(Pod.DefaultContentPodPath)
-              );
-            })
-          );
-        },
-        construct: parts => {
-          const patterns = parts;
-          if (this.partsLikeGlobOptions(parts)) {
-            // Options version.
-            const options = parts.pop();
-            return this.pod.docs(
-              patterns.length === 1 ? patterns[0] : patterns,
-              options
+    yamlTypeManager.addType('!pod.docs', {
+      kind: 'sequence',
+      resolve: parts => {
+        return (
+          // Options version.
+          this.partsLikeGlobOptions(parts) ||
+          // Simple version.
+          parts.every((part: any) => {
+            return (
+              typeof part === 'string' &&
+              part.startsWith(Pod.DefaultContentPodPath)
             );
-          } else {
-            // Simple version.
-            return this.pod.docs(patterns);
-          }
-        },
-        represent: value => {
-          const docs = value as Document[];
-          return docs.map(doc => doc.podPath);
-        },
-      })
-    );
+          })
+        );
+      },
+      construct: parts => {
+        const patterns = parts;
+        if (this.partsLikeGlobOptions(parts)) {
+          // Options version.
+          const options = parts.pop();
+          return this.pod.docs(
+            patterns.length === 1 ? patterns[0] : patterns,
+            options
+          );
+        } else {
+          // Simple version.
+          return this.pod.docs(patterns);
+        }
+      },
+      represent: value => {
+        const docs = value as Document[];
+        return docs.map(doc => doc.podPath);
+      },
+    });
 
     /**
      * !pod.locale 'de'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.locale', {
-        kind: 'scalar',
-        resolve: data => {
-          return typeof data === 'string';
-        },
-        construct: value => {
-          return this.pod.locale(value);
-        },
-        represent: value => {
-          const locale = value as Locale;
-          return locale.id;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.locale', {
+      kind: 'scalar',
+      resolve: data => {
+        return typeof data === 'string';
+      },
+      construct: value => {
+        return this.pod.locale(value);
+      },
+      represent: value => {
+        const locale = value as Locale;
+        return locale.id;
+      },
+    });
 
     /**
      * !pod.locales ['de', 'ja']
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.locales', {
-        kind: 'sequence',
-        resolve: parts => {
-          return parts.every((part: any) => typeof part === 'string');
-        },
-        construct: ids => {
-          return LocaleSet.fromIds(ids, this.pod);
-        },
-        represent: value => {
-          const localeSet = value as LocaleSet;
-          return [...localeSet].map(locale => locale.id);
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.locales', {
+      kind: 'sequence',
+      resolve: parts => {
+        return parts.every((part: any) => typeof part === 'string');
+      },
+      construct: ids => {
+        return LocaleSet.fromIds(ids, this.pod);
+      },
+      represent: value => {
+        const localeSet = value as LocaleSet;
+        return [...localeSet].map(locale => locale.id);
+      },
+    });
 
     /**
      * !pod.staticFile '/src/images/file.png'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.staticFile', {
-        kind: 'scalar',
-        resolve: data => {
-          return data && data.startsWith('/');
-        },
-        construct: podPath => {
-          return this.pod.staticFile(podPath);
-        },
-        represent: value => {
-          const staticFile = value as StaticFile;
-          return staticFile.podPath;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.staticFile', {
+      kind: 'scalar',
+      resolve: data => {
+        return data && data.startsWith('/');
+      },
+      construct: podPath => {
+        return this.pod.staticFile(podPath);
+      },
+      represent: value => {
+        const staticFile = value as StaticFile;
+        return staticFile.podPath;
+      },
+    });
 
     /**
      * !pod.string 'String Value'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.string', {
-        kind: 'scalar',
-        resolve: data => {
-          return typeof data === 'string';
-        },
-        construct: value => {
-          return this.pod.string({value: value});
-        },
-        represent: value => {
-          const string = value as TranslationString;
-          return string.value;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.string', {
+      kind: 'scalar',
+      resolve: data => {
+        return typeof data === 'string';
+      },
+      construct: value => {
+        return this.pod.string({value: value});
+      },
+      represent: value => {
+        const string = value as TranslationString;
+        return string.value;
+      },
+    });
 
     /**
      * !pod.string
      *   prefer: Preferred String
      *   value: Original String
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.string', {
-        kind: 'mapping',
-        resolve: data => {
-          return typeof data === 'object' && 'value' in data;
-        },
-        construct: value => {
-          return this.pod.string(value);
-        },
-        represent: value => {
-          const string = value as TranslationString;
-          return {
-            prefer: string.prefer,
-            value: string.value,
-          };
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.string', {
+      kind: 'mapping',
+      resolve: data => {
+        return typeof data === 'object' && 'value' in data;
+      },
+      construct: value => {
+        return this.pod.string(value);
+      },
+      represent: value => {
+        const string = value as TranslationString;
+        return {
+          prefer: string.prefer,
+          value: string.value,
+        };
+      },
+    });
 
     /**
      * !pod.yaml '/content/partials/foo.yaml'
      * !pod.yaml '/content/partials/foo.yaml?bar'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.yaml', {
-        kind: 'scalar',
-        resolve: data => {
-          return data !== null && data.startsWith('/');
-        },
-        construct: value => {
-          // value can be: /content/partials/base.yaml
-          // value can be: /content/partials/base.yaml?foo
-          // value can be: /content/partials/base.yaml?foo.bar.baz
-          const parts = value.split('?');
-          const podPath = parts[0];
-          const result = this.pod.readYaml(podPath);
-          if (parts.length > 1) {
-            return utils.queryObject(parts[1], result);
-          } else {
-            return result;
-          }
-        },
-        represent: string => {
-          return string;
-        },
-      })
-    );
+    yamlTypeManager.addType('!pod.yaml', {
+      kind: 'scalar',
+      resolve: data => {
+        return data !== null && data.startsWith('/');
+      },
+      construct: value => {
+        // value can be: /content/partials/base.yaml
+        // value can be: /content/partials/base.yaml?foo
+        // value can be: /content/partials/base.yaml?foo.bar.baz
+        const parts = value.split('?');
+        const podPath = parts[0];
+        const result = this.pod.readYaml(podPath);
+        if (parts.length > 1) {
+          return utils.queryObject(parts[1], result);
+        } else {
+          return result;
+        }
+      },
+      represent: string => {
+        return string;
+      },
+    });
 
     /**
      * !IfEnvironment
      *   default: foo
      *   prod: bar
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!IfEnvironment', {
-        kind: 'mapping',
-        resolve: data => {
-          return typeof data === 'object';
-        },
-        construct: value => {
-          return value[this.pod.env.name] || Environment.DefaultName;
-        },
-        // TODO: Represent serialized values so they can be round-tripped.
-      })
-    );
+    yamlTypeManager.addType('!IfEnvironment', {
+      kind: 'mapping',
+      resolve: data => {
+        return typeof data === 'object';
+      },
+      construct: value => {
+        return value[this.pod.env.name] || Environment.DefaultName;
+      },
+      // TODO: Represent serialized values so they can be round-tripped.
+    });
 
     /**
      * !IfLocale
@@ -355,43 +331,37 @@ export class YamlPlugin implements PluginComponent {
      *   de: German
      *   it: Italian
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!IfLocale', {
-        kind: 'mapping',
-        resolve: data => {
-          return typeof data === 'object';
-        },
-        construct: value => {
-          return new LocalizableData(this.pod, value);
-        },
-        // TODO: Represent serialized values so they can be round-tripped.
-      })
-    );
+    yamlTypeManager.addType('!IfLocale', {
+      kind: 'mapping',
+      resolve: data => {
+        return typeof data === 'object';
+      },
+      construct: value => {
+        return new LocalizableData(this.pod, value);
+      },
+      // TODO: Represent serialized values so they can be round-tripped.
+    });
 
     /**
      * !pod.meta
      * !pod.meta 'foo.bar'
      */
-    yamlTypeManager.addType(
-      new yaml.Type('!pod.meta', {
-        kind: 'scalar',
-        construct: value => {
-          return utils.queryObject(value, this.pod.config.meta);
-        },
-        // TODO: Represent serialized values so they can be round-tripped.
-      })
-    );
+    yamlTypeManager.addType('!pod.meta', {
+      kind: 'scalar',
+      construct: value => {
+        return utils.queryObject(value, this.pod.config.meta);
+      },
+      // TODO: Represent serialized values so they can be round-tripped.
+    });
 
     for (const shortcutType of this.shortcutTypes) {
-      yamlTypeManager.addType(
-        new yaml.Type(shortcutType.tag, shortcutType.options)
-      );
+      yamlTypeManager.addType(shortcutType.tag, shortcutType.options);
     }
   }
 }
 
 /**
- * Custom yaml type manager for adding custom yaml types.
+ * Custom YAML type manager for adding custom YAML types.
  */
 export class YamlTypeManager {
   types: Array<yaml.Type>;
@@ -400,7 +370,8 @@ export class YamlTypeManager {
     this.types = [];
   }
 
-  addType(yamlType: yaml.Type) {
+  addType(tag: string, options: yaml.TypeConstructorOptions) {
+    const yamlType = new yaml.Type(tag, options);
     this.types.push(yamlType);
   }
 }

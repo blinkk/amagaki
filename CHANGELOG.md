@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.0.1](https://www.github.com/blinkk/amagaki/compare/v1.0.0...v1.0.1) (2021-06-12)
+
+
+### Bug Fixes
+
+* expose environment option as a global option ([953a6da](https://www.github.com/blinkk/amagaki/commit/953a6dacca95697018f21100f9eca8e06175733d))
+
 ## [1.0.0](https://www.github.com/blinkk/amagaki/compare/v0.6.2...v1.0.0) (2021-06-08)
 
 

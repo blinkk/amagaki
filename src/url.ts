@@ -1,6 +1,8 @@
 import * as fsPath from 'path';
+
 import {Document} from './document';
 import {Environment} from './environment';
+import {StaticFile} from './staticFile';
 
 interface UrlOptions {
   path: string;
@@ -9,6 +11,9 @@ interface UrlOptions {
   port?: string;
   env?: Environment;
 }
+
+/** Types that can be represented as URLs. */
+export type Urlable = StaticFile | Document | string;
 
 const ABSOLUTE_URL_REGEX = new RegExp('^(//|[a-z]+:)', 'i');
 
@@ -59,9 +64,15 @@ export class Url {
    * @param base The `Document` or URL being linked from.
    * @returns The URL of `other` relative to `base`.
    */
-  static relative(other: Document | string, base: Document | string) {
-    const otherUrl = other instanceof Document ? other.url?.path : other;
-    const baseUrl = base instanceof Document ? base.url?.path : base;
+  static relative(other: Urlable, base: Urlable) {
+    const otherUrl =
+      other instanceof Document || other instanceof StaticFile
+        ? other.url?.path
+        : other;
+    const baseUrl =
+      base instanceof Document || base instanceof StaticFile
+        ? base.url?.path
+        : base;
     if (!otherUrl || !baseUrl || ABSOLUTE_URL_REGEX.test(otherUrl)) {
       return otherUrl;
     }

@@ -4,6 +4,7 @@ import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
 
+import {Collection} from './collection';
 import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
@@ -189,7 +190,7 @@ export class Document {
    * within the document's content directory, the directory structure will be
    * walked upwards until locating a `_collection.yaml`.
    */
-  get collection() {
+  get collection(): Collection | null {
     return this.pod.collection(fsPath.dirname(this.podPath));
   }
 
@@ -245,6 +246,15 @@ export class Document {
     } finally {
       timer.stop();
     }
+  }
+
+  /**
+   * Returns the document localized to a different locale.
+   * @param locale The locale to use when localizing the document.
+   * @returns The localized document.
+   */
+  localize(locale: Locale) {
+    return this.pod.doc(this.podPath, locale);
   }
 
   async render(context?: Record<string, any>): Promise<string> {

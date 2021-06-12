@@ -1,14 +1,21 @@
 import * as nunjucks from 'nunjucks';
 import * as utils from '../utils';
 
+import {Url, Urlable} from '../url';
+
 import {Document} from '../document';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
+import {StaticFile} from '../staticFile';
 import {TemplateEngineComponent} from '../templateEngine';
 import {Translatable} from '../locale';
-import {Url} from '../url';
 import {formatBytes} from '../utils';
 import marked from 'marked';
+
+interface UrlFilterOptions {
+  fingerprint?: boolean;
+  localize?: boolean;
+}
 
 /**
  * Built-in Nunjucks filters.
@@ -59,6 +66,47 @@ export class NunjucksBuiltInFilters {
   }
 
   /**
+   * Returns a URL relative to the current document, given a "URL-able" object.
+   * A "URL-able" object is an object that may have a URL associated with it,
+   * such as a `Document`, `StaticFile`, or a string (assumed to be an absolute
+   * URL). An error is thrown if a URL was requested for something that has no URL.
+   *
+   * This filter applies a number of sane defaults, such as:
+   *
+   * - Returns relative URLs.
+   * - Includes a `?fingerprint` query parameter for static files.
+   * - Localizes documents using the context's locale.
+   *
+   * Defaults can be changed by supplying options.
+   *
+   * @param this Nunjucks context.
+   * @param value The object to return the URL for.
+   * @returns The URL for the given object.
+   */
+  static url(this: any, object: Urlable, options?: UrlFilterOptions) {
+    const contextDoc = this.ctx.doc;
+    if (object instanceof StaticFile) {
+      if (!object.url) {
+        throw new Error(`${object} has no URL.`);
+      }
+      const relativeUrl = Url.relative(object.url.path, contextDoc);
+      return options?.fingerprint === false
+        ? relativeUrl
+        : `${relativeUrl}?fingerprint=${object.fingerprint}`;
+    } else if (object instanceof Document) {
+      // Ensure the destination document matches the context's locale.
+      if (object.locale !== contextDoc.locale && options?.localize !== false) {
+        object = object.localize(contextDoc.locale);
+      }
+      if (!object.url) {
+        throw new Error(`${object} has no URL.`);
+      }
+      return Url.relative(object.url.path, contextDoc);
+    }
+    return Url.relative(object, contextDoc);
+  }
+
+  /**
    * Returns a translation in the current document's locale, for a string.
    * @param this Nunjucks context.
    * @param value A native string or a `String` object.
@@ -98,6 +146,7 @@ export class NunjucksPlugin implements PluginComponent {
 
   createTemplateEngineHook(
     templateEngine: TemplateEngineComponent,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     extension: string
   ) {
     if (templateEngine.constructor.name === 'NunjucksTemplateEngine') {
@@ -138,6 +187,7 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.env.addFilter('markdown', NunjucksBuiltInFilters.markdown);
     this.env.addFilter('relative', NunjucksBuiltInFilters.relative);
     this.env.addFilter('t', NunjucksBuiltInFilters.t);
+    this.env.addFilter('url', NunjucksBuiltInFilters.url);
   }
 
   render(path: string, context: any): Promise<string> {

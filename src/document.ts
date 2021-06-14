@@ -17,7 +17,7 @@ interface DocumentParts {
   fields?: any;
 }
 
-interface TemplateContext {
+export interface TemplateContext {
   doc: Document;
   env: Environment;
   pod: Pod;

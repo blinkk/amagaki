@@ -3,6 +3,7 @@ import express = require('express');
 import {BuildResult, Builder} from './builder';
 
 import {Pod} from './pod';
+import {Router} from './router';
 import {TemplateEngineComponent} from './templateEngine';
 import {YamlTypeManager} from './plugins/yaml';
 
@@ -22,6 +23,10 @@ export interface PluginComponent {
    * Hook for interfacing with the Express server.
    */
   createServerHook?: (app: express.Express) => Promise<void>;
+  /**
+   * Hook for interfacing with the router.
+   */
+  createRoutesHook?: (router: Router) => Promise<void>;
   /**
    * Hook for manipulating the template engine after it is initially created.
    *

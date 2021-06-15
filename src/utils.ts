@@ -83,11 +83,11 @@ export function formatBytes(bytes: number) {
 
 /**
  * Applies string interpolation to a given string. For example, if a given
- * string is `Hello {$name}` and the params are `{string: 'World'}`, the result
+ * string is `Hello ${name}` and the params are `{string: 'World'}`, the result
  * of calling the interpolation is "Hello World".
  *
  * Typically, this would be used with the `pod` object to provide the ability
- * to refer to pod content: `Hello {$pod.meta.title}`, and then providing params
+ * to refer to pod content: `Hello ${pod.meta.title}`, and then providing params
  * such as: `{pod: <Pod instance>}`. The value of `pod.meta` would be specified
  * within `amagaki.ts`.
  * @param pod The pod.

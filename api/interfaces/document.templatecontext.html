@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DocumentListOptions | @amagaki/amagaki</title>
+	<title>TemplateContext | @amagaki/amagaki</title>
 	<meta name="description" content="Documentation for @amagaki/amagaki">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../modules/document.html">document</a>
 				</li>
 				<li>
-					<a href="document.documentlistoptions.html">DocumentListOptions</a>
+					<a href="document.templatecontext.html">TemplateContext</a>
 				</li>
 			</ul>
-			<h1>Interface DocumentListOptions</h1>
+			<h1>Interface TemplateContext</h1>
 		</div>
 	</div>
 </header>
@@ -70,12 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DocumentListOptions</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="collection.collectiondocsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CollectionDocsOptions</a>
-							</li>
-						</ul>
+						<span class="target">TemplateContext</span>
 					</li>
 				</ul>
 			</section>
@@ -86,8 +81,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.documentlistoptions.html#exclude" class="tsd-kind-icon">exclude</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.documentlistoptions.html#sort" class="tsd-kind-icon">sort</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.templatecontext.html#doc" class="tsd-kind-icon">doc</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.templatecontext.html#env" class="tsd-kind-icon">env</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.templatecontext.html#pod" class="tsd-kind-icon">pod</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="document.templatecontext.html#process" class="tsd-kind-icon">process</a></li>
 							</ul>
 						</section>
 					</div>
@@ -96,34 +93,44 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="exclude" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> exclude</h3>
-					<div class="tsd-signature tsd-kind-icon">exclude<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="doc" class="tsd-anchor"></a>
+					<h3>doc</h3>
+					<div class="tsd-signature tsd-kind-icon">doc<span class="tsd-signature-symbol">:</span> <a href="../classes/document.document-1.html" class="tsd-signature-type" data-tsd-kind="Class">Document</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L31">src/document.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L21">src/document.ts:21</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Exclude patterns for excluding documents that match the glob pattern(s).</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sort" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sort</h3>
-					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="env" class="tsd-anchor"></a>
+					<h3>env</h3>
+					<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <a href="../classes/environment.environment-1.html" class="tsd-signature-type" data-tsd-kind="Class">Environment</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L36">src/document.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L22">src/document.ts:22</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Field name to sort the result by.</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="pod" class="tsd-anchor"></a>
+					<h3>pod</h3>
+					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="../classes/pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L23">src/document.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="process" class="tsd-anchor"></a>
+					<h3>process</h3>
+					<div class="tsd-signature tsd-kind-icon">process<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Process</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/fdc084e/src/document.ts#L24">src/document.ts:24</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -143,24 +150,30 @@
 					<li class=" tsd-kind-class tsd-parent-kind-module">
 						<a href="../classes/document.document-1.html" class="tsd-kind-icon">Document</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="document.documentlistoptions.html" class="tsd-kind-icon">Document<wbr>List<wbr>Options</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="document.documentlistoptions.html" class="tsd-kind-icon">Document<wbr>List<wbr>Options</a>
+						<a href="document.templatecontext.html" class="tsd-kind-icon">Template<wbr>Context</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="document.documentlistoptions.html#exclude" class="tsd-kind-icon">exclude</a>
+								<a href="document.templatecontext.html#doc" class="tsd-kind-icon">doc</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="document.documentlistoptions.html#sort" class="tsd-kind-icon">sort</a>
+								<a href="document.templatecontext.html#env" class="tsd-kind-icon">env</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="document.templatecontext.html#pod" class="tsd-kind-icon">pod</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="document.templatecontext.html#process" class="tsd-kind-icon">process</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="document.templatecontext.html" class="tsd-kind-icon">Template<wbr>Context</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

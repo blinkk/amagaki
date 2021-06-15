@@ -42,15 +42,25 @@ export class Server extends events.EventEmitter {
     const app = express();
     await this.pod.plugins.trigger('createServer', app);
     app.disable('x-powered-by');
+    nunjucks.configure(fsPath.join(__dirname, './static/'), {
+      autoescape: true,
+      express: app,
+    });
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {
         const route = await this.pod.router.resolve(req.path);
         if (!route) {
-          res
-            .status(404)
-            .sendFile(
-              fsPath.join(__dirname, './static/', 'error-no-route.html')
-            );
+          const routes = (await this.pod.router.routes())
+            .filter(route => {
+              return (
+                route.url.path.endsWith('/') || route.url.path.endsWith('.html')
+              );
+            })
+            .slice(0, 100);
+          res.status(404).render('error-no-route.njk', {
+            pod: this.pod,
+            routes: routes,
+          });
           return;
         }
         if (route.provider.type === 'staticDir') {
@@ -66,11 +76,8 @@ export class Server extends events.EventEmitter {
           res.send(content);
         }
       } catch (err) {
-        nunjucks.configure(fsPath.join(__dirname, './static/'), {
-          autoescape: true,
-          express: app,
-        });
         res.status(500).render('error-generic.njk', {
+          pod: this.pod,
           error: err,
         });
       }

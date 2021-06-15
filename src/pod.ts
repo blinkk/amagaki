@@ -400,11 +400,13 @@ export class Pod {
    * @param options The options of the translation string.
    */
   string(options: StringOptions, locale?: Locale) {
-    const key = `${options?.prefer}:${options.value}`;
-    locale = locale || this.defaultLocale;
+    const key = options?.prefer
+      ? `${options?.prefer}:${options.value}`
+      : options.value;
     if (this.cache.strings[key]) {
       return this.cache.strings[key];
     }
+    locale = locale || this.defaultLocale;
     this.cache.strings[key] = new TranslationString(this, options, locale);
     return this.cache.strings[key];
   }

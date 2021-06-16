@@ -33,6 +33,11 @@ jobs:
         npm ci
         npm run dev:start
         node ./dist/src/cli.js --profile build benchmark
+    - name: Download previous benchmark data
+      uses: actions/cache@v2
+      with:
+        path: ./cache
+        key: ${{ runner.os }}-benchmark
     - name: Store benchmark result
       uses: rhysd/github-action-benchmark@v1
       with:

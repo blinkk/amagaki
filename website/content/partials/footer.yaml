@@ -6,7 +6,7 @@ menu:
   title: Manual
 - url: /api/
   title: API Reference
-- doc: !pod.doc /content/benchmarks.md
+- doc: !pod.doc /content/benchmark.md
   title: Benchmarks
 - doc: !pod.doc /content/accessibility.md
   title: Accessibility

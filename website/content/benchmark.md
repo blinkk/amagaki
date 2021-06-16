@@ -1,0 +1,4 @@
+---
+$title: Benchmark
+---
+# Benchmark

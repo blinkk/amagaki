@@ -43,15 +43,23 @@ export class Profiler {
 
   get benchmarkOutput(): string {
     const metrics = [];
+    const allKeys = Object.keys(this.timerTypes).sort();
 
-    for (const key of Object.keys(this.timerTypes).sort()) {
+    // When doing benchmarks, the individual build timers bloat the results.
+    // They also do not provide much value for diffing benchmarks since they
+    // are so small. For now, filter them out of the output file.
+    const filteredKeys = allKeys.filter(key => {
+      return !key.match(/builder\.build\..*/i);
+    });
+
+    for (const key of filteredKeys) {
       const timerType = this.timerTypes[key];
       metrics.push(
         `${key} x ${timerType.sum} ms ±0% (${timerType.length} runs sampled)`
       );
     }
 
-    return metrics.join('\n');
+    return `${metrics.join('\n')}\n`;
   }
 
   timer(key: string, label?: string, meta?: any): Timer {

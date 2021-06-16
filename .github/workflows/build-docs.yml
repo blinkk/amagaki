@@ -54,15 +54,13 @@ jobs:
             npm run docs:ci
       - name: Build benchmark build
         run: |
-            # Preserve benchmark files.
+            # Preserve benchmark files, otherwise the gh-pages action will overwrite them.
             mkdir -p public/benchmark
             curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/data.json --output public/benchmark/data.json
             curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/index.html --output public/benchmark/index.html
 
             # Build the benchmark repository.
-            cd amagaki-benchmark
-            npm install
-            npx amagaki build
+            node ./dist/src/cli.js --profile build amagaki-benchmark
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:

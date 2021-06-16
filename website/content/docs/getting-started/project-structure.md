@@ -34,7 +34,7 @@ The following elements are the foundation of Amagaki projects:
 
 ```
 .
-├── amagaki.js
+├── amagaki.ts
 ├── build
 ├── content
 ├── locales
@@ -45,7 +45,7 @@ The following elements are the foundation of Amagaki projects:
 
 An explanation for each element is below:
 
-**amagaki.js**
+**amagaki.ts**
 
 The primary configuration file for your Amagaki site. While this configuration
 file is optional, it facilitates configuration of site-wide settings, such as
@@ -111,7 +111,7 @@ translation request workflow to acquire translations from translators.
 **plugins**
 
 Contains project-local JavaScript plugins for extending Amagaki functionality.
-Plugins are configured and registered in `amagaki.js`.
+Plugins are configured and registered in `amagaki.ts`.
 
 **src**
 

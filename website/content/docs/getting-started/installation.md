@@ -12,7 +12,12 @@ from scratch.
 {% filter codeTabs %}
 ```shell
 npm install @amagaki/amagaki
-npx amagaki start
+
+# Start the dev server.
+npx amagaki serve
+
+# Build the site.
+npx amagaki build
 ```
 {% endfilter %}
 

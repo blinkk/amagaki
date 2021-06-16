@@ -57,10 +57,10 @@ menu:
 ### JavaScript
 
 {% filter codeTabs %}
-```javascript
+```typescript
 // Get one document.
 const doc = pod.doc('/content/pages/index.yaml');
-
+ 
 // List all documents within the posts collection.
 const docs = pod.docs('/content/posts/**');
 ```

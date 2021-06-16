@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1623882049159,
+  "lastUpdate": 1623883091428,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -255,6 +255,135 @@
           {
             "name": "yaml.schema",
             "value": 0.5327030000044033,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "committer": {
+            "email": "randy@blinkk.com",
+            "name": "Randy Merrill",
+            "username": "Zoramite"
+          },
+          "distinct": true,
+          "id": "5f372bc2b6c87075117f63e1e8077f0fa26d9b59",
+          "message": "fix: Restore benchmarking performance regression testing for pushes.",
+          "timestamp": "2021-06-16T16:36:33-06:00",
+          "tree_id": "a8da9f61e11987b8dae9328b40c161f72ef9b585",
+          "url": "https://github.com/blinkk/amagaki/commit/5f372bc2b6c87075117f63e1e8077f0fa26d9b59"
+        },
+        "date": 1623883091427,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 8036.923285999976,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 5.032163999858312,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "document.resolveFields",
+            "value": 3993.621745001641,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 119.08247400046093,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5558 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 283.8224389992538,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5435 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild",
+            "value": 0.12870099995052442,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild.BuilderPlugin",
+            "value": 0.10070099995937198,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild",
+            "value": 0.11490099999355152,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild.BuilderPlugin",
+            "value": 0.0815009999787435,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine",
+            "value": 0.14890099997865036,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
+            "value": 0.10320100001990795,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes",
+            "value": 0.46240599994780496,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes.YamlPlugin",
+            "value": 0.4407060000230558,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 165.29922599863494,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "2709 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.7338089999975637,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

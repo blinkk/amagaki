@@ -13,7 +13,7 @@
     </title>
     <meta name="description" value="">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./../../../static/css/main.min.css">
     <script src=""></script>
@@ -494,7 +494,7 @@ a template, the template cannot be reused, which creates maintainability and
 scalability issues.</p>
 <h2 id="within-markdown-and-text-formats">Within Markdown and text formats</h2>
 <p>Front matter can be used within Markdown-formatted content documents like so:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c32c57a0-ce2f-11eb-bb04-55d0be7e3a46" name="t-c32a82e0-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c32c57a0-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e2c4ff0-ceed-11eb-8892-853e7903a22d" name="t-4e2aa240-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e2c4ff0-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 date: 2021-01-06
 author:
   name: Lorem ipsum
@@ -510,7 +510,7 @@ Published: {{doc.fields.date}}
 <p>Documents can also be entirely composed of front matter. Here&#39;s an example. This
 example assumes your project is using the partial loop.</p>
 <p>First, place data into your document:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c32e5370-ce2f-11eb-bb04-55d0be7e3a46" name="t-c32c7eb0-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c32e5370-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e2e4bc0-ceed-11eb-8892-853e7903a22d" name="t-4e2c4ff1-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e2e4bc0-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>
   <span class="hljs-attr">headline:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Hello</span> <span class="hljs-string">World!</span>
   <span class="hljs-attr">body:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">This</span> <span class="hljs-string">is</span> <span class="hljs-string">the</span> <span class="hljs-string">body</span> <span class="hljs-string">copy</span> <span class="hljs-string">for</span> <span class="hljs-string">my</span> <span class="hljs-string">website.</span>
@@ -522,7 +522,7 @@ example assumes your project is using the partial loop.</p>
 </code></pre></div> </div>
 
 <p>Then, reference that front matter within the template:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c331aed0-ce2f-11eb-bb04-55d0be7e3a46" name="t-c32e5371-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c331aed0-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e31a720-ceed-11eb-8892-853e7903a22d" name="t-4e2e4bc1-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e31a720-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__headline&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.headline}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__body&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.body}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero__buttons&quot;</span>&gt;</span>
@@ -580,7 +580,7 @@ reusable across multiple pages, and even multiple times within the same page.}</
                     API Reference
                 </a>
             
-                <a href="./../../../benchmarks/" class="footer__content__menu__link">
+                <a href="./../../../benchmark/" class="footer__content__menu__link">
                     Benchmarks
                 </a>
             

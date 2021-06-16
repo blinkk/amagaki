@@ -13,7 +13,7 @@
     </title>
     <meta name="description" value="">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./../../../static/css/main.min.css">
     <script src=""></script>
@@ -504,7 +504,7 @@ etc.</p>
 <p><strong>Pod structure</strong></p>
 <p>The following elements are the foundation of Amagaki projects:</p>
 <pre><code>.
-├── amagaki.js
+├── amagaki.ts
 ├── build
 ├── content
 ├── locales
@@ -513,7 +513,7 @@ etc.</p>
 └── views
 </code></pre>
 <p>An explanation for each element is below:</p>
-<p><strong>amagaki.js</strong></p>
+<p><strong>amagaki.ts</strong></p>
 <p>The primary configuration file for your Amagaki site. While this configuration
 file is optional, it facilitates configuration of site-wide settings, such as
 the locales, path behavior (URL root/mount point for pages and assets), build
@@ -553,7 +553,7 @@ translation request workflow to acquire translations from translators.</p>
         ><span>Learn more about translations</span><span class="material-icons">arrow_forward</span></a></p>
 <p><strong>plugins</strong></p>
 <p>Contains project-local JavaScript plugins for extending Amagaki functionality.
-Plugins are configured and registered in <code>amagaki.js</code>.</p>
+Plugins are configured and registered in <code>amagaki.ts</code>.</p>
 <p><strong>src</strong></p>
 <p>Contains frontend code and dependencies, such as Sass files, TypeScript files,
 and media. You are generally free to customize your frontend stack how you
@@ -610,7 +610,7 @@ contains modules that can be mixed and matched across pages.</p>
                     API Reference
                 </a>
             
-                <a href="./../../../benchmarks/" class="footer__content__menu__link">
+                <a href="./../../../benchmark/" class="footer__content__menu__link">
                     Benchmarks
                 </a>
             

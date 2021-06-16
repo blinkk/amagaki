@@ -13,7 +13,7 @@
     </title>
     <meta name="description" value="">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./../../../static/css/main.min.css">
     <script src=""></script>
@@ -489,7 +489,7 @@
 matter facilitates the use of structured content within the Markdown itself.</p>
 <h2 id="full-example">Full example</h2>
 <p>First, use front matter with Markdown within a content document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c33669c0-ce2f-11eb-bb04-55d0be7e3a46" name="t-c334e320-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c33669c0-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e377380-ceed-11eb-8892-853e7903a22d" name="t-4e35ece0-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e377380-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 $path: /${doc.base}/
 $view: /views/base.njk
 date: 2021-01-06
@@ -504,7 +504,7 @@ Published: {{doc.fields.date}}
 </code></pre></div> </div>
 
 <p>Use the <code>render</code> filter along with <code>doc.body</code> to render the Markdown as HTML.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c338dac0-ce2f-11eb-bb04-55d0be7e3a46" name="t-c33669c1-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c338dac0-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e399660-ceed-11eb-8892-853e7903a22d" name="t-4e377381-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e399660-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 </span><span class="hljs-template-variable">{{doc.body|render}}</span><span class="xml">
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>
@@ -553,7 +553,7 @@ Published: {{doc.fields.date}}
                     API Reference
                 </a>
             
-                <a href="./../../../benchmarks/" class="footer__content__menu__link">
+                <a href="./../../../benchmark/" class="footer__content__menu__link">
                     Benchmarks
                 </a>
             

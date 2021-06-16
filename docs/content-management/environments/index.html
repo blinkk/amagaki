@@ -13,7 +13,7 @@
     </title>
     <meta name="description" value="">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;800&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./../../../static/css/main.min.css">
     <script src=""></script>
@@ -496,7 +496,7 @@ below example, we are configuring two environments (prod, and staging).
 Environments accept arbitrary fields, allowing you to centrally manage global
 data (such as API keys or other configuration) and easily change it depending on
 the environment.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c324b680-ce2f-11eb-bb04-55d0be7e3a46" name="t-c322bab0-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c324b680-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e24aed0-ceed-11eb-8892-853e7903a22d" name="t-4e228bf0-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e24aed0-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">environments</span>: {
       <span class="hljs-attr">prod</span>: {
@@ -518,7 +518,7 @@ the environment.</p>
 
 <h3 id="in-templates">In templates</h3>
 <p>In templates, the <code>pod.env</code> variable is available. It returns the pod’s current environment. <a href="https://blinkk.github.io/amagaki/api/classes/environment.environment-1.html">See Environment reference</a>.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c3261610-ce2f-11eb-bb04-55d0be7e3a46" name="t-c324b681-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c3261610-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e260e60-ceed-11eb-8892-853e7903a22d" name="t-4e24aed1-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e260e60-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
 </span><span class="hljs-template-variable">{{pod.env.fields.apiKey}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> pod.env.name == &quot;prod&quot; %}</span><span class="xml">
 <span class="hljs-comment">&lt;!-- Output prod stuff. --&gt;</span>
@@ -529,7 +529,7 @@ the environment.</p>
 <p>While this can be represented in template logic using an if statement like in
 the above examples,  changing content based on the environment is better
 represented using the !IfEnvironment YAML type. See the example below:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c3272780-ce2f-11eb-bb04-55d0be7e3a46" name="t-c3261611-ce2f-11eb-bb04-55d0be7e3a46" checked > <label for="t-c3272780-ce2f-11eb-bb04-55d0be7e3a46" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4e2746e0-ceed-11eb-8892-853e7903a22d" name="t-4e260e61-ceed-11eb-8892-853e7903a22d" checked > <label for="t-4e2746e0-ceed-11eb-8892-853e7903a22d" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
   <span class="hljs-attr">default:</span> <span class="hljs-string">&#x27;Hello World!&#x27;</span>
   <span class="hljs-attr">prod:</span> <span class="hljs-string">&#x27;&#x27;</span>
 </code></pre></div> </div>
@@ -584,7 +584,7 @@ environment: <code>amagaki build --env prod</code>.</p>
                     API Reference
                 </a>
             
-                <a href="./../../../benchmarks/" class="footer__content__menu__link">
+                <a href="./../../../benchmark/" class="footer__content__menu__link">
                     Benchmarks
                 </a>
             

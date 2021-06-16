@@ -30,7 +30,7 @@ Here's what a sample `amagaki.js` file may look like:
 ```javascript:title=amagaki.js
 module.exports = function (pod) {
   pod.configure({
-    metadata: {
+    meta: {
       name: 'Amagaki Example',
     },
     localization: {

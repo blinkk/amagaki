@@ -8,6 +8,9 @@
     max-width: 100%
     position: relative
 
+    +darkColorScheme
+        background-color: var(--secondaryBackgroundColor)
+
     &[data-num-tabs="1"]
         .codeTabs__tabRadio:checked + .codeTabs__tabLabel
             cursor: default

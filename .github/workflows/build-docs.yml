@@ -28,15 +28,6 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Cache benchmark node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-bm
-        with:
-          path: amagaki-benchmark/node_modules
-          key: ${{ runner.os }}-build-bm-${{ env.cache-name }}-${{ hashFiles('amagaki-benchmark/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-bm-${{ env.cache-name }}-
       - name: Prepare for docs.
         run: |
             mkdir -p ./public/

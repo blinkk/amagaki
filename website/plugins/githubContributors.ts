@@ -46,6 +46,7 @@ export const register = (pod: Pod) => {
           }
           if (
             !contributors.has(contributor.login) &&
+            contributor.login &&
             !contributor.login.endsWith('[bot]')
           ) {
             contributors.set(contributor.login, contributor);

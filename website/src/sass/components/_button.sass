@@ -13,12 +13,12 @@ $button-primary-hover-color: var(--secondaryTextColor)
   appearance: none
   background-color: $button-primary-color
   border: 1px solid transparent
-  border-radius: 2px
+  border-radius: 16px
   color: $button-primary-inverted-color
   cursor: pointer
   display: inline-flex
   justify-content: center
-  padding: 12px 24px 11px
+  padding: 8px 24px 8px
   text-decoration: none
   text-rendering: optimizeLegibility
   transition: background-color .2s, box-shadow .2s, color .2s
@@ -42,8 +42,12 @@ $button-primary-hover-color: var(--secondaryTextColor)
     background-color: #174ea6
     box-shadow: 0 0 0 2px #aecbfa
 
+  &--high
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%)
+
   &--medium
     background-color: $button-primary-inverted-color
+    box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%)
     border-color: #dadce0
     +darkColorScheme
       border-color: var(--borderColor)
@@ -148,3 +152,4 @@ $button-primary-hover-color: var(--secondaryTextColor)
   &--icon > .material-icons:first-child
     transform: translateX(-8px) translateY(6px)
     margin-top: -14px
+    margin-left: 3px

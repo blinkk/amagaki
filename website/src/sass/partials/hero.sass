@@ -7,7 +7,9 @@
 
 .hero__content
     +spacing-max-width-container
+    box-sizing: border-box
     display: flex
+    justify-content: space-around
     padding-bottom: $spacing-60
     padding-top: $spacing-60
 
@@ -23,9 +25,9 @@
 
 .hero__chapter__parts__title
     +type-heading-2
-    font-weight: 700
-    padding-bottom: 0
     border: 0
+    max-width: 600px
+    padding-bottom: 0
 
     & + .hero__chapter__parts__body
         margin-top: $spacing-20

@@ -13,11 +13,11 @@ partials:
   buttons:
   - label: Read manual
     doc: !pod.doc /content/docs/index.md
-    left_icon: menu_book
+    icon: arrow_forward
+    class: button--high
   - label: Explore the starter
     doc: !pod.doc /content/docs/getting-started/starter-project.md
     class: button--low
-    left_icon: explore
 
 - partial: spacer
   size: large

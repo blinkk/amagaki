@@ -1,8 +1,8 @@
-name: Benchmark build
+name: Benchmark build - main
 
 on:
   push:
-    branches-ignore:
+    branches:
     - main
 
 jobs:
@@ -33,19 +33,21 @@ jobs:
         npm ci
         npm run dev:start
         node ./dist/src/cli.js --profile build benchmark
-    - name: Download previous benchmark data
+    # Currently every benchmark comparison is happening against the previous benchmark
+    # and not against a 'standard' or consistent benchmark. This benchmark build is made
+    # to be the baseline benchmark that all following benchmark warnings are based against.
+    # Watching https://github.com/actions/cache/pull/489
+    # Once there is a way to prevent the normal 'push' benchmark from overwriting the
+    # `main` benchmark this will become the baseline benchmark for future push benchmarks.
+    - name: Cached benchmark data
       uses: actions/cache@v2
       with:
         path: ./cache
         key: ${{ runner.os }}-benchmark
-    - name: Store benchmark result
+    - name: Create benchmark result
       uses: rhysd/github-action-benchmark@v1
       with:
         name: Amagaki profiling benchmark
         tool: 'benchmarkjs'
         output-file-path: benchmark/build/.amagaki/benchmark.txt
         external-data-json-path: cache/benchmark-data.json
-        # PR commenting and failure.
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        fail-on-alert: true
-        comment-on-alert: true

@@ -1,0 +1,58 @@
+name: Benchmark build
+
+on:
+  push:
+    branches-ignore:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout benchmark repo
+      uses: actions/checkout@v2
+      with:
+        repository: blinkk/amagaki-benchmark
+        path: benchmark
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules-bm-pr
+      with:
+        path: |
+          ~/.npm
+          node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - name: Build amagaki and benchmark
+      run: |
+        npm ci
+        npm run dev:start
+        node ./dist/src/cli.js --profile build benchmark
+    # This is actually a bad idea since it saves the benchmark data in cache on *every*
+    # build instead of comparing the benchmark data against the latest 'main' benchmark.
+    # Watching https://github.com/actions/cache/pull/489
+    # Once there is a way to prevent this 'push' benchmark from overwriting the
+    # `main` benchmark update to prevent the cache from saving over the `main` benchmarks.
+    - name: Download previous benchmark data
+      uses: actions/cache@v2
+      with:
+        path: ./cache
+        key: ${{ runner.os }}-benchmark
+    - name: Store benchmark result
+      uses: rhysd/github-action-benchmark@v1
+      with:
+        name: Amagaki profiling benchmark
+        tool: 'benchmarkjs'
+        output-file-path: benchmark/build/.amagaki/benchmark.txt
+        external-data-json-path: cache/benchmark-data.json
+        # PR commenting and failure.
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+        # TODO: Update to fail and comment on alert once the cached benchmark is always against the main.
+        # fail-on-alert: true
+        # comment-on-alert: true

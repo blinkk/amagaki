@@ -343,6 +343,16 @@ export class StaticRoute extends Route {
   get urlPath() {
     return this.servingPath;
   }
+
+  /**
+   * Returns the content type header for the route, based on the file's pod path.
+   */
+  get contentType() {
+    return (
+      mimetypes.contentType(fsPath.basename(this.podPath)) ||
+      'application/octet-stream'
+    );
+  }
 }
 
 function cleanBasePath(path: string): string {

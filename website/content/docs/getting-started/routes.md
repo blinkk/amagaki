@@ -50,13 +50,11 @@ home: !pod.doc /content/pages/index.yaml
 ```
 {% endfilter %}
 
-{% filter codeTabs %}
+{% filter codeTabs %}{% raw %}
 ```nunjucks
-{%- raw %}
 {{doc.home.url.path}}
-{% endraw %}
 ```
-{% endfilter %}
+{% endraw %}{% endfilter %}
 
 ## Route provider deep-dive
 

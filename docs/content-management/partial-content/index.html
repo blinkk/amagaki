@@ -495,7 +495,7 @@ beyond the content injected into the partial.</p>
 <h2 id="the-partial-loop">The partial loop</h2>
 <p>Within a content document, the partial loop is represented by a list of
 partials, like this:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ebd120e0-d2ef-11eb-a8e2-33ced6a4566a" name="t-ebcf7330-d2ef-11eb-a8e2-33ced6a4566a" checked > <label for="t-ebd120e0-d2ef-11eb-a8e2-33ced6a4566a" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ff525d20-d37e-11eb-8eb1-f1ff1be4bc90" name="t-ff50d680-d37e-11eb-8eb1-f1ff1be4bc90" checked > <label for="t-ff525d20-d37e-11eb-8eb1-f1ff1be4bc90" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
  
 <span class="hljs-comment"># Renders: /views/partials/hero.njk</span>
 <span class="hljs-comment"># Loads:   /src/sass/partials/hero.sass</span>
@@ -520,7 +520,7 @@ partials, like this:</p>
 <p>Within Amagaki’s default base template, the content document’s partials are
 looped over, rendering one at a time. Each partial’s rendering context is
 populated by its content from the partial loop:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ebd391e0-d2ef-11eb-a8e2-33ced6a4566a" name="t-ebd120e1-d2ef-11eb-a8e2-33ced6a4566a" checked > <label for="t-ebd391e0-d2ef-11eb-a8e2-33ced6a4566a" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ff5458f0-d37e-11eb-8eb1-f1ff1be4bc90" name="t-ff525d21-d37e-11eb-8eb1-f1ff1be4bc90" checked > <label for="t-ff5458f0-d37e-11eb-8eb1-f1ff1be4bc90" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;columns__header__headline&quot;</span>&gt;</span>
       </span><span class="hljs-template-variable">{{partial.header.headline}}</span><span class="xml">

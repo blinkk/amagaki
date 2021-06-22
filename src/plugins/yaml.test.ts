@@ -74,7 +74,10 @@ test('Async YAML types', async (t: ExecutionContext) => {
   // Prior to resolving, the field is a function.
   t.true(typeof doc.fields.asyncKey === 'function');
   await doc.render();
-  t.deepEqual(doc.fields.asyncKey, 'ASYNC-TYPE-VALUE');
+  t.deepEqual(
+    doc.fields.asyncKey,
+    'ASYNC-TYPE-VALUE from /content/pages/asyncType.yaml'
+  );
   // After resolving, the field has changed to its resolved value, which is a
   // string in this case.
   t.true(typeof doc.fields.asyncKey === 'string');

@@ -1,4 +1,5 @@
 import {Pod} from '../../src/pod';
+import {TemplateContext} from '../../src/document';
 import {YamlPlugin} from '../../src/plugins/yaml';
 
 export default function (pod: Pod) {
@@ -21,11 +22,11 @@ export default function (pod: Pod) {
   yamlPlugin.addType('!async', {
     kind: 'scalar',
     construct: (value: string) => {
-      return async () => {
+      return async (context: TemplateContext) => {
         if (typeof value !== 'string') {
           throw new Error('Value must be a string.');
         }
-        return value.toUpperCase();
+        return `${value.toUpperCase()} from ${context.doc.podPath}`;
       };
     },
   });

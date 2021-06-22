@@ -7,7 +7,8 @@ import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './staticFile';
 import {Url} from './url';
-import express from 'express';
+
+import express = require('express');
 
 export interface StaticDirConfig {
   path: string;

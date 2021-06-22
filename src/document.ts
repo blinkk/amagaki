@@ -9,8 +9,9 @@ import {Environment} from './environment';
 import {Pod} from './pod';
 import {Route} from './router';
 import {Url} from './url';
-import express from 'express';
 import minimatch from 'minimatch';
+
+import express = require('express');
 
 const DEFAULT_VIEW = '/views/base.njk';
 

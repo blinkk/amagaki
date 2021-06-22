@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/blinkk/amagaki/compare/v1.0.1...v1.1.0) (2021-06-22)
+
+
+### Features
+
+* add build options to the route building ([#101](https://www.github.com/blinkk/amagaki/issues/101)) ([3796761](https://www.github.com/blinkk/amagaki/commit/37967616a0ea4bede673eb2357a2d6c0555b19dd))
+
+
+### Bug Fixes
+
+* add contentType for StaticRoute ([a66d2f3](https://www.github.com/blinkk/amagaki/commit/a66d2f36802f57c2b93939c6ec4a6a416f3c877f))
+* Benchmark not using current amagaki build. ([d71b3bc](https://www.github.com/blinkk/amagaki/commit/d71b3bc14ec280727369892499ea1184488931cf))
+* Fixing cache for benchmark data file. ([4ec8430](https://www.github.com/blinkk/amagaki/commit/4ec8430b6513d9c6eec94e08e7b488c11965dd7f))
+* Improve the benchmark profiling output and reduce size of the history. ([a8708d7](https://www.github.com/blinkk/amagaki/commit/a8708d763c6f532462d4218997b167723b91b7ab))
+* Increasing size of history for benchmark results. ([508a71e](https://www.github.com/blinkk/amagaki/commit/508a71e59637ea072c89e8b96ee96fa34ad4204d))
+* Restore benchmarking performance regression testing for pushes. ([5f372bc](https://www.github.com/blinkk/amagaki/commit/5f372bc2b6c87075117f63e1e8077f0fa26d9b59))
+* Updating how the benchmark caches. ([d6f2175](https://www.github.com/blinkk/amagaki/commit/d6f217501727aecc6076673876ecff5007e98ac4))
+
 ### [1.0.1](https://www.github.com/blinkk/amagaki/compare/v1.0.0...v1.0.1) (2021-06-12)
 
 

@@ -10,6 +10,10 @@ import {Url} from './url';
 
 import express = require('express');
 
+export interface BuildOptions {
+  req?: express.Request;
+}
+
 export interface StaticDirConfig {
   path: string;
   staticDir: string;
@@ -226,7 +230,7 @@ export class Route {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async build(req?: express.Request): Promise<string> {
+  async build(options?: BuildOptions): Promise<string> {
     throw new Error('Subclasses of Route must implement a `build` getter.');
   }
 
@@ -266,10 +270,10 @@ export class DocumentRoute extends Route {
     return `[DocumentRoute: ${this.doc}]`;
   }
 
-  async build(req?: express.Request): Promise<string> {
+  async build(options?: BuildOptions): Promise<string> {
     try {
       return await this.doc.render({
-        req: req,
+        req: options?.req,
         route: this,
       });
     } catch (err) {

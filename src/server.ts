@@ -71,7 +71,7 @@ export class Server extends events.EventEmitter {
           );
           return;
         } else {
-          const content = await route.build();
+          const content = await route.build(req);
           res.set('Content-Type', route.contentType);
           res.send(content);
         }

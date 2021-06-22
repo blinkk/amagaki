@@ -7,6 +7,7 @@ import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './staticFile';
 import {Url} from './url';
+import express from 'express';
 
 export interface StaticDirConfig {
   path: string;
@@ -223,7 +224,8 @@ export class Route {
     this.pod = this.provider.pod;
   }
 
-  async build(): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async build(req?: express.Request): Promise<string> {
     throw new Error('Subclasses of Route must implement a `build` getter.');
   }
 
@@ -263,9 +265,10 @@ export class DocumentRoute extends Route {
     return `[DocumentRoute: ${this.doc}]`;
   }
 
-  async build(): Promise<string> {
+  async build(req?: express.Request): Promise<string> {
     try {
       return await this.doc.render({
+        req: req,
         route: this,
       });
     } catch (err) {

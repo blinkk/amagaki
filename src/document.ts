@@ -7,8 +7,11 @@ import {Locale, LocaleSet} from './locale';
 import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
+import {Route} from './router';
 import {Url} from './url';
 import minimatch from 'minimatch';
+
+import express = require('express');
 
 const DEFAULT_VIEW = '/views/base.njk';
 
@@ -22,6 +25,8 @@ export interface TemplateContext {
   env: Environment;
   pod: Pod;
   process: NodeJS.Process;
+  req?: express.Request;
+  route?: Route;
 }
 
 export interface DocumentListOptions {

@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1624382810139,
+  "lastUpdate": 1624382927766,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -1038,126 +1038,126 @@
       {
         "commit": {
           "author": {
-            "email": "randy@blinkk.com",
-            "name": "Randy Merrill",
-            "username": "Zoramite"
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
           },
           "committer": {
-            "email": "randy@blinkk.com",
-            "name": "Randy Merrill",
-            "username": "Zoramite"
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
           },
           "distinct": true,
-          "id": "7ed994c973a3fdeea4c561f0ce3b6eb23d9fe171",
-          "message": "Adding optional route and request to interface for context.",
-          "timestamp": "2021-06-22T11:25:26-06:00",
-          "tree_id": "1f99933761bc29243e1803b47254830635780571",
-          "url": "https://github.com/blinkk/amagaki/commit/7ed994c973a3fdeea4c561f0ce3b6eb23d9fe171"
+          "id": "fb3565585377bc9f4c91854811e98051586d9146",
+          "message": "test: add test to demonstrate async yaml type usage",
+          "timestamp": "2021-06-21T17:21:32-07:00",
+          "tree_id": "42c7aa09707dd7328de023a5e30eedcad4e6a7ab",
+          "url": "https://github.com/blinkk/amagaki/commit/fb3565585377bc9f4c91854811e98051586d9146"
         },
-        "date": 1624382810138,
+        "date": 1624382927764,
         "tool": "benchmarkjs",
         "benches": [
           {
             "name": "command.build",
-            "value": 5933.452583000006,
+            "value": 7270.652352000005,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "document.fields.localize",
-            "value": 4.130364999975427,
+            "value": 6.280727999954252,
             "range": "±0%",
             "unit": "ms",
             "extra": "34 samples"
           },
           {
             "name": "document.resolveFields",
-            "value": 2910.9998080000223,
+            "value": 3043.105394000566,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "file.exists",
-            "value": 76.1594700004498,
+            "value": 118.31126499935635,
             "range": "±0%",
             "unit": "ms",
             "extra": "5558 samples"
           },
           {
             "name": "file.read",
-            "value": 179.5841969993926,
+            "value": 249.4259669999301,
             "range": "±0%",
             "unit": "ms",
             "extra": "5435 samples"
           },
           {
             "name": "plugins.hook.afterBuild",
-            "value": 0.12660200000391342,
+            "value": 0.16580099999555387,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.afterBuild.BuilderPlugin",
-            "value": 0.08350100000097882,
+            "value": 0.13580099999671802,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild",
-            "value": 0.09160200000042096,
+            "value": 0.10590099997352809,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild.BuilderPlugin",
-            "value": 0.07110099999408703,
+            "value": 0.08310100002563559,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine",
-            "value": 0.0658019999973476,
+            "value": 0.07629999998607673,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
-            "value": 0.048100999993039295,
+            "value": 0.0572999999858439,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes",
-            "value": 0.3304060000082245,
+            "value": 0.32510099999490194,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes.YamlPlugin",
-            "value": 0.3112059999984922,
+            "value": 0.3061009999946691,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "yaml.load",
-            "value": 115.11432800047623,
+            "value": 135.76270600003772,
             "range": "±0%",
             "unit": "ms",
             "extra": "2709 samples"
           },
           {
             "name": "yaml.schema",
-            "value": 0.538209000005736,
+            "value": 0.5248030000075232,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

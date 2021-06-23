@@ -489,7 +489,7 @@
 matter facilitates the use of structured content within the Markdown itself.</p>
 <h2 id="full-example">Full example</h2>
 <p>First, use front matter with Markdown within a content document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a5221e00-d390-11eb-8dac-796bfc0b3c84" name="t-a520e580-d390-11eb-8dac-796bfc0b3c84" checked > <label for="t-a5221e00-d390-11eb-8dac-796bfc0b3c84" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-fad86190-d3dd-11eb-9847-ed0381cf40f7" name="t-fad72910-d3dd-11eb-9847-ed0381cf40f7" checked > <label for="t-fad86190-d3dd-11eb-9847-ed0381cf40f7" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 $path: /${doc.base}/
 $view: /views/base.njk
 date: 2021-01-06
@@ -504,7 +504,7 @@ Published: {{doc.fields.date}}
 </code></pre></div> </div>
 
 <p>Use the <code>render</code> filter along with <code>doc.body</code> to render the Markdown as HTML.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a523f2c0-d390-11eb-8dac-796bfc0b3c84" name="t-a5221e01-d390-11eb-8dac-796bfc0b3c84" checked > <label for="t-a523f2c0-d390-11eb-8dac-796bfc0b3c84" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-fadb20b0-d3dd-11eb-9847-ed0381cf40f7" name="t-fad86191-d3dd-11eb-9847-ed0381cf40f7" checked > <label for="t-fadb20b0-d3dd-11eb-9847-ed0381cf40f7" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 </span><span class="hljs-template-variable">{{doc.body|render}}</span><span class="xml">
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>

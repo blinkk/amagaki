@@ -5,11 +5,13 @@ order: 2
 
 # Template variables and rendering context
 
-By default, Amagaki’s document route provider will render all documents
-configured with URLs. Binding a URL to a document means “render me as a page”.
+Amagaki’s document route provider will render all documents configured with
+URLs. Binding a URL to a document means “render me as a page”. Documents without
+URLs are not built as pages.
+
 When Amagaki renders a document, it selects a template (either the pod’s default
-template or a template bound to a collection), and renders it with a rendering
-context.
+template or a template bound to a collection), and renders it with the following
+context object.
 
 ## Template variables
 
@@ -52,6 +54,15 @@ which can be invoked from your templates. Some commonly used ones are:
     class: 'button button--low',
     icon: 'launch'
 })}}
+
+### process
+
+The `NodeJS.Process` object.
+
+### req
+
+The Express request object. Warning! This object is only available when using
+the server. The object is `undefined` when generating a static site.
 
 ### route
 

@@ -23,14 +23,14 @@ functionality that enhances development velocity and the development workflow.
 ```typescript:title=amagaki.ts
 export default function (pod: Pod) {
     const serverPlugin = pod.plugins.get('ServerPlugin') as ServerPlugin;
-
+ 
     // Immediate example. Use for registering Express middleware.
     serverPlugin.register(app => {
         app.use('/foo', (req, res) => {
             res.send('This is a response from custom middleware.');
         });
     });
-
+ 
     // Async example. Use for running some task prior to server startup.
     serverPlugin.register(async () => {
         const promise = () => {

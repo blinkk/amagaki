@@ -59,6 +59,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.collection', {
       kind: 'scalar',
+      instanceOf: Collection,
       resolve: podPath => {
         return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
       },
@@ -115,6 +116,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.doc', {
       kind: 'scalar',
+      instanceOf: Document,
       resolve: podPath => {
         return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
       },
@@ -133,6 +135,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.doc', {
       kind: 'sequence',
+      instanceOf: Document,
       resolve: parts => {
         const podPath = parts[0];
         return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
@@ -197,6 +200,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.locale', {
       kind: 'scalar',
+      instanceOf: Locale,
       resolve: data => {
         return typeof data === 'string';
       },
@@ -231,6 +235,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.staticFile', {
       kind: 'scalar',
+      instanceOf: StaticFile,
       resolve: data => {
         return data && data.startsWith('/');
       },
@@ -248,6 +253,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.string', {
       kind: 'scalar',
+      instanceOf: TranslationString,
       resolve: data => {
         return typeof data === 'string';
       },
@@ -267,6 +273,7 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.string', {
       kind: 'mapping',
+      instanceOf: TranslationString,
       resolve: data => {
         return typeof data === 'object' && 'value' in data;
       },
@@ -333,13 +340,17 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!IfLocale', {
       kind: 'mapping',
+      instanceOf: LocalizableData,
       resolve: data => {
         return typeof data === 'object';
       },
       construct: value => {
         return new LocalizableData(this.pod, value);
       },
-      // TODO: Represent serialized values so they can be round-tripped.
+      represent: data => {
+        const localizableData = data as LocalizableData;
+        return localizableData.data;
+      },
     });
 
     /**

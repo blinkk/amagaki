@@ -352,27 +352,30 @@ export class Pod {
    * @param content The YAML content as string to read.
    * @param cacheKey A key used for caching the read.
    */
-  readYamlString(content: string, cacheKey: string) {
-    if (this.cache.yamlStrings[cacheKey]) {
+  readYamlString(content: string, cacheKey?: string) {
+    if (cacheKey && this.cache.yamlStrings[cacheKey]) {
       return this.cache.yamlStrings[cacheKey];
     }
 
     const timer = this.profiler.timer('yaml.load', 'Yaml load');
+    let result;
     try {
-      this.cache.yamlStrings[cacheKey] = yaml.load(content, {
+      result = yaml.load(content, {
         schema: this.yamlSchema,
       });
+      if (cacheKey) {
+        this.cache.yamlStrings[cacheKey] = result;
+      }
     } finally {
       timer.stop();
     }
-
-    return this.cache.yamlStrings[cacheKey];
+    return result;
   }
 
   /**
    * Dumps an object to a YAML string, using the pod's schema.
    */
-  dumpYaml(data: string) {
+  dumpYaml(data: any) {
     const timer = this.profiler.timer('yaml.dump', 'Yaml dump');
     try {
       return yaml.dump(data, {

@@ -1,7 +1,9 @@
+import {LocaleSet, LocalizableData} from '../locale';
+
 import {Document} from '../document';
 import {ExecutionContext} from 'ava';
-import {LocaleSet} from '../locale';
 import {Pod} from '../pod';
+import {TranslationString} from '../string';
 import test from 'ava';
 
 test('Inbuilt YAML types', (t: ExecutionContext) => {
@@ -92,4 +94,32 @@ test('IfEnvironment', (t: ExecutionContext) => {
   });
   const doc = pod.doc('/content/pages/index.yaml') as Document;
   t.deepEqual(doc.fields.IfEnvironment, 'Prod Value');
+});
+
+test('IfLocale', (t: ExecutionContext) => {
+  const sampleYaml = `!IfLocale 
+default: base
+de: de
+`;
+  const pod = new Pod('./fixtures/yamlTypes/');
+  const localizableData = new LocalizableData(pod, {
+    default: 'base',
+    de: 'de',
+  });
+  t.deepEqual(sampleYaml, pod.dumpYaml(localizableData));
+  t.deepEqual(localizableData, pod.readYamlString(sampleYaml));
+});
+
+test('!pod.string', (t: ExecutionContext) => {
+  const sampleString = '!pod.string foo\n';
+  const pod = new Pod('./fixtures/yamlTypes/');
+  const translationString = new TranslationString(
+    pod,
+    {
+      value: 'foo',
+    },
+    pod.defaultLocale
+  );
+  t.deepEqual(sampleString, pod.dumpYaml(translationString));
+  t.deepEqual(translationString, pod.readYamlString(sampleString));
 });

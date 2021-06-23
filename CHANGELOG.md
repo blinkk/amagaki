@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://www.github.com/blinkk/amagaki/compare/v1.1.0...v1.1.1) (2021-06-23)
+
+
+### Bug Fixes
+
+* allow IfLocale and pod.string YAML types to roundtrip ([e9216f7](https://www.github.com/blinkk/amagaki/commit/e9216f7401d15b23c79337718520b2a14d7f4bac))
+
 ## [1.1.0](https://www.github.com/blinkk/amagaki/compare/v1.0.1...v1.1.0) (2021-06-22)
 
 

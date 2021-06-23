@@ -488,20 +488,18 @@ object contains a diff, manifest, and metrics about the build.</p>
         href="https://blinkk.github.io/amagaki/api/interfaces/builder.buildresult.html"
         target="_blank"><span>Read BuildResult Reference</span><span class="material-icons">launch</span></a></p>
 <h2 id="example">Example</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-78a420e0-d470-11eb-8854-c5b221100386" name="t-78a2e860-d470-11eb-8854-c5b221100386" checked > <label for="t-78a420e0-d470-11eb-8854-c5b221100386" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-bb0477f0-d470-11eb-b50b-19b48b9b88cd" name="t-bb033f70-d470-11eb-b50b-19b48b9b88cd" checked > <label for="t-bb0477f0-d470-11eb-b50b-19b48b9b88cd" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
     <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;BuilderPlugin&#x27;</span>);
-
-<pre><code>plugin.addBeforeBuildStep(&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;builder&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
-&lt;span class=&quot;hljs-comment&quot;&gt;// Do something with the builder.&lt;/span&gt;
-});
-
-plugin.addAfterBuildStep(&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-params&quot;&gt;buildResult&lt;/span&gt; =&amp;gt;&lt;/span&gt; {
-&lt;span class=&quot;hljs-comment&quot;&gt;// Do something with the build result.&lt;/span&gt;
-});
-</code></pre>
-<p>};
-</code></pre></div> </div></p>
-
+ 
+    plugin.addBeforeBuildStep(<span class="hljs-function"><span class="hljs-params">builder</span> =&gt;</span> {
+    <span class="hljs-comment">// Do something with the builder.</span>
+    });
+ 
+    plugin.addAfterBuildStep(<span class="hljs-function"><span class="hljs-params">buildResult</span> =&gt;</span> {
+    <span class="hljs-comment">// Do something with the build result.</span>
+    });
+};
+</code></pre></div> </div>
             </div>
             
                 <div class="markdown__body__next">

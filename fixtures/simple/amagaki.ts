@@ -11,6 +11,10 @@ export default function (pod: Pod) {
         path: '/static/js/',
         staticDir: '/dist/js/',
       },
+      {
+        path: '/static/images/',
+        staticDir: '/static/images/',
+      },
     ],
   });
 }

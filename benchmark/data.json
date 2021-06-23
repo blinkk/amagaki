@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1624486379092,
+  "lastUpdate": 1624486521770,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -1683,126 +1683,126 @@
       {
         "commit": {
           "author": {
-            "email": "jeremydw@gmail.com",
-            "name": "Jeremy Weinstein",
-            "username": "jeremydw"
+            "email": "41898282+github-actions[bot]@users.noreply.github.com",
+            "name": "github-actions[bot]",
+            "username": "github-actions[bot]"
           },
           "committer": {
-            "email": "jeremydw@gmail.com",
-            "name": "Jeremy Weinstein",
-            "username": "jeremydw"
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
           },
           "distinct": true,
-          "id": "e9216f7401d15b23c79337718520b2a14d7f4bac",
-          "message": "fix: allow IfLocale and pod.string YAML types to roundtrip",
-          "timestamp": "2021-06-23T15:11:46-07:00",
-          "tree_id": "6ce7b568e172a31b7ebf9b4bd96c1fdcf5a91281",
-          "url": "https://github.com/blinkk/amagaki/commit/e9216f7401d15b23c79337718520b2a14d7f4bac"
+          "id": "295c2fd79d5a457d9dcd492cb92e56957074b4f8",
+          "message": "chore: release 1.1.1 (#103)\n\nCo-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
+          "timestamp": "2021-06-23T15:14:15-07:00",
+          "tree_id": "7e43d4bfe9e41b6c69cd082efb625a7e4794fc65",
+          "url": "https://github.com/blinkk/amagaki/commit/295c2fd79d5a457d9dcd492cb92e56957074b4f8"
         },
-        "date": 1624486379091,
+        "date": 1624486521769,
         "tool": "benchmarkjs",
         "benches": [
           {
             "name": "command.build",
-            "value": 6431.799100000004,
+            "value": 5891.523419999998,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "document.fields.localize",
-            "value": 3.2459299999754876,
+            "value": 4.614041000008001,
             "range": "±0%",
             "unit": "ms",
             "extra": "34 samples"
           },
           {
             "name": "document.resolveFields",
-            "value": 2945.590105001116,
+            "value": 3367.8893449991447,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "file.exists",
-            "value": 86.31289100056165,
+            "value": 76.8811700004444,
             "range": "±0%",
             "unit": "ms",
             "extra": "5558 samples"
           },
           {
             "name": "file.read",
-            "value": 204.90721899893833,
+            "value": 170.32174400049553,
             "range": "±0%",
             "unit": "ms",
             "extra": "5435 samples"
           },
           {
             "name": "plugins.hook.afterBuild",
-            "value": 0.10910400000284426,
+            "value": 0.10589999999501742,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.afterBuild.BuilderPlugin",
-            "value": 0.08370399998966604,
+            "value": 0.07789999998931307,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild",
-            "value": 0.10720399999991059,
+            "value": 0.08680100001220126,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild.BuilderPlugin",
-            "value": 0.08240300000761636,
+            "value": 0.06590099999448285,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine",
-            "value": 0.07770300001720898,
+            "value": 0.07840099999157246,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
-            "value": 0.058301999990362674,
+            "value": 0.06430100000579841,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes",
-            "value": 0.36801499998546205,
+            "value": 0.4098039999953471,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes.YamlPlugin",
-            "value": 0.34851399998296984,
+            "value": 0.3908039999951143,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "yaml.load",
-            "value": 163.42305999947712,
+            "value": 131.46887700045772,
             "range": "±0%",
             "unit": "ms",
             "extra": "2709 samples"
           },
           {
             "name": "yaml.schema",
-            "value": 0.5704229999973904,
+            "value": 0.6038059999991674,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

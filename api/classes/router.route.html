@@ -103,7 +103,7 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="router.route.html#contenttype" class="tsd-kind-icon">content<wbr>Type</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="router.route.html#path" class="tsd-kind-icon">path</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="router.route.html#podpath" class="tsd-kind-icon">pod<wbr>Path</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="router.route.html#url" class="tsd-kind-icon">url</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="router.route.html#urlpath" class="tsd-kind-icon">url<wbr>Path</a></li>
 							</ul>
@@ -129,7 +129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L225">src/router.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L225">src/router.ts:225</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +151,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L225">src/router.ts:225</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L225">src/router.ts:225</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">provider<span class="tsd-signature-symbol">:</span> <a href="router.routeprovider.html" class="tsd-signature-type" data-tsd-kind="Class">RouteProvider</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L224">src/router.ts:224</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L224">src/router.ts:224</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,27 +178,43 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L241">src/router.ts:241</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L264">src/router.ts:264</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the content type header for the route, based on the route&#39;s URL
+										path. Routes that terminate in <code>/</code> or have no extension are assumed to be
+										HTML. All other routes are automatically determined using the <code>mime-types</code>
+									module.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="path" class="tsd-anchor"></a>
-					<h3>path</h3>
+					<a name="podpath" class="tsd-anchor"></a>
+					<h3>pod<wbr>Path</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> podPath<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L237">src/router.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L243">src/router.ts:243</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Most routes will be generated from files within the pod. Some routes (e.g.
+										routes created dynamically such as from a database query or from explicit
+										parameters) may not be generated from files within the pod, and therefore
+									would be undefined – they would not have a corresponding <code>podPath</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -212,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L251">src/router.ts:251</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L251">src/router.ts:251</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="url.url-1.html" class="tsd-signature-type" data-tsd-kind="Class">Url</a></h4>
@@ -229,7 +245,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L247">src/router.ts:247</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L247">src/router.ts:247</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -249,7 +265,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/87d83b1/src/router.ts#L233">src/router.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/945976a/src/router.ts#L233">src/router.ts:233</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -304,7 +320,7 @@
 								<a href="router.route.html#contenttype" class="tsd-kind-icon">content<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="router.route.html#path" class="tsd-kind-icon">path</a>
+								<a href="router.route.html#podpath" class="tsd-kind-icon">pod<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="router.route.html#url" class="tsd-kind-icon">url</a>

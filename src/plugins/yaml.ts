@@ -253,7 +253,6 @@ export class YamlPlugin implements PluginComponent {
      */
     yamlTypeManager.addType('!pod.string', {
       kind: 'scalar',
-      instanceOf: TranslationString,
       resolve: data => {
         return typeof data === 'string';
       },
@@ -282,10 +281,14 @@ export class YamlPlugin implements PluginComponent {
       },
       represent: value => {
         const string = value as TranslationString;
-        return {
-          prefer: string.prefer,
-          value: string.value,
-        };
+        if (string.prefer) {
+          return {
+            prefer: string.prefer,
+            value: string.value,
+          };
+        } else {
+          return string.value;
+        }
       },
     });
 

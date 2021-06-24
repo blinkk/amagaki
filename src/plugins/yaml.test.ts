@@ -101,6 +101,7 @@ test('IfLocale', (t: ExecutionContext) => {
 default: base
 de: de
 `;
+
   const pod = new Pod('./fixtures/yamlTypes/');
   const localizableData = new LocalizableData(pod, {
     default: 'base',
@@ -110,13 +111,31 @@ de: de
   t.deepEqual(localizableData, pod.readYamlString(sampleYaml));
 });
 
-test('!pod.string', (t: ExecutionContext) => {
+test('!pod.string default', (t: ExecutionContext) => {
   const sampleString = '!pod.string foo\n';
   const pod = new Pod('./fixtures/yamlTypes/');
   const translationString = new TranslationString(
     pod,
     {
       value: 'foo',
+    },
+    pod.defaultLocale
+  );
+  t.deepEqual(sampleString, pod.dumpYaml(translationString));
+  t.deepEqual(translationString, pod.readYamlString(sampleString));
+});
+
+test('!pod.string preferred', (t: ExecutionContext) => {
+  const sampleString = `!pod.string 
+prefer: Preferred String
+value: Default String
+`;
+  const pod = new Pod('./fixtures/yamlTypes/');
+  const translationString = new TranslationString(
+    pod,
+    {
+      prefer: 'Preferred String',
+      value: 'Default String',
     },
     pod.defaultLocale
   );

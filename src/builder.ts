@@ -361,7 +361,7 @@ export class Builder {
               `builder.build${urlPathStub}`,
               `Build: ${createdPath.route.urlPath}`,
               {
-                path: createdPath.route.path,
+                path: createdPath.route.podPath,
                 type: createdPath.route.provider.type,
                 urlPath: createdPath.route.urlPath,
               }

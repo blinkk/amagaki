@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.2](https://www.github.com/blinkk/amagaki/compare/v1.1.1...v1.1.2) (2021-06-24)
+
+
+### Bug Fixes
+
+* fix serialization of simple pod.string types ([f4acadb](https://www.github.com/blinkk/amagaki/commit/f4acadbcf52e84f8e3adddfb8320b092785bdb4d))
+
 ### [1.1.1](https://www.github.com/blinkk/amagaki/compare/v1.1.0...v1.1.1) (2021-06-23)
 
 

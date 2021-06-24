@@ -4,6 +4,7 @@ import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
 
+import {Collection} from './collection';
 import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
@@ -194,7 +195,7 @@ export class Document {
    * within the document's content directory, the directory structure will be
    * walked upwards until locating a `_collection.yaml`.
    */
-  get collection() {
+  get collection(): Collection | null {
     return this.pod.collection(fsPath.dirname(this.podPath));
   }
 

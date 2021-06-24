@@ -164,8 +164,8 @@ export class CollectionRouteProvider extends RouteProvider {
     // require users to specify routes in amagaki.ts.
     const routes: Array<Route> = [];
 
-    function addRoute(podPath: string, locale?: Locale) {
-      const route = new DocumentRoute(docProvider, podPath, locale);
+    const addRoute = (podPath: string, locale?: Locale) => {
+      const route = new DocumentRoute(this, podPath, locale);
       // Only build docs with path formats.
       if (!route.doc.pathFormat) {
         return;
@@ -173,7 +173,7 @@ export class CollectionRouteProvider extends RouteProvider {
       routes.push(route);
       docProvider.urlMap.set(route.doc, route.url);
       return route;
-    }
+    };
 
     const docs = this.pod.docs();
     docs.forEach(doc => {
@@ -231,17 +231,17 @@ export class Route {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async build(options?: BuildOptions): Promise<string> {
-    throw new Error('Subclasses of Route must implement a `build` getter.');
+    throw new Error('Subclasses of Route must implement `build`.');
   }
 
-  get path(): string {
-    throw new Error('Subclasses of Route must implement a `path` getter.');
-  }
-
-  get contentType(): string {
-    throw new Error(
-      'Subclasses of Route must implement a `contentType` getter.'
-    );
+  /**
+   * Most routes will be generated from files within the pod. Some routes (e.g.
+   * routes created dynamically such as from a database query or from explicit
+   * parameters) may not be generated from files within the pod, and therefore
+   * would be undefined – they would not have a corresponding `podPath`.
+   */
+  get podPath(): string | undefined {
+    return undefined;
   }
 
   get urlPath(): string {
@@ -254,15 +254,31 @@ export class Route {
       env: this.pod.env,
     });
   }
+
+  /**
+   * Returns the content type header for the route, based on the route's URL
+   * path. Routes that terminate in `/` or have no extension are assumed to be
+   * HTML. All other routes are automatically determined using the `mime-types`
+   * module.
+   */
+  get contentType() {
+    if (this.urlPath.endsWith('/') || !fsPath.extname(this.urlPath)) {
+      return 'text/html';
+    }
+    return (
+      mimetypes.contentType(fsPath.basename(this.urlPath)) ||
+      'application/octet-stream'
+    );
+  }
 }
 
 export class DocumentRoute extends Route {
-  podPath: string;
+  private _podPath: string;
   locale: Locale;
 
   constructor(provider: RouteProvider, podPath: string, locale?: Locale) {
     super(provider);
-    this.podPath = podPath;
+    this._podPath = podPath;
     this.locale = locale || this.pod.defaultLocale;
   }
 
@@ -282,28 +298,12 @@ export class DocumentRoute extends Route {
     }
   }
 
+  get podPath() {
+    return this._podPath;
+  }
+
   get doc() {
     return this.pod.doc(this.podPath, this.locale);
-  }
-
-  get path() {
-    return this.podPath;
-  }
-
-  /**
-   * Returns the content type header for the route, based on the route's URL
-   * path. Routes that terminate in `/` or have no extension are assumed to be
-   * HTML. All other routes are automatically determined using the `mime-types`
-   * module.
-   */
-  get contentType() {
-    if (this.urlPath.endsWith('/') || !fsPath.extname(this.urlPath)) {
-      return 'text/html';
-    }
-    return (
-      mimetypes.contentType(fsPath.basename(this.urlPath)) ||
-      'application/octet-stream'
-    );
   }
 
   get urlPath() {
@@ -331,17 +331,21 @@ export class DocumentRoute extends Route {
 }
 
 export class StaticRoute extends Route {
-  podPath: string;
+  private _podPath: string;
   servingPath: string;
 
   constructor(provider: RouteProvider, podPath: string, servingPath?: string) {
     super(provider);
-    this.podPath = podPath;
+    this._podPath = podPath;
     this.servingPath = servingPath || podPath;
   }
 
   toString() {
     return `[StaticRoute: ${this.staticFile}]`;
+  }
+
+  get podPath() {
+    return this._podPath;
   }
 
   get staticFile() {

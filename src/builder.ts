@@ -48,11 +48,11 @@ export interface BuildDiffPaths {
   deletes: Array<string>;
 }
 
-type LocaleToMissingTranslations = Record<string, number>;
+type LocalesToNumMissingTranslations = Record<string, number>;
 
 export interface BuildMetrics {
   memoryUsage: number;
-  localesToNumMissingTranslations: LocaleToMissingTranslations;
+  localesToNumMissingTranslations: LocalesToNumMissingTranslations;
   numMissingTranslations: number;
   numDocumentRoutes: number;
   numStaticRoutes: number;
@@ -443,20 +443,18 @@ export class Builder {
     // Clean up.
     this.deleteDirectoryRecursive(tempDirRoot);
 
-    const localesToMissingTranslations: LocaleToMissingTranslations = {};
+    const localesToNumMissingTranslations: LocalesToNumMissingTranslations = {};
     for (const locale of Object.values(this.pod.cache.locales)) {
-      if (locale === this.pod.defaultLocale) {
+      if (
+        locale === this.pod.defaultLocale ||
+        locale.recordedStrings.size === 0
+      ) {
         continue;
       }
-      localesToMissingTranslations[locale.id] = 0;
-      for (const string of locale.recordedStrings.keys()) {
-        if (string.missing) {
-          localesToMissingTranslations[locale.id] += 1;
-          buildMetrics.numMissingTranslations += 1;
-        }
-      }
+      localesToNumMissingTranslations[locale.id] = locale.recordedStrings.size;
+      buildMetrics.numMissingTranslations += locale.recordedStrings.size;
     }
-    buildMetrics.localesToNumMissingTranslations = localesToMissingTranslations;
+    buildMetrics.localesToNumMissingTranslations = localesToNumMissingTranslations;
 
     // Write the manifest and metrics.
     await Promise.all([

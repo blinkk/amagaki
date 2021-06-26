@@ -14,7 +14,6 @@ export class TranslationString {
   pod: Pod;
   prefer?: string;
   value: string;
-  missing?: boolean;
 
   constructor(pod: Pod, options: StringOptions, locale?: Locale) {
     this.pod = pod;

@@ -62,12 +62,9 @@ export class Locale {
   /** Normalizes a string into a `TranslationString` object. */
   toTranslationString(value: Translatable) {
     if (typeof value === 'string') {
-      return this.pod.string(
-        {
-          value: value as string,
-        },
-        this
-      );
+      return this.pod.string({
+        value: value,
+      });
     }
     return value;
   }
@@ -83,7 +80,7 @@ export class Locale {
    * @param string The source string that is missing a translation.
    * @param location The document where the string was requested.
    */
-  recordString(string: TranslationString, location?: Document) {
+  recordMissingString(string: TranslationString, location?: Document) {
     if (!this.recordedStrings.has(string)) {
       this.recordedStrings.set(string, new Set());
     }
@@ -98,7 +95,6 @@ export class Locale {
     }
 
     const string = this.toTranslationString(value);
-    this.recordString(string, location);
 
     // Return the preferred string without checking translations, if in the
     // default locale.
@@ -107,7 +103,7 @@ export class Locale {
     }
 
     if (!this.pod.fileExists(this.podPath) || !this.translations) {
-      string.missing = true;
+      this.recordMissingString(string, location);
       return string.value;
     }
 
@@ -121,7 +117,7 @@ export class Locale {
       if (preferredValue) {
         return preferredValue;
       }
-      string.missing = true;
+      this.recordMissingString(string, location);
     }
 
     // Collect the string because the preferred translation is missing.
@@ -131,7 +127,7 @@ export class Locale {
     }
 
     // No translation was found at all, fall back to the source string.
-    string.missing = true;
+    this.recordMissingString(string, location);
     return string.value;
   }
 }

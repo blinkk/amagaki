@@ -10,7 +10,7 @@ import {
   Pod,
   Url,
   interpolate,
-} from '@amagaki/amagaki';
+} from '../dist/src';
 
 export default (pod: Pod) => {
   pod.configure({
@@ -18,7 +18,7 @@ export default (pod: Pod) => {
       siteTitle: 'Amagaki',
       githubEditRoot: 'https://github.com/blinkk/amagaki/edit/main/website',
     },
-    staticRoutes: [
+    fileRoutes: [
       {
         path: '/static/css/',
         staticDir: '/dist/css/',

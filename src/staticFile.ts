@@ -1,4 +1,5 @@
 import {Pod} from './pod';
+import {StaticFileRouteProvider} from './providers/staticFile';
 import {Url} from './url';
 import {createHash} from 'crypto';
 
@@ -20,7 +21,7 @@ export class StaticFile {
    * the static file doesn't have a serving URL, `undefined` is returned.
    */
   get url(): Url | undefined {
-    return this.pod.router.getUrl('staticDir', this);
+    return this.pod.router.getUrl(StaticFileRouteProvider.type, this);
   }
 
   /** Returns the MD5 hash for the file. */

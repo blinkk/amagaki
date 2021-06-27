@@ -9,9 +9,9 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
-import {Route, StaticRoute} from './router';
-
+import {FileRoute} from './providers/staticFile';
 import {Pod} from './pod';
+import {Route} from './providers/provider';
 
 interface Artifact {
   tempPath: string;
@@ -325,6 +325,9 @@ export class Builder {
 
     // Collect the routes and assemble the temporary directory mapping.
     for (const route of routes) {
+      if (!route.url) {
+        continue;
+      }
       const normalPath = Builder.normalizePath(route.url.path);
       const tempPath = fsPath.join(
         tempDirRoot,
@@ -349,20 +352,20 @@ export class Builder {
       async createdPath => {
         try {
           // Copy the file, or build it if it's a dynamic route.
-          if (createdPath.route.provider.type === 'staticDir') {
+          if (createdPath.route instanceof FileRoute) {
             return this.copyFileAsync(
               createdPath.tempPath,
-              (createdPath.route as StaticRoute).staticFile.podPath
+              (createdPath.route as FileRoute).staticFile.podPath
             );
           } else {
             // Use the url path as a unique timer key.
-            const urlPathStub = createdPath.route.urlPath.replace(/\//g, '.');
+            const urlPathStub = createdPath.route.urlPath?.replace(/\//g, '.');
             const timer = this.pod.profiler.timer(
               `builder.build${urlPathStub}`,
               `Build: ${createdPath.route.urlPath}`,
               {
                 path: createdPath.route.podPath,
-                type: createdPath.route.provider.type,
+                type: createdPath.route.provider.constructor.name,
                 urlPath: createdPath.route.urlPath,
               }
             );
@@ -414,7 +417,7 @@ export class Builder {
         });
         // Then, update the metrics by getting file sizes.
         const statResult = await fs.promises.stat(createdPath.tempPath);
-        if (createdPath.route.provider.type === 'staticDir') {
+        if (createdPath.route instanceof FileRoute) {
           buildMetrics.numStaticRoutes += 1;
           buildMetrics.outputSizeStaticFiles += statResult.size;
         } else {

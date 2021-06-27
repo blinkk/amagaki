@@ -4,8 +4,8 @@ import * as fsPath from 'path';
 import * as http from 'http';
 import * as nunjucks from 'nunjucks';
 
+import {FileRoute} from './providers/staticFile';
 import {Pod} from './pod';
-import {StaticRoute} from './router';
 
 import express = require('express');
 
@@ -48,12 +48,13 @@ export class Server extends events.EventEmitter {
     });
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {
-        const route = await this.pod.router.resolve(req.path);
+        const route = await this.pod.router.getRoute(req.path);
         if (!route) {
           const routes = (await this.pod.router.routes())
             .filter(route => {
               return (
-                route.url.path.endsWith('/') || route.url.path.endsWith('.html')
+                route.url?.path.endsWith('/') ||
+                route.url?.path.endsWith('.html')
               );
             })
             .slice(0, 100);
@@ -63,10 +64,10 @@ export class Server extends events.EventEmitter {
           });
           return;
         }
-        if (route.provider.type === 'staticDir') {
+        if (route instanceof FileRoute) {
           res.sendFile(
             this.pod.getAbsoluteFilePath(
-              (route as StaticRoute).staticFile.podPath
+              (route as FileRoute).staticFile.podPath
             )
           );
           return;

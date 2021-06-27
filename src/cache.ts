@@ -4,7 +4,7 @@ import {Collection} from './collection';
 import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
-import {Route} from './router';
+import {Route} from './providers/provider';
 import {StaticFile} from './staticFile';
 import {TranslationString} from './string';
 

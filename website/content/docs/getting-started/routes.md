@@ -142,7 +142,7 @@ Amagaki collects files from directories and copies them to the `build` folder.
 ```javascript:title=amagaki.js
 module.exports = function (pod) {
   pod.configure({
-    staticRoutes: [
+    fileRoutes: [
       {
         path: '/static/',
         staticDir: '/dist/',

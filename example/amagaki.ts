@@ -16,7 +16,7 @@ export default function (pod: Pod) {
       defaultLocale: 'en',
       locales: ['en', 'fr', 'it', 'ja'],
     },
-    staticRoutes: [
+    fileRoutes: [
       {
         path: '/static/js/',
         staticDir: '/dist/js/',

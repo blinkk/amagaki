@@ -37,7 +37,7 @@ module.exports = function (pod) {
       defaultLocale: 'en',
       locales: ['en', 'fr', 'it', 'ja'],
     },
-    staticRoutes: [
+    fileRoutes: [
       {
         path: '/static/',
         staticDir: '/dist/',

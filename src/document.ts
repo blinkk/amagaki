@@ -8,7 +8,7 @@ import {Collection} from './collection';
 import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
-import {Route} from './router';
+import {Route} from './providers/provider';
 import {Url} from './url';
 import minimatch from 'minimatch';
 

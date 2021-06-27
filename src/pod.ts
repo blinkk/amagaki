@@ -10,7 +10,6 @@ import {
 } from './environment';
 import {Locale, LocaleSet} from './locale';
 import {PluginConstructor, Plugins} from './plugins';
-import {Router, StaticDirConfig} from './router';
 import {StringOptions, TranslationString} from './string';
 import {YamlPlugin, YamlTypeManager} from './plugins/yaml';
 import {existsSync, readFileSync} from 'fs';
@@ -19,8 +18,10 @@ import {join, resolve} from 'path';
 import {Builder} from './builder';
 import {BuilderPlugin} from './plugins/builder';
 import {Cache} from './cache';
+import {FileRouteConfig} from './providers/staticFile';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
+import {Router} from './router';
 import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
@@ -39,7 +40,7 @@ export interface PodConfig {
   basePath?: string;
   localization?: LocalizationConfig;
   meta?: MetadataConfig;
-  staticRoutes?: Array<StaticDirConfig>;
+  fileRoutes?: Array<FileRouteConfig>;
   environments?: Record<string, EnvironmentConfigOptions>;
 }
 
@@ -134,7 +135,7 @@ export class Pod {
    * is found, no collection will be returned.
    * @param podPath The podPath to the collection.
    */
-  collection(podPath: string) {
+  collection(podPath: string): Collection | null {
     if (this.cache.collections[podPath]) {
       return this.cache.collections[podPath];
     }
@@ -155,10 +156,11 @@ export class Pod {
     // TODO: Validate the configuration.
     this.config = config;
 
-    if (this.config.staticRoutes) {
+    if (this.config.fileRoutes) {
       // Remove the default static routes.
-      this.router.providers['staticDir'] = [];
-      this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
+      // TODO: Fix this.
+      // this.router.providers['staticDir'] = [];
+      this.router.addStaticDirectoryRoutes(this.config.fileRoutes);
     }
   }
 
@@ -459,11 +461,12 @@ export class Pod {
   }
 
   async warmup() {
-    const seconds = await this.router.warmup();
+    const {duration} = await this.router.warmup();
     const routes = await this.router.routes();
     if (routes.length > 5000) {
       console.log(
-        'Warmed up: '.blue + `${routes.length} routes in ${seconds.toFixed(2)}s`
+        'Warmed up: '.blue +
+          `${routes.length} routes in ${duration.toFixed(2)}s`
       );
     }
   }

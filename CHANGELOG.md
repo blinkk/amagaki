@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.1.3](https://www.github.com/blinkk/amagaki/compare/v1.1.2...v1.1.3) (2021-06-28)
+
+
+### Bug Fixes
+
+* fix and clean up missing string recording ([22430db](https://www.github.com/blinkk/amagaki/commit/22430dba5b54e0971cb129daed8786ba90d083cd))
+* rename route.path to route.podPath and add sample ([#105](https://www.github.com/blinkk/amagaki/issues/105)) ([945976a](https://www.github.com/blinkk/amagaki/commit/945976a5d409347ec46cb36e845fcd4b0970c4a3))
+
 ### [1.1.2](https://www.github.com/blinkk/amagaki/compare/v1.1.1...v1.1.2) (2021-06-24)
 
 

@@ -4,20 +4,20 @@ import {Document} from '../document';
 import {interpolate} from '../utils';
 
 export class DocumentRouteProvider extends RouteProvider {
-  static type = 'document';
+  type = 'doc';
 
   async init() {
+    if (this.initialized) {
+      return;
+    }
     const routes = await this.routes();
     for (const route of routes) {
       if (route.url) {
+        console.log('added', route.url.path);
         this.router.trie.add(route.url.path, this);
       }
     }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getRoute(params: any): Promise<Route | undefined> {
-    return undefined;
+    this.initialized = true;
   }
 
   async routes(): Promise<Route[]> {
@@ -51,6 +51,9 @@ export class DocumentRoute extends Route {
     this.doc = doc;
     this.podPath = doc.podPath;
     this.urlPath = this.getUrlPath();
+    if (this.url) {
+      provider.urls.set(this.doc, this.url);
+    }
   }
 
   toString() {

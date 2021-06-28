@@ -46,13 +46,12 @@ export class Router {
    */
   async warmup() {
     const now = new Date().getTime();
+    // await this.init();
     // Warm up by referencing (building) the routes.
     await this.routes();
-    await Promise.all([
-      ...Object.values(this.providers).map(provider =>
-        Object.values(provider).map(provider => provider.init)
-      ),
-    ]);
+    for (const provider of this.providers) {
+      await provider.init();
+    }
     const results: WarmupResults = {
       duration: new Date().getTime() / 1000 - now / 1000,
     };
@@ -62,6 +61,7 @@ export class Router {
   async getRoute(path: string): Promise<Route | undefined> {
     const [provider, params] = this.trie.get(path);
     if (provider) {
+      console.log('xx', provider);
       return provider.getRoute(params);
     }
     return undefined;
@@ -98,11 +98,17 @@ export class Router {
     this.providers.push(provider);
   }
 
+  async init() {
+    await Promise.all(this.providers.map(provider => provider.init));
+  }
+
   getUrl(type: string, item: Document | StaticFile): Url | undefined {
     for (const provider of this.providers) {
-      const foundItem = provider.urls.get(item);
-      if (foundItem) {
-        return foundItem;
+      if (provider.type === type) {
+        const foundItem = provider.urls.get(item);
+        if (foundItem) {
+          return foundItem;
+        }
       }
     }
     return undefined;
@@ -112,7 +118,11 @@ export class Router {
    * Used for setting static directory routes configuration.
    * @param routeConfigs The configurations for the route definition.
    */
-  addStaticDirectoryRoutes(routeConfigs: Array<FileRouteConfig>) {
+  initializeStaticDirectoryRoutes(routeConfigs: Array<FileRouteConfig>) {
+    // Remove the default static routes.
+    this.providers = this.providers.filter(
+      provider => provider.type !== 'staticFile'
+    );
     for (const routeConfig of routeConfigs) {
       this.addProvider(new StaticFileRouteProvider(this, routeConfig));
     }

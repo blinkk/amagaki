@@ -77,6 +77,7 @@ export class Pod {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
+    this.cache = new Cache(this);
     this.profiler = new Profiler();
     this.plugins = new Plugins(this);
     this.engines = new TemplateEngineManager(this);
@@ -95,7 +96,6 @@ export class Pod {
         name: 'Amagaki pod',
       },
     };
-    this.cache = new Cache(this);
 
     // Register built-in plugins before the amagaki config to be consistent with
     // external plugin hooks and allow external plugins to work with the built-in
@@ -157,10 +157,7 @@ export class Pod {
     this.config = config;
 
     if (this.config.fileRoutes) {
-      // Remove the default static routes.
-      // TODO: Fix this.
-      // this.router.providers['staticDir'] = [];
-      this.router.addStaticDirectoryRoutes(this.config.fileRoutes);
+      this.router.initializeStaticDirectoryRoutes(this.config.fileRoutes);
     }
   }
 
@@ -307,7 +304,7 @@ export class Pod {
    * Returns the pod's global localization configuration.
    */
   get localization(): LocalizationConfig {
-    return this.config.localization || Pod.DefaultLocalization;
+    return this.config?.localization || Pod.DefaultLocalization;
   }
 
   /**

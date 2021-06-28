@@ -1,4 +1,5 @@
-import {Pod, Route, RouteProvider, Router} from '../../src';
+import {Pod, Router} from '../../src';
+import {Route, RouteProvider} from '../../src/providers/provider';
 
 export interface SampleRouteProviderOptions {
   slugs: string[];
@@ -17,6 +18,17 @@ export class SampleRouteProvider extends RouteProvider {
   constructor(router: Router, options: SampleRouteProviderOptions) {
     super(router);
     this.options = options;
+  }
+
+  async init() {
+    this.router.trie.add('/samples/:slug', this);
+  }
+
+  async getRoute(params: any): Promise<Route | undefined> {
+    return new SampleRoute(this, {
+      slug: params.slug,
+      view: this.options.view,
+    });
   }
 
   async routes(): Promise<SampleRoute[]> {
@@ -41,10 +53,7 @@ export class SampleRoute extends Route {
     this.fields = {
       slug: options.slug,
     };
-  }
-
-  get urlPath() {
-    return `/samples/${this.fields.slug}/`;
+    this.urlPath = `/samples/${this.fields.slug}/`;
   }
 
   async build() {

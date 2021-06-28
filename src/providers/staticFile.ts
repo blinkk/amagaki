@@ -12,7 +12,7 @@ export interface FileRouteConfig {
 export class StaticFileRouteProvider extends RouteProvider {
   config: FileRouteConfig;
   private _cleanBasePath: string;
-  static type = 'staticDir';
+  type = 'staticFile';
 
   constructor(router: Router, config: FileRouteConfig) {
     super(router);
@@ -22,8 +22,13 @@ export class StaticFileRouteProvider extends RouteProvider {
     );
   }
 
-  async paths() {
-    return [`${this._cleanBasePath}/*subPath`];
+  async init() {
+    if (this.initialized) {
+      return;
+    }
+    this.router.trie.add(`${this._cleanBasePath}/*subPath`, this);
+    console.log('added 2');
+    this.initialized = true;
   }
 
   async routes(): Promise<Route[]> {
@@ -66,6 +71,9 @@ export class FileRoute extends Route {
     super(provider);
     this.podPath = podPath;
     this.urlPath = urlPath;
+    if (this.url) {
+      provider.urls.set(this, this.url);
+    }
   }
 
   toString() {

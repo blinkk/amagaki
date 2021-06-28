@@ -20,6 +20,8 @@ test('relative', async (t: ExecutionContext) => {
     'mailto:foo@example.com'
   );
   const pod = new Pod('./fixtures/simple/');
+  const routes = await pod.router.routes();
+  console.log(routes.map(route => route.urlPath));
   await pod.warmup();
   t.deepEqual(
     Url.relative(

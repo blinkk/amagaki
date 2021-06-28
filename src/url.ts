@@ -1,4 +1,5 @@
 import * as fsPath from 'path';
+
 import {Document} from './document';
 import {Environment} from './environment';
 
@@ -11,7 +12,7 @@ interface UrlOptions {
 }
 
 const ABSOLUTE_URL_REGEX = new RegExp('^(//|[a-z]+:)', 'i');
-
+Error.stackTraceLimit = 20;
 export class Url {
   path: string;
   env?: Environment;

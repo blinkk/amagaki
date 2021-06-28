@@ -5,7 +5,7 @@ import {RouteProvider} from './providers/provider';
  * `*wildcard` values.
  */
 export class RouteTrie {
-  private children: Record<string, RouteTrie> = {};
+  children: Record<string, RouteTrie> = {};
   private paramChild?: ParamChild;
   private wildcardChild?: WildcardChild;
   private provider?: RouteProvider;

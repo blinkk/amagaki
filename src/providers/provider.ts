@@ -16,8 +16,8 @@ export class RouteProvider {
   pod: Pod;
   router: Router;
   urls: Map<any, Url>;
-
-  static type = 'default';
+  initialized = false;
+  type = 'default';
 
   constructor(router: Router) {
     this.router = router;

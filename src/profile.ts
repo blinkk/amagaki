@@ -1,4 +1,5 @@
 import Table = require('cli-table');
+
 import {performance} from 'perf_hooks';
 
 interface TimeParts {
@@ -49,7 +50,7 @@ export class Profiler {
     // They also do not provide much value for diffing benchmarks since they
     // are so small. For now, filter them out of the output file.
     const filteredKeys = allKeys.filter(key => {
-      return !key.match(/builder\.build\..*/i);
+      return !key.match(ProfileReport.EXCLUDE_FROM_BENCHMARK_REGEX);
     });
 
     for (const key of filteredKeys) {
@@ -223,10 +224,12 @@ export class Timer {
 }
 
 export class ProfileReport {
-  static BUILD_REPORT_REGEX = /^builder\.build\./;
+  static BUILD_REPORT_REGEX = /(^builder\.build\..*)|(^templates\.render\..*)/i;
+  static EXCLUDE_FROM_BENCHMARK_REGEX = ProfileReport.BUILD_REPORT_REGEX;
   static HOOK_REPORT_REGEX = /^plugins\.hook\..*/;
   static HOOK_REPORT_SUB_REGEX = /^plugins\.hook\.[^\.]*\./;
   static IGNORED_THRESHOLDS = new Set([/^builder\.build\./]);
+  static TEMPLATE_REPORT_REGEX = /^templates\.render\./;
   static MAX_WIDTH = 80;
   logMethod: Function;
   profiler: Profiler;
@@ -258,6 +261,7 @@ export class ProfileReport {
     this.reportHooks(shownTimerKeys);
     this.reportTimers(shownTimerKeys);
     this.reportSlowBuilds(shownTimerKeys);
+    this.reportTemplates(shownTimerKeys);
   }
 
   reportHooks(shownTimerKeys: Set<string>) {
@@ -285,6 +289,35 @@ export class ProfileReport {
     };
 
     const reportOutput = reportSection.toString();
+    if (reportOutput) {
+      this.logMethod(reportOutput);
+    }
+  }
+
+  reportTemplates(shownTimerKeys: Set<string>) {
+    const duration = this.profiler.duration;
+    const filteredTimerTypes = this.filter((timerType: TimerType) => {
+      return ProfileReport.TEMPLATE_REPORT_REGEX.test(timerType.key);
+    });
+    for (const timerType of filteredTimerTypes) {
+      shownTimerKeys.add(timerType.key);
+    }
+    const reportSection = new ProfileReportSection(
+      'Templates',
+      filteredTimerTypes,
+      duration
+    );
+
+    // Show the longest timers first.
+    reportSection.timerTypes.sort(
+      (a: TimerType, b: TimerType) => b.duration - a.duration
+    );
+
+    // Use the podPath as the label.
+    reportSection.labelFunc = (timerType: TimerType): string =>
+      timerType.meta.podPath;
+
+    const reportOutput = reportSection.toString(12);
     if (reportOutput) {
       this.logMethod(reportOutput);
     }

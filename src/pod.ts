@@ -264,12 +264,18 @@ export class Pod {
    * @param podPath The podPath to the file.
    */
   fileExists(podPath: string) {
+    if (this.cache.fileExists[podPath] !== undefined) {
+      return this.cache.fileExists[podPath];
+    }
     const timer = this.profiler.timer('file.exists', 'File exists');
     try {
-      return existsSync(this.getAbsoluteFilePath(podPath));
+      this.cache.fileExists[podPath] = existsSync(
+        this.getAbsoluteFilePath(podPath)
+      );
     } finally {
       timer.stop();
     }
+    return this.cache.fileExists[podPath];
   }
 
   /**

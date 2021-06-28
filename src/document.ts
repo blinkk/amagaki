@@ -266,17 +266,24 @@ export class Document {
 
     await this.resolveFields(defaultContext);
 
-    // When `$view: self` is used, use the document's body as the template.
-    if (this.view === Document.SelfReferencedView) {
-      const templateEngine = this.pod.engines.getEngineByFilename(this.podPath);
-      return templateEngine.renderFromString(
-        this.body as string,
-        defaultContext
-      );
-    }
+    const timer = this.pod.profiler.timer('document.render', 'Document render');
+    try {
+      // When `$view: self` is used, use the document's body as the template.
+      if (this.view === Document.SelfReferencedView) {
+        const templateEngine = this.pod.engines.getEngineByFilename(
+          this.podPath
+        );
+        return templateEngine.renderFromString(
+          this.body as string,
+          defaultContext
+        );
+      }
 
-    const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-    return templateEngine.render(this.view, defaultContext);
+      const templateEngine = this.pod.engines.getEngineByFilename(this.view);
+      return templateEngine.render(this.view, defaultContext);
+    } finally {
+      timer.stop();
+    }
   }
 
   /**

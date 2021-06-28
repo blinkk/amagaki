@@ -1,5 +1,6 @@
 import {Document} from './document';
 import {Pod} from './pod';
+import {Timer} from './profile';
 import {TranslationString} from './string';
 
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
@@ -90,45 +91,53 @@ export class Locale {
   }
 
   getTranslation(value: Translatable, location?: Document) {
-    if (!value) {
-      return value;
-    }
+    const timer = this.pod.profiler.timer(
+      'locale.getTranslation',
+      'Locale get translation'
+    );
+    try {
+      if (!value) {
+        return value;
+      }
 
-    const string = this.toTranslationString(value);
+      const string = this.toTranslationString(value);
 
-    // Return the preferred string without checking translations, if in the
-    // default locale.
-    if (string.prefer && this === this.pod.defaultLocale) {
-      return string.prefer;
-    }
+      // Return the preferred string without checking translations, if in the
+      // default locale.
+      if (string.prefer && this === this.pod.defaultLocale) {
+        return string.prefer;
+      }
 
-    if (!this.pod.fileExists(this.podPath) || !this.translations) {
+      if (!this.pod.fileExists(this.podPath) || !this.translations) {
+        this.recordMissingString(string, location);
+        return string.value;
+      }
+
+      // Check for the translation of the preferred value and return it. This
+      // permits specification of a "preferred" string, for instances where some
+      // locales may have translations and others may not. Usually, this is useful
+      // to support updating source languages without waiting for new translations
+      // to arrive.
+      if (string.prefer) {
+        const preferredValue = this.translations[string.prefer];
+        if (preferredValue) {
+          return preferredValue;
+        }
+        this.recordMissingString(string, location);
+      }
+
+      // Collect the string because the preferred translation is missing.
+      const foundValue = this.translations[string.value];
+      if (foundValue) {
+        return foundValue;
+      }
+
+      // No translation was found at all, fall back to the source string.
       this.recordMissingString(string, location);
       return string.value;
+    } finally {
+      timer.stop();
     }
-
-    // Check for the translation of the preferred value and return it. This
-    // permits specification of a "preferred" string, for instances where some
-    // locales may have translations and others may not. Usually, this is useful
-    // to support updating source languages without waiting for new translations
-    // to arrive.
-    if (string.prefer) {
-      const preferredValue = this.translations[string.prefer];
-      if (preferredValue) {
-        return preferredValue;
-      }
-      this.recordMissingString(string, location);
-    }
-
-    // Collect the string because the preferred translation is missing.
-    const foundValue = this.translations[string.value];
-    if (foundValue) {
-      return foundValue;
-    }
-
-    // No translation was found at all, fall back to the source string.
-    this.recordMissingString(string, location);
-    return string.value;
   }
 }
 

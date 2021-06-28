@@ -305,13 +305,18 @@ export class YamlPlugin implements PluginComponent {
         // value can be: /content/partials/base.yaml
         // value can be: /content/partials/base.yaml?foo
         // value can be: /content/partials/base.yaml?foo.bar.baz
-        const parts = value.split('?');
-        const podPath = parts[0];
-        const result = this.pod.readYaml(podPath);
-        if (parts.length > 1) {
-          return utils.queryObject(parts[1], result);
-        } else {
-          return result;
+        const timer = this.pod.profiler.timer('yaml.query', 'Yaml query');
+        try {
+          const parts = value.split('?');
+          const podPath = parts[0];
+          const result = this.pod.readYaml(podPath);
+          if (parts.length > 1) {
+            return utils.queryObject(parts[1], result);
+          } else {
+            return result;
+          }
+        } finally {
+          timer.stop();
         }
       },
       represent: string => {

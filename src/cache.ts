@@ -12,6 +12,7 @@ export class Cache {
   pod: Pod;
   collections!: Record<string, Collection>;
   docs!: Record<string, Document>;
+  fileExists!: Record<string, Boolean>;
   interpolations!: Record<string, Function>;
   locales!: Record<string, Locale>;
   routeMap!: Record<string, Route>;
@@ -31,6 +32,7 @@ export class Cache {
   clearAll() {
     this.collections = {};
     this.docs = {};
+    this.fileExists = {};
     this.interpolations = {};
     this.locales = {};
     this.routeMap = {};

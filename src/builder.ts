@@ -12,6 +12,7 @@ import * as utils from './utils';
 import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
+import minimatch from 'minimatch';
 
 interface Artifact {
   tempPath: string;
@@ -71,6 +72,10 @@ interface CreatedPath {
   tempPath: string;
   normalPath: string;
   realPath: string;
+}
+
+export interface ExportOptions {
+  patterns?: string[];
 }
 
 export class Builder {
@@ -285,7 +290,7 @@ export class Builder {
     );
   }
 
-  async export(): Promise<BuildResult> {
+  async export(options?: ExportOptions): Promise<BuildResult> {
     await this.pod.plugins.trigger('beforeBuild', this);
     const existingManifest = this.getExistingManifest();
     const buildManifest: BuildManifest = {
@@ -310,7 +315,24 @@ export class Builder {
       fsPath.join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
     );
 
-    const routes = await this.pod.router.routes();
+    let routes = await this.pod.router.routes();
+
+    // Only build routes matching patterns.
+    if (options?.patterns) {
+      routes = routes.filter(route =>
+        options.patterns?.some(
+          pattern =>
+            route.podPath &&
+            minimatch(
+              route.podPath.replace(/^\//, ''),
+              pattern.replace(/^\//, ''),
+              {
+                matchBase: true,
+              }
+            )
+        )
+      );
+    }
 
     bar.start(routes.length, artifacts.length, {
       customDuration: Builder.formatProgressBarTime(0),

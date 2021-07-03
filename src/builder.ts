@@ -9,7 +9,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
-import {Route, StaticRoute} from './router';
+import {BuildOptions, Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
 import minimatch from 'minimatch';
@@ -233,7 +233,8 @@ export class Builder {
 
   cleanOutputUsingManifests(
     existingManifest: BuildManifest | null,
-    newManifest: BuildManifest
+    newManifest: BuildManifest,
+    options?: ExportOptions
   ) {
     const buildDiffPaths: BuildDiffPaths = {
       adds: [],
@@ -268,11 +269,14 @@ export class Builder {
       newManifest.files.forEach(pathSha => {
         newPathShas[pathSha.path] = pathSha.sha;
       });
-      existingManifest.files.forEach(pathSha => {
-        if (!(pathSha.path in newPathShas)) {
-          buildDiffPaths.deletes.push(pathSha.path);
-        }
-      });
+      // Incremental builds don't support deletes.
+      if (!options?.patterns) {
+        existingManifest.files.forEach(pathSha => {
+          if (!(pathSha.path in newPathShas)) {
+            buildDiffPaths.deletes.push(pathSha.path);
+          }
+        });
+      }
     }
     return buildDiffPaths;
   }
@@ -492,11 +496,15 @@ export class Builder {
 
     const buildDiff = this.cleanOutputUsingManifests(
       existingManifest,
-      buildManifest
+      buildManifest,
+      options
     );
 
-    // After diff has been computed, actually delete files.
-    this.deleteOutputFiles(buildDiff.deletes);
+    // After diff has been computed, actually delete files. Incremental builds
+    // don't support deletes, so avoid deleting files if building incrementally.
+    if (!options?.patterns) {
+      this.deleteOutputFiles(buildDiff.deletes);
+    }
     const result: BuildResult = {
       diff: buildDiff,
       manifest: buildManifest,

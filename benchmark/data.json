@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1625284642460,
+  "lastUpdate": 1625346840117,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -2734,6 +2734,149 @@
           {
             "name": "yaml.schema",
             "value": 0.6706619999895338,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d35be520f41277351e8c8e7952dc155657693c0f",
+          "message": "feat: add support for incremental builds using patterns (#109)\n\n* feat: add support for building patterns only\r\n\r\n* chore: don't delete files during incremental builds\r\n\r\n* test: add build test\r\n\r\n* chore: update incremental usage",
+          "timestamp": "2021-07-03T14:12:41-07:00",
+          "tree_id": "8b3af5c22dba55bb6830de284fa10aaaaf5f2dec",
+          "url": "https://github.com/blinkk/amagaki/commit/d35be520f41277351e8c8e7952dc155657693c0f"
+        },
+        "date": 1625346840115,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 8378.316235999984,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 4.296272999898065,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "34 samples"
+          },
+          {
+            "name": "document.render",
+            "value": 2265.94531899874,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "document.resolveFields",
+            "value": 3413.3736679996655,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 1.3454949999286328,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "29 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 273.5433089998842,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5435 samples"
+          },
+          {
+            "name": "locale.getTranslation",
+            "value": 43.90761800069595,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5552 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild",
+            "value": 0.1015989999868907,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild.BuilderPlugin",
+            "value": 0.08109900000272319,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild",
+            "value": 0.15719900000840425,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild.BuilderPlugin",
+            "value": 0.1284989999840036,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine",
+            "value": 0.07959999999729916,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
+            "value": 0.06260000000474975,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes",
+            "value": 0.5746959999960382,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes.YamlPlugin",
+            "value": 0.5503959999768995,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 166.57138600031612,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "2709 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.8406940000131726,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

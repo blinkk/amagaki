@@ -15,7 +15,7 @@ test('Build simple fixture with patterns', async (t: ExecutionContext) => {
   const cmd = new BuildCommand(
     {},
     {
-      patterns: ['**/index.yaml'],
+      pattern: ['**/index.yaml'],
     }
   );
   await cmd.run(root);

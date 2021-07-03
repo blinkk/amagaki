@@ -510,12 +510,16 @@ export class Builder {
       manifest: buildManifest,
       metrics: buildMetrics,
     };
-    this.logResult(buildDiff, buildMetrics);
+    this.logResult(buildDiff, buildMetrics, options);
     await this.pod.plugins.trigger('afterBuild', result);
     return result;
   }
 
-  logResult(buildDiff: BuildDiffPaths, buildMetrics: BuildMetrics) {
+  logResult(
+    buildDiff: BuildDiffPaths,
+    buildMetrics: BuildMetrics,
+    options?: ExportOptions
+  ) {
     console.log(
       'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
     );
@@ -524,7 +528,7 @@ export class Builder {
         'Documents: '.blue +
           `${buildMetrics.numDocumentRoutes} (${utils.formatBytes(
             buildMetrics.outputSizeDocuments
-          )})`
+          )}) ${options?.patterns ? '*incremental build' : ''}`
       );
     }
     if (buildMetrics.numStaticRoutes) {

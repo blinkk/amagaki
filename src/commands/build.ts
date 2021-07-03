@@ -6,6 +6,7 @@ import {ProfileReport} from '../profile';
 
 interface BuildOptions {
   outputDirectory?: string;
+  pattern?: string[];
 }
 
 export class BuildCommand {
@@ -24,7 +25,9 @@ export class BuildCommand {
     }
     const timer = pod.profiler.timer('command.build', 'Build command');
     try {
-      await pod.builder.export();
+      await pod.builder.export({
+        patterns: this.options.pattern,
+      });
     } finally {
       timer.stop();
     }

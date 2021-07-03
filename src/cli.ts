@@ -23,12 +23,12 @@ program.option('-e, --env <name>', 'environment name');
 
 program
   .command('build [root]')
-  .description('build the website')
+  .description('build the site')
+  .option('-p, --pattern <patterns...>', 'patterns for an incremental build')
   .action((path, options) => {
     if (!isNodeVersionSupported()) {
       return;
     }
-
     const cmd = new BuildCommand(program.opts(), options);
     cmd.run(path);
   });

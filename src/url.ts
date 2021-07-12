@@ -1,4 +1,6 @@
 import * as fsPath from 'path';
+
+import {DataType} from './utils';
 import {Document} from './document';
 import {Environment} from './environment';
 
@@ -60,8 +62,12 @@ export class Url {
    * @returns The URL of `other` relative to `base`.
    */
   static relative(other: Document | string, base: Document | string) {
-    const otherUrl = other instanceof Document ? other.url?.path : other;
-    const baseUrl = base instanceof Document ? base.url?.path : base;
+    const otherUrl = (DataType.isDocument(other)
+      ? (other as Document).url?.path
+      : other) as string;
+    const baseUrl = (DataType.isDocument(base)
+      ? (base as Document).url?.path
+      : base) as string;
     if (!otherUrl || !baseUrl || ABSOLUTE_URL_REGEX.test(otherUrl)) {
       return otherUrl;
     }

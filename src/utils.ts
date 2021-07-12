@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as fsPath from 'path';
 
+import {Document} from './document';
 import {Locale} from './locale';
 import {Pod} from './pod';
 
@@ -31,8 +32,20 @@ export class DataType {
     );
   }
 
+  static isCollection(value: any) {
+    return (
+      value?.constructor?.name === 'Collection' && value.podPath !== undefined
+    );
+  }
+
   static isDate(value: any) {
     return value instanceof Date;
+  }
+
+  static isDocument(value: any) {
+    return (
+      value?.constructor?.name === 'Document' && value.podPath !== undefined
+    );
   }
 
   static isFunction(value: any) {
@@ -53,6 +66,12 @@ export class DataType {
 
   static isRegExp(value: any) {
     return value && typeof value === 'object' && value.constructor === RegExp;
+  }
+
+  static isStaticFile(value: any) {
+    return (
+      value?.constructor?.name === 'StaticFile' && value.podPath !== undefined
+    );
   }
 
   static isString(value: any) {

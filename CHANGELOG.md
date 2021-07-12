@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/blinkk/amagaki/compare/v1.1.3...v1.2.0) (2021-07-12)
+
+
+### Features
+
+* add DataType check for pod objects ([219144d](https://www.github.com/blinkk/amagaki/commit/219144d93968432a3cd11562b851fad8c7a687f8))
+* add support for incremental builds using patterns ([#109](https://www.github.com/blinkk/amagaki/issues/109)) ([d35be52](https://www.github.com/blinkk/amagaki/commit/d35be520f41277351e8c8e7952dc155657693c0f))
+* add support for per-template profiling [#25](https://www.github.com/blinkk/amagaki/issues/25) ([#107](https://www.github.com/blinkk/amagaki/issues/107)) ([8cb7ca1](https://www.github.com/blinkk/amagaki/commit/8cb7ca11ca9bf15be2471f07a9ff3734da3c4be1))
+
+
+### Bug Fixes
+
+* allow localized-only pages without root paths [#111](https://www.github.com/blinkk/amagaki/issues/111) ([a7c7f11](https://www.github.com/blinkk/amagaki/commit/a7c7f1195149619fdc107ecdc0731311764d5aa4))
+
 ### [1.1.3](https://www.github.com/blinkk/amagaki/compare/v1.1.2...v1.1.3) (2021-06-28)
 
 

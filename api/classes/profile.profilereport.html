@@ -90,10 +90,12 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="profile.profilereport.html#logmethod" class="tsd-kind-icon">log<wbr>Method</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="profile.profilereport.html#profiler" class="tsd-kind-icon">profiler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#build_report_regex" class="tsd-kind-icon">BUILD_<wbr>REPORT_<wbr>REGEX</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#exclude_from_benchmark_regex" class="tsd-kind-icon">EXCLUDE_<wbr>FROM_<wbr>BENCHMARK_<wbr>REGEX</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#hook_report_regex" class="tsd-kind-icon">HOOK_<wbr>REPORT_<wbr>REGEX</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#hook_report_sub_regex" class="tsd-kind-icon">HOOK_<wbr>REPORT_<wbr>SUB_<wbr>REGEX</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#ignored_thresholds" class="tsd-kind-icon">IGNORED_<wbr>THRESHOLDS</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#max_width" class="tsd-kind-icon">MAX_<wbr>WIDTH</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="profile.profilereport.html#template_report_regex" class="tsd-kind-icon">TEMPLATE_<wbr>REPORT_<wbr>REGEX</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -103,6 +105,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#output" class="tsd-kind-icon">output</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#reporthooks" class="tsd-kind-icon">report<wbr>Hooks</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#reportslowbuilds" class="tsd-kind-icon">report<wbr>Slow<wbr>Builds</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#reporttemplates" class="tsd-kind-icon">report<wbr>Templates</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#reportthreshold" class="tsd-kind-icon">report<wbr>Threshold</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="profile.profilereport.html#reporttimers" class="tsd-kind-icon">report<wbr>Timers</a></li>
 							</ul>
@@ -122,7 +125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L232">src/profile.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L235">src/profile.ts:235</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -173,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<wbr>Method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L231">src/profile.ts:231</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L234">src/profile.ts:234</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">profiler<span class="tsd-signature-symbol">:</span> <a href="profile.profiler.html" class="tsd-signature-type" data-tsd-kind="Class">Profiler</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L232">src/profile.ts:232</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L235">src/profile.ts:235</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -193,7 +196,17 @@
 					<div class="tsd-signature tsd-kind-icon">BUILD_<wbr>REPORT_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L226">src/profile.ts:226</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L227">src/profile.ts:227</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="exclude_from_benchmark_regex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EXCLUDE_<wbr>FROM_<wbr>BENCHMARK_<wbr>REGEX</h3>
+					<div class="tsd-signature tsd-kind-icon">EXCLUDE_<wbr>FROM_<wbr>BENCHMARK_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L228">src/profile.ts:228</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,7 +216,7 @@
 					<div class="tsd-signature tsd-kind-icon">HOOK_<wbr>REPORT_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L227">src/profile.ts:227</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L229">src/profile.ts:229</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,7 +226,7 @@
 					<div class="tsd-signature tsd-kind-icon">HOOK_<wbr>REPORT_<wbr>SUB_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L228">src/profile.ts:228</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L230">src/profile.ts:230</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -223,7 +236,7 @@
 					<div class="tsd-signature tsd-kind-icon">IGNORED_<wbr>THRESHOLDS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L229">src/profile.ts:229</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L231">src/profile.ts:231</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +246,17 @@
 					<div class="tsd-signature tsd-kind-icon">MAX_<wbr>WIDTH<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 80</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L230">src/profile.ts:230</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L233">src/profile.ts:233</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="template_report_regex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> TEMPLATE_<wbr>REPORT_<wbr>REGEX</h3>
+					<div class="tsd-signature tsd-kind-icon">TEMPLATE_<wbr>REPORT_<wbr>REGEX<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L232">src/profile.ts:232</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -250,7 +273,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L239">src/profile.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L242">src/profile.ts:242</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -273,7 +296,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L250">src/profile.ts:250</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L253">src/profile.ts:253</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +319,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L263">src/profile.ts:263</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L267">src/profile.ts:267</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -319,7 +342,30 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L293">src/profile.ts:293</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L326">src/profile.ts:326</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>shownTimerKeys: <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reporttemplates" class="tsd-anchor"></a>
+					<h3>report<wbr>Templates</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">report<wbr>Templates<span class="tsd-signature-symbol">(</span>shownTimerKeys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L297">src/profile.ts:297</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -342,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L340">src/profile.ts:340</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L373">src/profile.ts:373</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -365,7 +411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/219144d/src/profile.ts#L373">src/profile.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/8cb7ca1/src/profile.ts#L406">src/profile.ts:406</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -411,6 +457,9 @@
 								<a href="profile.profilereport.html#build_report_regex" class="tsd-kind-icon">BUILD_<wbr>REPORT_<wbr>REGEX</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="profile.profilereport.html#exclude_from_benchmark_regex" class="tsd-kind-icon">EXCLUDE_<wbr>FROM_<wbr>BENCHMARK_<wbr>REGEX</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="profile.profilereport.html#hook_report_regex" class="tsd-kind-icon">HOOK_<wbr>REPORT_<wbr>REGEX</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
@@ -421,6 +470,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="profile.profilereport.html#max_width" class="tsd-kind-icon">MAX_<wbr>WIDTH</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="profile.profilereport.html#template_report_regex" class="tsd-kind-icon">TEMPLATE_<wbr>REPORT_<wbr>REGEX</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="profile.profilereport.html#filter" class="tsd-kind-icon">filter</a>
@@ -433,6 +485,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="profile.profilereport.html#reportslowbuilds" class="tsd-kind-icon">report<wbr>Slow<wbr>Builds</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="profile.profilereport.html#reporttemplates" class="tsd-kind-icon">report<wbr>Templates</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="profile.profilereport.html#reportthreshold" class="tsd-kind-icon">report<wbr>Threshold</a>

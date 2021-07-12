@@ -140,26 +140,41 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.env.addFilter('t', NunjucksBuiltInFilters.t);
   }
 
+  getTimer(podPath?: string) {
+    podPath = podPath || 'self';
+    return this.pod.profiler.timer(
+      `templates.render.${podPath}`,
+      'Template render',
+      {
+        podPath: podPath,
+      }
+    );
+  }
+
   render(path: string, context: any): Promise<string> {
     return new Promise((resolve, reject) => {
+      const timer = this.getTimer(path);
       this.env.render(path, context, (err, res) => {
         if (err) {
           reject(err);
           return;
         }
         resolve(res || '');
+        timer.stop();
       });
     });
   }
 
   renderFromString(template: string, context: any): Promise<string> {
     return new Promise((resolve, reject) => {
+      const timer = this.getTimer();
       this.env.renderString(template, context, (err, res) => {
         if (err) {
           reject(err);
           return;
         }
         resolve(res || '');
+        timer.stop();
       });
     });
   }

@@ -499,7 +499,7 @@ the first and last name together.</p>
 <ol>
 <li>Use the custom type in YAML:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-89692090-e327-11eb-b73b-5dcc65ae8542" name="t-89680f20-e327-11eb-b73b-5dcc65ae8542" checked > <label for="t-89692090-e327-11eb-b73b-5dcc65ae8542" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7f890180-e331-11eb-b984-efa6b36cbffb" name="t-7f87f010-e331-11eb-b984-efa6b36cbffb" checked > <label for="t-7f890180-e331-11eb-b984-efa6b36cbffb" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-type">!Person</span>
     <span class="hljs-attr">firstName:</span> <span class="hljs-string">Tony</span>
     <span class="hljs-attr">lastName:</span> <span class="hljs-string">Stark</span>
@@ -514,7 +514,7 @@ the first and last name together.</p>
 <ol start="2">
 <li>Create the custom type:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-896a8020-e327-11eb-b73b-5dcc65ae8542" name="t-89692091-e327-11eb-b73b-5dcc65ae8542" checked > <label for="t-896a8020-e327-11eb-b73b-5dcc65ae8542" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7f8a8820-e331-11eb-b984-efa6b36cbffb" name="t-7f890181-e331-11eb-b984-efa6b36cbffb" checked > <label for="t-7f8a8820-e331-11eb-b984-efa6b36cbffb" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">options</span>)</span> {
             <span class="hljs-built_in">this</span>.firstName = options.firstName;
@@ -538,7 +538,7 @@ the first and last name together.</p>
 <li>Use the <code>Person</code> objects in templates. Note that we never declared any
 <code>fullName</code> in YAML. That property was defined in our <code>Person</code> object.</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-896b4370-e327-11eb-b73b-5dcc65ae8542" name="t-896a8021-e327-11eb-b73b-5dcc65ae8542" checked > <label for="t-896b4370-e327-11eb-b73b-5dcc65ae8542" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7f8b7280-e331-11eb-b984-efa6b36cbffb" name="t-7f8a8821-e331-11eb-b984-efa6b36cbffb" checked > <label for="t-7f8b7280-e331-11eb-b984-efa6b36cbffb" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
     </span><span class="hljs-template-variable">{{person.fullName}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span>
 </code></pre></div> </div>

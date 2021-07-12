@@ -172,7 +172,6 @@ export class CollectionRouteProvider extends RouteProvider {
       }
       routes.push(route);
       docProvider.urlMap.set(route.doc, route.url);
-      return route;
     };
 
     const docs = this.pod.docs();
@@ -181,14 +180,15 @@ export class CollectionRouteProvider extends RouteProvider {
         return;
       }
 
-      // Add base and localized docs.
-      const baseRoute = addRoute(doc.podPath);
-      baseRoute &&
-        baseRoute.doc.locales.forEach((locale: Locale) => {
-          if (locale !== baseRoute.doc.defaultLocale) {
-            addRoute(doc.podPath, locale);
-          }
-        });
+      // Add base doc.
+      addRoute(doc.podPath);
+
+      // Add localized docs.
+      doc.locales.forEach((locale: Locale) => {
+        if (locale !== doc.defaultLocale) {
+          addRoute(doc.podPath, locale);
+        }
+      });
     });
 
     return routes;

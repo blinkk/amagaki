@@ -45,6 +45,7 @@ which can be invoked from your templates. Some commonly used ones are:
 - `pod.doc(...)` – Returns a document object
 - `pod.docs(...)` – Returns a list of documents
 - `pod.env` – Returns the current rendering environment
+- `pod.readYaml(...)` – Returns content from a YAML file
 - `pod.staticFile(...)` – Returns a static file object
 
 {{button.button({

@@ -511,10 +511,10 @@ route providers within Amagaki. While it&#39;s usually appropriate to refer to a
 using its <code>path</code> property only, you may also want an object&#39;s absolute URL
 including its domain name. Build environments can specify the hostname that your
 site is deployed to, allowing you to centrally configure hostnames.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d409c000-e336-11eb-8860-13664b7a5623" name="t-d408fcb0-e336-11eb-8860-13664b7a5623" checked > <label for="t-d409c000-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">home:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9ee78790-e8f4-11eb-8c5b-2f08312604f5" name="t-9ee69d30-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9ee78790-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">home:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
 </code></pre></div> </div>
 
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40a8350-e336-11eb-8860-13664b7a5623" name="t-d409c001-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40a8350-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{doc.home.url.path}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9ee8c010-e8f4-11eb-8c5b-2f08312604f5" name="t-9ee78791-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9ee8c010-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{doc.home.url.path}}</span>
 </code></pre></div> </div>
 
 <h2 id="route-provider-deep-dive">Route provider deep-dive</h2>
@@ -522,7 +522,7 @@ site is deployed to, allowing you to centrally configure hostnames.</p>
 <p>A collection&#39;s <code>_collection.yaml</code> file specifies the default URL path for all
 documents within a collection. Here&#39;s what a typical <code>_collection.yaml</code> may look
 like:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40b46a0-e336-11eb-8860-13664b7a5623" name="t-d40a8351-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40b46a0-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9ee9aa70-e8f4-11eb-8c5b-2f08312604f5" name="t-9ee8c011-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9ee9aa70-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/${doc.basename}/</span>
 </code></pre></div> </div>
 
 <p>All documents within this collection will be generated to paths generated from
@@ -551,19 +551,19 @@ context variables:</p>
 <p>Note that paths that terminate in <code>/index/</code> are automatically cleaned.</p>
 <h3 id="document-routes">Document routes</h3>
 <p>Documents can override a collection&#39;s <code>$path</code> by specifying their own.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40be2e0-e336-11eb-8860-13664b7a5623" name="t-d40b46a1-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40be2e0-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/get-in-touch/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9eea6dc0-e8f4-11eb-8c5b-2f08312604f5" name="t-9ee9aa71-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9eea6dc0-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/pages/get-in-touch/</span>
 </code></pre></div> </div>
 
 <p>In the above example, the page will be generated to <code>/pages/get-in-touch/</code>
 instead of inheriting its path from <code>_collection.yaml</code>.</p>
 <p>Documents can disable routing (and therefore won&#39;t be built) by setting their
 path to <code>null</code>:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40c7f20-e336-11eb-8860-13664b7a5623" name="t-d40be2e1-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40c7f20-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-literal">null</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9eeb7f30-e8f4-11eb-8c5b-2f08312604f5" name="t-9eea6dc1-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9eeb7f30-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-literal">null</span>
 </code></pre></div> </div>
 
 <p>Remember, path formatters are interpolated, so you can even refer to a
 document&#39;s content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40d6980-e336-11eb-8860-13664b7a5623" name="t-d40c7f21-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40d6980-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/posts/${doc.fields.date}/${doc.fields.slug}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9eecb7b0-e8f4-11eb-8c5b-2f08312604f5" name="t-9eeb7f31-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9eecb7b0-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/contact.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/posts/${doc.fields.date}/${doc.fields.slug}/</span>
 <span class="hljs-attr">date:</span> <span class="hljs-number">2019-01-06</span>
 <span class="hljs-attr">slug:</span> <span class="hljs-string">hello-world</span>
 </code></pre></div> </div>
@@ -572,7 +572,7 @@ document&#39;s content:</p>
 <code>/posts/2019-01-06/hello-world/</code>.</p>
 <h3 id="static-routes">Static routes</h3>
 <p>Amagaki collects files from directories and copies them to the <code>build</code> folder.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40e53e0-e336-11eb-8860-13664b7a5623" name="t-d40d6981-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40e53e0-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9eeda210-e8f4-11eb-8c5b-2f08312604f5" name="t-9eecb7b1-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9eeda210-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">staticRoutes</span>: [
       {
@@ -591,7 +591,7 @@ document&#39;s content:</p>
 <p>It&#39;s a best practice to refer to static files using their pod paths, in case you
 want to change the serving path in the future. See the following example for a
 common usage pattern.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d40f8c60-e336-11eb-8860-13664b7a5623" name="t-d40e53e1-e336-11eb-8860-13664b7a5623" checked > <label for="t-d40f8c60-e336-11eb-8860-13664b7a5623" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/dist/css/main.css&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-9eef4fc0-e8f4-11eb-8c5b-2f08312604f5" name="t-9eeda211-e8f4-11eb-8c5b-2f08312604f5" checked > <label for="t-9eef4fc0-e8f4-11eb-8c5b-2f08312604f5" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/dist/css/main.css&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/dist/js/main.js&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{pod.staticFile(&#x27;/src/static/images/cat.jpg&#x27;).url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
 </code></pre></div> </div>

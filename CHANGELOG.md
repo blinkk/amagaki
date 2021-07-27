@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://www.github.com/blinkk/amagaki/compare/v1.2.0...v1.3.0) (2021-07-27)
+
+
+### Features
+
+* add -l flag to build for collecting missing translations ([384e285](https://www.github.com/blinkk/amagaki/commit/384e28520c7b3eec313cacc80c2737847bbf92e8))
+
 ## [1.2.0](https://www.github.com/blinkk/amagaki/compare/v1.1.3...v1.2.0) (2021-07-12)
 
 

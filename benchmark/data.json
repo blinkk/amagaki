@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1626742306122,
+  "lastUpdate": 1627426023268,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -3592,6 +3592,149 @@
           {
             "name": "yaml.schema",
             "value": 0.6744349999935366,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "committer": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "distinct": true,
+          "id": "384e28520c7b3eec313cacc80c2737847bbf92e8",
+          "message": "feat: add -l flag to build for collecting missing translations",
+          "timestamp": "2021-07-27T15:45:30-07:00",
+          "tree_id": "49c74f2301408a7191c5a50e52d15bb47e8e7ad3",
+          "url": "https://github.com/blinkk/amagaki/commit/384e28520c7b3eec313cacc80c2737847bbf92e8"
+        },
+        "date": 1627426023266,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 6157.330876000022,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 5.545251999923494,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "48 samples"
+          },
+          {
+            "name": "document.render",
+            "value": 1742.2165219989256,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "document.resolveFields",
+            "value": 2316.9798110008123,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 0.8985060000559315,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "29 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 177.78525899985107,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5435 samples"
+          },
+          {
+            "name": "locale.getTranslation",
+            "value": 29.71347900002729,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5552 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild",
+            "value": 0.08030099997995421,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild.BuilderPlugin",
+            "value": 0.06400099999154918,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild",
+            "value": 0.08960100001422688,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild.BuilderPlugin",
+            "value": 0.06630000000586733,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine",
+            "value": 0.06300100000225939,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
+            "value": 0.04900100000668317,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes",
+            "value": 0.3652040000015404,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes.YamlPlugin",
+            "value": 0.3463040000060573,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 119.78731900040293,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "2709 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.5681059999915306,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

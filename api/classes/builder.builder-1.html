@@ -91,6 +91,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#controldirectoryabsolutepath" class="tsd-kind-icon">control<wbr>Directory<wbr>Absolute<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#manifestpodpath" class="tsd-kind-icon">manifest<wbr>Pod<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#metricspodpath" class="tsd-kind-icon">metrics<wbr>Pod<wbr>Path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#missingtranslationspodpath" class="tsd-kind-icon">missing<wbr>Translations<wbr>Pod<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#outputdirectorypodpath" class="tsd-kind-icon">output<wbr>Directory<wbr>Pod<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="builder.builder-1.html#pod" class="tsd-kind-icon">pod</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="builder.builder-1.html#defaultoutputdirectory" class="tsd-kind-icon">Default<wbr>Output<wbr>Directory</a></li>
@@ -113,6 +114,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="builder.builder-1.html#logresult" class="tsd-kind-icon">log<wbr>Result</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="builder.builder-1.html#movefileasync" class="tsd-kind-icon">move<wbr>File<wbr>Async</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="builder.builder-1.html#writefileasync" class="tsd-kind-icon">write<wbr>File<wbr>Async</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="builder.builder-1.html#writelocales" class="tsd-kind-icon">write<wbr>Locales</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="builder.builder-1.html#createprogressbar" class="tsd-kind-icon">create<wbr>Progress<wbr>Bar</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="builder.builder-1.html#ensuredirectoryexists" class="tsd-kind-icon">ensure<wbr>Directory<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="builder.builder-1.html#formatprogressbartime" class="tsd-kind-icon">format<wbr>Progress<wbr>Bar<wbr>Time</a></li>
@@ -134,7 +136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L91">src/builder.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L96">src/builder.ts:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -156,7 +158,7 @@
 					<div class="tsd-signature tsd-kind-icon">benchmark<wbr>Pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L82">src/builder.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L86">src/builder.ts:86</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -166,7 +168,7 @@
 					<div class="tsd-signature tsd-kind-icon">control<wbr>Directory<wbr>Absolute<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L87">src/builder.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L92">src/builder.ts:92</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,7 +178,7 @@
 					<div class="tsd-signature tsd-kind-icon">manifest<wbr>Pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L84">src/builder.ts:84</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L88">src/builder.ts:88</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,7 +188,17 @@
 					<div class="tsd-signature tsd-kind-icon">metrics<wbr>Pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L85">src/builder.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L89">src/builder.ts:89</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="missingtranslationspodpath" class="tsd-anchor"></a>
+					<h3>missing<wbr>Translations<wbr>Pod<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">missing<wbr>Translations<wbr>Pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L90">src/builder.ts:90</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -196,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">output<wbr>Directory<wbr>Pod<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L86">src/builder.ts:86</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L91">src/builder.ts:91</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -206,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">pod<span class="tsd-signature-symbol">:</span> <a href="pod.pod-1.html" class="tsd-signature-type" data-tsd-kind="Class">Pod</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L83">src/builder.ts:83</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L87">src/builder.ts:87</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -216,7 +228,7 @@
 					<div class="tsd-signature tsd-kind-icon">Default<wbr>Output<wbr>Directory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;build&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L88">src/builder.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L93">src/builder.ts:93</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +238,7 @@
 					<div class="tsd-signature tsd-kind-icon">Num<wbr>Concurrent<wbr>Builds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 40</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L89">src/builder.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L94">src/builder.ts:94</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">Num<wbr>Concurrent<wbr>Copies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2000</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L90">src/builder.ts:90</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L95">src/builder.ts:95</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +258,7 @@
 					<div class="tsd-signature tsd-kind-icon">Show<wbr>Move<wbr>Progress<wbr>Bar<wbr>Threshold<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1000</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L91">src/builder.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L96">src/builder.ts:96</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -263,7 +275,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L234">src/builder.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L244">src/builder.ts:244</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L153">src/builder.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L163">src/builder.ts:163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -318,7 +330,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L180">src/builder.ts:180</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L190">src/builder.ts:190</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -341,7 +353,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L197">src/builder.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L207">src/builder.ts:207</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -364,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L297">src/builder.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L307">src/builder.ts:307</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -387,7 +399,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L564">src/builder.ts:564</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L614">src/builder.ts:614</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -404,7 +416,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L226">src/builder.ts:226</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L236">src/builder.ts:236</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/builder.buildmanifest.html" class="tsd-signature-type" data-tsd-kind="Interface">BuildManifest</a></h4>
@@ -421,7 +433,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L126">src/builder.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L136">src/builder.ts:136</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -444,7 +456,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L518">src/builder.ts:518</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L539">src/builder.ts:539</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -473,7 +485,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L161">src/builder.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L171">src/builder.ts:171</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -499,7 +511,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L175">src/builder.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L185">src/builder.ts:185</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -509,6 +521,29 @@
 								</li>
 								<li>
 									<h5>content: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="writelocales" class="tsd-anchor"></a>
+					<h3>write<wbr>Locales</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">write<wbr>Locales<span class="tsd-signature-symbol">(</span>localesToMissingTranslations<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LocalesToMissingTranslations</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L591">src/builder.ts:591</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>localesToMissingTranslations: <span class="tsd-signature-type">LocalesToMissingTranslations</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -525,7 +560,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L284">src/builder.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L294">src/builder.ts:294</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -548,7 +583,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L134">src/builder.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L144">src/builder.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -571,7 +606,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L141">src/builder.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L151">src/builder.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -594,7 +629,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/0ee07dd/src/builder.ts#L119">src/builder.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/384e285/src/builder.ts#L129">src/builder.ts:129</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -641,6 +676,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="builder.builder-1.html#metricspodpath" class="tsd-kind-icon">metrics<wbr>Pod<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="builder.builder-1.html#missingtranslationspodpath" class="tsd-kind-icon">missing<wbr>Translations<wbr>Pod<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="builder.builder-1.html#outputdirectorypodpath" class="tsd-kind-icon">output<wbr>Directory<wbr>Pod<wbr>Path</a>
@@ -692,6 +730,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="builder.builder-1.html#writefileasync" class="tsd-kind-icon">write<wbr>File<wbr>Async</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="builder.builder-1.html#writelocales" class="tsd-kind-icon">write<wbr>Locales</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="builder.builder-1.html#createprogressbar" class="tsd-kind-icon">create<wbr>Progress<wbr>Bar</a>

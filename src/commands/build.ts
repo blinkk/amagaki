@@ -7,6 +7,7 @@ import {ProfileReport} from '../profile';
 interface BuildOptions {
   outputDirectory?: string;
   pattern?: string[];
+  writeLocales?: boolean;
 }
 
 export class BuildCommand {
@@ -27,6 +28,7 @@ export class BuildCommand {
     try {
       await pod.builder.export({
         patterns: this.options.pattern,
+        writeLocales: this.options.writeLocales,
       });
     } finally {
       timer.stop();

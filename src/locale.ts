@@ -1,6 +1,5 @@
 import {Document} from './document';
 import {Pod} from './pod';
-import {Timer} from './profile';
 import {TranslationString} from './string';
 
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
@@ -52,7 +51,14 @@ export class Locale {
    * source string to translation, under a `translations` key within the file.
    * */
   get translations() {
-    return this.pod.readYaml(this.podPath)['translations'];
+    try {
+      return this.pod.readYaml(this.podPath)['translations'];
+    } catch (e) {
+      if (e.code !== 'ENOENT') {
+        throw e;
+      }
+      return {};
+    }
   }
 
   /** Returns whether the locale uses an RTL (right to left) language. */

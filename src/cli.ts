@@ -25,6 +25,10 @@ program
   .command('build [root]')
   .description('build the site')
   .option('-p, --pattern <patterns...>', 'patterns for an incremental build')
+  .option(
+    '-l, --write-locales',
+    'whether to write locale files with missing translations to the build directory'
+  )
   .action((path, options) => {
     if (!isNodeVersionSupported()) {
       return;

@@ -9,9 +9,11 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
-import {BuildOptions, Route, StaticRoute} from './router';
+import {Route, StaticRoute} from './router';
 
+import {Locale} from './locale';
 import {Pod} from './pod';
+import {TranslationString} from './string';
 import minimatch from 'minimatch';
 
 interface Artifact {
@@ -50,6 +52,7 @@ export interface BuildDiffPaths {
 }
 
 type LocalesToNumMissingTranslations = Record<string, number>;
+type LocalesToMissingTranslations = Record<string, TranslationString[]>;
 
 export interface BuildMetrics {
   memoryUsage: number;
@@ -76,6 +79,7 @@ interface CreatedPath {
 
 export interface ExportOptions {
   patterns?: string[];
+  writeLocales?: Boolean;
 }
 
 export class Builder {
@@ -83,6 +87,7 @@ export class Builder {
   pod: Pod;
   manifestPodPath: string;
   metricsPodPath: string;
+  missingTranslationsPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
@@ -113,6 +118,11 @@ export class Builder {
       this.outputDirectoryPodPath,
       '.amagaki',
       'benchmark.txt'
+    );
+    this.missingTranslationsPodPath = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.amagaki',
+      'locales'
     );
   }
 
@@ -303,6 +313,7 @@ export class Builder {
       built: new Date().toString(),
       files: [],
     };
+    const localesToMissingTranslations: LocalesToMissingTranslations = {};
     const buildMetrics: BuildMetrics = {
       localesToNumMissingTranslations: {},
       memoryUsage: 0,
@@ -479,6 +490,13 @@ export class Builder {
       }
       localesToNumMissingTranslations[locale.id] = locale.recordedStrings.size;
       buildMetrics.numMissingTranslations += locale.recordedStrings.size;
+      if (localesToMissingTranslations[locale.id] === undefined) {
+        const strings: TranslationString[] = [];
+        localesToMissingTranslations[locale.id] = strings;
+      }
+      for (const [string] of locale.recordedStrings) {
+        localesToMissingTranslations[locale.id].push(string);
+      }
     }
     buildMetrics.localesToNumMissingTranslations = localesToNumMissingTranslations;
 
@@ -510,6 +528,9 @@ export class Builder {
       manifest: buildManifest,
       metrics: buildMetrics,
     };
+    if (buildMetrics.numMissingTranslations && options?.writeLocales) {
+      await this.writeLocales(localesToMissingTranslations);
+    }
     this.logResult(buildDiff, buildMetrics, options);
     await this.pod.plugins.trigger('afterBuild', result);
     return result;
@@ -548,6 +569,12 @@ export class Builder {
             })
             .join(', ')
       );
+      if (options?.writeLocales) {
+        console.log(
+          'Saved locales: '.blue +
+            this.pod.getAbsoluteFilePath(this.missingTranslationsPodPath)
+        );
+      }
     }
     console.log(
       'Changes: '.blue +
@@ -559,6 +586,29 @@ export class Builder {
       'Build complete: '.blue +
         this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)
     );
+  }
+
+  async writeLocales(
+    localesToMissingTranslations: LocalesToMissingTranslations
+  ) {
+    for (const [localeId, strings] of Object.entries(
+      localesToMissingTranslations
+    )) {
+      const translations: Record<string, string> = {};
+      for (const string of strings) {
+        translations[string.value] = '';
+      }
+      const localePath = fsPath.join(
+        this.missingTranslationsPodPath,
+        `${localeId}.yaml`
+      );
+      await this.writeFileAsync(
+        this.pod.getAbsoluteFilePath(localePath),
+        this.pod.dumpYaml({
+          translations: translations,
+        })
+      );
+    }
   }
 
   async exportBenchmark() {

@@ -8,6 +8,14 @@ test('Num missing translations', async (t: ExecutionContext) => {
   t.deepEqual(buildResult.metrics.localesToNumMissingTranslations.de, 2);
 });
 
+test('Writing locales', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/missingTranslations/');
+  await pod.builder.export({writeLocales: true});
+  const missingLocale = pod.readYaml('/build/.amagaki/locales/de.yaml');
+  t.deepEqual('', missingLocale.translations.Qaz);
+  t.deepEqual('', missingLocale.translations.Foo);
+});
+
 test('Build matching patterns', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
   // Build first.

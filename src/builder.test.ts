@@ -12,8 +12,13 @@ test('Writing locales', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/missingTranslations/');
   await pod.builder.export({writeLocales: true});
   const missingLocale = pod.readYaml('/build/.amagaki/locales/de.yaml');
-  t.deepEqual('', missingLocale.translations.Qaz);
-  t.deepEqual('', missingLocale.translations.Foo);
+  t.deepEqual(
+    {
+      Qaz: '',
+      Prefer: '',
+    },
+    missingLocale.translations
+  );
 });
 
 test('Build matching patterns', async (t: ExecutionContext) => {

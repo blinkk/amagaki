@@ -596,7 +596,7 @@ export class Builder {
     )) {
       const translations: Record<string, string> = {};
       for (const string of strings) {
-        translations[string.value] = '';
+        translations[string.prefer || string.value] = '';
       }
       const localePath = fsPath.join(
         this.missingTranslationsPodPath,

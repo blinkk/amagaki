@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.3.1](https://www.github.com/blinkk/amagaki/compare/v1.3.0...v1.3.1) (2021-08-03)
+
+
+### Bug Fixes
+
+* issue with recording preferred strings ([838b229](https://www.github.com/blinkk/amagaki/commit/838b229838d1584323e6d9aa4b4829a11a67b6c6))
+* support relative urls when fake documents are passed ([c84790e](https://www.github.com/blinkk/amagaki/commit/c84790eadac6528eec0f710a183810f5f333a8e7))
+
 ## [1.3.0](https://www.github.com/blinkk/amagaki/compare/v1.2.0...v1.3.0) (2021-07-27)
 
 

@@ -1,3 +1,4 @@
+import {Document} from './document';
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import {Url} from './url';
@@ -28,4 +29,8 @@ test('relative', async (t: ExecutionContext) => {
     ),
     './about/'
   );
+
+  // Test a fake document, for when a user assembles fake pages in a plugin.
+  const fakeDoc = ({foo: 'bar'} as unknown) as Document;
+  t.deepEqual(Url.relative(pod.doc('/content/pages/index.yaml'), fakeDoc), '/');
 });

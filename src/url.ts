@@ -71,7 +71,14 @@ export class Url {
     if (!otherUrl || !baseUrl || ABSOLUTE_URL_REGEX.test(otherUrl)) {
       return otherUrl;
     }
-    const result = fsPath.relative(baseUrl, otherUrl);
+    const result =
+      typeof baseUrl === 'string' && typeof otherUrl === 'string'
+        ? fsPath.relative(baseUrl, otherUrl)
+        : undefined;
+    // Relative URL couldn't be determined, return an absolute URL.
+    if (result === undefined) {
+      return otherUrl;
+    }
     if (!result || result === '/') {
       return otherUrl.endsWith('/') ? './' : '.';
     }

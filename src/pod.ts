@@ -385,6 +385,7 @@ export class Pod {
     const timer = this.profiler.timer('yaml.dump', 'Yaml dump');
     try {
       return yaml.dump(data, {
+        noRefs: true,
         schema: this.yamlSchema,
       });
     } finally {

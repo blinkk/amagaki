@@ -380,6 +380,8 @@ export class Builder {
     }
 
     // Copy all static files and build all other routes.
+    const errors: Error[] = [];
+    const errorRoutes: Route[] = [];
     await async.eachLimit(
       createdPaths,
       Builder.NumConcurrentBuilds,
@@ -406,8 +408,22 @@ export class Builder {
             let content = '';
             try {
               content = await createdPath.route.build();
+            } catch (err) {
+              errors.push(err);
+              errorRoutes.push(createdPath.route);
             } finally {
               timer.stop();
+            }
+            if (errors.length) {
+              bar.stop();
+              console.error(
+                `\nEncountered ${errors.length} errors while building the following routes:`
+              );
+              errorRoutes.map(route => {
+                console.error(` ${route.urlPath}`);
+              });
+              console.error('\nThe first error was:\n');
+              throw errors[0];
             }
             return this.writeFileAsync(createdPath.tempPath, content);
           }

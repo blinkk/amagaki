@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://www.github.com/blinkk/amagaki/compare/v1.3.2...v1.4.0) (2021-09-22)
+
+
+### Features
+
+* improve error logging during full site build ([9432b51](https://www.github.com/blinkk/amagaki/commit/9432b5135dbc9ae06a677fd573ad86a0bb481e96))
+* improve nunjucks error output ([745622b](https://www.github.com/blinkk/amagaki/commit/745622b584a8f14e17d86dad3ddba6b37560901f))
+
 ### [1.3.2](https://www.github.com/blinkk/amagaki/compare/v1.3.1...v1.3.2) (2021-08-16)
 
 

@@ -409,7 +409,7 @@ export class Builder {
             try {
               content = await createdPath.route.build();
             } catch (err) {
-              errors.push(err);
+              errors.push(err as Error);
               errorRoutes.push(createdPath.route);
             } finally {
               timer.stop();
@@ -417,12 +417,16 @@ export class Builder {
             if (errors.length) {
               bar.stop();
               console.error(
-                `\nEncountered ${errors.length} errors while building the following routes:`
+                `\nFound ${errors.length} errors building the following routes.\n`
+                  .yellow
               );
               errorRoutes.map(route => {
-                console.error(` ${route.urlPath}`);
+                console.error(`    ${route.urlPath}`);
               });
-              console.error('\nThe first error was:\n');
+              console.error('\nThe first error was:'.yellow);
+              if (errors[0].message) {
+                console.log(`\n${errors[0].message}\n`);
+              }
               throw errors[0];
             }
             return this.writeFileAsync(createdPath.tempPath, content);

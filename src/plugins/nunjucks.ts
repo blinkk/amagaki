@@ -131,6 +131,10 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     this.pod = pod;
     const loader = new NunjucksPodLoader(this.pod);
     this.env = new nunjucks.Environment(loader, {
+      // Use `dev` option to output full errors from within Nunjucks.
+      // See relevant discussion: https://github.com/mozilla/nunjucks/issues/1287#issuecomment-643602156
+      // @ts-ignore
+      dev: true,
       autoescape: true,
     });
     this.env.addFilter('await', NunjucksBuiltInFilters.await, true);

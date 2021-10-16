@@ -86,6 +86,7 @@
 				<ul class="tsd-hierarchy">
 					<li><a href="../classes/plugins_builder.builderplugin.html" class="tsd-signature-type" data-tsd-kind="Class">BuilderPlugin</a></li>
 					<li><a href="../classes/plugins_nunjucks.nunjucksplugin.html" class="tsd-signature-type" data-tsd-kind="Class">NunjucksPlugin</a></li>
+					<li><a href="../classes/plugins_router.routerplugin.html" class="tsd-signature-type" data-tsd-kind="Class">RouterPlugin</a></li>
 					<li><a href="../classes/plugins_server.serverplugin.html" class="tsd-signature-type" data-tsd-kind="Class">ServerPlugin</a></li>
 					<li><a href="../classes/plugins_yaml.yamlplugin.html" class="tsd-signature-type" data-tsd-kind="Class">YamlPlugin</a></li>
 				</ul>
@@ -102,6 +103,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createserverhook" class="tsd-kind-icon">create<wbr>Server<wbr>Hook</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createtemplateenginehook" class="tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#createyamltypeshook" class="tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="plugins.plugincomponent.html#updatepathformatcontexthook" class="tsd-kind-icon">update<wbr>Path<wbr>Format<wbr>Context<wbr>Hook</a></li>
 							</ul>
 						</section>
 					</div>
@@ -115,7 +117,7 @@
 					<div class="tsd-signature tsd-kind-icon">after<wbr>Build<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><a href="builder.buildresult.html" class="tsd-signature-type" data-tsd-kind="Interface">BuildResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/757be9e/src/plugins.ts#L16">src/plugins.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L16">src/plugins.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -151,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">before<wbr>Build<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>builder<span class="tsd-signature-symbol">: </span><a href="../classes/builder.builder-1.html" class="tsd-signature-type" data-tsd-kind="Class">Builder</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/757be9e/src/plugins.ts#L20">src/plugins.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L20">src/plugins.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -187,7 +189,7 @@
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Server<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>app<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Express</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/757be9e/src/plugins.ts#L24">src/plugins.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L24">src/plugins.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -223,7 +225,7 @@
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Template<wbr>Engine<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>templateEngine<span class="tsd-signature-symbol">: </span><a href="templateengine.templateenginecomponent.html" class="tsd-signature-type" data-tsd-kind="Interface">TemplateEngineComponent</a>, extension<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/757be9e/src/plugins.ts#L30">src/plugins.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L30">src/plugins.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -263,7 +265,7 @@
 					<div class="tsd-signature tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>yamlTypeManager<span class="tsd-signature-symbol">: </span><a href="../classes/plugins_yaml.yamltypemanager.html" class="tsd-signature-type" data-tsd-kind="Class">YamlTypeManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/757be9e/src/plugins.ts#L38">src/plugins.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L38">src/plugins.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -289,6 +291,42 @@
 										<ul class="tsd-parameters">
 											<li>
 												<h5>yamlTypeManager: <a href="../classes/plugins_yaml.yamltypemanager.html" class="tsd-signature-type" data-tsd-kind="Class">YamlTypeManager</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="updatepathformatcontexthook" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> update<wbr>Path<wbr>Format<wbr>Context<wbr>Hook</h3>
+					<div class="tsd-signature tsd-kind-icon">update<wbr>Path<wbr>Format<wbr>Context<wbr>Hook<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/blinkk/amagaki/blob/da40a36/src/plugins.ts#L42">src/plugins.ts:42</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Hook for extending the URL path interpolation context.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>context: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -335,6 +373,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="plugins.plugincomponent.html#createyamltypeshook" class="tsd-kind-icon">create<wbr>Yaml<wbr>Types<wbr>Hook</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="plugins.plugincomponent.html#updatepathformatcontexthook" class="tsd-kind-icon">update<wbr>Path<wbr>Format<wbr>Context<wbr>Hook</a>
 							</li>
 						</ul>
 					</li>

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://www.github.com/blinkk/amagaki/compare/v1.4.0...v1.5.0) (2021-10-16)
+
+
+### Features
+
+* add path format plugin [#98](https://www.github.com/blinkk/amagaki/issues/98) ([64f5393](https://www.github.com/blinkk/amagaki/commit/64f53934924c9a1ebe43da027eec05ddb0377609))
+* autoreload server when plugins change ([757be9e](https://www.github.com/blinkk/amagaki/commit/757be9e1c5ef56fc2dc422796c15eb17c0113d02))
+
 ## [1.4.0](https://www.github.com/blinkk/amagaki/compare/v1.3.2...v1.4.0) (2021-09-22)
 
 

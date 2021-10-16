@@ -158,6 +158,12 @@ export class Server extends events.EventEmitter {
       this.httpServer?.close(err => {
         err ? reject(err) : resolve();
       });
+      // Connections are closed when the server emits the `close` event. This
+      // allows the server to be restarted cleanly.
+      // https://stackoverflow.com/a/36830072
+      setImmediate(() => {
+        this.httpServer?.emit('close');
+      });
     });
   }
 }

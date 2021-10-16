@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://www.github.com/blinkk/amagaki/compare/v1.5.1...v1.6.0) (2021-10-16)
+
+
+### Features
+
+* enable use of the environment name in amagaki.ts ([0cf6b85](https://www.github.com/blinkk/amagaki/commit/0cf6b857b693b6e2b62586e6eb673697e111618a))
+
 ### [1.5.1](https://www.github.com/blinkk/amagaki/compare/v1.5.0...v1.5.1) (2021-10-16)
 
 

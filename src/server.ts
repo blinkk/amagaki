@@ -24,6 +24,7 @@ export class Server extends events.EventEmitter {
   watcher?: chokidar.FSWatcher;
 
   static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
+  static PLUGINS_PATH = '/plugins';
   static Events = {
     RELOAD: 'reload',
     LISTENING: 'listening',
@@ -138,14 +139,25 @@ export class Server extends events.EventEmitter {
    * of reloading any changes from `amagaki.ts`.
    */
   async reload() {
-    this.stop();
+    await this.stop();
+    // Evict module cache to allow runtime reloading of plugins.
+    const pluginsRoot = this.pod.getAbsoluteFilePath(Server.PLUGINS_PATH);
+    Object.keys(require.cache).forEach(cacheKey => {
+      if (cacheKey.startsWith(pluginsRoot)) {
+        delete require.cache[cacheKey];
+      }
+    });
     this.pod = new Pod(this.pod.root, this.pod.env);
     await this.start();
     this.emit(Server.Events.RELOAD);
   }
 
   /** Stops the web server. */
-  stop() {
-    this.httpServer?.close();
+  async stop() {
+    return new Promise<void>((resolve, reject) => {
+      this.httpServer?.close(err => {
+        err ? reject(err) : resolve();
+      });
+    });
   }
 }

@@ -311,10 +311,15 @@ export class DocumentRoute extends Route {
     if (urlPath) {
       return urlPath;
     }
-    urlPath = utils.interpolate(this.pod, this.doc.pathFormat, {
+    const context = {
       doc: this.doc,
       pod: this.pod,
-    }) as string;
+    };
+    urlPath = utils.interpolate(
+      this.pod,
+      this.doc.pathFormat,
+      context
+    ) as string;
 
     // Clean up repeated slashes.
     // Path format params can be blank or return with starting or ending slashes.

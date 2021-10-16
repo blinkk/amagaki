@@ -13,6 +13,6 @@ test('Server start', async (t: ExecutionContext) => {
   });
   await server.start();
   await server.reload();
-  server.stop();
+  await server.stop();
   t.pass();
 });

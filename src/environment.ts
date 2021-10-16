@@ -1,9 +1,9 @@
 export interface EnvironmentOptions {
-  host: string;
+  host?: string;
   port?: string;
-  scheme: string;
+  scheme?: string;
   name: string;
-  dev: boolean;
+  dev?: boolean;
   fields?: any;
 }
 
@@ -34,13 +34,13 @@ export class Environment {
 
   static DefaultName: 'default';
 
-  constructor(options: EnvironmentOptions) {
-    this.name = options.name;
-    this.host = options.host;
-    this.port = options.port;
-    this.dev = options.dev;
-    this.fields = options.fields;
-    this._scheme = options.scheme;
+  constructor(options?: EnvironmentOptions) {
+    this.name = options?.name || 'default';
+    this.host = options?.host || 'localhost';
+    this.port = options?.port;
+    this.dev = options?.dev || false;
+    this.fields = options?.fields;
+    this._scheme = options?.scheme || 'https';
   }
 
   toString() {

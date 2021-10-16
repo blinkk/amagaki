@@ -20,7 +20,10 @@ export class BuildCommand {
   }
 
   async run(path = './') {
-    const pod = new Pod(fs.realpathSync(path));
+    const pod = new Pod(
+      fs.realpathSync(path),
+      this.globalOptions.env ? {name: this.globalOptions.env} : undefined
+    );
     if (this.globalOptions.env) {
       pod.setEnvironment(this.globalOptions.env);
     }

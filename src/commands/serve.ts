@@ -26,7 +26,7 @@ export class ServeCommand {
     const pod = new Pod(fs.realpathSync(path), {
       dev: true,
       host: 'localhost',
-      name: 'default',
+      name: this.globalOptions.env || 'default',
       port: `${port}`,
       scheme: 'http',
     });

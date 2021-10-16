@@ -83,14 +83,7 @@ export class Pod {
     this.engines = new TemplateEngineManager(this);
     this.builder = new Builder(this);
     this.router = new Router(this);
-    this.env = new Environment(
-      environmentOptions || {
-        host: 'localhost',
-        name: 'default',
-        scheme: 'https',
-        dev: false,
-      }
-    );
+    this.env = new Environment(environmentOptions);
     this.config = {
       meta: {
         name: 'Amagaki pod',

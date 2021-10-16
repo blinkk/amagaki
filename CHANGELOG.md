@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.5.1](https://www.github.com/blinkk/amagaki/compare/v1.5.0...v1.5.1) (2021-10-16)
+
+
+### Bug Fixes
+
+* bug involving autoreload while connection is open ([39e17cb](https://www.github.com/blinkk/amagaki/commit/39e17cb2daca522c0586a445cabf2f84815e7224))
+
 ## [1.5.0](https://www.github.com/blinkk/amagaki/compare/v1.4.0...v1.5.0) (2021-10-16)
 
 

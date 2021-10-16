@@ -21,6 +21,7 @@ import {BuilderPlugin} from './plugins/builder';
 import {Cache} from './cache';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
+import {RouterPlugin} from './plugins/router';
 import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
@@ -53,6 +54,7 @@ export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
     BuilderPlugin,
     NunjucksPlugin,
+    RouterPlugin,
     ServerPlugin,
     YamlPlugin,
   ];
@@ -331,6 +333,13 @@ export class Pod {
     } finally {
       timer.stop();
     }
+  }
+
+  /**
+   * Writes a file to a location within the pod.
+   */
+  writeFile(podPath: string, content: string) {
+    this.builder.writeFileAsync(this.getAbsoluteFilePath(podPath), content);
   }
 
   /**

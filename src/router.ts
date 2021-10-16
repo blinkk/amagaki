@@ -311,10 +311,14 @@ export class DocumentRoute extends Route {
     if (urlPath) {
       return urlPath;
     }
+
+    // Update the interpolation context with any plugins.
     const context = {
       doc: this.doc,
       pod: this.pod,
     };
+    this.pod.plugins.triggerSync('updatePathFormatContext', context);
+
     urlPath = utils.interpolate(
       this.pod,
       this.doc.pathFormat,

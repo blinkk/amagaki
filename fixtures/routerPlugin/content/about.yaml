@@ -1,0 +1,2 @@
+$path: /${slug(doc.fields.title)}/
+title: Hello World

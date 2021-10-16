@@ -36,6 +36,10 @@ export interface PluginComponent {
    * @see {@link YamlTypeManager} for adding custom yaml types.
    */
   createYamlTypesHook?: (yamlTypeManager: YamlTypeManager) => void;
+  /**
+   * Hook for extending the URL path interpolation context.
+   */
+  updatePathFormatContextHook?: (context: Record<string, any>) => void;
 }
 
 export interface PluginConstructor {

@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.6.1](https://www.github.com/blinkk/amagaki/compare/v1.6.0...v1.6.1) (2021-11-01)
+
+
+### Bug Fixes
+
+* invalidate cache when writing files ([cea678a](https://www.github.com/blinkk/amagaki/commit/cea678a68c80709044bed62525ec67d279cc7ed2))
+
 ## [1.6.0](https://www.github.com/blinkk/amagaki/compare/v1.5.1...v1.6.0) (2021-10-16)
 
 

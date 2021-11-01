@@ -331,8 +331,15 @@ export class Pod {
   /**
    * Writes a file to a location within the pod.
    */
-  writeFile(podPath: string, content: string) {
-    this.builder.writeFileAsync(this.getAbsoluteFilePath(podPath), content);
+  async writeFileAsync(podPath: string, content: string) {
+    try {
+      return this.builder.writeFileAsync(
+        this.getAbsoluteFilePath(podPath),
+        content
+      );
+    } finally {
+      this.cache.fileExists[podPath] = true;
+    }
   }
 
   /**

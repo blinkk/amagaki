@@ -1,5 +1,6 @@
 .DS_Store
 .npmrc
+/.test/
 /dist/
 /docs/
 /node_modules/

@@ -88,3 +88,12 @@ test('Pod docs', (t: ExecutionContext) => {
     []
   );
 });
+
+test('Pod writeFileAsync', async (t: ExecutionContext) => {
+  const pod = new Pod('./.test/');
+  const podPath = '/test.txt';
+  t.false(pod.fileExists(podPath));
+  await pod.writeFileAsync(podPath, 'test');
+  t.true(pod.fileExists(podPath));
+  t.deepEqual('test', pod.readFile(podPath));
+});

@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.6.2](https://www.github.com/blinkk/amagaki/compare/v1.6.1...v1.6.2) (2021-11-05)
+
+
+### Bug Fixes
+
+* document sorting and add deleteFileAsync ([774e445](https://www.github.com/blinkk/amagaki/commit/774e4450d83df82855d6b96a3636d07e108eaa52))
+
 ### [1.6.1](https://www.github.com/blinkk/amagaki/compare/v1.6.0...v1.6.1) (2021-11-01)
 
 

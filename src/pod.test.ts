@@ -92,6 +92,9 @@ test('Pod docs', (t: ExecutionContext) => {
 test('Pod writeFileAsync', async (t: ExecutionContext) => {
   const pod = new Pod('./.test/');
   const podPath = '/test.txt';
+  if (pod.fileExists(podPath)) {
+    await pod.deleteFileAsync(podPath);
+  }
   t.false(pod.fileExists(podPath));
   await pod.writeFileAsync(podPath, 'test');
   t.true(pod.fileExists(podPath));

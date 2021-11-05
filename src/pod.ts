@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as utils from './utils';
 import * as yaml from 'js-yaml';
 
@@ -339,6 +340,15 @@ export class Pod {
       );
     } finally {
       this.cache.fileExists[podPath] = true;
+    }
+  }
+
+  /** Deletes a file within the pod. */
+  async deleteFileAsync(podPath: string) {
+    try {
+      fs.unlinkSync(this.getAbsoluteFilePath(podPath));
+    } finally {
+      delete this.cache.fileExists[podPath];
     }
   }
 

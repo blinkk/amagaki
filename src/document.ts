@@ -184,7 +184,12 @@ export class Document {
     if (options?.sort) {
       const sort = options.sort as string;
       docs.sort((a, b) => {
-        return a.fields?.[sort] - b.fields?.[sort];
+        const first = a.fields?.[sort];
+        const second = b.fields?.[sort];
+        if (typeof first === 'string' && typeof second === 'string') {
+          return first.localeCompare(second);
+        }
+        return first - second;
       });
     }
     return docs;
@@ -329,18 +334,18 @@ export class Document {
     // TODO: See if this is what we want to do, or if we want path formats to be
     // exclusively defined by the router.
     if (this.locale.id === this.pod.defaultLocale.id) {
-      return this.fields?.['$path'] || this.collection?.fields?.['$path'];
+      return this.fields?.['$path'] ?? this.collection?.fields?.['$path'];
     }
     return (
-      this.fields?.['$localization']?.['path'] ||
+      this.fields?.['$localization']?.['path'] ??
       this.collection?.fields?.['$localization']?.['path']
     );
   }
 
   get view() {
     return (
-      this.fields?.['$view'] ||
-      this.collection?.fields?.['$view'] ||
+      this.fields?.['$view'] ??
+      this.collection?.fields?.['$view'] ??
       DEFAULT_VIEW
     );
   }

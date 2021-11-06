@@ -12,7 +12,6 @@
 
 {% macro _renderImage(url, params) %}
   <img
-      decoding="async"
       loading="lazy"
       src="{{url}}"
       {% if params.width %}

@@ -80,7 +80,6 @@
       
       
   <img
-      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
@@ -414,6 +413,14 @@
                                 <a href="./../plugins/build-hooks/">Build hooks</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../plugins/router/">Router</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -494,7 +501,7 @@ but when you are building plugins or templates, you may need to use the
 JavaScript API.</p>
 <h2 id="examples">Examples</h2>
 <h3 id="yaml">YAML</h3>
-<div class="codeTabs" data-num-tabs="2"> <input class="codeTabs__tabRadio" type="radio" id="t-a21c17f0-3e62-11ec-8546-3749d5df137c" name="t-a219f510-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a21c17f0-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/index.yaml</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-a21c17f1-3e62-11ec-8546-3749d5df137c" name="t-a219f510-3e62-11ec-8546-3749d5df137c" > <label for="t-a21c17f1-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/page.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$view:</span> <span class="hljs-string">/views/page.njk</span>
+<div class="codeTabs" data-num-tabs="2"> <input class="codeTabs__tabRadio" type="radio" id="t-50491ba0-3f1e-11ec-aa44-6bc25ef0737d" name="t-5046d1b0-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-50491ba0-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/index.yaml</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-50491ba1-3f1e-11ec-aa44-6bc25ef0737d" name="t-5046d1b0-3f1e-11ec-aa44-6bc25ef0737d" > <label for="t-50491ba1-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/page.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$view:</span> <span class="hljs-string">/views/page.njk</span>
 <span class="hljs-comment"># Create a menu containing three documents.</span>
 <span class="hljs-attr">menu:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
@@ -517,7 +524,7 @@ JavaScript API.</p>
         href=""
         ><span>Learn about pod functions within YAML types</span><span class="material-icons">arrow_forward</span></a></p>
 <h3 id="javascript">JavaScript</h3>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a21decb0-3e62-11ec-8546-3749d5df137c" name="t-a21c17f2-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a21decb0-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel " > <span>typescript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-comment">// Get one document.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-504a2d10-3f1e-11ec-aa44-6bc25ef0737d" name="t-50491ba2-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-504a2d10-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel " > <span>typescript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-comment">// Get one document.</span>
 <span class="hljs-keyword">const</span> doc = pod.doc(<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>);
  
 <span class="hljs-comment">// List all documents within the posts collection.</span>

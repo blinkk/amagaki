@@ -80,7 +80,6 @@
       
       
   <img
-      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
@@ -406,6 +405,14 @@
                                 <a href="./../../plugins/build-hooks/">Build hooks</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/router/">Router</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -486,7 +493,7 @@ current document.</p>
 </ul>
 <p>The following code snippet will output the current document&#39;s collection, and
 its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a1718010-3e62-11ec-8546-3749d5df137c" name="t-a1630120-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a1718010-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4f8aada0-3f1e-11ec-aa44-6bc25ef0737d" name="t-4f7a8100-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-4f8aada0-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> collection in doc.collection.parents|<span class="hljs-keyword">reverse</span> %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>

@@ -80,7 +80,6 @@
       
       
   <img
-      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
@@ -414,6 +413,14 @@
                                 <a href="./../build-hooks/">Build hooks</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../router/">Router</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -490,7 +497,7 @@ made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
 functionality that enhances development velocity and the development workflow.</p>
 <h2 id="examples">Examples</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a20ab2d0-3e62-11ec-8546-3749d5df137c" name="t-a207a590-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a20ab2d0-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod: Pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-50354580-3f1e-11ec-aa44-6bc25ef0737d" name="t-5031ea20-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-50354580-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod: Pod</span>) </span>{
     <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>) <span class="hljs-keyword">as</span> ServerPlugin;
  
     <span class="hljs-comment">// Immediate example. Use for registering Express middleware.</span>

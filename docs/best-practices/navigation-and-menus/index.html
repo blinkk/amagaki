@@ -80,7 +80,6 @@
       
       
   <img
-      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
@@ -406,6 +405,14 @@
                                 <a href="./../../plugins/build-hooks/">Build hooks</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/router/">Router</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -484,7 +491,7 @@ sites should be automatically generated.</p>
 <h2 id="explicit-menu">Explicit menu</h2>
 <p>Assume we are creating a header menu. First, create a partial file that can be
 used to store the header’s content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a18de1b0-3e62-11ec-8546-3749d5df137c" name="t-a18c0cf0-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a18de1b0-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4fa93220-3f1e-11ec-aa44-6bc25ef0737d" name="t-4fa64bf0-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-4fa93220-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">My</span> <span class="hljs-string">Website</span>
 <span class="hljs-attr">menu:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
@@ -496,7 +503,7 @@ used to store the header’s content:</p>
 </code></pre></div> </div>
 
 <p>Next, create a template to render this content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a191d950-3e62-11ec-8546-3749d5df137c" name="t-a18de1b1-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a191d950-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4fad77e0-3f1e-11ec-aa44-6bc25ef0737d" name="t-4fa93221-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-4fad77e0-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header__logo&quot;</span>&gt;</span>
     </span><span class="hljs-template-variable">{{partial.title}}</span><span class="xml">
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>

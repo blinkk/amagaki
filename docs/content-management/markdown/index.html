@@ -80,7 +80,6 @@
       
       
   <img
-      decoding="async"
       loading="lazy"
       src="https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M"
       
@@ -414,6 +413,14 @@
                                 <a href="./../../plugins/build-hooks/">Build hooks</a>
                             </li>
                         
+                            
+                            <li
+                                
+                            >  
+                                
+                                <a href="./../../plugins/router/">Router</a>
+                            </li>
+                        
                     </ul>
                 
                     
@@ -481,7 +488,7 @@
 matter facilitates the use of structured content within the Markdown itself.</p>
 <h2 id="full-example">Full example</h2>
 <p>First, use front matter with Markdown within a content document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a1bb0c30-3e62-11ec-8546-3749d5df137c" name="t-a1b9d3b0-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a1bb0c30-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4fddfdc0-3f1e-11ec-aa44-6bc25ef0737d" name="t-4fdcc540-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-4fddfdc0-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 $path: /${doc.base}/
 $view: /views/base.njk
 date: 2021-01-06
@@ -496,7 +503,7 @@ Published: {{doc.fields.date}}
 </code></pre></div> </div>
 
 <p>Use the <code>render</code> filter along with <code>doc.body</code> to render the Markdown as HTML.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-a1bc44b0-3e62-11ec-8546-3749d5df137c" name="t-a1bb0c31-3e62-11ec-8546-3749d5df137c" checked > <label for="t-a1bc44b0-3e62-11ec-8546-3749d5df137c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4fdf3640-3f1e-11ec-aa44-6bc25ef0737d" name="t-4fddfdc1-3f1e-11ec-aa44-6bc25ef0737d" checked > <label for="t-4fdf3640-3f1e-11ec-aa44-6bc25ef0737d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 </span><span class="hljs-template-variable">{{doc.body|render}}</span><span class="xml">
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>

@@ -69,9 +69,7 @@ shows how to make use of the partial loop, which is a powerful way to build
 maintainable marketing websites. If you want to add your own starter project,
 add it below.
 
-```
-No other starters have been added yet. Add one below.
-```
+[Startline](https://github.com/frzrbox/startline)
 
 {{button.button({
     label: 'Add your starter',

@@ -38,7 +38,8 @@ Routes must:
 
 Here's an example of a route provider that serves a `robots.txt` file.
 
-```typescript
+{% filter codeTabs %}
+```typescript:title=sitemap.ts
 interface RobotsTxtRouteProviderOptions {
 }
 
@@ -58,6 +59,7 @@ export class RobotsTxtRouteProvider extends RouteProvider {
   }
 
   async routes() {
+    // This RouteProvider only generates one route – the `robots.txt` file.
     return [new RobotsTxtRoute(this)];
   }
 }
@@ -73,15 +75,40 @@ class RobotsTxtRoute extends Route {
   }
 
   async build() {
+    // The response of the `RobotsTxtRoute` is static.
     return 'User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml';
   }
 }
 ```
+{% endfilter %}
 
 And then use it in `amagaki.ts`:
 
-```typescript
+{% filter codeTabs %}
+```typescript:title=amagaki.ts
+import {RobotsTxtRouteProvider} from './sitemap';
+
 export default (pod: Pod) => {
   RobotsTxtRouteProvider.register(pod);
+}
+```
+{% endfilter %}
+
+The above example shows rendering static content at both routes. If you'd like
+to render dynamic content, do so by rendering a template within the `build`
+method:
+
+```typescript
+async build() {
+  // The response of this route is dynamic.
+  // `route` and `pod` are passed to the Nunjucks context.
+  const template = '/views/preview.njk';
+  const nunjucks = this.pod.engines.getEngineByFilename(
+    previewTemplate
+  ) as NunjucksTemplateEngine;
+  return nunjucks.render(previewTemplate, {
+    pod: this.pod,
+    route: this,
+  });
 }
 ```

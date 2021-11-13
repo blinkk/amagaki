@@ -513,47 +513,61 @@ class.</p>
 </ul>
 <h2 id="example">Example</h2>
 <p>Here&#39;s an example of a route provider that serves a <code>robots.txt</code> file.</p>
-<pre><code class="language-typescript">interface RobotsTxtRouteProviderOptions {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3259f7a0-441d-11ec-8728-83c3775bc500" name="t-3254a070-441d-11ec-8728-83c3775bc500" checked > <label for="t-3259f7a0-441d-11ec-8728-83c3775bc500" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">interface</span> RobotsTxtRouteProviderOptions {
 }
 
-export class RobotsTxtRouteProvider extends RouteProvider {
-  options: RobotsTxtRouteProviderOptions;
-
-  constructor(router: Router, options: RobotsTxtRouteProviderOptions) {
-    super(router);
-    this.type = &#39;robots&#39;;
-    this.options = options;
-  }
-
-  static register(pod: Pod, options?: RobotsTxtRouteProviderOptions) {
-    const provider = new RobotsTxtRouteProvider(pod.router, options);
+<p><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
+  <span class="hljs-attr">options</span>: RobotsTxtRouteProviderOptions;</p>
+<p>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">router: Router, options: RobotsTxtRouteProviderOptions</span>)</span> {
+    <span class="hljs-built_in">super</span>(router);
+    <span class="hljs-built_in">this</span>.type = <span class="hljs-string">&#x27;robots&#x27;</span>;
+    <span class="hljs-built_in">this</span>.options = options;
+  }</p>
+<p>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">register</span>(<span class="hljs-params">pod: Pod, options?: RobotsTxtRouteProviderOptions</span>)</span> {
+    <span class="hljs-keyword">const</span> provider = <span class="hljs-keyword">new</span> RobotsTxtRouteProvider(pod.router, options);
     pod.router.addProvider(provider);
-    return provider;
+    <span class="hljs-keyword">return</span> provider;
+  }</p>
+<p>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">routes</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">// This RouteProvider only generates one route – the <code>robots.txt</code> file.</span>
+    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">new</span> RobotsTxtRoute(<span class="hljs-built_in">this</span>)];
   }
-
-  async routes() {
-    return [new RobotsTxtRoute(this)];
-  }
-}
-
-class RobotsTxtRoute extends Route {
-  constructor(provider: RouteProvider) {
-    super(provider);
-    this.provider = provider;
-  }
-
-  get urlPath() {
-    return &#39;/robots.txt&#39;;
-  }
-
-  async build() {
-    return &#39;User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml&#39;;
+}</p>
+<p><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRoute</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Route</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">provider: RouteProvider</span>)</span> {
+    <span class="hljs-built_in">super</span>(provider);
+    <span class="hljs-built_in">this</span>.provider = provider;
+  }</p>
+<p>  <span class="hljs-keyword">get</span> <span class="hljs-title">urlPath</span>() {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;/robots.txt&#x27;</span>;
+  }</p>
+<p>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">build</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">// The response of the <code>RobotsTxtRoute</code> is static.</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;User-agent: *\nAllow: /\nSitemap: <a href="https://example.com/sitemap.xml&amp;#x27">https://example.com/sitemap.xml&amp;#x27</a>;</span>;
   }
 }
-</code></pre>
+</code></pre></div> </div></p>
 <p>And then use it in <code>amagaki.ts</code>:</p>
-<pre><code class="language-typescript">export default (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-325b5730-441d-11ec-8728-83c3775bc500" name="t-3259f7a1-441d-11ec-8728-83c3775bc500" checked > <label for="t-325b5730-441d-11ec-8728-83c3775bc500" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
+
+<p><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   RobotsTxtRouteProvider.register(pod);
+}
+</code></pre></div> </div></p>
+<p>The above example shows rendering static content at both routes. If you&#39;d like
+to render dynamic content, do so by rendering a template within the <code>build</code>
+method:</p>
+<pre><code class="language-typescript">async build() {
+  // The response of this route is dynamic.
+  // `route` and `pod` are passed to the Nunjucks context.
+  const template = &#39;/views/preview.njk&#39;;
+  const nunjucks = this.pod.engines.getEngineByFilename(
+    previewTemplate
+  ) as NunjucksTemplateEngine;
+  return nunjucks.render(previewTemplate, {
+    pod: this.pod,
+    route: this,
+  });
 }
 </code></pre>
 

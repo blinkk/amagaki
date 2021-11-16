@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://www.github.com/blinkk/amagaki/compare/v1.6.2...v1.7.0) (2021-11-16)
+
+
+### Features
+
+* add ability to use a function as the default view ([784a34e](https://www.github.com/blinkk/amagaki/commit/784a34eb6fde644980837736001e3392f0ad9b7d))
+
 ### [1.6.2](https://www.github.com/blinkk/amagaki/compare/v1.6.1...v1.6.2) (2021-11-05)
 
 

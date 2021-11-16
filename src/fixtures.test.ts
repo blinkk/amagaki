@@ -5,11 +5,13 @@ import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
 
+const excludeFixtures = ['defaultView'];
+
 const fixturesDir = path.join(__dirname, '..', 'fixtures');
 const fixtures = fs
   .readdirSync(fixturesDir, {withFileTypes: true})
   .map(item => item.name)
-  .filter(item => !item.startsWith('.'));
+  .filter(name => !name.startsWith('.') && !excludeFixtures.includes(name));
 
 for (const fixture of fixtures) {
   test(`Build fixture: ${fixture}`, async (t: ExecutionContext) => {

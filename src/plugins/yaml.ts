@@ -61,7 +61,7 @@ export class YamlPlugin implements PluginComponent {
       kind: 'scalar',
       instanceOf: Collection,
       resolve: podPath => {
-        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+        return podPath && podPath.startsWith(this.pod.defaultContentPodPath);
       },
       construct: podPath => {
         return this.pod.collection(podPath);
@@ -86,7 +86,7 @@ export class YamlPlugin implements PluginComponent {
           parts.every((part: any) => {
             return (
               typeof part === 'string' &&
-              part.startsWith(Pod.DefaultContentPodPath)
+              part.startsWith(this.pod.defaultContentPodPath)
             );
           })
         );
@@ -118,7 +118,7 @@ export class YamlPlugin implements PluginComponent {
       kind: 'scalar',
       instanceOf: Document,
       resolve: podPath => {
-        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+        return podPath && podPath.startsWith(this.pod.defaultContentPodPath);
       },
       construct: podPath => {
         return this.pod.doc(podPath);
@@ -138,7 +138,7 @@ export class YamlPlugin implements PluginComponent {
       instanceOf: Document,
       resolve: parts => {
         const podPath = parts[0];
-        return podPath && podPath.startsWith(Pod.DefaultContentPodPath);
+        return podPath && podPath.startsWith(this.pod.defaultContentPodPath);
       },
       construct: parts => {
         const podPath = parts[0];
@@ -170,7 +170,7 @@ export class YamlPlugin implements PluginComponent {
           parts.every((part: any) => {
             return (
               typeof part === 'string' &&
-              part.startsWith(Pod.DefaultContentPodPath)
+              part.startsWith(this.pod.defaultContentPodPath)
             );
           })
         );

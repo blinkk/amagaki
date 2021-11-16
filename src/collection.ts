@@ -77,7 +77,7 @@ export class Collection {
       patterns = [patterns];
     }
     patterns = patterns || [
-      `${Pod.DefaultContentPodPath}**/${Collection.ConfigFile}`,
+      `${pod.defaultContentPodPath}**/${Collection.ConfigFile}`,
     ];
     patterns.forEach(pattern => {
       glob

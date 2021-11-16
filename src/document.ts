@@ -14,8 +14,6 @@ import minimatch from 'minimatch';
 
 import express = require('express');
 
-const DEFAULT_VIEW = '/views/base.njk';
-
 interface DocumentParts {
   body?: string | null;
   fields?: any;
@@ -29,6 +27,9 @@ export interface TemplateContext {
   req?: express.Request;
   route?: Route;
 }
+
+type DocumentViewFunction = (context: TemplateContext) => Promise<string>;
+export type DocumentView = string | DocumentViewFunction;
 
 export interface DocumentListOptions {
   /**
@@ -139,7 +140,7 @@ export class Document {
     if (typeof patterns === 'string') {
       patterns = [patterns];
     }
-    patterns = patterns || [`${Pod.DefaultContentPodPath}**/*`];
+    patterns = patterns || [`${pod.defaultContentPodPath}**/*`];
     patterns.forEach(pattern => {
       paths = paths.concat(
         glob.sync(pattern, {
@@ -282,10 +283,14 @@ export class Document {
           this.body as string,
           defaultContext
         );
+      } else if (typeof this.view === 'function') {
+        // When the view is a function, call the function.
+        return await this.view(defaultContext);
+      } else {
+        // Otherwise, look up the engine associated with the view by its extension.
+        const templateEngine = this.pod.engines.getEngineByFilename(this.view);
+        return templateEngine.render(this.view, defaultContext);
       }
-
-      const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-      return templateEngine.render(this.view, defaultContext);
     } finally {
       timer.stop();
     }
@@ -342,11 +347,11 @@ export class Document {
     );
   }
 
-  get view() {
+  get view(): DocumentView {
     return (
-      this.fields?.['$view'] ??
-      this.collection?.fields?.['$view'] ??
-      DEFAULT_VIEW
+      (this.fields?.['$view'] as string) ??
+      (this.collection?.fields?.['$view'] as string) ??
+      this.pod.defaultView
     );
   }
 

@@ -20,6 +20,7 @@ import {join, resolve} from 'path';
 import {Builder} from './builder';
 import {BuilderPlugin} from './plugins/builder';
 import {Cache} from './cache';
+import {DocumentView} from '.';
 import {NunjucksPlugin} from './plugins/nunjucks';
 import {Profiler} from './profile';
 import {RouterPlugin} from './plugins/router';
@@ -64,7 +65,9 @@ export class Pod {
     locales: ['en'],
   };
   static DefaultConfigFiles = ['amagaki.js', 'amagaki.ts'];
-  static DefaultContentPodPath = '/content/';
+  defaultContentPodPath = '/content/';
+  defaultView: DocumentView = '/views/base.njk';
+
   readonly builder: Builder;
   readonly cache: Cache;
   config: PodConfig;

@@ -15,7 +15,8 @@
   },
   "main": "./dist/src/index.js",
   "files": [
-    "dist"
+    "dist",
+    "!**/*.test.*"
   ],
   "scripts": {
     "build:example": "node ./dist/src/cli.js --profile build example",

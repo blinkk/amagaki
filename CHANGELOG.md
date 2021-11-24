@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.1](https://www.github.com/blinkk/amagaki/compare/v1.7.0...v1.7.1) (2021-11-24)
+
+
+### Bug Fixes
+
+* refresh the router when static files change ([10f3ffb](https://www.github.com/blinkk/amagaki/commit/10f3ffbebda71c0c4e6a0efaf2ddbdd1290e1d8e))
+
 ## [1.7.0](https://www.github.com/blinkk/amagaki/compare/v1.6.2...v1.7.0) (2021-11-16)
 
 

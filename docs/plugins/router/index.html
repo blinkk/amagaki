@@ -513,7 +513,7 @@ class.</p>
 </ul>
 <h2 id="example">Example</h2>
 <p>Here&#39;s an example of a route provider that serves a <code>robots.txt</code> file.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-fc1a6910-4cdf-11ec-90e9-4d8c7b783b11" name="t-fc16bf90-4cdf-11ec-90e9-4d8c7b783b11" checked > <label for="t-fc1a6910-4cdf-11ec-90e9-4d8c7b783b11" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">interface</span> RobotsTxtRouteProviderOptions {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-51757440-4ce0-11ec-b794-cb70d8c6cb86" name="t-517218e0-4ce0-11ec-b794-cb70d8c6cb86" checked > <label for="t-51757440-4ce0-11ec-b794-cb70d8c6cb86" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">interface</span> RobotsTxtRouteProviderOptions {
 }
 
 <p><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
@@ -548,7 +548,7 @@ class.</p>
 }
 </code></pre></div> </div></p>
 <p>And then use it in <code>amagaki.ts</code>:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-fc1b2c60-4cdf-11ec-90e9-4d8c7b783b11" name="t-fc1a6911-4cdf-11ec-90e9-4d8c7b783b11" checked > <label for="t-fc1b2c60-4cdf-11ec-90e9-4d8c7b783b11" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-51765ea0-4ce0-11ec-b794-cb70d8c6cb86" name="t-51757441-4ce0-11ec-b794-cb70d8c6cb86" checked > <label for="t-51765ea0-4ce0-11ec-b794-cb70d8c6cb86" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
 
 <p><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   RobotsTxtRouteProvider.register(pod);

@@ -110,6 +110,18 @@ export class Server extends events.EventEmitter {
     }
   }
 
+  /** Resets the pod cache and reinitializes the router. */
+  async resetCache() {
+    // TODO: Clear based on dependency graph and file type.
+    this.pod.cache.reset();
+    // NOTE: Warm up the pod to ensure the router is populated for the dev
+    // server. This is important when static files are added or removed or
+    // when routes change via changes to `$path` or otherwise. This cannot
+    // be done lazily at the moment because `router.getUrl` is sync whereas
+    // warming up is async.
+    await this.pod.warmup();
+  }
+
   /**
    * Initializes a watcher and handles autoreloading and cache resetting.
    */
@@ -121,15 +133,14 @@ export class Server extends events.EventEmitter {
 
     // Reload the server or reset the cache when necessary.
     const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
-    this.watcher.on('change', path => {
+    this.watcher.on('change', async path => {
       const podPath = `/${path}`;
       if (podPath.match(reloadRegex)) {
         // TODO: Handle errors gracefully, so the developer can fix the error without
         // needing to manually restart the server.
         this.reload();
       } else {
-        // TODO: Clear based on dependency graph and file type.
-        this.pod.cache.reset();
+        await this.resetCache();
       }
     });
   }

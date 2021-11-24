@@ -493,7 +493,7 @@ current document.</p>
 </ul>
 <p>The following code snippet will output the current document&#39;s collection, and
 its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-365411e0-4cdf-11ec-a2e5-6f8c0794cd2e" name="t-36467d50-4cdf-11ec-a2e5-6f8c0794cd2e" checked > <label for="t-365411e0-4cdf-11ec-a2e5-6f8c0794cd2e" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-fb902a70-4cdf-11ec-90e9-4d8c7b783b11" name="t-fb82e400-4cdf-11ec-90e9-4d8c7b783b11" checked > <label for="t-fb902a70-4cdf-11ec-90e9-4d8c7b783b11" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> collection in doc.collection.parents|<span class="hljs-keyword">reverse</span> %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>

@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.2](https://www.github.com/blinkk/amagaki/compare/v1.7.1...v1.7.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* improve file watching and the dev server ([1c765e8](https://www.github.com/blinkk/amagaki/commit/1c765e801f266eff90c6d9d4be32587d3f751d79))
+
 ### [1.7.1](https://www.github.com/blinkk/amagaki/compare/v1.7.0...v1.7.1) (2021-11-24)
 
 

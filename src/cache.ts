@@ -43,6 +43,7 @@ export class Cache {
     this.yamls = {};
     this.yamlStrings = {};
     this.yamlSchema = null;
+    this.pod.router.reset();
   }
 
   reset() {

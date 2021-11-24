@@ -26,21 +26,19 @@ test('SampleRouteProvider', async (t: ExecutionContext) => {
 test('Changing static files alters the router', async (t: ExecutionContext) => {
   const pod = new Pod('./.test/staticDevServer/');
   await pod.writeFileAsync('/src/static/file.txt', 'file');
-  await pod.warmup();
-  const podPath = '/src/static/foo.txt';
   const port = await getPort.default();
   const server = new Server(pod, {
     port: port,
   });
   await server.start();
 
+  const podPath = '/src/static/foo.txt';
   try {
-    let staticFile = pod.staticFile(podPath);
-    t.falsy(staticFile.url);
+    t.falsy(await pod.router.resolve('/static/foo.txt'));
     await pod.writeFileAsync(podPath, 'foo');
-    await server.resetCache();
-    staticFile = pod.staticFile(podPath);
-    t.truthy(staticFile.url);
+    // Cache is reset by the file watcher.
+    pod.cache.reset();
+    t.truthy(await pod.router.resolve('/static/foo.txt'));
   } finally {
     if (pod.fileExists(podPath)) {
       await pod.deleteFileAsync(podPath);

@@ -64,6 +64,12 @@ export class Router {
     return new Date().getTime() / 1000 - now;
   }
 
+  reset() {
+    Object.values(this.providers).map(providers =>
+      providers.map(provider => provider.reset && provider.reset())
+    );
+  }
+
   async routes() {
     if (this.pod.cache.routes.length) {
       return this.pod.cache.routes;
@@ -114,7 +120,7 @@ export class Router {
       throw Error(`RouteProvider not found for ${type}`);
     }
     for (const provider of providers) {
-      const foundItem = provider.urlMap.get(item);
+      const foundItem = provider.urlMap.get(item.toString());
       if (foundItem) {
         return foundItem;
       }
@@ -126,7 +132,7 @@ export class Router {
 export class RouteProvider {
   pod: Pod;
   router: Router;
-  urlMap: Map<Document | StaticFile, Url>;
+  urlMap: Map<string, Url>;
   type: string;
 
   constructor(router: Router) {
@@ -134,6 +140,10 @@ export class RouteProvider {
     this.pod = router.pod;
     this.urlMap = new Map();
     this.type = 'default';
+  }
+
+  reset() {
+    this.urlMap = new Map();
   }
 
   async routes(): Promise<Route[]> {
@@ -170,7 +180,7 @@ export class CollectionRouteProvider extends RouteProvider {
         return;
       }
       routes.push(route);
-      docProvider.urlMap.set(route.doc, route.url);
+      docProvider.urlMap.set(route.doc.toString(), route.url);
     };
 
     const docs = this.pod.docs();
@@ -212,7 +222,7 @@ export class StaticDirectoryRouteProvider extends RouteProvider {
         const subPath = podPath.slice(this.config.staticDir.length);
         const route = new StaticRoute(this, podPath, `${cleanPath}/${subPath}`);
         routes.push(route);
-        this.urlMap.set(route.staticFile, route.url);
+        this.urlMap.set(route.staticFile.toString(), route.url);
       });
     }
     return routes;

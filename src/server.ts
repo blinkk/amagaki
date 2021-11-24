@@ -51,10 +51,13 @@ export class Server extends events.EventEmitter {
       try {
         const route = await this.pod.router.resolve(req.path);
         if (!route) {
+          const ext = req.path.split('.').pop();
           const routes = (await this.pod.router.routes())
             .filter(route => {
               return (
-                route.url.path.endsWith('/') || route.url.path.endsWith('.html')
+                route.url.path.endsWith('/') ||
+                route.url.path.endsWith('.html') ||
+                (ext && route.url.path.endsWith(ext))
               );
             })
             .slice(0, 100);
@@ -110,16 +113,16 @@ export class Server extends events.EventEmitter {
     }
   }
 
-  /** Resets the pod cache and reinitializes the router. */
-  async resetCache() {
-    // TODO: Clear based on dependency graph and file type.
-    this.pod.cache.reset();
-    // NOTE: Warm up the pod to ensure the router is populated for the dev
-    // server. This is important when static files are added or removed or
-    // when routes change via changes to `$path` or otherwise. This cannot
-    // be done lazily at the moment because `router.getUrl` is sync whereas
-    // warming up is async.
-    await this.pod.warmup();
+  private onchange(path: string) {
+    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
+    const podPath = `/${path}`;
+    if (podPath.match(reloadRegex)) {
+      // TODO: Handle errors gracefully, so the developer can fix the error without
+      // needing to manually restart the server.
+      this.reload();
+    } else {
+      this.pod.cache.reset();
+    }
   }
 
   /**
@@ -127,22 +130,15 @@ export class Server extends events.EventEmitter {
    */
   watch() {
     this.watcher = chokidar.watch(this.pod.root, {
-      ignored: /node_modules/,
       cwd: this.pod.root,
+      ignored: ['**/node_modules/**', '**/.git/**'],
+      ignoreInitial: true,
     });
 
     // Reload the server or reset the cache when necessary.
-    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
-    this.watcher.on('change', async path => {
-      const podPath = `/${path}`;
-      if (podPath.match(reloadRegex)) {
-        // TODO: Handle errors gracefully, so the developer can fix the error without
-        // needing to manually restart the server.
-        this.reload();
-      } else {
-        await this.resetCache();
-      }
-    });
+    this.watcher.on('add', this.onchange.bind(this));
+    this.watcher.on('change', this.onchange.bind(this));
+    this.watcher.on('unlink', this.onchange.bind(this));
   }
 
   /**

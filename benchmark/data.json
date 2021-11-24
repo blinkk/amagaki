@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1637728700155,
+  "lastUpdate": 1637729074671,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -8762,6 +8762,163 @@
           {
             "name": "yaml.schema",
             "value": 0.6140080000041053,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "committer": {
+            "email": "jeremydw@gmail.com",
+            "name": "Jeremy Weinstein",
+            "username": "jeremydw"
+          },
+          "distinct": true,
+          "id": "10f3ffbebda71c0c4e6a0efaf2ddbdd1290e1d8e",
+          "message": "fix: refresh the router when static files change",
+          "timestamp": "2021-11-23T20:43:00-08:00",
+          "tree_id": "9f7e82066ec58a7d458875b530cd1957b87d086d",
+          "url": "https://github.com/blinkk/amagaki/commit/10f3ffbebda71c0c4e6a0efaf2ddbdd1290e1d8e"
+        },
+        "date": 1637729074665,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "command.build",
+            "value": 6854.081357999996,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "document.fields.localize",
+            "value": 3.298373000114225,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "48 samples"
+          },
+          {
+            "name": "document.render",
+            "value": 2040.0829759978806,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "document.resolveFields",
+            "value": 3117.584828998195,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "file.exists",
+            "value": 1.0792570000630803,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "29 samples"
+          },
+          {
+            "name": "file.read",
+            "value": 209.96804300200893,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5435 samples"
+          },
+          {
+            "name": "locale.getTranslation",
+            "value": 36.33287800179096,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5552 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild",
+            "value": 0.09970500000054017,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.afterBuild.BuilderPlugin",
+            "value": 0.07910400000400841,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild",
+            "value": 0.10040499997558072,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.beforeBuild.BuilderPlugin",
+            "value": 0.07790400000521913,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine",
+            "value": 0.0964049999602139,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
+            "value": 0.06700400001136586,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes",
+            "value": 0.4521240000030957,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.createYamlTypes.YamlPlugin",
+            "value": 0.43102199997520074,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "1 samples"
+          },
+          {
+            "name": "plugins.hook.updatePathFormatContext",
+            "value": 20.067303998337593,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "plugins.hook.updatePathFormatContext.RouterPlugin",
+            "value": 4.357406001887284,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "5448 samples"
+          },
+          {
+            "name": "yaml.load",
+            "value": 132.00103800126817,
+            "range": "±0%",
+            "unit": "ms",
+            "extra": "2709 samples"
+          },
+          {
+            "name": "yaml.schema",
+            "value": 0.6799359999713488,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

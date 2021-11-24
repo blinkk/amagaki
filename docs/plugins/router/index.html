@@ -484,6 +484,22 @@
         <div class="markdown-body">
             <div>
                 <h1 id="router-plugins">Router plugins</h1>
+<h2 id="path-format-plugin">Path format plugin</h2>
+<p>Custom functions can be added to use with the <code>$path</code> key in content documents
+and collections.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4ca83d0-4ce7-11ec-b4a4-490cd727bf38" name="t-b4c7c4b0-4ce7-11ec-b4a4-490cd727bf38" checked > <label for="t-b4ca83d0-4ce7-11ec-b4a4-490cd727bf38" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+  <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;RouterPlugin&#x27;</span>) <span class="hljs-keyword">as</span> RouterPlugin;
+  plugin.addPathFormatFunction(<span class="hljs-string">&#x27;slug&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">title: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> title.toLowerCase().replace(<span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">&#x27;-&#x27;</span>);
+  });
+}
+</code></pre></div> </div>
+
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4cb9540-4ce7-11ec-b4a4-490cd727bf38" name="t-b4ca83d1-4ce7-11ec-b4a4-490cd727bf38" checked > <label for="t-b4cb9540-4ce7-11ec-b4a4-490cd727bf38" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/articles/${slug(doc.fields.title)}/</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">Lorem</span> <span class="hljs-string">ipsum</span> <span class="hljs-string">dolor</span> <span class="hljs-string">sit</span> <span class="hljs-string">amet</span>
+</code></pre></div> </div>
+
+<h2 id="custom-route-providers">Custom route providers</h2>
 <p>The Amagaki router can be extended to generate your own routes. By default,
 Amagaki has two route providers:</p>
 <ul>
@@ -513,18 +529,14 @@ class.</p>
 </ul>
 <h2 id="example">Example</h2>
 <p>Here&#39;s an example of a route provider that serves a <code>robots.txt</code> file.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-2fec4a50-4ce1-11ec-b2e1-2be4b38a5e8b" name="t-2fe8eef0-4ce1-11ec-b2e1-2be4b38a5e8b" checked > <label for="t-2fec4a50-4ce1-11ec-b2e1-2be4b38a5e8b" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">interface</span> RobotsTxtRouteProviderOptions {
-}
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4ce2d50-4ce7-11ec-b4a4-490cd727bf38" name="t-b4cb9541-4ce7-11ec-b4a4-490cd727bf38" checked > <label for="t-b4ce2d50-4ce7-11ec-b4a4-490cd727bf38" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
 
-<p><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
-  <span class="hljs-attr">options</span>: RobotsTxtRouteProviderOptions;</p>
-<p>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">router: Router, options: RobotsTxtRouteProviderOptions</span>)</span> {
+<p>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">router: Router</span>)</span> {
     <span class="hljs-built_in">super</span>(router);
     <span class="hljs-built_in">this</span>.type = <span class="hljs-string">&#x27;robots&#x27;</span>;
-    <span class="hljs-built_in">this</span>.options = options;
   }</p>
-<p>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">register</span>(<span class="hljs-params">pod: Pod, options?: RobotsTxtRouteProviderOptions</span>)</span> {
-    <span class="hljs-keyword">const</span> provider = <span class="hljs-keyword">new</span> RobotsTxtRouteProvider(pod.router, options);
+<p>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">register</span>(<span class="hljs-params">pod: Pod</span>)</span> {
+    <span class="hljs-keyword">const</span> provider = <span class="hljs-keyword">new</span> RobotsTxtRouteProvider(pod.router);
     pod.router.addProvider(provider);
     <span class="hljs-keyword">return</span> provider;
   }</p>
@@ -548,7 +560,7 @@ class.</p>
 }
 </code></pre></div> </div></p>
 <p>And then use it in <code>amagaki.ts</code>:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-2fed34b0-4ce1-11ec-b2e1-2be4b38a5e8b" name="t-2fec4a51-4ce1-11ec-b2e1-2be4b38a5e8b" checked > <label for="t-2fed34b0-4ce1-11ec-b2e1-2be4b38a5e8b" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4cf3ec0-4ce7-11ec-b4a4-490cd727bf38" name="t-b4ce2d51-4ce7-11ec-b4a4-490cd727bf38" checked > <label for="t-b4cf3ec0-4ce7-11ec-b4a4-490cd727bf38" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
 
 <p><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   RobotsTxtRouteProvider.register(pod);

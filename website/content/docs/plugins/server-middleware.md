@@ -21,7 +21,7 @@ functionality that enhances development velocity and the development workflow.
 
 {% filter codeTabs %}
 ```typescript:title=amagaki.ts
-export default function (pod: Pod) {
+export default (pod: Pod) => {
     const serverPlugin = pod.plugins.get('ServerPlugin') as ServerPlugin;
  
     // Immediate example. Use for registering Express middleware.
@@ -43,6 +43,6 @@ export default function (pod: Pod) {
         };
         await promise();
     });
-};
+}
 ```
 {% endfilter %}

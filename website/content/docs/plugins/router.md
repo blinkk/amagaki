@@ -4,6 +4,31 @@ order: 5
 ---
 # Router plugins
 
+## Path format plugin
+
+Custom functions can be added to use with the `$path` key in content documents
+and collections.
+
+{% filter codeTabs %}
+```typescript:title=amagaki.ts
+export default (pod: Pod) => {
+  const plugin = pod.plugins.get('RouterPlugin') as RouterPlugin;
+  plugin.addPathFormatFunction('slug', (title: string) => {
+    return title.toLowerCase().replace(/\s+/g, '-');
+  });
+}
+```
+{% endfilter %}
+
+{% filter codeTabs %}
+```yaml
+$path: /articles/${slug(doc.fields.title)}/
+title: Lorem ipsum dolor sit amet
+```
+{% endfilter %}
+
+## Custom route providers
+
 The Amagaki router can be extended to generate your own routes. By default,
 Amagaki has two route providers:
 
@@ -40,20 +65,15 @@ Here's an example of a route provider that serves a `robots.txt` file.
 
 {% filter codeTabs %}
 ```typescript:title=sitemap.ts
-interface RobotsTxtRouteProviderOptions {
-}
-
 export class RobotsTxtRouteProvider extends RouteProvider {
-  options: RobotsTxtRouteProviderOptions;
 
-  constructor(router: Router, options: RobotsTxtRouteProviderOptions) {
+  constructor(router: Router) {
     super(router);
     this.type = 'robots';
-    this.options = options;
   }
 
-  static register(pod: Pod, options?: RobotsTxtRouteProviderOptions) {
-    const provider = new RobotsTxtRouteProvider(pod.router, options);
+  static register(pod: Pod) {
+    const provider = new RobotsTxtRouteProvider(pod.router);
     pod.router.addProvider(provider);
     return provider;
   }

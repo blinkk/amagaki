@@ -23,9 +23,9 @@ object contains a diff, manifest, and metrics about the build.
 ## Example
 
 {% filter codeTabs %}
-```javascript:title=amagaki.js
-module.exports = function (pod) {
-    const plugin = pod.plugins.get('BuilderPlugin');
+```javascript:title=amagaki.ts
+export default (pod: Pod) => {
+    const plugin = pod.plugins.get('BuilderPlugin') as BuilderPlugin;
  
     plugin.addBeforeBuildStep(builder => {
     // Do something with the builder.
@@ -34,6 +34,6 @@ module.exports = function (pod) {
     plugin.addAfterBuildStep(buildResult => {
     // Do something with the build result.
     });
-};
+}
 ```
 {% endfilter %}

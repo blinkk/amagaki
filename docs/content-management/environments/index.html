@@ -495,7 +495,7 @@ below example, we are configuring two environments (prod, and staging).
 Environments accept arbitrary fields, allowing you to centrally manage global
 data (such as API keys or other configuration) and easily change it depending on
 the environment.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d66be0f0-4cf7-11ec-b0b6-2178b0f3382c" name="t-d66a0c30-4cf7-11ec-b0b6-2178b0f3382c" checked > <label for="t-d66be0f0-4cf7-11ec-b0b6-2178b0f3382c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bb6f850-4cf8-11ec-9655-6fff62c47a90" name="t-3bb54aa0-4cf8-11ec-9655-6fff62c47a90" checked > <label for="t-3bb6f850-4cf8-11ec-9655-6fff62c47a90" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">environments</span>: {
       <span class="hljs-attr">prod</span>: {
@@ -517,7 +517,7 @@ the environment.</p>
 
 <h3 id="in-templates">In templates</h3>
 <p>In templates, the <code>pod.env</code> variable is available. It returns the pod’s current environment. <a href="https://blinkk.github.io/amagaki/api/classes/environment.environment-1.html">See Environment reference</a>.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d66d4080-4cf7-11ec-b0b6-2178b0f3382c" name="t-d66be0f1-4cf7-11ec-b0b6-2178b0f3382c" checked > <label for="t-d66d4080-4cf7-11ec-b0b6-2178b0f3382c" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bb830d0-4cf8-11ec-9655-6fff62c47a90" name="t-3bb6f851-4cf8-11ec-9655-6fff62c47a90" checked > <label for="t-3bb830d0-4cf8-11ec-9655-6fff62c47a90" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
 </span><span class="hljs-template-variable">{{pod.env.fields.apiKey}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> pod.env.name == &quot;prod&quot; %}</span><span class="xml">
 <span class="hljs-comment">&lt;!-- Output prod stuff. --&gt;</span>
@@ -528,7 +528,7 @@ the environment.</p>
 <p>While this can be represented in template logic using an if statement like in
 the above examples,  changing content based on the environment is better
 represented using the !IfEnvironment YAML type. See the example below:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d66e51f0-4cf7-11ec-b0b6-2178b0f3382c" name="t-d66d4081-4cf7-11ec-b0b6-2178b0f3382c" checked > <label for="t-d66e51f0-4cf7-11ec-b0b6-2178b0f3382c" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3bb94240-4cf8-11ec-9655-6fff62c47a90" name="t-3bb830d1-4cf8-11ec-9655-6fff62c47a90" checked > <label for="t-3bb94240-4cf8-11ec-9655-6fff62c47a90" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
   <span class="hljs-attr">default:</span> <span class="hljs-string">&#x27;Hello World!&#x27;</span>
   <span class="hljs-attr">prod:</span> <span class="hljs-string">&#x27;&#x27;</span>
 </code></pre></div> </div>

@@ -3,6 +3,7 @@
   "version": "1.7.2",
   "license": "MIT",
   "homepage": "https://amagaki.dev",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/blinkk/amagaki.git"

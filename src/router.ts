@@ -1,3 +1,4 @@
+import * as express from 'express';
 import * as fsPath from 'path';
 import * as mimetypes from 'mime-types';
 import * as utils from './utils';
@@ -7,8 +8,6 @@ import {Locale} from './locale';
 import {Pod} from './pod';
 import {StaticFile} from './staticFile';
 import {Url} from './url';
-
-import express = require('express');
 
 export interface BuildOptions {
   req?: express.Request;

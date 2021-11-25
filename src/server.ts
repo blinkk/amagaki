@@ -7,7 +7,7 @@ import * as nunjucks from 'nunjucks';
 import {Pod} from './pod';
 import {StaticRoute} from './router';
 
-import express = require('express');
+import express from 'express';
 
 interface ServerOptions {
   port: string | number;

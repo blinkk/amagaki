@@ -1,9 +1,11 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
+    "module": "ES2020",
     "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "dist",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "types": [
       "node",

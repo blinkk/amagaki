@@ -1,5 +1,4 @@
-import Table = require('cli-table');
-
+import Table from 'cli-table';
 import {performance} from 'perf_hooks';
 
 interface TimeParts {

@@ -1,3 +1,4 @@
+import * as express from 'express';
 import * as fsPath from 'path';
 import * as glob from 'glob';
 import * as utils from './utils';
@@ -11,8 +12,6 @@ import {Pod} from './pod';
 import {Route} from './router';
 import {Url} from './url';
 import minimatch from 'minimatch';
-
-import express = require('express');
 
 interface DocumentParts {
   body?: string | null;

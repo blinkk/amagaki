@@ -5,6 +5,7 @@ import {TranslationString} from './string';
 const RTL_REGEX = /^(ar|fa|he|ur)(\W|$)/;
 
 export type Translatable = string | TranslationString;
+type LocaleId = string;
 
 export class LocaleSet extends Set {
   static fromIds(localeIds: Array<string>, pod: Pod): LocaleSet {
@@ -147,16 +148,23 @@ export class Locale {
   }
 }
 
+/**
+ * A utility class for serializing data for the `!IfLocale` YAML tag.
+ */
 export class LocalizableData {
   pod: Pod;
   data: any;
 
-  constructor(pod: Pod, data: Record<string, any>) {
+  constructor(pod: Pod, data: Record<LocaleId, any>) {
     this.pod = pod;
     this.data = data;
   }
 
+  /**
+   * Returns the data for a given locale, falling back to data with key
+   * "default".
+   */
   localize(locale: Locale) {
-    return this.data[locale.id] || this.data['default'];
+    return this.data[locale.id] ?? this.data['default'];
   }
 }

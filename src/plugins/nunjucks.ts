@@ -76,7 +76,7 @@ export class NunjucksPlugin implements PluginComponent {
   config: Record<string, any>;
   pod: Pod;
   private shortcutFilters: Record<string, Function>;
-  private shortcutGlobals: Record<string, Function>;
+  private shortcutGlobals: Record<string, any>;
 
   constructor(pod: Pod, config: Record<string, any>) {
     this.pod = pod;
@@ -92,8 +92,8 @@ export class NunjucksPlugin implements PluginComponent {
     this.shortcutFilters[filterName] = filterMethod;
   }
 
-  addGlobal(globalName: string, globalMethod: Function) {
-    this.shortcutGlobals[globalName] = globalMethod;
+  addGlobal(globalName: string, value: any) {
+    this.shortcutGlobals[globalName] = value;
   }
 
   createTemplateEngineHook(

@@ -497,7 +497,7 @@ made available on the server will not be available in production when serving a
 fully static site. Therefore, server middleware is most useful for adding
 functionality that enhances development velocity and the development workflow.</p>
 <h2 id="examples">Examples</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8805bac0-4cf8-11ec-ae37-5d5375b255d5" name="t-88043420-4cf8-11ec-ae37-5d5375b255d5" checked > <label for="t-8805bac0-4cf8-11ec-ae37-5d5375b255d5" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-46396d70-4d94-11ec-9b2d-712737cf4ac4" name="t-463771a0-4d94-11ec-9b2d-712737cf4ac4" checked > <label for="t-46396d70-4d94-11ec-9b2d-712737cf4ac4" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
     <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>) <span class="hljs-keyword">as</span> ServerPlugin;
  
     <span class="hljs-comment">// Immediate example. Use for registering Express middleware.</span>

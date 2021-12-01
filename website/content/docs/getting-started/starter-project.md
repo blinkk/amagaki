@@ -21,7 +21,7 @@ npm run dev
 {% endfilter %}
 
 {{button.button({
-    label: 'Open on GitHub',
+    label: 'Open amagaki-starter on GitHub',
     url: 'https://github.com/blinkk/amagaki-starter',
     external: true,
     class: 'button button--low',
@@ -32,14 +32,7 @@ npm run dev
 
 *   Sample pages
     *   Homepage
-    *   About page
-    *   Contact page
-*   Sample blog
-    *   Blog listing
-    *   Blog posts
-*   Feeds
-    *   Sitemap
-    *   RSS
+    *   Sub-page
 *   Foundational development tools
     *   Nunjucks templates
         *   Base template
@@ -50,7 +43,7 @@ npm run dev
 *   Lighthouse scores
 
 The quick start project demonstrates how to assemble a preliminary Amagaki
-website. You can customize the look and feel and adjust the stylesheet to meet
+website. You can customize the look and feel and adjust the styles to meet
 your project’s needs.
 
 The quick start project can be built into static HTML, CSS, and JavaScript

@@ -490,7 +490,7 @@ generate localized pages.</p>
 <h2 id="localized-url-paths">Localized URL paths</h2>
 <p>To start with localization, create a page. Define its localization path
 structure in front matter, and specify the locales it should be available in.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4618ed20-4d94-11ec-9b2d-712737cf4ac4" name="t-4617b4a0-4d94-11ec-9b2d-712737cf4ac4" checked > <label for="t-4618ed20-4d94-11ec-9b2d-712737cf4ac4" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d22332f0-5256-11ec-a31d-db0a67a06f9d" name="t-d2222180-5256-11ec-a31d-db0a67a06f9d" checked > <label for="t-d22332f0-5256-11ec-a31d-db0a67a06f9d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>
@@ -518,7 +518,7 @@ within the collection&#39;s <code>_collection.yaml</code>. In the below example,
 and <code>$localization</code> settings will be applied to all documents within the
 <code>/content/pages</code> collection.</p>
 <p>Settings can be overriden on a per-document basis.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-461a25a0-4d94-11ec-9b2d-712737cf4ac4" name="t-4618ed21-4d94-11ec-9b2d-712737cf4ac4" checked > <label for="t-461a25a0-4d94-11ec-9b2d-712737cf4ac4" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d2241d50-5256-11ec-a31d-db0a67a06f9d" name="t-d22332f1-5256-11ec-a31d-db0a67a06f9d" checked > <label for="t-d2241d50-5256-11ec-a31d-db0a67a06f9d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>

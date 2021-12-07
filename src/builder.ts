@@ -95,6 +95,9 @@ export class Builder {
   static NumConcurrentCopies = 2000;
   static ShowMoveProgressBarThreshold = 1000;
 
+  /** When the builder was initialized. */
+  private date: Date;
+
   constructor(pod: Pod) {
     this.pod = pod;
     // TODO: Right now, this is limited to a sub-directory within the pod. We
@@ -124,6 +127,7 @@ export class Builder {
       '.amagaki',
       'locales'
     );
+    this.date = new Date();
   }
 
   static normalizePath(path: string) {

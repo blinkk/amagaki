@@ -4,14 +4,12 @@ import * as cliProgress from 'cli-progress';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as fsPath from 'path';
-import * as os from 'os';
 import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
 import {Route, StaticRoute} from './router';
 
-import {Locale} from './locale';
 import {Pod} from './pod';
 import {TranslationString} from './string';
 import minimatch from 'minimatch';
@@ -330,10 +328,13 @@ export class Builder {
     const bar = Builder.createProgressBar('Building');
     const startTime = new Date().getTime();
     const artifacts: Array<Artifact> = [];
-    const tempDirRoot = fs.mkdtempSync(
-      fsPath.join(fs.realpathSync(os.tmpdir()), 'amagaki-build-')
+    // Keep the temp directory within the output directory to ensure files are
+    // written to the same volume as the output directory.
+    const tempDirRoot = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.tmp',
+      `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
     );
-
     let routes = await this.pod.router.routes();
 
     // Only build routes matching patterns.

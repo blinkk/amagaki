@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://www.github.com/blinkk/amagaki/compare/v1.7.2...v1.8.0) (2021-12-08)
+
+
+### Features
+
+* add date to builder ([cb6d4be](https://www.github.com/blinkk/amagaki/commit/cb6d4be0f115fc26aeac488ccc7b64207aca6638))
+
+
+### Bug Fixes
+
+* keep build temp dir on same volume as output dir ([81cfd74](https://www.github.com/blinkk/amagaki/commit/81cfd745791ddfc7680d093a2864e745c5c0bf36))
+
 ### [1.7.2](https://www.github.com/blinkk/amagaki/compare/v1.7.1...v1.7.2) (2021-11-24)
 
 

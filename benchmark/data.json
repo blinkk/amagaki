@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1638993435272,
+  "lastUpdate": 1638993616540,
   "repoUrl": "https://github.com/blinkk/amagaki",
   "entries": {
     "Amagaki profiling benchmark": [
@@ -9870,9 +9870,9 @@
       {
         "commit": {
           "author": {
-            "email": "jeremydw@gmail.com",
-            "name": "Jeremy Weinstein",
-            "username": "jeremydw"
+            "email": "41898282+github-actions[bot]@users.noreply.github.com",
+            "name": "github-actions[bot]",
+            "username": "github-actions[bot]"
           },
           "committer": {
             "email": "jeremydw@gmail.com",
@@ -9880,144 +9880,144 @@
             "username": "jeremydw"
           },
           "distinct": true,
-          "id": "81cfd745791ddfc7680d093a2864e745c5c0bf36",
-          "message": "fix: keep build temp dir on same volume as output dir",
-          "timestamp": "2021-12-08T11:55:32-08:00",
-          "tree_id": "0413bc082f592486569d3bc7e5e750cb8f141bb1",
-          "url": "https://github.com/blinkk/amagaki/commit/81cfd745791ddfc7680d093a2864e745c5c0bf36"
+          "id": "42822ae7f0c7f35384f2e3a8df4e5fb94b65d7ce",
+          "message": "chore: release 1.8.0",
+          "timestamp": "2021-12-08T11:58:51-08:00",
+          "tree_id": "7535cb1771e8edb7b1027caa6028f65883cf2147",
+          "url": "https://github.com/blinkk/amagaki/commit/42822ae7f0c7f35384f2e3a8df4e5fb94b65d7ce"
         },
-        "date": 1638993435268,
+        "date": 1638993616536,
         "tool": "benchmarkjs",
         "benches": [
           {
             "name": "command.build",
-            "value": 6707.899145000003,
+            "value": 6395.180358999991,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "document.fields.localize",
-            "value": 3.122588999918662,
+            "value": 3.3680380001605954,
             "range": "±0%",
             "unit": "ms",
             "extra": "48 samples"
           },
           {
             "name": "document.render",
-            "value": 1899.8961529983208,
+            "value": 1850.2513509990822,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "document.resolveFields",
-            "value": 2970.6322869984433,
+            "value": 2902.45703200117,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "file.exists",
-            "value": 1.0977980000025127,
+            "value": 1.019912000047043,
             "range": "±0%",
             "unit": "ms",
             "extra": "29 samples"
           },
           {
             "name": "file.read",
-            "value": 216.98418500003754,
+            "value": 216.77173600002425,
             "range": "±0%",
             "unit": "ms",
             "extra": "5435 samples"
           },
           {
             "name": "locale.getTranslation",
-            "value": 27.298342999332817,
+            "value": 28.295391000341624,
             "range": "±0%",
             "unit": "ms",
             "extra": "5552 samples"
           },
           {
             "name": "plugins.hook.afterBuild",
-            "value": 0.08520100000896491,
+            "value": 0.07800100001622923,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.afterBuild.BuilderPlugin",
-            "value": 0.068001000006916,
+            "value": 0.06440099998144433,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild",
-            "value": 0.0918999999994412,
+            "value": 0.0892009999952279,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.beforeBuild.BuilderPlugin",
-            "value": 0.07190000000991859,
+            "value": 0.06820099998731166,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine",
-            "value": 0.15349899997818284,
+            "value": 0.14610099999117665,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createTemplateEngine.NunjucksPlugin",
-            "value": 0.06349999998928979,
+            "value": 0.05830000000423752,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes",
-            "value": 0.5005979999841657,
+            "value": 0.48620600000140257,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.createYamlTypes.YamlPlugin",
-            "value": 0.4612980000092648,
+            "value": 0.4472049999749288,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"
           },
           {
             "name": "plugins.hook.updatePathFormatContext",
-            "value": 15.412946999829728,
+            "value": 13.825649999896996,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "plugins.hook.updatePathFormatContext.RouterPlugin",
-            "value": 2.942690000170842,
+            "value": 2.635132999246707,
             "range": "±0%",
             "unit": "ms",
             "extra": "5448 samples"
           },
           {
             "name": "yaml.load",
-            "value": 106.30393900009221,
+            "value": 107.69013799962704,
             "range": "±0%",
             "unit": "ms",
             "extra": "2709 samples"
           },
           {
             "name": "yaml.schema",
-            "value": 0.6926979999989271,
+            "value": 0.7069079999928363,
             "range": "±0%",
             "unit": "ms",
             "extra": "1 samples"

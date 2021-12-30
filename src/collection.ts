@@ -228,7 +228,7 @@ export class Collection {
   }
 
   /** Returns the parent collection object. */
-  get parent() {
+  get parent(): Collection | null {
     return this.pod.collection(this.parentPath);
   }
 

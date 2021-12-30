@@ -54,7 +54,7 @@ export class Locale {
   get translations() {
     try {
       return this.pod.readYaml(this.podPath)['translations'];
-    } catch (e) {
+    } catch (e: any) {
       if (e.code !== 'ENOENT') {
         throw e;
       }

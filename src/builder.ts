@@ -214,7 +214,7 @@ export class Builder {
       );
       try {
         fs.unlinkSync(absOutputPath);
-      } catch (err) {
+      } catch (err: any) {
         if (err.errno === -2) {
           console.warn(
             `Warning: The Amagaki builder was unable to delete a file while cleaning the build output directory. Avoid manually deleting files outside of the Amagaki build process. -> ${absOutputPath}.`

@@ -1,8 +1,8 @@
 .DS_Store
 .npmrc
 /.test/
-/dist/
 /docs/
-/node_modules/
 build/
+dist/
+node_modules/
 amagaki-amagaki-*.tgz

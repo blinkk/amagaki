@@ -1,14 +1,19 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "rootDir": "src/ts/",
     "outDir": "dist/js/",
-    "types": [
-      "node"
-    ]
+    "declaration": false,
+    "moduleResolution": "node",
+    "module": "es2015",
+    "target": "es2018",
+    "pretty": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "types": ["node"]
   },
-  "include": [
-    "src/ts/**/*.ts",
-    "test/**/*.ts"
-  ]
+  "include": ["src/ts/*.ts"]
 }

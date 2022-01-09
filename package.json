@@ -38,9 +38,6 @@
     "nonSemVerExperiments": {
       "sharedWorkers": true
     },
-    "require": [
-      "ts-node/register"
-    ],
     "extensions": [
       "ts"
     ],
@@ -67,9 +64,8 @@
     "gts": "^3.1.0",
     "nodemon": "^2.0.7",
     "ts-loader": "^9.1.1",
-    "ts-node": "^9.1.1",
     "typedoc": "^0.20.36",
-    "typescript": "^4.2.4"
+    "typescript": "^4.5.4"
   },
   "dependencies": {
     "@blinkk/editor": "^1.0.22",

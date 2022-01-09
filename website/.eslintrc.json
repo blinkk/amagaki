@@ -1,0 +1,10 @@
+{
+  "extends": "./node_modules/gts/",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}

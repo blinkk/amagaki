@@ -1,3 +1,6 @@
 $path: /docs/${doc.basename}/
 title: Introduction
 order: 0
+
+partials:
+- partial: markdown

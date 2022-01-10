@@ -26,12 +26,14 @@ partials:
   body: |
     ## Quick start
 
-    Amagaki is distributed as an npm package. We recommend using our starter when building marketing websites from scratch.
+    Amagaki is distributed as an npm package. When starting a new site from scratch,
+    we recommend using `create-amagaki` which uses the official
+    [`amagaki-starter`](https://github.com/blinkk/amagaki-starter).
 
     {% filter codeTabs %}
     ```shell
-    git clone https://github.com/blinkk/amagaki-starter
-    npm install
+    # Create a new Amagaki project interactively
+    npx create-amagaki
 
     # Start the dev server
     npm run dev
@@ -45,14 +47,7 @@ partials:
 
     {% filter codeTabs %}
     ```shell
-    # Install Amagaki
     npm install --save @amagaki/amagaki
-
-    # Start the dev server
-    npx amagaki serve
-
-    # Build the site
-    npx amagaki build
     ```
     {% endfilter %}
 

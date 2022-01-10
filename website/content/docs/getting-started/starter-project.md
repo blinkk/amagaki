@@ -5,23 +5,23 @@ order: 1
 # Starter project
 
 The quickest way to start an Amagaki project with enough foundational bells and
-whistles is to simply clone and run the Amagaki starter project.
+whistles is to use `create-amagaki` which simply clones and installs the
+official Amagaki starter project.
 
 This guide assumes you have Node and Git installed. Amagaki is a command line
-program, so you’ll invoke these commands from your terminal. To get started,
-simply clone the quick start project, install the dependencies, and run the
-development server.
+program, so you’ll invoke these commands from your terminal.
 
 {% filter codeTabs %}
 ```shell
-git clone https://github.com/blinkk/amagaki-starter
-npm install
+npx create-amagaki
 npm run dev
 ```
 {% endfilter %}
 
+To see how the starter works, you can browse it on GitHub.
+
 {{button.button({
-    label: 'Open amagaki-starter on GitHub',
+    label: 'Browse amagaki-starter on GitHub',
     url: 'https://github.com/blinkk/amagaki-starter',
     external: true,
     class: 'button button--low',

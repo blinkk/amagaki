@@ -1,5 +1,5 @@
 {
-  "name": "create-amagaki-site",
+  "name": "create-amagaki",
   "version": "0.0.1",
   "keywords": [
     "amagaki"
@@ -8,11 +8,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/blinkk/amagaki",
-    "directory": "packages/create-amagaki-site"
+    "directory": "packages/create-amagaki"
   },
   "license": "MIT",
   "bin": {
-    "create-amagaki-site": "./dist/index.js"
+    "create-amagaki": "./dist/index.js"
   },
   "files": [
     "dist"

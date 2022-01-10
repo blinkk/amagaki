@@ -58,9 +58,7 @@ async function run(): Promise<void> {
     );
     console.log();
     console.log('Example:');
-    console.log(
-      `  ${chalk.cyan(program.name())} ${chalk.green('my-amagaki-site')}`
-    );
+    console.log(`  ${chalk.cyan(program.name())} ${chalk.green('my-site')}`);
     console.log();
     console.log(
       `Use ${chalk.cyan(`${program.name()} --help`)} to see all options.`

@@ -12,21 +12,39 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: test-release-please
-      # The logic below handles the npm publication:
       - uses: actions/checkout@v2
-        # these if statements ensure that a publication only occurs when
-        # a new release is created:
         if: ${{ steps.release.outputs.release_created }}
       - uses: actions/setup-node@v1
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs.release_created }}
-      # if you are using Yarn, substitute the command below with `yarn install --frozen-lockfile`
       - run: npm ci
         if: ${{ steps.release.outputs.release_created }}
       - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs.release_created }}
+  release-please-create-amagaki:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+        if: ${{ steps.release.outputs.release_created }}
+      - working-directory: packages/create-amagaki
+        run: npm ci
+        if: ${{ steps.release.outputs.release_created }}
+      - working-directory: packages/create-amagaki
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs.release_created }}

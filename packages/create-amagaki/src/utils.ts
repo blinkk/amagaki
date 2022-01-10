@@ -113,7 +113,7 @@ export function gitInit(root: string): boolean {
     execSync('git init -b main', {stdio: 'ignore'});
     initted = true;
     execSync('git add -A', {stdio: 'ignore'});
-    execSync('git commit -m "Initial commit from Create Amagaki Site"', {
+    execSync('git commit -m "Initial commit from Create Amagaki"', {
       stdio: 'ignore',
     });
     return true;

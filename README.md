@@ -31,12 +31,13 @@ them to a TypeScript-first ecosystem.
 
 ## Try it out
 
-Amagaki is distributed as an npm package. We recommend using our
-[starter](https://github.com/blinkk/amagaki-starter) when starting from scratch.
+Amagaki is distributed as an npm package. When starting a new site from scratch,
+we recommend using `create-amagaki` which uses the official
+[`amagaki-starter`](https://github.com/blinkk/amagaki-starter).
 
 ```shell
-git clone https://github.com/blinkk/amagaki-starter
-npm install
+# Create a new Amagaki project interactively
+npx create-amagaki
 
 # Start the dev server
 npm run dev
@@ -50,12 +51,6 @@ If you are integrating into an existing project, you can install Amagaki directl
 ```shell
 # Install Amagaki
 npm install --save @amagaki/amagaki
-
-# Start the dev server
-npx amagaki serve
-
-# Build the site
-npx amagaki build
 ```
 ## Benchmarks
 

@@ -25,6 +25,7 @@ export class Server extends events.EventEmitter {
 
   static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
   static PLUGINS_PATH = '/plugins';
+  static SRC_PATH = '/src';
   static Events = {
     RELOAD: 'reload',
     LISTENING: 'listening',
@@ -149,8 +150,9 @@ export class Server extends events.EventEmitter {
     await this.stop();
     // Evict module cache to allow runtime reloading of plugins.
     const pluginsRoot = this.pod.getAbsoluteFilePath(Server.PLUGINS_PATH);
+    const srcRoot = this.pod.getAbsoluteFilePath(Server.SRC_PATH);
     Object.keys(require.cache).forEach(cacheKey => {
-      if (cacheKey.startsWith(pluginsRoot)) {
+      if (cacheKey.startsWith(pluginsRoot) || cacheKey.startsWith(srcRoot)) {
         delete require.cache[cacheKey];
       }
     });

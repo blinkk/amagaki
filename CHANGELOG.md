@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://www.github.com/blinkk/amagaki/compare/v1.8.0...v1.9.0) (2022-01-15)
+
+
+### Features
+
+* add create-amagaki-site [#129](https://www.github.com/blinkk/amagaki/issues/129) ([fc06e1f](https://www.github.com/blinkk/amagaki/commit/fc06e1fa1d8e81e31d19a9639b495d9bf68f6cc6))
+
+
+### Bug Fixes
+
+* support runtime reloading of src ([a06c40a](https://www.github.com/blinkk/amagaki/commit/a06c40a094267309633ad0b9fbc1efc823281830))
+
 ## [1.8.0](https://www.github.com/blinkk/amagaki/compare/v1.7.2...v1.8.0) (2021-12-08)
 
 

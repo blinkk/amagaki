@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://www.github.com/blinkk/amagaki/compare/v1.9.0...v1.9.0) (2022-01-16)
+
+
+### Miscellaneous Chores
+
+* release 1.9.0 ([329a8c9](https://www.github.com/blinkk/amagaki/commit/329a8c9ba3c23530c1acef698427980b824ce7e5))
+
 ## [1.9.0](https://www.github.com/blinkk/amagaki/compare/v1.8.0...v1.9.0) (2022-01-15)
 
 

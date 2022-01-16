@@ -503,7 +503,7 @@ functionality by using hooks available from existing plugins, or by simply
 interfacing with Amagaki within <code>amagaki.js</code>. But, if you want or need to
 create a custom plugin, see below.</p>
 <p>First, define the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-073caba0-7684-11ec-980b-b50c7d4ec6ba" name="t-07399e60-7684-11ec-980b-b50c7d4ec6ba" checked > <label for="t-073caba0-7684-11ec-980b-b50c7d4ec6ba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3357abe0-768e-11ec-a020-1150747850f6" name="t-33558900-768e-11ec-a020-1150747850f6" checked > <label for="t-3357abe0-768e-11ec-a020-1150747850f6" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">pod, options</span>)</span> {
     <span class="hljs-built_in">this</span>.pod = pod;
     <span class="hljs-built_in">this</span>.options = options;
@@ -515,7 +515,7 @@ create a custom plugin, see below.</p>
 </code></pre></div> </div>
 
 <p>Then, register the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-073ef590-7684-11ec-980b-b50c7d4ec6ba" name="t-073caba1-7684-11ec-980b-b50c7d4ec6ba" checked > <label for="t-073ef590-7684-11ec-980b-b50c7d4ec6ba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-335980a0-768e-11ec-a020-1150747850f6" name="t-3357abe1-768e-11ec-a020-1150747850f6" checked > <label for="t-335980a0-768e-11ec-a020-1150747850f6" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     pod.plugins.register(CustomPlugin, {
         <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>
     });
@@ -523,7 +523,7 @@ create a custom plugin, see below.</p>
 </code></pre></div> </div>
 
 <p>Later, within code that depends on the plugin you created, access it.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-07413f80-7684-11ec-980b-b50c7d4ec6ba" name="t-073ef591-7684-11ec-980b-b50c7d4ec6ba" checked > <label for="t-07413f80-7684-11ec-980b-b50c7d4ec6ba" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-335b0740-768e-11ec-a020-1150747850f6" name="t-335980a1-768e-11ec-a020-1150747850f6" checked > <label for="t-335b0740-768e-11ec-a020-1150747850f6" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
 customPlugin.getFoo();
 </code></pre></div> </div>
 

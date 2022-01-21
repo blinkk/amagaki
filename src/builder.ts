@@ -1,4 +1,3 @@
-import * as _colors from 'colors';
 import * as async from 'async';
 import * as cliProgress from 'cli-progress';
 import * as crypto from 'crypto';
@@ -12,6 +11,7 @@ import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
 import {TranslationString} from './string';
+import chalk from 'chalk';
 import minimatch from 'minimatch';
 
 interface Artifact {
@@ -297,7 +297,8 @@ export class Builder {
     const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
     const options: cliProgress.Options = {
       format:
-        `${label} ({value}/{total}): `.green + '{bar} Total: {customDuration}',
+        chalk.green(`${label} ({value}/{total}): `) +
+        '{bar} Total: {customDuration}',
       noTTYOutput: isTTY,
     };
     return new cliProgress.SingleBar(
@@ -422,13 +423,14 @@ export class Builder {
             if (errors.length) {
               bar.stop();
               console.error(
-                `\nFound ${errors.length} errors building the following routes.\n`
-                  .yellow
+                chalk.yellow(
+                  `\nFound ${errors.length} errors building the following routes.\n`
+                )
               );
               errorRoutes.map(route => {
                 console.error(`    ${route.urlPath}`);
               });
-              console.error('\nThe first error was:'.yellow);
+              console.error(chalk.yellow('\nThe first error was:'));
               if (errors[0].message) {
                 console.log(`\n${errors[0].message}\n`);
               }
@@ -567,11 +569,11 @@ export class Builder {
     options?: ExportOptions
   ) {
     console.log(
-      'Memory usage: '.blue + utils.formatBytes(buildMetrics.memoryUsage)
+      chalk.blue('Memory usage: ') + utils.formatBytes(buildMetrics.memoryUsage)
     );
     if (buildMetrics.numDocumentRoutes) {
       console.log(
-        'Documents: '.blue +
+        chalk.blue('Documents: ') +
           `${buildMetrics.numDocumentRoutes} (${utils.formatBytes(
             buildMetrics.outputSizeDocuments
           )}) ${options?.patterns ? '*incremental build' : ''}`
@@ -579,7 +581,7 @@ export class Builder {
     }
     if (buildMetrics.numStaticRoutes) {
       console.log(
-        'Static files: '.blue +
+        chalk.blue('Static files: ') +
           `${buildMetrics.numStaticRoutes} (${utils.formatBytes(
             buildMetrics.outputSizeStaticFiles
           )})`
@@ -587,7 +589,7 @@ export class Builder {
     }
     if (buildMetrics.numMissingTranslations) {
       console.log(
-        'Missing translations: '.blue +
+        chalk.blue('Missing translations: ') +
           Object.entries(buildMetrics.localesToNumMissingTranslations)
             .map(([locale, numMissingTranslations]) => {
               return `${locale} (${numMissingTranslations})`;
@@ -596,19 +598,19 @@ export class Builder {
       );
       if (options?.writeLocales) {
         console.log(
-          'Saved locales: '.blue +
+          chalk.blue('Saved locales: ') +
             this.pod.getAbsoluteFilePath(this.missingTranslationsPodPath)
         );
       }
     }
     console.log(
-      'Changes: '.blue +
-        `${buildDiff.adds.length} adds, `.green +
-        `${buildDiff.edits.length} edits, `.yellow +
-        `${buildDiff.deletes.length} deletes`.red
+      chalk.blue('Changes: ') +
+        chalk.green(`${buildDiff.adds.length} adds, `) +
+        chalk.yellow(`${buildDiff.edits.length} edits, `) +
+        chalk.red(`${buildDiff.deletes.length} deletes`)
     );
     console.log(
-      'Build complete: '.blue +
+      chalk.blue('Build complete: ') +
         this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)
     );
   }

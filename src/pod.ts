@@ -27,6 +27,7 @@ import {RouterPlugin} from './plugins/router';
 import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
+import chalk from 'chalk';
 
 export interface LocalizationConfig {
   defaultLocale?: string;
@@ -490,7 +491,8 @@ export class Pod {
     const routes = await this.router.routes();
     if (routes.length > 5000) {
       console.log(
-        'Warmed up: '.blue + `${routes.length} routes in ${seconds.toFixed(2)}s`
+        chalk.blue('Warmed up: ') +
+          `${routes.length} routes in ${seconds.toFixed(2)}s`
       );
     }
   }

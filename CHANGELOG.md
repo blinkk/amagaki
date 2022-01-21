@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.9.1](https://www.github.com/blinkk/amagaki/compare/v1.9.0...v1.9.1) (2022-01-21)
+
+
+### Bug Fixes
+
+* color output in console [#134](https://www.github.com/blinkk/amagaki/issues/134) ([346be78](https://www.github.com/blinkk/amagaki/commit/346be78238a8e6fd5cd287b9b943b909e104e08e))
+
 ## [1.9.0](https://www.github.com/blinkk/amagaki/compare/v1.9.0...v1.9.0) (2022-01-16)
 
 

@@ -8,6 +8,7 @@ import {Pod} from './pod';
 import {StaticRoute} from './router';
 
 import express = require('express');
+import chalk from 'chalk';
 
 interface ServerOptions {
   port: string | number;
@@ -15,12 +16,13 @@ interface ServerOptions {
 
 export interface ServerListeningEvent {
   app: http.Server;
+  server: Server;
 }
 
 export class Server extends events.EventEmitter {
   private pod: Pod;
   private httpServer?: http.Server;
-  port: string | number;
+  port: number;
   watcher?: chokidar.FSWatcher;
 
   static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
@@ -34,7 +36,7 @@ export class Server extends events.EventEmitter {
   constructor(pod: Pod, options: ServerOptions) {
     super();
     this.pod = pod;
-    this.port = options.port;
+    this.port = parseInt(options.port as string);
   }
 
   /**
@@ -92,14 +94,35 @@ export class Server extends events.EventEmitter {
     return app;
   }
 
+  private onListen() {
+    this.emit(Server.Events.LISTENING, <ServerListeningEvent>{
+      app: this.httpServer,
+      server: this,
+    });
+  }
+
   /**
    * Starts the web server.
    */
   async start() {
+    let retryCount = 0;
     const app = await this.createApp();
-    this.httpServer = app.listen(this.port);
-    this.emit(Server.Events.LISTENING, <ServerListeningEvent>{
-      app: this.httpServer,
+    this.httpServer = app.listen(this.port, () => this.onListen());
+    this.httpServer.on('error', (err: NodeJS.ErrnoException) => {
+      if (this.pod.env.dev && retryCount < 10 && err.code === 'EADDRINUSE') {
+        console.warn(
+          chalk.yellow(
+            `Warning: Port ${this.port} is in use, trying ${
+              this.port + 1
+            } instead`
+          )
+        );
+        this.port += 1;
+        retryCount += 1;
+        this.httpServer = app.listen(this.port, () => this.onListen());
+      } else {
+        throw err;
+      }
     });
     // Catch errors so they can be fixed without restarting the server. Errors
     // are displayed interactively when rendering pages so they can be fixed

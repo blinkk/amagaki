@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 
+import {Server, ServerListeningEvent} from '../server';
+
 import {GlobalOptions} from './global';
 import {Pod} from '../pod';
-import {Server} from '../server';
 import chalk from 'chalk';
 
 interface ServeOptions {
@@ -39,11 +40,11 @@ export class ServeCommand {
     server.on(Server.Events.RELOAD, () => {
       console.log(chalk.greenBright('Reloaded:'), `${pod.root}`);
     });
-    server.once(Server.Events.LISTENING, () => {
+    server.once(Server.Events.LISTENING, (e: ServerListeningEvent) => {
       console.log(chalk.green('🍊 Pod:'), `${pod.root}`);
       console.log(
         chalk.green('Server:'),
-        `${pod.env.scheme}://${pod.env.host}:${port}/`
+        `${pod.env.scheme}://${pod.env.host}:${e.server.port}/`
       );
       console.log(chalk.green(' Ready. Press ctrl+c to quit.'));
     });

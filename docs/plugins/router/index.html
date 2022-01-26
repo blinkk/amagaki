@@ -487,7 +487,7 @@
 <h2 id="path-format-plugin">Path format plugin</h2>
 <p>Custom functions can be added to use with the <code>$path</code> key in content documents
 and collections.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4b08a4b0-7a76-11ec-9cc6-0b9c65d1ae68" name="t-4b057060-7a76-11ec-9cc6-0b9c65d1ae68" checked > <label for="t-4b08a4b0-7a76-11ec-9cc6-0b9c65d1ae68" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-cf651990-7ee6-11ec-9340-599f285c534e" name="t-cf620c50-7ee6-11ec-9340-599f285c534e" checked > <label for="t-cf651990-7ee6-11ec-9340-599f285c534e" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;RouterPlugin&#x27;</span>) <span class="hljs-keyword">as</span> RouterPlugin;
   plugin.addPathFormatFunction(<span class="hljs-string">&#x27;slug&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">title: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
     <span class="hljs-keyword">return</span> title.toLowerCase().replace(<span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">&#x27;-&#x27;</span>);
@@ -495,7 +495,7 @@ and collections.</p>
 }
 </code></pre></div> </div>
 
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4b09b620-7a76-11ec-9cc6-0b9c65d1ae68" name="t-4b08a4b1-7a76-11ec-9cc6-0b9c65d1ae68" checked > <label for="t-4b09b620-7a76-11ec-9cc6-0b9c65d1ae68" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/articles/${slug(doc.fields.title)}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-cf66ee50-7ee6-11ec-9340-599f285c534e" name="t-cf651991-7ee6-11ec-9340-599f285c534e" checked > <label for="t-cf66ee50-7ee6-11ec-9340-599f285c534e" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/articles/${slug(doc.fields.title)}/</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">Lorem</span> <span class="hljs-string">ipsum</span> <span class="hljs-string">dolor</span> <span class="hljs-string">sit</span> <span class="hljs-string">amet</span>
 </code></pre></div> </div>
 
@@ -529,7 +529,7 @@ class.</p>
 </ul>
 <h2 id="example">Example</h2>
 <p>Here&#39;s an example of a route provider that serves a <code>robots.txt</code> file.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4b0dadc0-7a76-11ec-9cc6-0b9c65d1ae68" name="t-4b09b621-7a76-11ec-9cc6-0b9c65d1ae68" checked > <label for="t-4b0dadc0-7a76-11ec-9cc6-0b9c65d1ae68" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-cf698660-7ee6-11ec-9340-599f285c534e" name="t-cf66ee51-7ee6-11ec-9340-599f285c534e" checked > <label for="t-cf698660-7ee6-11ec-9340-599f285c534e" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>sitemap.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RobotsTxtRouteProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RouteProvider</span> </span>{
 
 <p>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">router: Router</span>)</span> {
     <span class="hljs-built_in">super</span>(router);
@@ -560,7 +560,7 @@ class.</p>
 }
 </code></pre></div> </div></p>
 <p>And then use it in <code>amagaki.ts</code>:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4b0f0d50-7a76-11ec-9cc6-0b9c65d1ae68" name="t-4b0dadc1-7a76-11ec-9cc6-0b9c65d1ae68" checked > <label for="t-4b0f0d50-7a76-11ec-9cc6-0b9c65d1ae68" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-cf6abee0-7ee6-11ec-9340-599f285c534e" name="t-cf698661-7ee6-11ec-9340-599f285c534e" checked > <label for="t-cf6abee0-7ee6-11ec-9340-599f285c534e" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">import</span> {RobotsTxtRouteProvider} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./sitemap&#x27;</span>;
 
 <p><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   RobotsTxtRouteProvider.register(pod);

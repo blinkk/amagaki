@@ -5,7 +5,7 @@ import * as utils from './utils';
 import {Locale, LocaleSet} from './locale';
 
 import {Collection} from './collection';
-import {DeepWalk} from '@blinkk/editor/dist/src/utility/deepWalk';
+import {DeepWalk} from '@blinkk/editor.dev-ui/dist/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
 import {Route} from './router';

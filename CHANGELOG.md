@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://www.github.com/blinkk/amagaki/compare/v1.9.1...v1.10.0) (2022-01-31)
+
+
+### Features
+
+* automatically find open port when using dev server [#136](https://www.github.com/blinkk/amagaki/issues/136) ([7b368a2](https://www.github.com/blinkk/amagaki/commit/7b368a2c65ac689824439861b4b366d3662fa5ba))
+
+
+### Bug Fixes
+
+* update deepWalk dependency ([d89fdee](https://www.github.com/blinkk/amagaki/commit/d89fdeea1f6757e664ab7033da3137c62c12b269))
+
 ### [1.9.1](https://www.github.com/blinkk/amagaki/compare/v1.9.0...v1.9.1) (2022-01-21)
 
 

@@ -212,8 +212,11 @@ export class Document {
    * collection's `_collection.yaml`, or the pod's `amagaki.ts`.
    */
   get defaultLocale() {
-    // TODO: Allow docs and collections to override default locales.
-    return this.pod.defaultLocale;
+    return (
+      this.fields?.['$localization']?.['defaultLocale'] ??
+      this.collection?.fields?.['$localization']?.['defaultLocale'] ??
+      this.pod.defaultLocale
+    );
   }
 
   /**
@@ -336,9 +339,14 @@ export class Document {
    * is specified, the `pathFormat` is `false`.
    */
   get pathFormat() {
-    // TODO: See if this is what we want to do, or if we want path formats to be
-    // exclusively defined by the router.
-    if (this.locale.id === this.pod.defaultLocale.id) {
+    // NOTE: Documents currently always define their own path format. This
+    // requires a lookup of all documents in order to to determine the full list
+    // of routes. An alternate design could involve having a central router that
+    // maps paths to documents, which would not require documents to be loaded
+    // before serving.
+    // If this document's locale is the default locale, match the base `$path`,
+    // otherwise, refer to the path defined in the `$localization?path` key.
+    if (this.locale.id === this.defaultLocale.id) {
       return this.fields?.['$path'] ?? this.collection?.fields?.['$path'];
     }
     return (

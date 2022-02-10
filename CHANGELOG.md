@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.10.1](https://www.github.com/blinkk/amagaki/compare/v1.10.0...v1.10.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* support document-level defaultLocale ([f5cfdc1](https://www.github.com/blinkk/amagaki/commit/f5cfdc1487cae1db763a0636be422231e41b30a0))
+
 ## [1.10.0](https://www.github.com/blinkk/amagaki/compare/v1.9.1...v1.10.0) (2022-01-31)
 
 

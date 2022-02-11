@@ -1,10 +1,15 @@
-name: 'Run tests'
-
-on: [push]
-
+name: "Run tests"
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - packages/amagaki/**
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/amagaki/
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
@@ -22,9 +27,9 @@ jobs:
             ${{ runner.os }}-
       - name: Run npm tests
         run: |
-                npm install --dev
-                npm run test
+          npm install --dev
+          npm run test
       - name: Run external tests
         working-directory: tests
         run: |
-                ./runAll.sh
+          ./runAll.sh

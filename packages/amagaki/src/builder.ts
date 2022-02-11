@@ -75,9 +75,14 @@ interface CreatedPath {
   realPath: string;
 }
 
-export interface ExportOptions {
+export interface BuildOptions {
   patterns?: string[];
   writeLocales?: Boolean;
+}
+
+export interface ExportOptions {
+  exportDirectory: string;
+  controlDirectory: string;
 }
 
 export class Builder {
@@ -86,7 +91,7 @@ export class Builder {
   manifestPodPath: string;
   metricsPodPath: string;
   missingTranslationsPodPath: string;
-  outputDirectoryPodPath: string;
+  buildDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
   static DefaultOutputDirectory = 'build';
   static NumConcurrentBuilds = 40;
@@ -98,30 +103,27 @@ export class Builder {
 
   constructor(pod: Pod) {
     this.pod = pod;
-    // TODO: Right now, this is limited to a sub-directory within the pod. We
-    // want that to be the default, but we should also permit building to
-    // directories external to the pod.
-    this.outputDirectoryPodPath = Builder.DefaultOutputDirectory;
+    this.buildDirectoryPodPath = Builder.DefaultOutputDirectory;
     this.controlDirectoryAbsolutePath = this.pod.getAbsoluteFilePath(
-      fsPath.join(this.outputDirectoryPodPath, '.amagaki')
+      fsPath.join(this.buildDirectoryPodPath, '.amagaki')
     );
     this.manifestPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
+      this.buildDirectoryPodPath,
       '.amagaki',
       'manifest.json'
     );
     this.metricsPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
+      this.buildDirectoryPodPath,
       '.amagaki',
       'metrics.json'
     );
     this.benchmarkPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
+      this.buildDirectoryPodPath,
       '.amagaki',
       'benchmark.txt'
     );
     this.missingTranslationsPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
+      this.buildDirectoryPodPath,
       '.amagaki',
       'locales'
     );
@@ -210,7 +212,7 @@ export class Builder {
     paths.forEach(outputPath => {
       // Delete the file.
       const absOutputPath = this.pod.getAbsoluteFilePath(
-        fsPath.join(this.outputDirectoryPodPath, outputPath)
+        fsPath.join(this.buildDirectoryPodPath, outputPath)
       );
       try {
         fs.unlinkSync(absOutputPath);
@@ -235,10 +237,12 @@ export class Builder {
     });
   }
 
-  getExistingManifest(): BuildManifest | null {
-    const path = this.manifestPodPath;
-    if (this.pod.fileExists(path)) {
-      return JSON.parse(this.pod.readFile(this.manifestPodPath));
+  getManifestFromFile(path?: string): BuildManifest | null {
+    if (path === undefined) {
+      path = this.pod.getAbsoluteFilePath(this.manifestPodPath);
+    }
+    if (fs.existsSync(path)) {
+      return JSON.parse(fs.readFileSync(path, 'utf-8'));
     }
     return null;
   }
@@ -246,7 +250,7 @@ export class Builder {
   cleanOutputUsingManifests(
     existingManifest: BuildManifest | null,
     newManifest: BuildManifest,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     const buildDiffPaths: BuildDiffPaths = {
       adds: [],
@@ -307,9 +311,22 @@ export class Builder {
     );
   }
 
-  async export(options?: ExportOptions): Promise<BuildResult> {
+  /** Exports a build directory to another location (manifest aware). */
+  async export(options: ExportOptions) {
+    const buildManifest = this.getManifestFromFile();
+    const exportedManifestPath =
+      this.getManifestFromFile(
+        fsPath.join(options.controlDirectory, 'manifest.json')
+      ) ??
+      this.getManifestFromFile(
+        fsPath.join(options.controlDirectory, 'index.proto.json')
+      );
+  }
+
+  /** Builds the site to the build directory. */
+  async build(options?: BuildOptions): Promise<BuildResult> {
     await this.pod.plugins.trigger('beforeBuild', this);
-    const existingManifest = this.getExistingManifest();
+    const existingManifest = this.getManifestFromFile();
     const buildManifest: BuildManifest = {
       branch: null,
       commit: null,
@@ -332,7 +349,7 @@ export class Builder {
     // Keep the temp directory within the output directory to ensure files are
     // written to the same volume as the output directory.
     const tempDirRoot = fsPath.join(
-      this.outputDirectoryPodPath,
+      this.buildDirectoryPodPath,
       '.tmp',
       `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
     );
@@ -371,11 +388,11 @@ export class Builder {
       const normalPath = Builder.normalizePath(route.url.path);
       const tempPath = fsPath.join(
         tempDirRoot,
-        this.outputDirectoryPodPath,
+        this.buildDirectoryPodPath,
         normalPath
       );
       const realPath = this.pod.getAbsoluteFilePath(
-        fsPath.join(this.outputDirectoryPodPath, normalPath)
+        fsPath.join(this.buildDirectoryPodPath, normalPath)
       );
       createdPaths.push({
         route: route,
@@ -566,7 +583,7 @@ export class Builder {
   logResult(
     buildDiff: BuildDiffPaths,
     buildMetrics: BuildMetrics,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     console.log(
       chalk.blue('Memory usage: ') + utils.formatBytes(buildMetrics.memoryUsage)
@@ -611,7 +628,7 @@ export class Builder {
     );
     console.log(
       chalk.blue('Build complete: ') +
-        this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath)
+        this.pod.getAbsoluteFilePath(this.buildDirectoryPodPath)
     );
   }
 

@@ -1,0 +1,7 @@
+{
+  "packages": {
+    "packages/amagaki": {},
+    "packages/create-amagaki": {}
+  },
+  "plugins": ["node-workspace"]
+}

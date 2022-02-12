@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/amagaki/
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
@@ -22,7 +25,7 @@ jobs:
             ${{ runner.os }}-
       - name: Build marketing website
         run: |
-            npm install
-            cd website
-            npm install
-            npm run build
+          npm install
+          cd ../../website
+          npm install
+          npm run build

@@ -8,6 +8,9 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/amagaki/
     steps:
       - uses: actions/checkout@v2
       - name: Checkout benchmark repo
@@ -34,7 +37,7 @@ jobs:
             npm install --dev
       - name: Build website
         run: |
-            cd website/
+            cd ../../website/
             npm ci
             npm run build
             cp -r build/* ../public/

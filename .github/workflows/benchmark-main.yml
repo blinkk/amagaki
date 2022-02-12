@@ -8,13 +8,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/amagaki/
     steps:
     - uses: actions/checkout@v2
     - name: Checkout benchmark repo
       uses: actions/checkout@v2
       with:
         repository: blinkk/amagaki-benchmark
-        path: benchmark
+        path: packages/amagaki/benchmark
     - name: Cache node modules
       uses: actions/cache@v2
       env:

@@ -4,8 +4,11 @@ on:
     branches:
       - main
 jobs:
-  release-please:
+  release-please-amagaki:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/amagaki/
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release

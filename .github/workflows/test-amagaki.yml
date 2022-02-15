@@ -2,8 +2,6 @@ name: "Run tests"
 on:
   workflow_dispatch:
   push:
-    paths:
-      - packages/amagaki/**
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,6 +28,6 @@ jobs:
           npm install --dev
           npm run test
       - name: Run external tests
-        working-directory: tests
+        working-directory: packages/amagaki/tests
         run: |
           ./runAll.sh

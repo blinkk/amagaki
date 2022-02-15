@@ -11,19 +11,19 @@
   "scripts": {
     "browsersync:reload": "browser-sync reload",
     "browsersync:start": "browser-sync start --proxy localhost:8080 --no-open --files dist",
-    "build": "npm run build:src:prod; node ../dist/src/cli.js build",
+    "build": "npm run build:src:prod; npx amagaki build",
     "build:src": "webpack --mode development",
     "build:src:prod": "webpack --mode production --config webpack.prod.config.js",
     "build:src:notify": "webpack --mode development --env notify",
     "dev": "npm run build:src; concurrently -k \"npm:watch:src\" \"npm:watch:pages\" \"npm:start\" \"npm:browsersync:start\"",
     "fix": "npm run fix:sass",
     "fix:sass": "sass-lint-auto-fix -c .sasslintrc.fix.yaml",
-    "start": "node ../dist/src/cli.js serve",
+    "start": "npx amagaki serve",
     "watch:src": "nodemon --watch src -e ts,js,sass --exec npm run build:src:notify",
     "watch:pages": "nodemon --watch content --watch views -e njk,yaml --exec npm run browsersync:reload"
   },
   "dependencies": {
-    "@amagaki/amagaki": "file:../",
+    "@amagaki/amagaki": "file:../packages/amagaki/",
     "browser-sync": "^2.26.13",
     "common-tags": "^1.8.0",
     "concurrently": "^5.3.0",

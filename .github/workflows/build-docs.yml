@@ -1,23 +1,18 @@
 name: 'Deploy docs and benchmarks to GitHub pages'
-
 on:
   push:
     branches:
       - main
-
 jobs:
   docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/amagaki/
     steps:
       - uses: actions/checkout@v2
       - name: Checkout benchmark repo
         uses: actions/checkout@v2
         with:
           repository: blinkk/amagaki-benchmark
-          path: amagaki-benchmark
+          path: packages/website/amagaki-benchmark
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -32,41 +27,40 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Prepare for docs.
-        run: |
-            mkdir -p ./public/
-            npm install --dev
+        run: npm install --dev
       - name: Build website
+        working-directory: packages/website/
         run: |
-            cd ../../website/
-            npm ci
-            npm run build
-            cp -r build/* ../public/
-            echo "amagaki.dev" > ../public/CNAME
+          npm run build
+          mkdir -p ./public/
+          cp -r build/* ./public/
+          echo "amagaki.dev" > ./public/CNAME
       - name: Build docs
+        working-directory: packages/amagaki/
         run: |
-            rm -fr ./public/api
+            rm -rf ./public/api
             npm run docs:ci
+            mv ./public/api ../website/public/api
       - name: Build benchmark build
         run: |
             # Preserve benchmark files, otherwise the gh-pages action will overwrite them.
             mkdir -p public/benchmark
             curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/data.json --output public/benchmark/data.json
             curl https://raw.githubusercontent.com/blinkk/amagaki/gh-pages/benchmark/index.html --output public/benchmark/index.html
-
             # Build the benchmark repository.
-            node ./dist/src/cli.js --profile build amagaki-benchmark
+            node ./packages/amagaki/dist/src/cli.js --profile build ./packages/website/amagaki-benchmark
       - name: Process benchmark results
         uses: rhysd/github-action-benchmark@v1
         with:
           name: Amagaki profiling benchmark
           tool: 'benchmarkjs'
-          output-file-path: amagaki-benchmark/build/.amagaki/benchmark.txt
+          output-file-path: packages/website/amagaki-benchmark/build/.amagaki/benchmark.txt
           # Output the processed data to the benchmark directory.
-          benchmark-data-dir-path: public/benchmark
-          external-data-json-path: public/benchmark/data.json
+          benchmark-data-dir-path: packages/website/benchmark
+          external-data-json-path: packages/website/benchmark/data.json
           max-items-in-chart: 100
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public

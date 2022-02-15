@@ -15,19 +15,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
+          monorepo-tags: true
       - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - uses: actions/setup-node@v1
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - run: npm ci
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
 # TODO: We need to alter the configuration to support multiple packages.
 # See: https://github.com/googleapis/release-please/pull/501
 #  release-please-create-amagaki:

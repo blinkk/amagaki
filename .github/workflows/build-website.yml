@@ -22,7 +22,5 @@ jobs:
             ${{ runner.os }}-
       - name: Build marketing website
         run: |
-            npm install
-            cd website
-            npm install
-            npm run build
+          npm i
+          npm run build -w packages/website

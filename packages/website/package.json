@@ -8,6 +8,7 @@
   "engines": {
     "node": "14.x.x"
   },
+  "private": "true",
   "scripts": {
     "browsersync:reload": "browser-sync reload",
     "browsersync:start": "browser-sync start --proxy localhost:8080 --no-open --files dist",
@@ -23,7 +24,7 @@
     "watch:pages": "nodemon --watch content --watch views -e njk,yaml --exec npm run browsersync:reload"
   },
   "dependencies": {
-    "@amagaki/amagaki": "file:../packages/amagaki/",
+    "@amagaki/amagaki": "file:../amagaki/",
     "browser-sync": "^2.26.13",
     "common-tags": "^1.8.0",
     "concurrently": "^5.3.0",

@@ -73,6 +73,7 @@
   },
   "dependencies": {
     "@blinkk/editor.dev-ui": "^3.11.1",
+    "@types/compression": "^1.7.2",
     "@types/express-serve-static-core": "^4.17.21",
     "async": "^3.2.0",
     "chalk": "2.4.2",
@@ -80,6 +81,7 @@
     "cli-progress": "^3.9.0",
     "cli-table": "^0.3.6",
     "commander": "^7.2.0",
+    "compression": "^1.7.4",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "js-yaml": "^4.1.0",

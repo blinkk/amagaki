@@ -9,6 +9,7 @@ import {StaticRoute} from './router';
 
 import express = require('express');
 import chalk from 'chalk';
+import compression from 'compression';
 
 interface ServerOptions {
   port: string | number;
@@ -46,6 +47,7 @@ export class Server extends events.EventEmitter {
     const app = express();
     await this.pod.plugins.trigger('createServer', app);
     app.disable('x-powered-by');
+    app.use(compression());
     nunjucks.configure(fsPath.join(__dirname, './static/'), {
       autoescape: true,
       express: app,

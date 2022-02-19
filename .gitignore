@@ -1,7 +1,7 @@
+/docs/
 .DS_Store
 .npmrc
-/.test/
-/docs/
+.test/
 build/
 dist/
 node_modules/

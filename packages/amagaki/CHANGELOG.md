@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.10.2...amagaki-v1.11.0) (2022-02-19)
+
+
+### Features
+
+* add compression to dev server ([89d19c3](https://www.github.com/blinkk/amagaki/commit/89d19c3b1c22cde7595f0c1206b80422a1833b24)), closes [#143](https://www.github.com/blinkk/amagaki/issues/143)
+
 ### [1.10.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.10.1...amagaki-v1.10.2) (2022-02-19)
 
 

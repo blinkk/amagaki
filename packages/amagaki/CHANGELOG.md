@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.10.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.10.1...amagaki-v1.10.2) (2022-02-19)
+
+
+### Miscellaneous Chores
+
+* release 10.10.2 ([dc74277](https://www.github.com/blinkk/amagaki/commit/dc74277c70ae364abd7aebc0e0de5cb0807f2e83))
+
 ### [1.10.1](https://www.github.com/blinkk/amagaki/compare/v1.10.0...v1.10.1) (2022-02-10)
 
 

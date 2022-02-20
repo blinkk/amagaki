@@ -1,0 +1,56 @@
+{
+  "name": "@amagaki/amagaki-engine-preact",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://amagaki.dev",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blinkk/amagakit.git",
+    "directory": "packages/amagaki-engine-preact"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build:example": "amagaki build example",
+    "check": "gts check",
+    "clean": "gts clean",
+    "dev": "nodemon --watch src -e ts --exec npm tsc",
+    "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
+    "prepare": "rm -rf dist/; tsc",
+    "test": "ava"
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "files": [
+      "src/*.test.ts"
+    ],
+    "timeout": "20s"
+  },
+  "devDependencies": {
+    "@amagaki/amagaki": "file:../amagaki/",
+    "@types/node": "^13.13.52",
+    "ava": "^3.14.0",
+    "eslint": "^7.15.0",
+    "eslint-plugin-sort-class-members": "^1.9.0",
+    "gts": "^2.0.2",
+    "nodemon": "^2.0.4",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "esbuild-register": "^3.3.2",
+    "preact": "^10.6.6",
+    "preact-render-to-string": "^5.1.19"
+  },
+  "files": [
+    "dist/"
+  ]
+}

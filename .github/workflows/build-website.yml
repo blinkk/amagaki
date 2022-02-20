@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/website
     steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
@@ -23,4 +26,4 @@ jobs:
       - name: Build marketing website
         run: |
           npm i
-          npm run build -w packages/website
+          npm run build

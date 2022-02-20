@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install Amagaki
+        run: |
+          npm install -w packages/amagaki 
       - name: Run npm tests
         run: |
           npm install

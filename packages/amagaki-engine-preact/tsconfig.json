@@ -2,9 +2,10 @@
   "extends": "gts/tsconfig-google.json",
   "compilerOptions": {
     "esModuleInterop": true,
+    "lib": ["es2018"],
+    "moduleResolution": "node",
     "outDir": "dist",
     "skipLibCheck": true,
-    "lib": ["es2018"],
     "types": [
       "node"
     ],
@@ -13,6 +14,6 @@
     "node_modules",
   ],
   "include": [
-    "./src/**/*.ts",
+    "src/**/*.ts",
   ]
 }

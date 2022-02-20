@@ -1,8 +1,9 @@
-/docs/
 .DS_Store
 .npmrc
 .test/
+/docs/
+amagaki-amagaki-*.tgz
 build/
 dist/
 node_modules/
-amagaki-amagaki-*.tgz
+package-lock.json

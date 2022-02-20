@@ -22,7 +22,7 @@ jobs:
             ${{ runner.os }}-
       - name: Run npm tests
         run: |
-          npm install --dev
+          npm install
           npm test --workspaces
       - name: Run external tests
         working-directory: packages/amagaki/tests

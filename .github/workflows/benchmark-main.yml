@@ -33,7 +33,7 @@ jobs:
           ${{ runner.os }}-
     - name: Build amagaki and benchmark
       run: |
-        npm ci
+        npm install
         npm run dev:start
         node ./dist/src/cli.js --profile build benchmark
     # Currently every benchmark comparison is happening against the previous benchmark

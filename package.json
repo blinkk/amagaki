@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/amagaki",
+    "packages/amagaki-engine-preact",
+    "packages/create-amagaki",
+    "packages/website"
   ]
 }

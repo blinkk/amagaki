@@ -5,7 +5,9 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "lib": ["es2018"],
-    "types": [],
+    "types": [
+      "node"
+    ],
   },
   "exclude": [
     "node_modules",

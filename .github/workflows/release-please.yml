@@ -24,7 +24,7 @@ jobs:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
-      - run: npm ci
+      - run: npm install
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - run: npm publish
         env:

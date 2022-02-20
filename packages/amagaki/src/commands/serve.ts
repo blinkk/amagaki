@@ -37,8 +37,11 @@ export class ServeCommand {
     const server = new Server(pod, {
       port: port,
     });
-    server.on(Server.Events.RELOAD, () => {
-      console.log(chalk.greenBright('Reloaded:'), `${pod.root}`);
+    server.on(Server.Events.RELOAD, (e: ServerListeningEvent) => {
+      console.log(
+        chalk.greenBright('Reloaded:'),
+        `${pod.env.scheme}://${pod.env.host}:${e.server.port}/`
+      );
     });
     server.once(Server.Events.LISTENING, (e: ServerListeningEvent) => {
       console.log(chalk.green('🍊 Pod:'), `${pod.root}`);

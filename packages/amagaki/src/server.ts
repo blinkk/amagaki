@@ -106,22 +106,29 @@ export class Server extends events.EventEmitter {
   /**
    * Starts the web server.
    */
-  async start() {
+  async start(options: {incrementPort?: Boolean} = {incrementPort: true}) {
     let retryCount = 0;
     const app = await this.createApp();
     this.httpServer = app.listen(this.port, () => this.onListen());
     this.httpServer.on('error', (err: NodeJS.ErrnoException) => {
       if (this.pod.env.dev && retryCount < 10 && err.code === 'EADDRINUSE') {
-        console.warn(
-          chalk.yellow(
-            `Warning: Port ${this.port} is in use, trying ${
-              this.port + 1
-            } instead`
-          )
-        );
-        this.port += 1;
-        retryCount += 1;
-        this.httpServer = app.listen(this.port, () => this.onListen());
+        // Use `incrementPort` to find a free port when starting the server the
+        // first time. When the server is reloaded, avoid incrementing the port,
+        // because we need to restart the server and listen on the original port
+        // that was opened. Server reloading may be triggered several times in a
+        // row.
+        if (options?.incrementPort) {
+          console.warn(
+            chalk.yellow(
+              `Warning: Port ${this.port} is in use, trying ${
+                this.port + 1
+              } instead`
+            )
+          );
+          this.port += 1;
+          retryCount += 1;
+          this.httpServer = app.listen(this.port, () => this.onListen());
+        }
       } else {
         throw err;
       }
@@ -143,8 +150,6 @@ export class Server extends events.EventEmitter {
     const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
     const podPath = `/${path}`;
     if (podPath.match(reloadRegex)) {
-      // TODO: Handle errors gracefully, so the developer can fix the error without
-      // needing to manually restart the server.
       this.reload();
     } else {
       this.pod.cache.reset();
@@ -172,7 +177,9 @@ export class Server extends events.EventEmitter {
    * of reloading any changes from `amagaki.ts`.
    */
   async reload() {
-    await this.stop();
+    if (this.httpServer?.listening) {
+      await this.stop();
+    }
     // Evict module cache to allow runtime reloading of plugins.
     const pluginsRoot = this.pod.getAbsoluteFilePath(Server.PLUGINS_PATH);
     const srcRoot = this.pod.getAbsoluteFilePath(Server.SRC_PATH);
@@ -181,9 +188,23 @@ export class Server extends events.EventEmitter {
         delete require.cache[cacheKey];
       }
     });
-    this.pod = new Pod(this.pod.root, this.pod.env);
-    await this.start();
-    this.emit(Server.Events.RELOAD);
+    if (!this.httpServer?.listening) {
+      let newPod;
+      try {
+        newPod = new Pod(this.pod.root, this.pod.env);
+      } catch (err) {
+        console.log('An error occurred while reloading the pod.');
+        console.error(err);
+      }
+      if (newPod) {
+        this.pod = newPod;
+        await this.start({incrementPort: false});
+        this.emit(Server.Events.RELOAD, <ServerListeningEvent>{
+          app: this.httpServer,
+          server: this,
+        });
+      }
+    }
   }
 
   /** Stops the web server. */

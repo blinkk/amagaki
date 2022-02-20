@@ -1,6 +1,7 @@
 {
   "extends": "gts/tsconfig-google.json",
   "compilerOptions": {
+    "composite": true,
     "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "dist",

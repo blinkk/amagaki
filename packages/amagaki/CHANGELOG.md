@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.12.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.11.0...amagaki-v1.12.0) (2022-02-21)
+
+
+### Features
+
+* add amagaki-engine-preact ([50ee2be](https://www.github.com/blinkk/amagaki/commit/50ee2be40672680fcbaa3a96010c831c1be794a4))
+
+
+### Bug Fixes
+
+* improve server reloading error tolerance ([067ccb5](https://www.github.com/blinkk/amagaki/commit/067ccb5de07f084765315230f0f360f1bcc0e635))
+
 ## [1.11.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.10.2...amagaki-v1.11.0) (2022-02-19)
 
 

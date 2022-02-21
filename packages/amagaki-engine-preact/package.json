@@ -18,7 +18,7 @@
     "clean": "gts clean",
     "dev": "nodemon --watch src -e ts --exec npm tsc",
     "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
-    "prepublish": "rm -rf dist/; tsc",
+    "prepare": "rm -rf dist/; tsc; rm dist/*.tsbuildinfo",
     "test": "ava"
   },
   "ava": {

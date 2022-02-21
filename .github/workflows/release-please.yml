@@ -1,5 +1,6 @@
 name: 'Release Please'
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -7,9 +8,6 @@ jobs:
 
   release-please-amagaki:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/amagaki/
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
@@ -20,23 +18,20 @@ jobs:
           command: manifest
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - run: npm install
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
-      - run: npm publish
+      - run: npm publish -w packages/amagaki
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
 
   release-please-amagaki-engine-preact:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/amagaki-engine-preact/
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
         id: release
@@ -47,14 +42,14 @@ jobs:
           command: manifest
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
       - run: npm install
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
-      - run: npm publish
+      - run: npm publish -w packages/amagaki-engine-preact
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}

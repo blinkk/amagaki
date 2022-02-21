@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
     "esModuleInterop": true,
     "jsx": "react",
     "jsxFactory": "h",
@@ -14,6 +13,11 @@
       "node",
     ]
   },
+  "references": [
+    {
+      "path": "../amagaki"
+    }
+  ],
   "exclude": [
     "node_modules",
   ],

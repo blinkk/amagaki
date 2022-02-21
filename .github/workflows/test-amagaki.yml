@@ -12,6 +12,7 @@ jobs:
           node-version: '16'
       - name: Run npm tests
         run: |
+          npm install -w packages/amagaki
           npm install
           npm test --workspaces
       - name: Run external tests

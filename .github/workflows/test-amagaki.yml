@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Amagaki
-        run: |
-          npm install -w packages/amagaki 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
       - name: Run npm tests
         run: |
           npm install

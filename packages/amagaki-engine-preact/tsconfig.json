@@ -1,22 +1,24 @@
 {
-  "extends": "gts/tsconfig-google.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
     "esModuleInterop": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "lib": ["es2018"],
-    "moduleResolution": "node",
     "outDir": "dist",
     "skipLibCheck": true,
+    "target": "ES2020",
     "types": [
-      "node"
-    ],
+      "node",
+    ]
   },
   "exclude": [
     "node_modules",
   ],
   "include": [
-    "src/**/*.ts",
-  ],
-  "references": [
-    {"path": "../amagaki/"}
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
   ]
 }

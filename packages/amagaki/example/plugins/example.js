@@ -1,4 +1,4 @@
-class ExamplePlugin {
+export class ExamplePlugin {
   constructor(pod, config) {
     this.pod = pod;
     this.config = config;
@@ -12,5 +12,3 @@ class ExamplePlugin {
     }
   }
 }
-
-module.exports = ExamplePlugin;

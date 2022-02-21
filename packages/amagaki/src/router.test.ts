@@ -1,9 +1,10 @@
-import * as getPort from '@ava/get-port';
+import getPort from 'get-port';
 
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import {Server} from './server';
 import test from 'ava';
+import { Route } from './router';
 
 test('StaticRoute contentType', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/static/');
@@ -19,14 +20,14 @@ test('SampleRouteProvider', async (t: ExecutionContext) => {
   t.true(result.manifest.files.length === 3);
   // Build one page by URL.
   const route = await pod.router.resolve('/samples/rex/');
-  const html = await route?.build();
+  const html = await (route as Route).build();
   t.deepEqual('<title>rex</title>', html);
 });
 
 test('Changing static files alters the router', async (t: ExecutionContext) => {
   const pod = new Pod('./.test/staticDevServer/');
   await pod.writeFileAsync('/src/static/file.txt', 'file');
-  const port = await getPort.default();
+  const port = await getPort();
   const server = new Server(pod, {
     port: port,
   });

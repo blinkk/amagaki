@@ -68,7 +68,8 @@ test('Collection parents', (t: ExecutionContext) => {
   // No parents.
   const pod = new Pod('./fixtures/collections/');
   let collection = pod.collection('/content/collection/') as Collection;
-  t.deepEqual([], collection.parents);
+  const result: Collection[] = [];
+  t.deepEqual(result, collection.parents);
 
   // Single layer of parents.
   collection = pod.collection(

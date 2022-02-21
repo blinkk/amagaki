@@ -5,7 +5,7 @@ import {Pod} from '../src/pod';
 import {ServerPlugin} from '../src/plugins/server';
 import {YamlPlugin} from '../src/plugins/yaml';
 
-const ExamplePlugin = require('./plugins/example');
+import {ExamplePlugin} from './plugins/example';
 
 export default function (pod: Pod) {
   pod.configure({

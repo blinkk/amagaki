@@ -256,8 +256,8 @@ export class Collection {
    * only return `/content/foo` in its list of parents if
    * `/content/foo/_blueprint.yaml` exists.
    */
-  get parents() {
-    const parents = [];
+  get parents(): Collection[] {
+    const parents: Collection[] = [];
     let parent = this.parent;
     while (parent) {
       if (parent.exists) {

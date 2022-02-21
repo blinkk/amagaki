@@ -5,7 +5,8 @@
   "homepage": "https://amagaki.dev",
   "repository": {
     "type": "git",
-    "url": "git://github.com/blinkk/amagaki.git"
+    "url": "git://github.com/blinkk/amagaki.git",
+    "directory": "packages/amagaki"
   },
   "engines": {
     "node": ">=14"
@@ -35,9 +36,6 @@
     "test:watch": "ava --watch"
   },
   "ava": {
-    "nonSemVerExperiments": {
-      "sharedWorkers": true
-    },
     "require": [
       "ts-node/register"
     ],
@@ -49,10 +47,11 @@
     ]
   },
   "devDependencies": {
-    "@ava/get-port": "^0.1.1",
     "@types/async": "^3.2.6",
     "@types/cli-progress": "^3.9.1",
     "@types/cli-table": "^0.3.0",
+    "@types/compression": "^1.7.2",
+    "@types/express-serve-static-core": "^4.17.21",
     "@types/express": "^4.17.11",
     "@types/glob": "^7.1.3",
     "@types/js-yaml": "^4.0.1",
@@ -61,20 +60,20 @@
     "@types/node": "^15.0.1",
     "@types/nunjucks": "^3.1.4",
     "@types/semver": "^7.3.5",
-    "ava": "^3.15.0",
+    "ava": "^4.0.1",
+    "del": "^6.0.0",
     "eslint": "^7.25.0",
     "eslint-plugin-sort-class-members": "^1.11.0",
+    "get-port": "^5.1.1",
     "gts": "^3.1.0",
     "nodemon": "^2.0.7",
     "ts-loader": "^9.1.1",
-    "ts-node": "^9.1.1",
-    "typedoc": "^0.20.36",
-    "typescript": "^4.2.4"
+    "ts-node": "^10.5.0",
+    "typedoc": "^0.22.12",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "@blinkk/editor.dev-ui": "^3.11.1",
-    "@types/compression": "^1.7.2",
-    "@types/express-serve-static-core": "^4.17.21",
     "async": "^3.2.0",
     "chalk": "2.4.2",
     "chokidar": "^3.5.1",

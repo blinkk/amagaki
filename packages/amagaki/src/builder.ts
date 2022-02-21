@@ -172,7 +172,7 @@ export class Builder {
 
   moveFileAsync(beforePath: string, afterPath: string) {
     Builder.ensureDirectoryExists(afterPath);
-    return fs.promises.rename(beforePath, afterPath).catch(err => {
+    return fs.promises.rename(beforePath, afterPath).catch((err: NodeJS.ErrnoException) => {
       // Handle scenario where temporary directory is on a different device than
       // the destination directory. In this situation, Node cannot move files,
       // but copying files is OK. The temporary directory is cleaned up later by
@@ -194,7 +194,7 @@ export class Builder {
     let filePaths = [];
     if (fs.existsSync(path)) {
       filePaths = fs.readdirSync(path);
-      filePaths.forEach(filePath => {
+      filePaths.forEach((filePath: string) => {
         const curPath = fsPath.join(path, filePath);
         if (fs.lstatSync(curPath).isDirectory()) {
           this.deleteDirectoryRecursive(curPath);
@@ -470,7 +470,7 @@ export class Builder {
     await async.mapLimit(
       createdPaths,
       Builder.NumConcurrentCopies,
-      async createdPath => {
+      async (createdPath: CreatedPath) => {
         // Start by building the manifest (and getting file shas).
         buildManifest.files.push({
           path: createdPath.normalPath,

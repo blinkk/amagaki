@@ -1,0 +1,3 @@
+$view: /src/partials/Page/Page.tsx
+$path: /page/
+headline: Hello World

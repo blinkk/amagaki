@@ -1,0 +1,25 @@
+{
+  "extends": "gts/tsconfig-google.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "lib": ["es2020"],
+    "esModuleInterop": true,
+    "incremental": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES2020",
+    // "paths": {
+    //   "@amagaki/amagaki": ["packages/amagaki/"]
+    // },
+    "types": ["node"]
+  },
+  // "references": [
+  //   {
+  //     "path": "./packages/amagaki"
+  //   }
+  // ],
+  "include": ["./packages/*/**.ts"],
+  "exclude": ["**/*.test.ts", "node_modules", "dist"]
+}

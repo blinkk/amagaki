@@ -54,7 +54,11 @@ npm install --save @amagaki/amagaki
 ```
 ## Benchmarks
 
-You can view the [benchmark history](https://blinkk.github.io/amagaki/benchmark/) that shows the benchmark metrics when running `amagaki build` against the [amagaki-benchmark](https://github.com/blinkk/amagaki-benchmark) test repository.
+You can view the [benchmark
+history](https://blinkk.github.io/amagaki/benchmark/) that shows the benchmark
+metrics when running `amagaki build` against the
+[amagaki-benchmark](https://github.com/blinkk/amagaki-benchmark) test
+repository.
 
 [github-image]: https://github.com/blinkk/amagaki/workflows/Run%20tests/badge.svg
 [github-url]: https://github.com/blinkk/amagaki/actions

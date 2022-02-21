@@ -5,8 +5,7 @@ on:
     branches:
       - main
 jobs:
-
-  release-please-amagaki:
+  release-please:
     runs-on: ubuntu-latest
     steps:
       - uses: GoogleCloudPlatform/release-please-action@v2
@@ -16,39 +15,20 @@ jobs:
           release-type: node
           monorepo-tags: true
           command: manifest
+          default-branch: main
       - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
+        if: ${{ steps.release.outputs.releases_created }}
       - uses: actions/setup-node@v2
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
+        if: ${{ steps.release.outputs.releases_created }}
       - run: npm install
-        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
+        if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish -w packages/amagaki
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
-
-  release-please-amagaki-engine-preact:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: GoogleCloudPlatform/release-please-action@v2
-        id: release
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: node
-          monorepo-tags: true
-          command: manifest
-      - uses: actions/checkout@v2
-        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
-      - run: npm install
-        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
       - run: npm publish -w packages/amagaki-engine-preact
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

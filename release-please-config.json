@@ -2,8 +2,19 @@
   "packages": {
     "packages/amagaki": {},
     "packages/amagaki-engine-preact": {},
-    "packages/create-amagaki": {}
+    "packages/create-amagaki": {},
+    ".": {
+      "releaseType": "node",
+      "draft": false,
+      "prerelease": false,
+      "bumpMinorPreMajor": false,
+      "bumpPatchForMinorPreMajor": false,
+      "changelogPath": "CHANGELOG.md",
+      "versioning": "default"
+    }
   },
-  "plugins": ["node-workspace"],
+  "plugins": [
+    "node-workspace"
+  ],
   "bootstrap-sha": "a9ad6d1f979a15909238eabd20f1945dca8313b7"
 }

@@ -13,11 +13,11 @@
       "node",
     ]
   },
-  "references": [
-    {
-      "path": "../amagaki"
-    }
-  ],
+  // "references": [
+  //   {
+  //     "path": "../amagaki"
+  //   }
+  // ],
   "exclude": [
     "node_modules",
   ],

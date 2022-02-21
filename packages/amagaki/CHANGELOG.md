@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.12.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.12.0...amagaki-v1.12.1) (2022-02-21)
+
+
+### Bug Fixes
+
+* trigger release-please for package ([c75968f](https://www.github.com/blinkk/amagaki/commit/c75968ff8f3b46c5ad3efc0e847ea0741d3eb523))
+
 ## [1.12.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.11.0...amagaki-v1.12.0) (2022-02-21)
 
 

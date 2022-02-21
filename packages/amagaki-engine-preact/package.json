@@ -5,7 +5,7 @@
   "homepage": "https://amagaki.dev",
   "repository": {
     "type": "git",
-    "url": "git://github.com/blinkk/amagakit.git",
+    "url": "git://github.com/blinkk/amagaki.git",
     "directory": "packages/amagaki-engine-preact"
   },
   "engines": {

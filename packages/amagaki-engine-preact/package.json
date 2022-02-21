@@ -36,21 +36,19 @@
   },
   "devDependencies": {
     "ava": "^4.0.1",
+    "eslint-plugin-sort-class-members": "^1.9.0",
+    "eslint": "^7.15.0",
     "gts": "^3.1.0",
     "nodemon": "^2.0.4",
-    "preact": "^10.6.6",
-    "preact-render-to-string": "^5.1.19",
     "ts-loader": "^7.0.5",
     "ts-node": "^10.5.0",
     "typescript": "^4.3.5"
   },
-  "dependencies": {
-    "@amagaki/amagaki": "^1.9.1"
-  },
   "peerDependencies": {
+    "@amagaki/amagaki": "*",
     "esbuild-register": "^3.3.2",
-    "eslint-plugin-sort-class-members": "^1.9.0",
-    "eslint": "^7.15.0"
+    "preact-render-to-string": "^5.1.19",
+    "preact": "^10.6.6"
   },
   "files": [
     "dist/"

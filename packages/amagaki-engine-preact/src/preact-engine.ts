@@ -1,4 +1,4 @@
-import {Component, JSX, h} from 'preact';
+import {h} from 'preact';
 import {PluginComponent, Pod, TemplateEngineComponent} from '@amagaki/amagaki';
 
 import {register as esbuildRegister} from 'esbuild-register/dist/node';

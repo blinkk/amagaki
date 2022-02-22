@@ -5,24 +5,17 @@
     "jsx": "react",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
-    "lib": ["es2018"],
+    "lib": ["dom"],
     "outDir": "dist",
     "skipLibCheck": true,
     "target": "ES2020",
-    "types": [
-      "node",
-    ]
+    "types": ["node"]
   },
   // "references": [
   //   {
   //     "path": "../amagaki"
   //   }
   // ],
-  "exclude": [
-    "node_modules",
-  ],
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-  ]
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }

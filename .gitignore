@@ -1,6 +1,7 @@
 .DS_Store
 .npmrc
 .test/
+*.tsbuildinfo
 /docs/
 amagaki-amagaki-*.tgz
 build/

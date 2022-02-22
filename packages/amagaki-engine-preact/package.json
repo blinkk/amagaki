@@ -55,6 +55,7 @@
     "preact-render-to-string": "^5.1.19"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "!**/*.test.*"
   ]
 }

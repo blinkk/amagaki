@@ -16,6 +16,6 @@
   //     "path": "../amagaki"
   //   }
   // ],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "example", "src/**/*.test.tsx"],
   "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }

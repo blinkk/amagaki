@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.0.1...amagaki-engine-preact-v1.1.0) (2022-02-22)
+
+
+### Features
+
+* add partial hydrater to preact engine ([#151](https://www.github.com/blinkk/amagaki/issues/151)) ([61d8391](https://www.github.com/blinkk/amagaki/commit/61d8391c5c294900dea93a9f3ee686526cd3aae0))
+
 ### [1.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.0.0...amagaki-engine-preact-v1.0.1) (2022-02-21)
 
 

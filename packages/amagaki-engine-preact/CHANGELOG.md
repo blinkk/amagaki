@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.1.0...amagaki-engine-preact-v1.1.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* amagaki-engine-preact package ([f7abfd5](https://www.github.com/blinkk/amagaki/commit/f7abfd517c443270f66d8e3caad394436625b2f4))
+
 ## [1.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.0.1...amagaki-engine-preact-v1.1.0) (2022-02-22)
 
 

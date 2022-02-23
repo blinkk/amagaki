@@ -4,13 +4,13 @@ import test from 'ava';
 
 test('Num missing translations', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/missingTranslations/');
-  const buildResult = await pod.builder.export();
+  const buildResult = await pod.builder.build();
   t.deepEqual(buildResult.metrics.localesToNumMissingTranslations.de, 2);
 });
 
 test('Writing locales', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/missingTranslations/');
-  await pod.builder.export({writeLocales: true});
+  await pod.builder.build({writeLocales: true});
   const missingLocale = pod.readYaml('/build/.amagaki/locales/de.yaml');
   t.deepEqual(
     {
@@ -24,9 +24,9 @@ test('Writing locales', async (t: ExecutionContext) => {
 test('Build matching patterns', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
   // Build first.
-  await pod.builder.export();
+  await pod.builder.build();
   // Build again, and verify incremental build does not delete.
-  const result = await pod.builder.export({
+  const result = await pod.builder.build({
     patterns: ['content/pages/index.yaml', 'content/pages/about.yaml'],
   });
   t.deepEqual(result.diff.deletes.length, 0);
@@ -51,4 +51,11 @@ test('Build matching patterns', async (t: ExecutionContext) => {
       '/intl/nl/index.html',
     ].sort()
   );
+});
+
+test('Export', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/simple/');
+  await pod.builder.build();
+  const exportResult = await pod.builder.export({exportDir: './export/'});
+  t.deepEqual(exportResult.adds.length, 56);
 });

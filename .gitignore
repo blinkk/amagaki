@@ -6,4 +6,5 @@
 amagaki-amagaki-*.tgz
 build/
 dist/
+fixtures/simple/export/
 node_modules/

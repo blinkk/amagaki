@@ -43,7 +43,7 @@ program
   .description('export a build to another directory')
   .requiredOption('-o, --exportDir <path>', 'export directory')
   .option('-b, --buildDir <path>', 'build directory', 'build')
-  .option('-c, --controlDir <path>', 'export control directory')
+  .option('-c, --exportControlDir <path>', 'export control directory')
   .action((path, options) => {
     if (!isNodeVersionSupported()) {
       return;

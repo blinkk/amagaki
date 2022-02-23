@@ -1,10 +1,9 @@
-import getPort from 'get-port';
-
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
-import {Server} from './server';
-import test from 'ava';
 import { Route } from './router';
+import {Server} from './server';
+import getPort from 'get-port';
+import test from 'ava';
 
 test('StaticRoute contentType', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/static/');
@@ -16,7 +15,7 @@ test('SampleRouteProvider', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/sampleRouteProvider/');
   await pod.warmup();
   // Build the whole site.
-  const result = await pod.builder.export();
+  const result = await pod.builder.build();
   t.true(result.manifest.files.length === 3);
   // Build one page by URL.
   const route = await pod.router.resolve('/samples/rex/');

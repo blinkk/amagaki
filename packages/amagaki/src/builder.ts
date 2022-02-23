@@ -208,12 +208,10 @@ export class Builder {
     }
   }
 
-  deleteOutputFiles(paths: Array<string>) {
+  deleteOutputFiles(paths: Array<string>, outputRootDir: string) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = this.pod.getAbsoluteFilePath(
-        fsPath.join(this.outputDirectoryPodPath, outputPath)
-      );
+      const absOutputPath = fsPath.join(outputRootDir, outputPath.replace(/^\//, ''));
       try {
         fs.unlinkSync(absOutputPath);
       } catch (err: any) {
@@ -307,11 +305,9 @@ export class Builder {
     );
   }
 
-  async export(options: ExportOptions): Promise<void> {
-    console.log(options);
-    const buildManifestPath = options.buildDir
-      ? fsPath.join(options.buildDir, '.amagaki', 'manifest.json')
-      : this.manifestPath;
+  async export(options: ExportOptions): Promise<BuildDiffPaths> {
+    const buildDir = options.buildDir ?? this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
+    const buildManifestPath = fsPath.join(buildDir, '.amagaki', 'manifest.json');
     const exportManifestPath = options.exportControlDir
       ? fsPath.join(options.exportControlDir, 'manifest.json')
       : fsPath.join(options.exportDir, '.amagaki', 'manifest.json');
@@ -326,11 +322,15 @@ export class Builder {
     const filesToExport = buildManifest.files;
     const existingFiles = exportManifest?.files;
 
-    let adds = [];
-    let edits = [];
-    let deletes = [];
+    // Collect adds, edits, and deletes.
+    const result: BuildDiffPaths = {
+      adds: [],
+      edits: [],
+      noChanges: [],
+      deletes: [],
+    }
     if (!existingFiles) {
-      adds = buildManifest.files;
+      result.adds = buildManifest.files.map(pathSha => pathSha.path);
     } else {
       const existingPathsToShas: Record<string, string> = {};
       for (const pathSha of existingFiles) {
@@ -343,20 +343,30 @@ export class Builder {
       for (const pathSha of buildManifest.files) {
         if (pathSha.path in existingPathsToShas) {
           if (pathSha.sha !== existingPathsToShas[pathSha.path]) {
-            edits.push(pathSha);
+            result.edits.push(pathSha.path);
+          } else {
+            result.noChanges.push(pathSha.path);
           }
         } else {
-          adds.push(pathSha);
+          result.adds.push(pathSha.path);
         }
       }
       for (const pathSha of existingFiles) {
         if (!(pathSha.path in buildPathsToShas)) {
-          deletes.push(pathSha);
+          result.deletes.push(pathSha.path);
         }
       }
     }
 
-    const numOperations = adds.length + edits.length + deletes.length;
+    const numOperations = result.adds.length + result.edits.length + result.deletes.length;
+    if (numOperations === 0) {
+      console.log(
+        chalk.blue('No changes since last export: ') +
+          this.pod.getAbsoluteFilePath(options.exportDir)
+      );
+      return result;
+    }
+
     const moveBar = Builder.createProgressBar('Exporting');
     const showMoveProgressBar =
       numOperations >= Builder.ShowMoveProgressBarThreshold;
@@ -367,9 +377,43 @@ export class Builder {
       });
     }
 
-    console.log(`Adds: ${adds.length}, Edits: ${edits.length}, Deletes: ${deletes.length}`);
+    // Copy adds and edits.
+    const moveFiles = [...result.adds, ...result.edits];
+    await async.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
+      const relativePath = filePath.replace(/^\//, '');
+      const source = fsPath.join(buildDir, relativePath);
+      const destination = fsPath.join(options.exportDir, relativePath);;
+      Builder.ensureDirectoryExists(destination);
+      moveBar.increment();
+      return fs.promises.copyFile(
+        source, destination
+      );
+    });
 
+    // Delete deleted files.
+    this.deleteOutputFiles(result.deletes, options.exportDir);
     moveBar.stop();
+
+    // Write the manifest.
+    await Promise.all([
+      this.writeFileAsync(
+        exportManifestPath,
+        JSON.stringify(buildManifest, null, 2)
+      ),
+    ]);
+
+    console.log(
+      chalk.blue('Changes: ') +
+        chalk.green(`${result.adds.length} adds, `) +
+        chalk.yellow(`${result.edits.length} edits, `) +
+        chalk.red(`${result.deletes.length} deletes`)
+    );
+    console.log(
+      chalk.blue('Export complete: ') +
+        this.pod.getAbsoluteFilePath(options.exportDir)
+    );
+
+    return result;
   }
 
   async build(options?: BuildOptions): Promise<BuildResult> {
@@ -614,7 +658,10 @@ export class Builder {
     // After diff has been computed, actually delete files. Incremental builds
     // don't support deletes, so avoid deleting files if building incrementally.
     if (!options?.patterns) {
-      this.deleteOutputFiles(buildDiff.deletes);
+      const outputRootDir = this.pod.getAbsoluteFilePath(
+        fsPath.join(this.outputDirectoryPodPath)
+      );
+      this.deleteOutputFiles(buildDiff.deletes, outputRootDir);
     }
     const result: BuildResult = {
       diff: buildDiff,

@@ -1,5 +1,19 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.0...amagaki-engine-preact-v1.2.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* dependency issue with release-please ([f3d2eeb](https://www.github.com/blinkk/amagaki/commit/f3d2eeb7b3229fcf331888826aaccc398c9e0feb))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @amagaki/amagaki-plugin-page-builder bumped from * to ^3.6.1
+
 ## [1.2.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.1.1...amagaki-engine-preact-v1.2.0) (2022-02-23)
 
 

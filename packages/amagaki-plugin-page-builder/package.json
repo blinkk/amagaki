@@ -19,7 +19,7 @@
     "compile": "tsc; npx gulp build;",
     "dev:start": "npm run compile",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
-    "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
+    "fix": "eslint --fix src/**/*.ts",
     "prepare": "rm -rf dist/; npm run compile",
     "test": "npm run compile; ava"
   },

@@ -1,7 +1,4 @@
-import * as fs from 'fs';
-
-import {GlobalOptions} from './global';
-import {Pod} from '../pod';
+import {GlobalOptions, getPodWithEnvironment} from './global';
 import {ProfileReport} from '../profile';
 
 interface BuildOptions {
@@ -20,26 +17,18 @@ export class BuildCommand {
   }
 
   async run(path = './') {
-    const pod = new Pod(
-      fs.realpathSync(path),
-      this.globalOptions.env ? {name: this.globalOptions.env} : undefined
-    );
-    if (this.globalOptions.env) {
-      pod.setEnvironment(this.globalOptions.env);
-    }
+    const pod = getPodWithEnvironment(path, this.globalOptions);
     const timer = pod.profiler.timer('command.build', 'Build command');
     try {
-      await pod.builder.export({
+      await pod.builder.build({
         patterns: this.options.pattern,
         writeLocales: this.options.writeLocales,
       });
     } finally {
       timer.stop();
     }
-
     const report = new ProfileReport(pod.profiler);
     report.output(this.globalOptions.profile);
-
     await pod.builder.exportBenchmark();
   }
 }

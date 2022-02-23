@@ -75,15 +75,20 @@ interface CreatedPath {
   realPath: string;
 }
 
-export interface ExportOptions {
+export interface BuildOptions {
   patterns?: string[];
   writeLocales?: Boolean;
+}
+export interface ExportOptions {
+  buildDir?: string;
+  exportDir: string;
+  exportControlDir?: string;
 }
 
 export class Builder {
   benchmarkPodPath: string;
   pod: Pod;
-  manifestPodPath: string;
+  manifestPath: string;
   metricsPodPath: string;
   missingTranslationsPodPath: string;
   outputDirectoryPodPath: string;
@@ -98,17 +103,12 @@ export class Builder {
 
   constructor(pod: Pod) {
     this.pod = pod;
-    // TODO: Right now, this is limited to a sub-directory within the pod. We
-    // want that to be the default, but we should also permit building to
-    // directories external to the pod.
     this.outputDirectoryPodPath = Builder.DefaultOutputDirectory;
     this.controlDirectoryAbsolutePath = this.pod.getAbsoluteFilePath(
       fsPath.join(this.outputDirectoryPodPath, '.amagaki')
     );
-    this.manifestPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
-      '.amagaki',
-      'manifest.json'
+    this.manifestPath = this.pod.getAbsoluteFilePath(
+      fsPath.join(this.outputDirectoryPodPath, '.amagaki', 'manifest.json')
     );
     this.metricsPodPath = fsPath.join(
       this.outputDirectoryPodPath,
@@ -172,16 +172,18 @@ export class Builder {
 
   moveFileAsync(beforePath: string, afterPath: string) {
     Builder.ensureDirectoryExists(afterPath);
-    return fs.promises.rename(beforePath, afterPath).catch((err: NodeJS.ErrnoException) => {
-      // Handle scenario where temporary directory is on a different device than
-      // the destination directory. In this situation, Node cannot move files,
-      // but copying files is OK. The temporary directory is cleaned up later by
-      // the builder.
-      if (err.code === 'EXDEV') {
-        return fs.promises.copyFile(beforePath, afterPath);
-      }
-      throw err;
-    });
+    return fs.promises
+      .rename(beforePath, afterPath)
+      .catch((err: NodeJS.ErrnoException) => {
+        // Handle scenario where temporary directory is on a different device than
+        // the destination directory. In this situation, Node cannot move files,
+        // but copying files is OK. The temporary directory is cleaned up later by
+        // the builder.
+        if (err.code === 'EXDEV') {
+          return fs.promises.copyFile(beforePath, afterPath);
+        }
+        throw err;
+      });
   }
 
   writeFileAsync(outputPath: string, content: string) {
@@ -235,18 +237,16 @@ export class Builder {
     });
   }
 
-  getExistingManifest(): BuildManifest | null {
-    const path = this.manifestPodPath;
-    if (this.pod.fileExists(path)) {
-      return JSON.parse(this.pod.readFile(this.manifestPodPath));
-    }
-    return null;
+  getManifest(filePath: string): BuildManifest | null {
+    return fs.existsSync(filePath)
+      ? JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+      : null;
   }
 
   cleanOutputUsingManifests(
     existingManifest: BuildManifest | null,
     newManifest: BuildManifest,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     const buildDiffPaths: BuildDiffPaths = {
       adds: [],
@@ -307,9 +307,74 @@ export class Builder {
     );
   }
 
-  async export(options?: ExportOptions): Promise<BuildResult> {
+  async export(options: ExportOptions): Promise<void> {
+    console.log(options);
+    const buildManifestPath = options.buildDir
+      ? fsPath.join(options.buildDir, '.amagaki', 'manifest.json')
+      : this.manifestPath;
+    const exportManifestPath = options.exportControlDir
+      ? fsPath.join(options.exportControlDir, 'manifest.json')
+      : fsPath.join(options.exportDir, '.amagaki', 'manifest.json');
+    const buildManifest = this.getManifest(buildManifestPath);
+    const exportManifest = this.getManifest(exportManifestPath);
+    if (!buildManifest) {
+      throw new Error(
+        `Could not find build manifest at ${buildManifestPath}.`
+      );
+    }
+
+    const filesToExport = buildManifest.files;
+    const existingFiles = exportManifest?.files;
+
+    let adds = [];
+    let edits = [];
+    let deletes = [];
+    if (!existingFiles) {
+      adds = buildManifest.files;
+    } else {
+      const existingPathsToShas: Record<string, string> = {};
+      for (const pathSha of existingFiles) {
+        existingPathsToShas[pathSha.path] = pathSha.sha;
+      }
+      const buildPathsToShas: Record<string, string> = {};
+      for (const pathSha of filesToExport) {
+        buildPathsToShas[pathSha.path] = pathSha.sha;
+      }
+      for (const pathSha of buildManifest.files) {
+        if (pathSha.path in existingPathsToShas) {
+          if (pathSha.sha !== existingPathsToShas[pathSha.path]) {
+            edits.push(pathSha);
+          }
+        } else {
+          adds.push(pathSha);
+        }
+      }
+      for (const pathSha of existingFiles) {
+        if (!(pathSha.path in buildPathsToShas)) {
+          deletes.push(pathSha);
+        }
+      }
+    }
+
+    const numOperations = adds.length + edits.length + deletes.length;
+    const moveBar = Builder.createProgressBar('Exporting');
+    const showMoveProgressBar =
+      numOperations >= Builder.ShowMoveProgressBarThreshold;
+    const moveStartTime = new Date().getTime();
+    if (showMoveProgressBar) {
+      moveBar.start(numOperations, 0, {
+        customDuration: Builder.formatProgressBarTime(0),
+      });
+    }
+
+    console.log(`Adds: ${adds.length}, Edits: ${edits.length}, Deletes: ${deletes.length}`);
+
+    moveBar.stop();
+  }
+
+  async build(options?: BuildOptions): Promise<BuildResult> {
     await this.pod.plugins.trigger('beforeBuild', this);
-    const existingManifest = this.getExistingManifest();
+    const existingManifest = this.getManifest(this.manifestPath);
     const buildManifest: BuildManifest = {
       branch: null,
       commit: null,
@@ -525,12 +590,13 @@ export class Builder {
         localesToMissingTranslations[locale.id].push(string);
       }
     }
-    buildMetrics.localesToNumMissingTranslations = localesToNumMissingTranslations;
+    buildMetrics.localesToNumMissingTranslations =
+      localesToNumMissingTranslations;
 
     // Write the manifest and metrics.
     await Promise.all([
       this.writeFileAsync(
-        this.pod.getAbsoluteFilePath(this.manifestPodPath),
+        this.manifestPath,
         JSON.stringify(buildManifest, null, 2)
       ),
       this.writeFileAsync(
@@ -566,7 +632,7 @@ export class Builder {
   logResult(
     buildDiff: BuildDiffPaths,
     buildMetrics: BuildMetrics,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     console.log(
       chalk.blue('Memory usage: ') + utils.formatBytes(buildMetrics.memoryUsage)

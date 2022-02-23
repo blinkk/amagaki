@@ -5,11 +5,12 @@
 import * as packageData from '../../package.json';
 
 import {BuildCommand} from './commands/build';
+import {ExportCommand} from './commands/export';
 import {ServeCommand} from './commands/serve';
 import {createCommand} from 'commander';
 
 export const VERSION = packageData.version;
-export const MIN_NODE_VERSION = 10;
+export const MIN_NODE_VERSION = 14;
 
 // Make sure that unhandled promises causes the command to fail.
 process.on('unhandledRejection', up => {
@@ -38,6 +39,20 @@ program
   });
 
 program
+  .command('export [root]')
+  .description('export a build to another directory')
+  .requiredOption('-o, --exportDir <path>', 'export directory')
+  .option('-b, --buildDir <path>', 'build directory', 'build')
+  .option('-c, --controlDir <path>', 'export control directory')
+  .action((path, options) => {
+    if (!isNodeVersionSupported()) {
+      return;
+    }
+    const cmd = new ExportCommand(program.opts(), options);
+    cmd.run(path);
+  });
+
+program
   .command('serve [root]')
   .description('start the development server')
   .option('-p, --port <number>', 'development server port', '8080')
@@ -56,7 +71,7 @@ export function isNodeVersionSupported(): boolean {
   const version = Number(process.version.slice(1).split('.')[0]);
   if (version < MIN_NODE_VERSION) {
     console.error(
-      `Amagaki requires Node.js 10.x or higher. You are currently running ${process.version}, which is not supported.`
+      `Amagaki requires Node.js 14.x or higher. You are currently running ${process.version}, which is not supported.`
     );
     return false;
   }

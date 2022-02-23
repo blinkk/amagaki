@@ -1,9 +1,6 @@
-import * as fs from 'fs';
-
+import {GlobalOptions, getPodWithEnvironment} from './global';
 import {Server, ServerListeningEvent} from '../server';
 
-import {GlobalOptions} from './global';
-import {Pod} from '../pod';
 import chalk from 'chalk';
 
 interface ServeOptions {
@@ -24,16 +21,13 @@ export class ServeCommand {
 
   async run(path = './') {
     const port = this.options.port || process.env.PORT || 8080;
-    const pod = new Pod(fs.realpathSync(path), {
+    const pod = getPodWithEnvironment(path, this.globalOptions, {
       dev: true,
       host: 'localhost',
       name: this.globalOptions.env || 'default',
       port: `${port}`,
       scheme: 'http',
     });
-    if (this.globalOptions.env) {
-      pod.setEnvironment(this.globalOptions.env);
-    }
     const server = new Server(pod, {
       port: port,
     });

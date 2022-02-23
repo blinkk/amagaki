@@ -1,0 +1,66 @@
+{
+  "name": "@amagaki/amagaki-plugin-page-builder",
+  "license": "MIT",
+  "homepage": "https://amagaki.dev",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blinkk/amagaki-plugin-page-builder.git"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "version": "3.5.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build:example": "npx amagaki build example",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc; npx gulp build;",
+    "dev:start": "npm run compile",
+    "dev": "nodemon --watch src -e ts --exec npm run dev:start",
+    "fix": "node ./node_modules/eslint/bin/eslint --fix src/**/*.ts",
+    "prepare": "rm -rf dist/; npm run compile",
+    "test": "npm run compile; ava"
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "files": [
+      "src/**/*.test.ts"
+    ],
+    "timeout": "20s"
+  },
+  "devDependencies": {
+    "@amagaki/amagaki": "^1.7.0",
+    "@blinkk/degu": "^2.0.0",
+    "@types/gulp": "^4.0.9",
+    "@types/js-beautify": "^1.13.3",
+    "@types/node": "^13.11.1",
+    "@types/nunjucks": "^3.2.0",
+    "ava": "^3.14.0",
+    "child_process": "^1.0.2",
+    "esbuild": "^0.13.14",
+    "eslint": "^7.15.0",
+    "eslint-plugin-sort-class-members": "^1.9.0",
+    "gts": "^2.0.2",
+    "gulp": "^4.0.2",
+    "nodemon": "^2.0.4",
+    "nunjucks": "^3.2.3",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "js-beautify": "^1.14.0",
+    "lit": "^2.0.2",
+    "spacingjs": "^1.0.7"
+  },
+  "files": [
+    "dist/",
+    "!**/*.test.*"
+  ]
+}

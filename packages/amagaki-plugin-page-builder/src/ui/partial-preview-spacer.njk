@@ -1,0 +1,27 @@
+<div class="preview-spacer">
+</div>
+<style>
+  .preview-spacer {
+      height: 160px;
+      background-color: #efefef;
+      background-image: radial-gradient(circle, #888 1px, transparent 1px);
+      background-size: 20px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      padding-top: 12px;
+      position: relative;
+  }
+  .preview-spacer::before {
+      box-shadow: inset rgb(0 0 0 / 20%) 0 18px 50px -10px;
+      content: "";
+      height: 100%;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      width: 100%;
+  }
+</style>

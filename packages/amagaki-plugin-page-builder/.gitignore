@@ -1,0 +1,6 @@
+amagaki-*.tgz
+/dist/
+example/build
+node_modules/
+secrets.txt
+.DS_Store

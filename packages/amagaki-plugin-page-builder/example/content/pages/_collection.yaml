@@ -1,0 +1,3 @@
+$path: /pages/${doc.basename}/
+$localization:
+  path: /${doc.locale.id}/pages/${doc.basename}/

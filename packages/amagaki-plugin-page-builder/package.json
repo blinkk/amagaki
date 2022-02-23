@@ -4,7 +4,8 @@
   "homepage": "https://amagaki.dev",
   "repository": {
     "type": "git",
-    "url": "git://github.com/blinkk/amagaki-plugin-page-builder.git"
+    "url": "git://github.com/blinkk/amagaki-plugin-page-builder.git",
+    "directory": "packages/amagaki-plugin-page-builder"
   },
   "engines": {
     "node": ">=14"
@@ -35,7 +36,7 @@
     "timeout": "20s"
   },
   "devDependencies": {
-    "@amagaki/amagaki": "^1.7.0",
+    "@amagaki/amagaki": "*",
     "@blinkk/degu": "^2.0.0",
     "@types/gulp": "^4.0.9",
     "@types/js-beautify": "^1.13.3",
@@ -43,7 +44,6 @@
     "@types/nunjucks": "^3.2.0",
     "ava": "^3.14.0",
     "child_process": "^1.0.2",
-    "esbuild": "^0.13.14",
     "eslint": "^7.15.0",
     "eslint-plugin-sort-class-members": "^1.9.0",
     "gts": "^2.0.2",

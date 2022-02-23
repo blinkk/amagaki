@@ -33,3 +33,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
+      - run: npm publish -w packages/amagaki-plugin-page-builder
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] }}

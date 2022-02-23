@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.6.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.0...amagaki-plugin-page-builder-v3.6.1) (2022-02-23)
+
+
+### Bug Fixes
+
+* no-op change to trigger release ([8bf06b3](https://www.github.com/blinkk/amagaki/commit/8bf06b35ef3a39b38426892657b63216feb6e7fe))
+
 ## [3.6.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.5.0...amagaki-plugin-page-builder-v3.6.0) (2022-02-23)
 
 

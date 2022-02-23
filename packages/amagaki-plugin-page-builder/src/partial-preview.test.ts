@@ -23,9 +23,9 @@ test('PatialPreview', async (t: ExecutionContext) => {
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Example">
   <meta property="og:url" content="http://localhost/preview/">
-  <meta property="og:title" content="Preview Gallery">
+  <meta property="og:title" content="Preview Gallery | Example">
   <meta property="og:locale" content="en">
-  <meta property="twitter:title" content="Preview Gallery">
+  <meta property="twitter:title" content="Preview Gallery | Example">
   <meta property="twitter:card" content="summary_large_image">
   <link href="http://localhost/preview/" rel="canonical">
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Roboto:400,500,700&amp;display=swap" rel="stylesheet" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">

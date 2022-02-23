@@ -560,7 +560,7 @@ export class PageBuilder {
     url: string;
   }) {
     return html`
-      ${options.title ? html`<title>${options.title} ${options.appendSiteName ? ` | ${options.siteName}` : ''}</title>` : ''}
+      ${options.title ? html`<title>${options.title}${options.appendSiteName ? ` | ${options.siteName}` : ''}</title>` : ''}
       ${options.description
         ? html`<meta name="description" content="${options.description}">`
         : ''}
@@ -576,7 +576,7 @@ export class PageBuilder {
         : ''}
       <meta property="og:url" content="${options.url}">
       ${options.title
-        ? html`<meta property="og:title" content="${options.title}">`
+        ? html`<meta property="og:title" content="${options.title}${options.appendSiteName ? ` | ${options.siteName}` : ''}">`
         : ''}
       ${options.description
         ? html`<meta
@@ -602,7 +602,7 @@ export class PageBuilder {
          >`
         : ''}
       ${options.title
-        ? html`<meta property="twitter:title" content="${options.title}">`
+        ? html`<meta property="twitter:title" content="${options.title}${options.appendSiteName ? ` | ${options.siteName}` : ''}">`
         : ''}
       ${options.description
         ? html`<meta

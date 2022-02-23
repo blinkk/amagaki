@@ -16,7 +16,7 @@ export default (pod: Pod) => {
   pod.configure({
     meta: {
       siteTitle: 'Amagaki',
-      githubEditRoot: 'https://github.com/blinkk/amagaki/edit/main/website',
+      githubEditRoot: 'https://github.com/blinkk/amagaki/edit/main/packages/website',
     },
     staticRoutes: [
       {

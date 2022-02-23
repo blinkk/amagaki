@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.2.2](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.1...amagaki-engine-preact-v1.2.2) (2022-02-23)
+
+
+### Bug Fixes
+
+* remove node-workspace from release-please ([4bc7f68](https://www.github.com/blinkk/amagaki/commit/4bc7f688af48afa41e1d4621177524e161f43353))
+
 ### [1.2.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.0...amagaki-engine-preact-v1.2.1) (2022-02-23)
 
 

@@ -6,5 +6,6 @@
     "packages/create-amagaki": {}
   },
   "plugins": ["node-workspace"],
-  "bootstrap-sha": "a9ad6d1f979a15909238eabd20f1945dca8313b7"
+  "bootstrap-sha": "a9ad6d1f979a15909238eabd20f1945dca8313b7",
+  "always-link-local": false
 }

@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.6.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.5.0...amagaki-plugin-page-builder-v3.6.0) (2022-02-23)
+
+
+### Features
+
+* import `amagaki-plugin-page-builder` to monorepo ([650e914](https://www.github.com/blinkk/amagaki/commit/650e914045353c99a775ec49bb899567bf458100))
+* support appended site name in og:title ([748d6f5](https://www.github.com/blinkk/amagaki/commit/748d6f5c9ad152fbb69fd37f8b0696e5aac53a27))
+* support appended site name in og:title ([748d6f5](https://www.github.com/blinkk/amagaki/commit/748d6f5c9ad152fbb69fd37f8b0696e5aac53a27))
+* support appended site name in og:title ([748d6f5](https://www.github.com/blinkk/amagaki/commit/748d6f5c9ad152fbb69fd37f8b0696e5aac53a27))
+* support appended site name in og:title ([748d6f5](https://www.github.com/blinkk/amagaki/commit/748d6f5c9ad152fbb69fd37f8b0696e5aac53a27))
+* support appended site name in og:title ([748d6f5](https://www.github.com/blinkk/amagaki/commit/748d6f5c9ad152fbb69fd37f8b0696e5aac53a27))
+
 ## [3.5.0](https://github.com/blinkk/amagaki-plugin-page-builder/compare/v3.4.0...v3.5.0) (2022-02-22)
 
 

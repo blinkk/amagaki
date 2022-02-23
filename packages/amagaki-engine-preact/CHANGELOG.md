@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.1.1...amagaki-engine-preact-v1.2.0) (2022-02-23)
+
+
+### Features
+
+* import `amagaki-plugin-page-builder` to monorepo ([650e914](https://www.github.com/blinkk/amagaki/commit/650e914045353c99a775ec49bb899567bf458100))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @amagaki/amagaki-plugin-page-builder bumped from * to ^3.6.0
+
 ### [1.1.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.1.0...amagaki-engine-preact-v1.1.1) (2022-02-22)
 
 

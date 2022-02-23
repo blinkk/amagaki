@@ -36,7 +36,7 @@
     "timeout": "20s"
   },
   "devDependencies": {
-    "@amagaki/amagaki-plugin-page-builder": "^3.3.0",
+    "@amagaki/amagaki-plugin-page-builder": "*",
     "@types/jsdom": "^16.2.14",
     "ava": "^4.0.1",
     "eslint": "^7.15.0",

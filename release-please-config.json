@@ -2,6 +2,7 @@
   "packages": {
     "packages/amagaki": {},
     "packages/amagaki-engine-preact": {},
+    "packages/amagaki-plugin-page-builder": {},
     "packages/create-amagaki": {}
   },
   "plugins": ["node-workspace"],

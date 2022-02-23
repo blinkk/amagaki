@@ -1,0 +1,41 @@
+{
+  "extends": "./node_modules/gts/",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "sort-class-members"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "node/no-extraneous-import": [
+      "error",
+      {
+        "allowModules": ["colors"]
+      }
+    ],
+    "sort-imports": ["error", {}],
+    "sort-class-members/sort-class-members": [
+      2,
+      {
+        "accessorPairPositioning": "getThenSet",
+        "order": [
+          { "type": "[static-properties]", "sort": "alphabetical" },
+          { "type": "[static-methods]", "sort": "alphabetical" },
+          { "type": "[properties]", "sort": "alphabetical" },
+          { "type": "[conventional-private-properties]", "sort": "alphabetical" },
+          "constructor",
+          { "type": "[method]", "sort": "alphabetical" },
+          { "type": "[conventional-private-methods]", "sort": "alphabetical" }
+        ]
+      }
+    ]
+  }
+}

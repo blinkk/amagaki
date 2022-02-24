@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.2...amagaki-engine-preact-v2.0.0) (2022-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* add `amagaki export` command
+
+### Features
+
+* add `amagaki export` command ([eeaa653](https://www.github.com/blinkk/amagaki/commit/eeaa653010e7d8a395303f817ac4804d2dffd0ad)), closes [#139](https://www.github.com/blinkk/amagaki/issues/139)
+
 ### [1.2.2](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.1...amagaki-engine-preact-v1.2.2) (2022-02-23)
 
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.12.1...amagaki-v2.0.0) (2022-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* add `amagaki export` command
+
+### Features
+
+* add `amagaki export` command ([eeaa653](https://www.github.com/blinkk/amagaki/commit/eeaa653010e7d8a395303f817ac4804d2dffd0ad)), closes [#139](https://www.github.com/blinkk/amagaki/issues/139)
+
 ### [1.12.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.12.0...amagaki-v1.12.1) (2022-02-21)
 
 

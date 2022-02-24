@@ -348,6 +348,13 @@ export class Builder {
       }
     }
 
+    if (exportManifest?.commit) {
+      console.log(chalk.yellow(`Previous export:`), `${exportManifest.built} by ${exportManifest.commit.author.email} (${exportManifest.commit.sha.slice(0, 6)})`);
+    }
+    if (buildManifest?.commit) {
+      console.log(chalk.yellow(`  Current build:`), `${buildManifest.built} by ${buildManifest.commit.author.email} (${buildManifest.commit.sha.slice(0, 6)})`);
+    }
+
     const numOperations = result.adds.length + result.edits.length + result.deletes.length;
     if (numOperations === 0) {
       console.log(

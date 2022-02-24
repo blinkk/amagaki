@@ -7,6 +7,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
+import { GitCommit, getGitData } from './gitData';
 import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
@@ -24,21 +25,10 @@ interface PodPathSha {
   sha: string;
 }
 
-interface CommitAuthor {
-  name: string;
-  email: string;
-}
-
-interface Commit {
-  sha: string;
-  author: CommitAuthor;
-  message: string;
-}
-
 export interface BuildManifest {
   branch: string | null;
   built: string;
-  commit: Commit | null;
+  commit: GitCommit | null;
   files: Array<PodPathSha>;
 }
 
@@ -75,15 +65,20 @@ interface CreatedPath {
   realPath: string;
 }
 
-export interface ExportOptions {
+export interface BuildOptions {
   patterns?: string[];
   writeLocales?: Boolean;
+}
+export interface ExportOptions {
+  buildDir?: string;
+  exportDir: string;
+  exportControlDir?: string;
 }
 
 export class Builder {
   benchmarkPodPath: string;
   pod: Pod;
-  manifestPodPath: string;
+  manifestPath: string;
   metricsPodPath: string;
   missingTranslationsPodPath: string;
   outputDirectoryPodPath: string;
@@ -98,17 +93,12 @@ export class Builder {
 
   constructor(pod: Pod) {
     this.pod = pod;
-    // TODO: Right now, this is limited to a sub-directory within the pod. We
-    // want that to be the default, but we should also permit building to
-    // directories external to the pod.
     this.outputDirectoryPodPath = Builder.DefaultOutputDirectory;
     this.controlDirectoryAbsolutePath = this.pod.getAbsoluteFilePath(
       fsPath.join(this.outputDirectoryPodPath, '.amagaki')
     );
-    this.manifestPodPath = fsPath.join(
-      this.outputDirectoryPodPath,
-      '.amagaki',
-      'manifest.json'
+    this.manifestPath = this.pod.getAbsoluteFilePath(
+      fsPath.join(this.outputDirectoryPodPath, '.amagaki', 'manifest.json')
     );
     this.metricsPodPath = fsPath.join(
       this.outputDirectoryPodPath,
@@ -172,16 +162,18 @@ export class Builder {
 
   moveFileAsync(beforePath: string, afterPath: string) {
     Builder.ensureDirectoryExists(afterPath);
-    return fs.promises.rename(beforePath, afterPath).catch((err: NodeJS.ErrnoException) => {
-      // Handle scenario where temporary directory is on a different device than
-      // the destination directory. In this situation, Node cannot move files,
-      // but copying files is OK. The temporary directory is cleaned up later by
-      // the builder.
-      if (err.code === 'EXDEV') {
-        return fs.promises.copyFile(beforePath, afterPath);
-      }
-      throw err;
-    });
+    return fs.promises
+      .rename(beforePath, afterPath)
+      .catch((err: NodeJS.ErrnoException) => {
+        // Handle scenario where temporary directory is on a different device than
+        // the destination directory. In this situation, Node cannot move files,
+        // but copying files is OK. The temporary directory is cleaned up later by
+        // the builder.
+        if (err.code === 'EXDEV') {
+          return fs.promises.copyFile(beforePath, afterPath);
+        }
+        throw err;
+      });
   }
 
   writeFileAsync(outputPath: string, content: string) {
@@ -206,12 +198,10 @@ export class Builder {
     }
   }
 
-  deleteOutputFiles(paths: Array<string>) {
+  deleteOutputFiles(paths: Array<string>, outputRootDir: string) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = this.pod.getAbsoluteFilePath(
-        fsPath.join(this.outputDirectoryPodPath, outputPath)
-      );
+      const absOutputPath = fsPath.join(outputRootDir, outputPath.replace(/^\//, ''));
       try {
         fs.unlinkSync(absOutputPath);
       } catch (err: any) {
@@ -235,18 +225,16 @@ export class Builder {
     });
   }
 
-  getExistingManifest(): BuildManifest | null {
-    const path = this.manifestPodPath;
-    if (this.pod.fileExists(path)) {
-      return JSON.parse(this.pod.readFile(this.manifestPodPath));
-    }
-    return null;
+  getManifest(filePath: string): BuildManifest | null {
+    return fs.existsSync(filePath)
+      ? JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+      : null;
   }
 
   cleanOutputUsingManifests(
     existingManifest: BuildManifest | null,
     newManifest: BuildManifest,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     const buildDiffPaths: BuildDiffPaths = {
       adds: [],
@@ -307,12 +295,131 @@ export class Builder {
     );
   }
 
-  async export(options?: ExportOptions): Promise<BuildResult> {
+  async export(options: ExportOptions): Promise<BuildDiffPaths> {
+    const buildDir = options.buildDir ?? this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
+    const buildManifestPath = fsPath.join(buildDir, '.amagaki', 'manifest.json');
+    const exportManifestPath = options.exportControlDir
+      ? fsPath.join(options.exportControlDir, 'manifest.json')
+      : fsPath.join(options.exportDir, '.amagaki', 'manifest.json');
+    const buildManifest = this.getManifest(buildManifestPath);
+    const exportManifest = this.getManifest(exportManifestPath);
+    if (!buildManifest) {
+      throw new Error(
+        `Could not find build manifest at ${buildManifestPath}.`
+      );
+    }
+
+    const filesToExport = buildManifest.files;
+    const existingFiles = exportManifest?.files;
+
+    // Collect adds, edits, and deletes.
+    const result: BuildDiffPaths = {
+      adds: [],
+      edits: [],
+      noChanges: [],
+      deletes: [],
+    }
+    if (!existingFiles) {
+      result.adds = buildManifest.files.map(pathSha => pathSha.path);
+    } else {
+      const existingPathsToShas: Record<string, string> = {};
+      for (const pathSha of existingFiles) {
+        existingPathsToShas[pathSha.path] = pathSha.sha;
+      }
+      const buildPathsToShas: Record<string, string> = {};
+      for (const pathSha of filesToExport) {
+        buildPathsToShas[pathSha.path] = pathSha.sha;
+      }
+      for (const pathSha of buildManifest.files) {
+        if (pathSha.path in existingPathsToShas) {
+          if (pathSha.sha !== existingPathsToShas[pathSha.path]) {
+            result.edits.push(pathSha.path);
+          } else {
+            result.noChanges.push(pathSha.path);
+          }
+        } else {
+          result.adds.push(pathSha.path);
+        }
+      }
+      for (const pathSha of existingFiles) {
+        if (!(pathSha.path in buildPathsToShas)) {
+          result.deletes.push(pathSha.path);
+        }
+      }
+    }
+
+    if (exportManifest?.commit) {
+      console.log(chalk.yellow(`Previous export:`), `${exportManifest.built} by ${exportManifest.commit.author.email} (${exportManifest.commit.sha.slice(0, 6)})`);
+    }
+    if (buildManifest?.commit) {
+      console.log(chalk.yellow(`  Current build:`), `${buildManifest.built} by ${buildManifest.commit.author.email} (${buildManifest.commit.sha.slice(0, 6)})`);
+    }
+
+    const numOperations = result.adds.length + result.edits.length + result.deletes.length;
+    if (numOperations === 0) {
+      console.log(
+        chalk.blue('No changes since last export: ') +
+          this.pod.getAbsoluteFilePath(options.exportDir)
+      );
+      return result;
+    }
+
+    const moveBar = Builder.createProgressBar('Exporting');
+    const showMoveProgressBar =
+      numOperations >= Builder.ShowMoveProgressBarThreshold;
+    const moveStartTime = new Date().getTime();
+    if (showMoveProgressBar) {
+      moveBar.start(numOperations, 0, {
+        customDuration: Builder.formatProgressBarTime(0),
+      });
+    }
+
+    // Copy adds and edits.
+    const moveFiles = [...result.adds, ...result.edits];
+    await async.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
+      const relativePath = filePath.replace(/^\//, '');
+      const source = fsPath.join(buildDir, relativePath);
+      const destination = fsPath.join(options.exportDir, relativePath);;
+      Builder.ensureDirectoryExists(destination);
+      moveBar.increment();
+      return fs.promises.copyFile(
+        source, destination
+      );
+    });
+
+    // Delete deleted files.
+    this.deleteOutputFiles(result.deletes, options.exportDir);
+    moveBar.stop();
+
+    // Write the manifest.
+    await Promise.all([
+      this.writeFileAsync(
+        exportManifestPath,
+        JSON.stringify(buildManifest, null, 2)
+      ),
+    ]);
+
+    console.log(
+      chalk.blue('Changes: ') +
+        chalk.green(`${result.adds.length} adds, `) +
+        chalk.yellow(`${result.edits.length} edits, `) +
+        chalk.red(`${result.deletes.length} deletes`)
+    );
+    console.log(
+      chalk.blue('Export complete: ') +
+        this.pod.getAbsoluteFilePath(options.exportDir)
+    );
+
+    return result;
+  }
+
+  async build(options?: BuildOptions): Promise<BuildResult> {
     await this.pod.plugins.trigger('beforeBuild', this);
-    const existingManifest = this.getExistingManifest();
+    const existingManifest = this.getManifest(this.manifestPath);
+    const gitData = await getGitData(this.pod.root);
     const buildManifest: BuildManifest = {
-      branch: null,
-      commit: null,
+      branch: gitData.branch,
+      commit: gitData.commit,
       built: new Date().toString(),
       files: [],
     };
@@ -525,12 +632,13 @@ export class Builder {
         localesToMissingTranslations[locale.id].push(string);
       }
     }
-    buildMetrics.localesToNumMissingTranslations = localesToNumMissingTranslations;
+    buildMetrics.localesToNumMissingTranslations =
+      localesToNumMissingTranslations;
 
     // Write the manifest and metrics.
     await Promise.all([
       this.writeFileAsync(
-        this.pod.getAbsoluteFilePath(this.manifestPodPath),
+        this.manifestPath,
         JSON.stringify(buildManifest, null, 2)
       ),
       this.writeFileAsync(
@@ -548,7 +656,10 @@ export class Builder {
     // After diff has been computed, actually delete files. Incremental builds
     // don't support deletes, so avoid deleting files if building incrementally.
     if (!options?.patterns) {
-      this.deleteOutputFiles(buildDiff.deletes);
+      const outputRootDir = this.pod.getAbsoluteFilePath(
+        fsPath.join(this.outputDirectoryPodPath)
+      );
+      this.deleteOutputFiles(buildDiff.deletes, outputRootDir);
     }
     const result: BuildResult = {
       diff: buildDiff,
@@ -566,7 +677,7 @@ export class Builder {
   logResult(
     buildDiff: BuildDiffPaths,
     buildMetrics: BuildMetrics,
-    options?: ExportOptions
+    options?: BuildOptions
   ) {
     console.log(
       chalk.blue('Memory usage: ') + utils.formatBytes(buildMetrics.memoryUsage)

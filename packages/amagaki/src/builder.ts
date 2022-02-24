@@ -7,6 +7,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
+import { GitCommit, getGitData } from './gitData';
 import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
@@ -24,21 +25,10 @@ interface PodPathSha {
   sha: string;
 }
 
-interface CommitAuthor {
-  name: string;
-  email: string;
-}
-
-interface Commit {
-  sha: string;
-  author: CommitAuthor;
-  message: string;
-}
-
 export interface BuildManifest {
   branch: string | null;
   built: string;
-  commit: Commit | null;
+  commit: GitCommit | null;
   files: Array<PodPathSha>;
 }
 
@@ -419,9 +409,10 @@ export class Builder {
   async build(options?: BuildOptions): Promise<BuildResult> {
     await this.pod.plugins.trigger('beforeBuild', this);
     const existingManifest = this.getManifest(this.manifestPath);
+    const gitData = await getGitData(this.pod.root);
     const buildManifest: BuildManifest = {
-      branch: null,
-      commit: null,
+      branch: gitData.branch,
+      commit: gitData.commit,
       built: new Date().toString(),
       files: [],
     };

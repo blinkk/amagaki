@@ -424,7 +424,7 @@ export class PageBuilder {
       ? html`
         <${partial}>
         ${await this.buildPartialElement({
-          ...{partial: partial},
+          ...{partial: partial, absolutePath: viewPodPath},
           ...(contentPodPath
             ? this.pod.doc(contentPodPath, this.context.doc.locale).fields
             : {}),

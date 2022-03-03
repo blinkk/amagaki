@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.6.4](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.3...amagaki-plugin-page-builder-v3.6.4) (2022-03-03)
+
+
+### Bug Fixes
+
+* improve support for custom header/footer ([7f50313](https://www.github.com/blinkk/amagaki/commit/7f50313d00eaecc842c793e2edcdf85f94ded92b))
+
 ### [3.6.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.2...amagaki-plugin-page-builder-v3.6.3) (2022-03-03)
 
 

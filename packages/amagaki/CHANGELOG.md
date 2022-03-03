@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.0.0...amagaki-v2.0.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* case-insensitive built in partial paths ([703e57f](https://www.github.com/blinkk/amagaki/commit/703e57fdfb7d159e95883c3c097a39a535628fbc))
+
 ## [2.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v1.12.1...amagaki-v2.0.0) (2022-02-24)
 
 

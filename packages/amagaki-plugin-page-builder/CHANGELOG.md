@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.6.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.2...amagaki-plugin-page-builder-v3.6.3) (2022-03-03)
+
+
+### Bug Fixes
+
+* case-insensitive built in partial paths ([703e57f](https://www.github.com/blinkk/amagaki/commit/703e57fdfb7d159e95883c3c097a39a535628fbc))
+
 ### [3.6.2](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.1...amagaki-plugin-page-builder-v3.6.2) (2022-02-23)
 
 

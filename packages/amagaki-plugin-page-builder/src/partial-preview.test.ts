@@ -62,7 +62,8 @@ test('PatialPreview', async (t: ExecutionContext) => {
         <page-module-context>
           <script type="application/json">
             {
-              "partial": "header"
+              "partial": "header",
+              "absolutePath": "/views/partials/header.njk"
             }
           </script>
         </page-module-context>

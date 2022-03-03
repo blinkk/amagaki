@@ -7,3 +7,6 @@ partials:
     alt: 'Alt text'
 - partial: hero
   title: Hello World 2!
+- partial: absolute
+  absolutePath: /views/absolute.njk
+  title: Absolute Partial

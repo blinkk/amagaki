@@ -30,7 +30,11 @@ export default async (pod: Pod) => {
         pod.staticFile('/dist/css/main.css'),
       ],
       prepend: ['/views/head-prepend.njk'],
-      extra: ['/views/head.njk']
+      extra: ['/views/head.njk'],
+    },
+    footer: {
+      name: 'custom-footer',
+      view: '/views/custom-footer.njk',
     },
     body: {
       prepend: ['/views/body.njk']

@@ -62,8 +62,7 @@ test('PatialPreview', async (t: ExecutionContext) => {
         <page-module-context>
           <script type="application/json">
             {
-              "partial": "header",
-              "absolutePath": "/views/partials/header.njk"
+              "partial": "header"
             }
           </script>
         </page-module-context>
@@ -94,6 +93,22 @@ test('PatialPreview', async (t: ExecutionContext) => {
         </page-module-context>
       </page-module>
     </main>
+    <footer>
+      <page-module partial="custom-footer" position="3">
+        <page-module-inspector></page-module-inspector>
+        <page-module-container>
+          <div class="custom-footer">
+          </div>
+        </page-module-container>
+        <page-module-context>
+          <script type="application/json">
+            {
+              "partial": "custom-footer"
+            }
+          </script>
+        </page-module-context>
+      </page-module>
+    </footer>
   </div>
   <page-inspector></page-inspector>
 </body>

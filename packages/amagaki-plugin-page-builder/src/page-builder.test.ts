@@ -11,6 +11,8 @@ test('PageBuilder', async (t: ExecutionContext) => {
   t.true(html.includes('<link href="http://localhost/pages/" hreflang="x-default" rel="alternate">'));
   t.true(html.includes('<link href="http://localhost/ja/pages/" hreflang="ja" rel="alternate">'));
   t.true(html.includes('<page-module'));
+  t.true(html.includes('<page-module partial="header"'));
+  t.true(html.includes('<page-module partial="custom-footer"'));
   t.true(html.includes('<page-module-container'));
   t.false(html.includes('<page-inspector'));
   t.false(html.includes('<page-module-context'));
@@ -25,6 +27,8 @@ test('PageBuilder dev', async (t: ExecutionContext) => {
   t.true(html.includes('<link href="http://localhost/pages/" hreflang="x-default" rel="alternate">'));
   t.true(html.includes('<link href="http://localhost/ja/pages/" hreflang="ja" rel="alternate">'));
   t.true(html.includes('<page-module'));
+  t.true(html.includes('<page-module partial="header"'));
+  t.true(html.includes('<page-module partial="custom-footer"'));
   t.true(html.includes('<page-inspector'));
   t.true(html.includes('<page-module-context'));
   t.true(html.includes('<page-module-inspector'));

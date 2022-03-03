@@ -21,7 +21,8 @@ import jsBeautify from 'js-beautify';
 type Partial = any;
 
 interface BuiltinPartial {
-  content: string;
+  name?: string;
+  content?: string;
   view: string;
 }
 
@@ -297,7 +298,7 @@ export class PageBuilder {
           ${
             this.getFieldValue('header') === false
               ? ''
-              : await this.buildBuiltinPartial('header')
+              : await this.buildBuiltinPartial('header', this.options.header)
           }
           <main>
             ${safeString(
@@ -313,7 +314,7 @@ export class PageBuilder {
           ${
             this.getFieldValue('footer') === false
               ? ''
-              : await this.buildBuiltinPartial('footer')
+              : await this.buildBuiltinPartial('footer', this.options.footer)
           }
         </div>
         ${
@@ -370,8 +371,11 @@ export class PageBuilder {
 
   serializeContext(partialContext: any) {
     const context = {...partialContext};
+    // Strip out internally used paths.
+    // TODO: Move these to an internal `_pageBuilder` key.
     delete context.partial.absolutePath;
     delete context.partial.includeInspector;
+    delete context.podPath;
     return JSON.stringify(context, ((key, value) => {
       if (value?.constructor?.name === 'Pod' && value.root) {
         return undefined;
@@ -417,14 +421,14 @@ export class PageBuilder {
     }
   }
 
-  async buildBuiltinPartial(partial: string) {
-    const contentPodPath = PageBuilder.selectPodPath(this.pod, this.partialPaths.content ?? ['/content/partials/${partial.partial}.yaml'], partial);
-    const viewPodPath = PageBuilder.selectPodPath(this.pod, this.partialPaths.view, partial);
+  async buildBuiltinPartial(partial: string, options?: BuiltinPartial) {
+    const contentPodPath = options?.content ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.content ?? ['/content/partials/${partial.partial}.yaml'], partial);
+    const viewPodPath = options?.view ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.view, partial);
     return viewPodPath
       ? html`
         <${partial}>
         ${await this.buildPartialElement({
-          ...{partial: partial, absolutePath: viewPodPath},
+          ...{partial: options?.name ?? partial, podPath: viewPodPath},
           ...(contentPodPath
             ? this.pod.doc(contentPodPath, this.context.doc.locale).fields
             : {}),
@@ -624,13 +628,22 @@ export class PageBuilder {
     // Support both:
     // 1. {partial: 'foo', ...}
     // 2. {partial: {partial: 'foo', absolutePath: '/Users/foo/.../foo.njk'}, ...}
+    // 3. {partial: {partial: 'foo', podPath: '/views/custom/custom-foo.njk'}, ...}
     const name =
       typeof partial.partial === 'string'
         ? partial.partial
         : partial.partial?.partial;
-    const cssPodPath = PageBuilder.selectPodPath(this.pod, this.partialPaths.css, name);
-    const jsPodPath = PageBuilder.selectPodPath(this.pod, this.partialPaths.js, name);
-    const viewPodPath = PageBuilder.selectPodPath(this.pod, this.partialPaths.view, name);
+    const cssPodPath = PageBuilder.selectPodPath(
+      this.pod,
+      this.partialPaths.css,
+      name
+    );
+    const jsPodPath = PageBuilder.selectPodPath(
+      this.pod,
+      this.partialPaths.js,
+      name
+    );
+
     const partialBuilder = [];
     const htmlId = partial.id ? ` id="${partial.id}"` : '';
     partialBuilder.push(`<page-module${htmlId} partial="${name}" position="${this.partialLoopIncrementer+=1}">`);
@@ -655,7 +668,16 @@ export class PageBuilder {
     }
     const context = {...this.context, partial};
     let result;
-    if (typeof partial.partial === 'string') {
+    if (partial.partial.absolutePath) {
+      const engine = this.pod.engines.getEngineByFilename(
+        partial.partial.absolutePath
+      ) as TemplateEngineComponent;
+      const template = fs.readFileSync(partial.partial.absolutePath, 'utf8');
+      result = await engine.renderFromString(template, context);
+    } else if (typeof partial.partial === 'string') {
+      const viewPodPath =
+        partial.podPath ??
+        PageBuilder.selectPodPath(this.pod, this.partialPaths.view, name);
       // TODO: Handle error when partial doesn't exist. In this case, no file
       // matched `viewPodPath` on the filesystem and `selectPodPath` failed. We
       // should fail the build in prod and in dev show an in-page module saying
@@ -672,12 +694,6 @@ export class PageBuilder {
         partialFile
       ) as TemplateEngineComponent;
       result = await engine.render(partialFile, context);
-    } else if (partial.partial?.absolutePath) {
-      const engine = this.pod.engines.getEngineByFilename(
-        partial.partial.absolutePath
-      ) as TemplateEngineComponent;
-      const template = fs.readFileSync(partial.partial.absolutePath, 'utf8');
-      result = await engine.renderFromString(template, context);
     }
     if (this.options.beautifyContainer === false) {
       partialBuilder.push(`<page-module-container>${result?.trim()}</page-module-container>`);

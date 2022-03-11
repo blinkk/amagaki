@@ -1,10 +1,14 @@
 import {ComponentType, h} from 'preact';
+
 import {render} from 'preact/compat';
 
 export type PartialComponentType = ComponentType<{partial: any}>;
 
+
+type ComponentMap = Record<string, PartialComponentType>;
+
 export interface PartialHydratorOptions {
-  components: PartialComponentType[];
+  components: ComponentMap;
 }
 
 export class PartialHydrator {
@@ -14,10 +18,10 @@ export class PartialHydrator {
     this.components = this.buildComponentMap(options.components);
   }
 
-  private buildComponentMap(components: PartialComponentType[]) {
+  private buildComponentMap(components: ComponentMap) {
     const componentMap: Record<string, PartialComponentType> = {};
-    for (const component of components) {
-      componentMap[component.name] = component;
+    for (const [name, component] of Object.entries(components)) {
+      componentMap[name] = component;
     }
     return componentMap;
   }

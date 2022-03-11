@@ -1,7 +1,7 @@
 import { ExecutionContext } from 'ava';
-import { PartialHydrator } from './hydrator';
-import { JSDOM } from 'jsdom';
 import Hero from '../example/src/partials/Hero/Hero';
+import { JSDOM } from 'jsdom';
+import { PartialHydrator } from './hydrator';
 import test from 'ava';
 
 test('hydrate partials', (t: ExecutionContext) => {
@@ -36,7 +36,9 @@ test('hydrate partials', (t: ExecutionContext) => {
   global.window = dom.window;
   global.document = window.document;
   const hydrator = PartialHydrator.register({
-    components: [Hero],
+    components:  {
+      'Hero': Hero,
+    },
   });
   hydrator.hydratePartials();
   t.deepEqual(document.querySelector('.hero__headline')?.textContent, 'Hydrated');

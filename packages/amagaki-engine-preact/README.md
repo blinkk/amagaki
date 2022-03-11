@@ -42,7 +42,7 @@ export default (pod: Pod) => {
 
 3. If your partial requires hydration:
 
-    a. Add to your frontend's `main.ts`.
+    a. Add to your frontend's `main.tsx`.
 
     ```typescript
     import {PartialHydrator} from '@amagaki/amagaki-engine-preact';
@@ -51,7 +51,9 @@ export default (pod: Pod) => {
     import Hero from './partials/Hero';
 
     PartialHydrator.register({
-      components: [Hero],
+      components: {
+        'Hero': Hero,
+      },
     });
     ```
 

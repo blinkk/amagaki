@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v2.0.0...amagaki-engine-preact-v2.0.1) (2022-03-11)
+
+
+### Bug Fixes
+
+* support object renaming in hydrator ([#174](https://www.github.com/blinkk/amagaki/issues/174)) ([66c20ab](https://www.github.com/blinkk/amagaki/commit/66c20abb46952c8b39efaedaba01dedd231b0d64))
+
 ## [2.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-engine-preact-v1.2.2...amagaki-engine-preact-v2.0.0) (2022-02-24)
 
 

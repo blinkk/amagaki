@@ -692,15 +692,16 @@ export class PageBuilder {
       // problem (by either adding the partial or by fixing the configuration).
       if (!viewPodPath) {
         console.error(`Partial not found: ${name}`);
-        return '';
+        result = `<page-module-placeholder partial="${name}"></page-module-placeholder>`;
+      } else {
+        const partialFile = interpolate(this.pod, viewPodPath, {
+          partial: partial,
+        });
+        const engine = this.pod.engines.getEngineByFilename(
+          partialFile
+        ) as TemplateEngineComponent;
+        result = await engine.render(partialFile, context);
       }
-      const partialFile = interpolate(this.pod, viewPodPath, {
-        partial: partial,
-      });
-      const engine = this.pod.engines.getEngineByFilename(
-        partialFile
-      ) as TemplateEngineComponent;
-      result = await engine.render(partialFile, context);
     }
     if (this.options.beautifyContainer === false) {
       partialBuilder.push(`<page-module-container>${result?.trim()}</page-module-container>`);

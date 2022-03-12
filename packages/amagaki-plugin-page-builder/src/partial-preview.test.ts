@@ -53,7 +53,7 @@ test('PatialPreview', async (t: ExecutionContext) => {
   <div class="main">
     <header>
       <page-module partial="header" position="1">
-        <page-module-inspector></page-module-inspector>
+        <page-module-inspector partial="header" position="1"></page-module-inspector>
         <page-module-container>
           <div class="header">
             <p>Header</p>
@@ -70,11 +70,13 @@ test('PatialPreview', async (t: ExecutionContext) => {
     </header>
     <main>
       <page-module partial="partial-preview-gallery" position="2">
+        <page-module-inspector partial="partial-preview-gallery" position="2"></page-module-inspector>
         <page-module-container>
           <div class="partial-preview-gallery">
             <ul>
               <li><a href="/preview/header/">header</a>
               <li><a href="/preview/hero/">hero</a>
+              <li><a href="/preview/spacer/">spacer</a>
             </ul>
           </div>
         </page-module-container>
@@ -86,7 +88,8 @@ test('PatialPreview', async (t: ExecutionContext) => {
               },
               "partials": [
                 "header",
-                "hero"
+                "hero",
+                "spacer"
               ]
             }
           </script>
@@ -95,7 +98,7 @@ test('PatialPreview', async (t: ExecutionContext) => {
     </main>
     <footer>
       <page-module partial="custom-footer" position="3">
-        <page-module-inspector></page-module-inspector>
+        <page-module-inspector partial="custom-footer" position="3"></page-module-inspector>
         <page-module-container>
           <div class="custom-footer">
           </div>

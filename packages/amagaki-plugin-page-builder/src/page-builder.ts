@@ -480,7 +480,7 @@ export class PageBuilder {
           : ''}
         ${safeString(
           this.enableInspector
-            ? PageBuilderStaticRouteProvider.files
+            ? PageBuilderStaticRouteProvider.scripts
                 .map(path =>
                   this.buildScriptElement(
                     `${PageBuilderStaticRouteProvider.urlBase}/${path}`
@@ -646,7 +646,8 @@ export class PageBuilder {
 
     const partialBuilder = [];
     const htmlId = partial.id ? ` id="${partial.id}"` : '';
-    partialBuilder.push(`<page-module${htmlId} partial="${name}" position="${this.partialLoopIncrementer+=1}">`);
+    const position = this.partialLoopIncrementer += 1;
+    partialBuilder.push(`<page-module${htmlId} partial="${name}" position="${position}">`);
 
     // Load resources required by partial module.
     if (cssPodPath) {
@@ -661,9 +662,15 @@ export class PageBuilder {
         module: module,
       }));
     }
-    if (this.enableInspector && partial.partial?.includeInspector !== false) {
+    if (this.enableInspector && partial?.includeInspector !== false) {
       partialBuilder.push(html`
-        <page-module-inspector></page-module-inspector>
+        <page-module-inspector
+          partial="${name}"
+          position="${position}"
+          ${name.includes('spacer') ? 'neutral' : ''}
+          ${partial?.editContentLink ? html`edit-content-link="${partial?.editContentLink}"` : ''}
+          ${partial?.submitIssueLink ? html`submit-issue-link="${partial?.submitIssueLink}"` : ''}
+        ></page-module-inspector>
       `);
     }
     const context = {...this.context, partial};

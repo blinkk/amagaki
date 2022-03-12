@@ -17,10 +17,11 @@
     "check": "gts check",
     "clean": "gts clean",
     "compile": "tsc; npx gulp build;",
-    "dev:start": "npm run compile",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
+    "dev:start": "npm run compile",
     "fix": "eslint --fix src/**/*.ts",
     "prepare": "rm -rf dist/; npm run compile",
+    "start:example": "npx amagaki serve example",
     "test": "npm run compile; ava"
   },
   "ava": {
@@ -55,6 +56,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@shoelace-style/shoelace": "^2.0.0-beta.71",
     "js-beautify": "^1.14.0",
     "lit": "^2.0.2",
     "spacingjs": "^1.0.7"

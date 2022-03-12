@@ -64,6 +64,15 @@ gulp.task('build:templates', async () => {
     .pipe(gulp.dest(ENTRIES.templates.out));
 })
 
-gulp.task('build', gulp.parallel('build:js', 'build:templates'));
+gulp.task('copy:assets', async() => {
+  return gulp
+    .src([
+      '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/chevron-right.svg',
+      '../../node_modules/@shoelace-style/shoelace/dist/assets/icons/check-lg.svg',
+    ])
+    .pipe(gulp.dest('./dist/ui/assets/'));
+})
+
+gulp.task('build', gulp.parallel('build:js', 'build:templates', 'copy:assets'));
 gulp.task('watch', gulp.parallel('build', 'watch:js', 'watch:templates'));
 gulp.task('default', gulp.series('watch'));

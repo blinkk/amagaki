@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.7.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.4...amagaki-plugin-page-builder-v3.7.0) (2022-03-12)
+
+
+### Features
+
+* add dropdown menu to module inspector ([#176](https://www.github.com/blinkk/amagaki/issues/176)) ([9682069](https://www.github.com/blinkk/amagaki/commit/968206915fa6e0d26c61ea5108ce7863a8d82b0e))
+* add placeholder when module is missing ([#178](https://www.github.com/blinkk/amagaki/issues/178)) ([aae5356](https://www.github.com/blinkk/amagaki/commit/aae53569b44c742e155878b0e6a4779f026d3bf8))
+
 ### [3.6.4](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.3...amagaki-plugin-page-builder-v3.6.4) (2022-03-03)
 
 

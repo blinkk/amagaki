@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.0.1...amagaki-v2.1.0) (2022-03-15)
+
+
+### Features
+
+* add addRoute shortcut for adding custom routes ([#179](https://www.github.com/blinkk/amagaki/issues/179)) ([77512c2](https://www.github.com/blinkk/amagaki/commit/77512c25fdb36c952e32a185ef8e66af87ace3e3))
+
 ### [2.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.0.0...amagaki-v2.0.1) (2022-03-03)
 
 

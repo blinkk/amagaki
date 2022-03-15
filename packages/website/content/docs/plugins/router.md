@@ -51,7 +51,6 @@ export default (pod: Pod) => {
       }
     });
   });
-
   // Example: Add multiple routes.
   pod.router.addRoutes('multiple', async (provider) => {
     // Get URL paths to add (for example, from a remote service).

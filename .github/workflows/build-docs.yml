@@ -59,8 +59,8 @@ jobs:
           benchmark-data-dir-path: packages/website/benchmark
           external-data-json-path: packages/website/benchmark/data.json
           max-items-in-chart: 100
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./packages/website/public

@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.7.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.0...amagaki-plugin-page-builder-v3.7.1) (2022-03-15)
+
+
+### Bug Fixes
+
+* all ui dependencies for page builder plugin ([6fb2000](https://www.github.com/blinkk/amagaki/commit/6fb2000687622e238f00323a4521512fc52594b8))
+
 ## [3.7.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.6.4...amagaki-plugin-page-builder-v3.7.0) (2022-03-12)
 
 

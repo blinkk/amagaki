@@ -46,3 +46,27 @@ test('Changing static files alters the router', async (t: ExecutionContext) => {
     await server.stop();
   }
 });
+
+test('AddRoute', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/sampleRouteProvider/');
+  pod.router.addRoutes('default', async (provider) => {
+    provider.addRoute({
+      urlPath: '/foo/bar/',
+      build: async () => '<title>foo</title>',
+    })
+  });
+  pod.router.addRoutes('custom', async (provider) => {
+    provider.addRoute({
+      urlPath: '/foo/custom/',
+      build: async () => '<title>custom</title>',
+    })
+  });
+  for (const [path, content] of [
+    ['/foo/bar/', '<title>foo</title>'],
+    ['/foo/custom/', '<title>custom</title>'],
+  ]) {
+    const route = await pod.router.resolve(path);
+    const html = await (route as Route).build();
+    t.deepEqual(content, html);
+  }
+});

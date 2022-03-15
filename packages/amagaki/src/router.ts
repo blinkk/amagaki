@@ -19,6 +19,20 @@ export interface StaticDirConfig {
   staticDir: string;
 }
 
+export interface RouteOptions {
+  /** Function to return the content of the route. */
+  build: (options?: BuildRouteOptions) => Promise<string>;
+  /** Content type for the route. If not specified, it will be inferred from the URL path. */
+  contentType?: string;
+  /** URL path used when looking up the route. */
+  urlPath: string;
+  /** Fields to store on the route. */
+  fields?: Record<string, any>;
+}
+
+
+export type RouteBuilder = (provider: RouteProvider) => Promise<void>;
+
 export class Router {
   pod: Pod;
   providers: Record<string, RouteProvider[]>;
@@ -27,6 +41,7 @@ export class Router {
     this.pod = pod;
     this.providers = {};
     [
+      new RouteProvider(this),
       new DocumentRouteProvider(this),
       new CollectionRouteProvider(this),
       // Default static routes. This can be overridden by the presence of any
@@ -127,6 +142,17 @@ export class Router {
     }
     return undefined;
   }
+
+  /** Shortcut method for adding a route without subclassing `Route` and `RouteProvider`. */
+  async addRoutes(type: string, builder: RouteBuilder) {
+    let provider = this.providers[type]?.[0];
+    if (!provider) {
+      provider = new RouteProvider(this);
+      provider.type = type;
+      this.addProvider(provider);
+    }
+    provider.addRouteBuilder(builder);
+  }
 }
 
 export class RouteProvider {
@@ -134,20 +160,42 @@ export class RouteProvider {
   router: Router;
   urlMap: Map<string, Url>;
   type: string;
+  protected _routeBuilders: RouteBuilder[];
+  protected _routes: Route[];
 
   constructor(router: Router) {
     this.router = router;
     this.pod = router.pod;
     this.urlMap = new Map();
     this.type = 'default';
+    this._routeBuilders = [];
+    this._routes = [];
   }
 
   reset() {
     this.urlMap = new Map();
+    this._routeBuilders = [];
+    this._routes = [];
   }
 
   async routes(): Promise<Route[]> {
-    return [];
+    if (this._routes.length) {
+      return this._routes;
+    }
+    // Build all routes, then clear the route builders so they are not built again.
+    await Promise.all(this._routeBuilders.map(builder => builder(this)));
+    return this._routes;
+  }
+  
+  addRouteBuilder(builder: RouteBuilder) {
+    this._routeBuilders.push(builder);
+  }
+
+  addRoute(options: RouteOptions) {
+    const route = new Route(this, options);
+    this.urlMap.set(route.url.path, route.url);
+    this._routes.push(route);
+    return route;
   }
 }
 
@@ -232,14 +280,25 @@ export class StaticDirectoryRouteProvider extends RouteProvider {
 export class Route {
   provider: RouteProvider;
   pod: Pod;
+  fields: Record<string, any>;
+  protected _urlPath?: string;
+  protected _contentType?: string;
+  protected _build: (options?: BuildRouteOptions) => Promise<string>;
 
-  constructor(provider: RouteProvider) {
+  constructor(provider: RouteProvider, options?: RouteOptions) {
     this.provider = provider;
     this.pod = this.provider.pod;
+    this._urlPath = options?.urlPath;
+    this._contentType = options?.contentType;
+    this._build = options?.build;
+    this.fields = options?.fields ?? {};
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async build(options?: BuildRouteOptions): Promise<string> {
+    if (this._build) {
+      return await this._build(options);
+    }
     throw new Error('Subclasses of Route must implement `build`.');
   }
 
@@ -254,6 +313,9 @@ export class Route {
   }
 
   get urlPath(): string {
+    if (this._urlPath) {
+      return this._urlPath;
+    }
     throw new Error('Subclasses of Route must implement a `urlPath` getter.');
   }
 
@@ -271,6 +333,9 @@ export class Route {
    * module.
    */
   get contentType() {
+    if (this._contentType) {
+      return this._contentType;
+    }
     if (this.urlPath.endsWith('/') || !fsPath.extname(this.urlPath)) {
       return 'text/html';
     }

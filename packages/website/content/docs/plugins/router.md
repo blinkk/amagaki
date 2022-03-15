@@ -27,108 +27,44 @@ title: Lorem ipsum dolor sit amet
 ```
 {% endfilter %}
 
-## Custom route providers
+## Adding routes
 
-The Amagaki router can be extended to generate your own routes. By default,
-Amagaki has two route providers:
+Amagaki provides a quick way to add new routes to extend functionality of your
+site outside of rendering content documents, collections, and static files.
+Routes may be added to integrate with external tools or generate custom output
+programmatically.
 
-- [CollectionRouteProvider](https://amagaki.dev/api/classes/router.collectionrouteprovider.html)
-  – Provides routes generated from data files in the content directory
-- [StaticDirectoryRouteProvider](https://amagaki.dev/api/classes/router.staticdirectoryrouteprovider.html)
-  – Provides routes from static files in specified directories
-
-Custom route providers could be created in order to provide routes from
-databases, your own custom handlers that don't map to filesystem files, or
-pretty much anything.
-
-## Anatomy
-
-Custom route providers should extend the
-[`RouteProvider`](https://amagaki.dev/api/classes/router.routeprovider.html)
-class.
-
-Route providers must:
-
-- Have a `type` property.
-- Define an async `routes` method that returns a list of `Route`s.
-
-Routes must:
-
-- Have a `urlPath` getter.
-- Define an async `build` method that returns the content of the HTTP response
-  (or, when building a static site, the generated file).
-- Can optionally have a `contentType` getter.
-
-## Example
-
-Here's an example of a route provider that serves a `robots.txt` file.
-
-{% filter codeTabs %}
-```typescript:title=sitemap.ts
-export class RobotsTxtRouteProvider extends RouteProvider {
-
-  constructor(router: Router) {
-    super(router);
-    this.type = 'robots';
-  }
-
-  static register(pod: Pod) {
-    const provider = new RobotsTxtRouteProvider(pod.router);
-    pod.router.addProvider(provider);
-    return provider;
-  }
-
-  async routes() {
-    // This RouteProvider only generates one route – the `robots.txt` file.
-    return [new RobotsTxtRoute(this)];
-  }
-}
-
-class RobotsTxtRoute extends Route {
-  constructor(provider: RouteProvider) {
-    super(provider);
-    this.provider = provider;
-  }
-
-  get urlPath() {
-    return '/robots.txt';
-  }
-
-  async build() {
-    // The response of the `RobotsTxtRoute` is static.
-    return 'User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml';
-  }
-}
-```
-{% endfilter %}
-
-And then use it in `amagaki.ts`:
+Note that if the list of URL paths changes after the development server is
+started, the router must be reset using `pod.router.reset()`. This may occur,
+for example, if you are building routes generated from items fetched from an
+external service.
 
 {% filter codeTabs %}
 ```typescript:title=amagaki.ts
-import {RobotsTxtRouteProvider} from './sitemap';
-
 export default (pod: Pod) => {
-  RobotsTxtRouteProvider.register(pod);
-}
-```
-{% endfilter %}
+  // Example: Add a single route.
+  pod.router.addRoutes('default', async (provider) => {
+    provider.addRoute({
+      urlPath: '/hello-world/',
+      build: async() => {
+        return '<!DOCTYPE html><title>Hello World!</title>'
+      }
+    });
+  });
 
-The above example shows rendering static content at both routes. If you'd like
-to render dynamic content, do so by rendering a template within the `build`
-method:
-
-```typescript
-async build() {
-  // The response of this route is dynamic.
-  // `route` and `pod` are passed to the Nunjucks context.
-  const template = '/views/preview.njk';
-  const nunjucks = this.pod.engines.getEngineByFilename(
-    previewTemplate
-  ) as NunjucksTemplateEngine;
-  return nunjucks.render(previewTemplate, {
-    pod: this.pod,
-    route: this,
+  // Example: Add multiple routes.
+  pod.router.addRoutes('multiple', async (provider) => {
+    // Get URL paths to add (for example, from a remote service).
+    const urlPaths = await getUrlPaths();
+    for (const urlPath of urlPaths) {
+      provider.addRoute({
+        urlPath: urlPath,
+        build: async() => {
+          return '<!DOCTYPE html><title>Hello World!</title>'
+        }
+      });
+    }
   });
 }
 ```
+{% endfilter %}

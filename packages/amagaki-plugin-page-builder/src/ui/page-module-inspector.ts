@@ -20,6 +20,9 @@ export class PageBuilderInspector extends LitElement {
   @property({attribute: 'partial'})
   partial?: string;
 
+  @property({attribute: 'size'})
+  size?: string;
+
   connectedCallback() {
     super.connectedCallback();
     // Update after DOM is generated to update the module ID.
@@ -159,6 +162,7 @@ export class PageBuilderInspector extends LitElement {
           <div class="help-box__label">
             <a href="#${this.elementId}">
               ${this.position}. ${this.partial}
+              ${this.size && ` (${this.size})` || ''}
             </a>
             ${this.draft && html`
               <sl-badge variant="warning" pill>Draft</sl-badge>

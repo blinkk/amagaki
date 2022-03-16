@@ -629,7 +629,7 @@ export class PageBuilder {
     // 1. {partial: 'foo', ...}
     // 2. {partial: {partial: 'foo', absolutePath: '/Users/foo/.../foo.njk'}, ...}
     // 3. {partial: {partial: 'foo', podPath: '/views/custom/custom-foo.njk'}, ...}
-    const name =
+    const name: string =
       typeof partial.partial === 'string'
         ? partial.partial
         : partial.partial?.partial;
@@ -662,12 +662,13 @@ export class PageBuilder {
         module: module,
       }));
     }
-    if (this.enableInspector && partial?.includeInspector !== false) {
+    if (this.enableInspector && partial?.includeInspector !== false && name !== 'partial-preview-spacer') {
       partialBuilder.push(html`
         <page-module-inspector
           partial="${name}"
           position="${position}"
-          ${name.includes('spacer') ? 'neutral' : ''}
+          ${name.toLowerCase().includes('spacer') ? 'neutral' : ''}
+          ${partial?.size ? html`size="(${partial?.size})"` : ''}
           ${partial?.editContentLink ? html`edit-content-link="${partial?.editContentLink}"` : ''}
           ${partial?.submitIssueLink ? html`submit-issue-link="${partial?.submitIssueLink}"` : ''}
         ></page-module-inspector>

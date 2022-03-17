@@ -222,3 +222,37 @@ export function queryObject(query: string | undefined, data: any) {
   }
   return result;
 }
+
+/** Debounces a function so that it's only called once within a window. Adopted
+ * from https://github.com/hayes/just-debounce. */
+export function debounce(fn: Function, delay: number, immediate: boolean = false) {
+  let timeout: NodeJS.Timeout;
+  let args: any;
+  let self: any;
+
+  return function debounced() {
+    self = this;
+    args = Array.prototype.slice.call(arguments);
+
+    if (timeout && immediate) {
+      return;
+    } else if (!immediate) {
+      clear();
+      timeout = setTimeout(run, delay);
+      return timeout;
+    }
+
+    timeout = setTimeout(clear, delay);
+    fn.apply(self, args);
+
+    function run() {
+      clear();
+      fn.apply(self, args);
+    }
+
+    function clear() {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+  };
+}

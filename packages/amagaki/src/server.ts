@@ -7,6 +7,7 @@ import * as nunjucks from 'nunjucks';
 import {Pod} from './pod';
 import {StaticRoute} from './router';
 
+import {debounce} from './utils';
 import express = require('express');
 import chalk from 'chalk';
 import compression from 'compression';
@@ -172,9 +173,11 @@ export class Server extends events.EventEmitter {
     });
 
     // Reload the server or reset the cache when necessary.
-    this.watcher.on('add', this.onchange.bind(this));
-    this.watcher.on('change', this.onchange.bind(this));
-    this.watcher.on('unlink', this.onchange.bind(this));
+    // Throttle changes to once within 200ms windows.
+    const callback = debounce(this.onchange.bind(this), 200, true);
+    this.watcher.on('add', callback);
+    this.watcher.on('change', callback);
+    this.watcher.on('unlink', callback);
   }
 
   /**

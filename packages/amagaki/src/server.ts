@@ -65,7 +65,7 @@ export class Server extends events.EventEmitter {
                 (ext && route.url.path.endsWith(ext))
               );
             })
-            .slice(0, 100);
+            .slice(0, 1000); // Show 1000 files max.
           res.status(404).render('error-no-route.njk', {
             pod: this.pod,
             routes: routes,
@@ -133,14 +133,7 @@ export class Server extends events.EventEmitter {
         throw err;
       }
     });
-    // Catch errors so they can be fixed without restarting the server. Errors
-    // are displayed interactively when rendering pages so they can be fixed
-    // without restarting the server.
-    try {
-      await this.pod.warmup();
-    } catch (err) {
-      console.error(err);
-    }
+    await this.safeWarmup();
     if (!this.watcher) {
       this.watch();
     }
@@ -153,6 +146,18 @@ export class Server extends events.EventEmitter {
       this.reload();
     } else {
       this.pod.cache.reset();
+      this.safeWarmup();
+    }
+  }
+
+  async safeWarmup() {
+    // Catch errors so they can be fixed without restarting the server. Errors
+    // are displayed interactively when rendering pages so they can be fixed
+    // without restarting the server.
+    try {
+      await this.pod.warmup();
+    } catch (err) {
+      console.error(err);
     }
   }
 

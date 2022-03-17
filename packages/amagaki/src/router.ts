@@ -174,7 +174,6 @@ export class RouteProvider {
 
   reset() {
     this.urlMap = new Map();
-    this._routeBuilders = [];
     this._routes = [];
   }
 
@@ -183,7 +182,7 @@ export class RouteProvider {
       return this._routes;
     }
     // Build all routes, then clear the route builders so they are not built again.
-    await Promise.all(this._routeBuilders.map(builder => builder(this)));
+    await Promise.all(this._routeBuilders.map(async (builder) => await builder(this)));
     return this._routes;
   }
   

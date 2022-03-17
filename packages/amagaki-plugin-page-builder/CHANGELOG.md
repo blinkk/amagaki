@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.7.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.2...amagaki-plugin-page-builder-v3.7.3) (2022-03-17)
+
+
+### Bug Fixes
+
+* move grid instantiation to firstUpdated ([58398ca](https://www.github.com/blinkk/amagaki/commit/58398ca5d831fd1ba02f2609ce65f1166bb177e9))
+
 ### [3.7.2](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.1...amagaki-plugin-page-builder-v3.7.2) (2022-03-17)
 
 

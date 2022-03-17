@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.0...amagaki-v2.1.1) (2022-03-17)
+
+
+### Bug Fixes
+
+* issues reloading servers with custom routes ([8a1725c](https://www.github.com/blinkk/amagaki/commit/8a1725cf44644c801f38e894598285242f25ba8e))
+
 ## [2.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.0.1...amagaki-v2.1.0) (2022-03-15)
 
 

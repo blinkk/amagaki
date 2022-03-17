@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.1...amagaki-v2.1.2) (2022-03-17)
+
+
+### Bug Fixes
+
+* debounce reload and cache reset ([de5d220](https://www.github.com/blinkk/amagaki/commit/de5d22059fc128e070cfab016afa624be7ab2ea0))
+
 ### [2.1.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.0...amagaki-v2.1.1) (2022-03-17)
 
 

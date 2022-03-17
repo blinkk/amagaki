@@ -1,4 +1,4 @@
-import {LitElement, css, html, unsafeCSS} from 'lit';
+import {LitElement, PropertyValues, css, html, unsafeCSS} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 
 /** The breakpoint that the grid options apply to.  */
@@ -84,6 +84,10 @@ export class GridInspector extends LitElement {
     if (this.enabledOnLoad) {
       this.toggleGridOverlay();
     }
+  }
+
+  firstUpdated(changes: PropertyValues) {
+    super.firstUpdated(changes);
     window.addEventListener('resize', () => this.updateStyles(), {passive: true});
     window.setTimeout(() => this.updateStyles());
   }

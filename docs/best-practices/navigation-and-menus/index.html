@@ -487,7 +487,7 @@
 <p>Navigation and menus can be created manually or automatically. We generally<br>recommend creating headers and footers manually by managing links within partial<br>header and footer files, whereas tables of contents, or menus for content-heavy<br>sites should be automatically generated.</p>
 <h2 id="explicit-menu">Explicit menu</h2>
 <p>Assume we are creating a header menu. First, create a partial file that can be<br>used to store the header’s content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4cb6890-a557-11ec-86d2-2f470cb16991" name="t-b4c80d30-a557-11ec-86d2-2f470cb16991" checked > <label for="t-b4cb6890-a557-11ec-86d2-2f470cb16991" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4ea09430-a586-11ec-abe5-e196c0ec4fca" name="t-4e9e7150-a586-11ec-abe5-e196c0ec4fca" checked > <label for="t-4ea09430-a586-11ec-abe5-e196c0ec4fca" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">My</span> <span class="hljs-string">Website</span>
 <span class="hljs-attr">menu:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
@@ -499,7 +499,7 @@
 </code></pre></div> </div>
 
 <p>Next, create a template to render this content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b4cf6030-a557-11ec-86d2-2f470cb16991" name="t-b4cb6891-a557-11ec-86d2-2f470cb16991" checked > <label for="t-b4cf6030-a557-11ec-86d2-2f470cb16991" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-4ea32c40-a586-11ec-abe5-e196c0ec4fca" name="t-4ea09431-a586-11ec-abe5-e196c0ec4fca" checked > <label for="t-4ea32c40-a586-11ec-abe5-e196c0ec4fca" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header__logo&quot;</span>&gt;</span>
     </span><span class="hljs-template-variable">{{partial.title}}</span><span class="xml">
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>

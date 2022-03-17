@@ -516,7 +516,7 @@
 </ul>
 <h4 id="poddoc">!pod.doc</h4>
 <p>Returns a document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-6ddf1160-a5b2-11ec-abe9-f3171230a7b0" name="t-6dddd8e0-a5b2-11ec-abe9-f3171230a7b0" checked > <label for="t-6ddf1160-a5b2-11ec-abe9-f3171230a7b0" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3cdd09a0-a60c-11ec-8e5f-237f76425e7a" name="t-3cd9fc60-a60c-11ec-8e5f-237f76425e7a" checked > <label for="t-3cdd09a0-a60c-11ec-8e5f-237f76425e7a" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
 <span class="hljs-type">!pod.doc</span> <span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>
 <span class="hljs-comment"># Single document, localized.</span>
 <span class="hljs-type">!pod.doc</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-type">!pod.locale</span> <span class="hljs-string">&#x27;de&#x27;</span>]
@@ -524,7 +524,7 @@
 
 <h4 id="poddocs">!pod.docs</h4>
 <p>Returns a list of documents. Either multiple docs can be enumerated explicitly,<br>or glob syntax can be used to fetch documents using a glob pattern.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-6de0e620-a5b2-11ec-abe9-f3171230a7b0" name="t-6ddf1161-a5b2-11ec-abe9-f3171230a7b0" checked > <label for="t-6de0e620-a5b2-11ec-abe9-f3171230a7b0" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-3cdede60-a60c-11ec-8e5f-237f76425e7a" name="t-3cdd30b0-a60c-11ec-8e5f-237f76425e7a" checked > <label for="t-3cdede60-a60c-11ec-8e5f-237f76425e7a" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/2019-01-06.md&#x27;</span>]
 <span class="hljs-comment"># All documents within the `posts` collection, with options.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>, {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]

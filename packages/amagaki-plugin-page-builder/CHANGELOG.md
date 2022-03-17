@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.7.2](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.1...amagaki-plugin-page-builder-v3.7.2) (2022-03-17)
+
+
+### Bug Fixes
+
+* update style of inspector for spacers ([517267b](https://www.github.com/blinkk/amagaki/commit/517267ba25873bdaeeaf30fcbdb5ddad65449222))
+
 ### [3.7.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.0...amagaki-plugin-page-builder-v3.7.1) (2022-03-15)
 
 

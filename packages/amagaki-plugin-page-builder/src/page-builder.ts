@@ -668,7 +668,7 @@ export class PageBuilder {
           partial="${name}"
           position="${position}"
           ${name.toLowerCase().includes('spacer') ? 'neutral' : ''}
-          ${partial?.size ? html`size="(${partial?.size})"` : ''}
+          ${partial?.size ? html`size="${partial?.size}"` : ''}
           ${partial?.editContentLink ? html`edit-content-link="${partial?.editContentLink}"` : ''}
           ${partial?.submitIssueLink ? html`submit-issue-link="${partial?.submitIssueLink}"` : ''}
         ></page-module-inspector>

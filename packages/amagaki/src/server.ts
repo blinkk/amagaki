@@ -27,7 +27,8 @@ export class Server extends events.EventEmitter {
   port: number;
   watcher?: chokidar.FSWatcher;
 
-  static AUTORELOAD_PATHS = ['^/amagaki.(j|t)s', '^/plugins'];
+  static AUTORELOAD_PATHS_REGEX = /^\/amagaki.(j|t)s$|^\/plugins/;
+  static CLEAR_MODULE_CACHE_PATH_REGEX = /.*.js$|.*ts$|.*tsx$|.*jsx$/;
   static PLUGINS_PATH = '/plugins';
   static SRC_PATH = '/src';
   static Events = {
@@ -141,11 +142,16 @@ export class Server extends events.EventEmitter {
   }
 
   private onchange(path: string) {
-    const reloadRegex = new RegExp(Server.AUTORELOAD_PATHS.join('|'));
     const podPath = `/${path}`;
-    if (podPath.match(reloadRegex)) {
+    // Server needs to be fully restarted; e.g. if `amagaki.ts` changed.
+    if (Server.AUTORELOAD_PATHS_REGEX.test(podPath)) {
       this.reload();
     } else {
+      // Module cache needs to be reloaded (e.g. to reload `.tsx` templates)
+      if (Server.CLEAR_MODULE_CACHE_PATH_REGEX.test(podPath)) {
+        this.clearModuleCache();
+      }
+      // Cache needs to be reset (e.g. to update routes).
       this.pod.cache.reset();
       this.safeWarmup();
     }
@@ -168,7 +174,7 @@ export class Server extends events.EventEmitter {
   watch() {
     this.watcher = chokidar.watch(this.pod.root, {
       cwd: this.pod.root,
-      ignored: ['**/node_modules/**', '**/.git/**'],
+      ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/build/**'],
       ignoreInitial: true,
     });
 
@@ -180,14 +186,8 @@ export class Server extends events.EventEmitter {
     this.watcher.on('unlink', callback);
   }
 
-  /**
-   * Reinstantiates the pod and restarts the server, which has the side effect
-   * of reloading any changes from `amagaki.ts`.
-   */
-  async reload() {
-    if (this.httpServer?.listening) {
-      await this.stop();
-    }
+  /** Clears module cache to allow runtime reloading of plugins and .TS templates. */
+  clearModuleCache() {
     // Evict module cache to allow runtime reloading of plugins.
     const pluginsRoot = this.pod.getAbsoluteFilePath(Server.PLUGINS_PATH);
     const srcRoot = this.pod.getAbsoluteFilePath(Server.SRC_PATH);
@@ -196,6 +196,17 @@ export class Server extends events.EventEmitter {
         delete require.cache[cacheKey];
       }
     });
+  }
+
+  /**
+   * Reinstantiates the pod and restarts the server, which has the side effect
+   * of reloading any changes from `amagaki.ts`.
+   */
+  async reload() {
+    if (this.httpServer?.listening) {
+      await this.stop();
+    }
+    this.clearModuleCache();
     if (!this.httpServer?.listening) {
       let newPod;
       try {

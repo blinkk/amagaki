@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.3](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.2...amagaki-v2.1.3) (2022-03-18)
+
+
+### Bug Fixes
+
+* clear module cache on all observed code changes ([32508ad](https://www.github.com/blinkk/amagaki/commit/32508ad6b71b70e490433ec57d2ae39886edd7c7))
+
 ### [2.1.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.1...amagaki-v2.1.2) (2022-03-17)
 
 

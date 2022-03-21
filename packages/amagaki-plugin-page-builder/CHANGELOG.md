@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.4...amagaki-plugin-page-builder-v3.8.0) (2022-03-21)
+
+
+### Features
+
+* add ability to build page builder pages from routes ([#188](https://www.github.com/blinkk/amagaki/issues/188)) ([3002404](https://www.github.com/blinkk/amagaki/commit/3002404c8852eb5e0c91ef187ff5f47a83c07120))
+
 ### [3.7.4](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.3...amagaki-plugin-page-builder-v3.7.4) (2022-03-21)
 
 

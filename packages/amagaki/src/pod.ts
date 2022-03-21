@@ -91,7 +91,7 @@ export class Pod {
     this.env = new Environment(environmentOptions);
     this.config = {
       meta: {
-        name: 'Amagaki pod',
+        name: 'Amagaki website',
       },
     };
     this.cache = new Cache(this);

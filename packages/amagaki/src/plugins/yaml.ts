@@ -335,7 +335,7 @@ export class YamlPlugin implements PluginComponent {
         return typeof data === 'object';
       },
       construct: value => {
-        return value[this.pod.env.name] || Environment.DefaultName;
+        return value[this.pod.env.name] ?? Environment.DefaultName;
       },
       // TODO: Represent serialized values so they can be round-tripped.
     });

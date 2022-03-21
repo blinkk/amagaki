@@ -1,5 +1,13 @@
 # Changelog
 
+### [3.7.4](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.3...amagaki-plugin-page-builder-v3.7.4) (2022-03-21)
+
+
+### Bug Fixes
+
+* duplicate parenthesis in inspector ([28090f3](https://www.github.com/blinkk/amagaki/commit/28090f38be962abf1ee9c5c226ebc52c66e9feb7))
+* make it possible for header and footer to entirely be disabled ([1e8378b](https://www.github.com/blinkk/amagaki/commit/1e8378be45c4cdc250a3f98ca64109b4fbbb8aa8))
+
 ### [3.7.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.2...amagaki-plugin-page-builder-v3.7.3) (2022-03-17)
 
 

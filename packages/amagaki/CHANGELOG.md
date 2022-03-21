@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.4](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.3...amagaki-v2.1.4) (2022-03-21)
+
+
+### Bug Fixes
+
+* no-op change to trigger re-release ([fac2b77](https://www.github.com/blinkk/amagaki/commit/fac2b77fd88d1494983a84c09bd7895bdc59cd48))
+
 ### [2.1.3](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.2...amagaki-v2.1.3) (2022-03-18)
 
 

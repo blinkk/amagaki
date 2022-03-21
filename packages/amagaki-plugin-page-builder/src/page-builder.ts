@@ -1,8 +1,10 @@
 import {
+  BuildRouteOptions,
   DataType,
   Document,
   Locale,
   Pod,
+  Route,
   StaticFile,
   TemplateContext,
   TemplateEngineComponent,
@@ -18,7 +20,44 @@ import {SitemapPlugin} from './sitemap';
 import fs from 'fs';
 import jsBeautify from 'js-beautify';
 
-type Partial = any;
+interface PartialIdentifier {
+  /** The partial's name. If only `partial` is specified, the partial's template will be loaded from the filesystem using the configuration present in the `partialPaths` configuration option. */
+  partial: string;
+  /** The absolute path to the partial on the filesystem. Used internally. */
+  absolutePath?: string;
+  /**  The pod path to the partial's template. Used if the partial is located in a place outside of the `partialPaths` configuration. */
+  podPath?: string;
+}
+
+interface BuiltInPartialFields {
+  /** Where to find the partial. */
+  partial: string | PartialIdentifier;
+  /** An ID corresponding to the partial. Unique per page. Used as the deep link to the module on the page, in place of a module number. */
+  id?: string;
+  /** A link to the design file for the partial. */
+  designLink?: string;
+  /** A link to the CMS for the partial. */
+  editContentLink?: string;
+  /** A link to submit an issue about the partial. */
+  submitIssueLink?: string;
+  /** The partial's size. If specified, the size appears in parenthesis after the partial's name in the page module's inspector. */
+  size?: string;
+  /** Whether to include the inspector on the page. */
+  includeInspector?: boolean;
+  /** Whether to include the partial's context on the page. Used for partials that require hydration. */
+  includeContext?: boolean;
+}
+
+export type Partial = BuiltInPartialFields & Record<string, any>;
+
+export interface PageBuilderDocumentFields {
+  title?: string;
+  description?: string;
+  image?: string;
+  partials: Partial[];
+}
+
+export type PageBuilderRenderFunction = (context: TemplateContext) => Promise<string>;
 
 interface BuiltinPartial {
   enabled?: boolean;
@@ -257,6 +296,34 @@ export class PageBuilder {
       return await PageBuilder.build(context.doc, context, options);
     };
     return options;
+  }
+
+  static buildFromRoute(
+    pod: Pod,
+    urlPath: string,
+    fields: PageBuilderDocumentFields,
+    buildRouteOptions?: BuildRouteOptions,
+    locale?: undefined,
+  ) {
+    const doc = {
+      fields: fields,
+      locale: locale ?? pod.defaultLocale,
+      locales: [],
+      pod: pod,
+      podPath: __filename,
+      url: new Url({
+        ...pod.env,
+        path: urlPath,
+      }),
+    } as unknown as Document;
+    const pageBuilderRender = pod.defaultView as PageBuilderRenderFunction;
+    return pageBuilderRender({
+      doc: doc,
+      env: pod.env,
+      pod: pod,
+      process: process,
+      req: buildRouteOptions?.req,
+    });
   }
 
   /**
@@ -677,11 +744,12 @@ export class PageBuilder {
     }
     const context = {...this.context, partial};
     let result;
-    if (partial.partial.absolutePath) {
+    const absPath = (partial.partial as PartialIdentifier).absolutePath;
+    if (absPath) {
       const engine = this.pod.engines.getEngineByFilename(
-        partial.partial.absolutePath
+        absPath
       ) as TemplateEngineComponent;
-      const template = fs.readFileSync(partial.partial.absolutePath, 'utf8');
+      const template = fs.readFileSync(absPath, 'utf8');
       result = await engine.renderFromString(template, context);
     } else if (typeof partial.partial === 'string') {
       const viewPodPath =

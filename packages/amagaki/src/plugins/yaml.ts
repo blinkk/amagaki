@@ -373,6 +373,21 @@ export class YamlPlugin implements PluginComponent {
       // TODO: Represent serialized values so they can be round-tripped.
     });
 
+    /**
+     * !pod
+     */
+     yamlTypeManager.addType('!pod', {
+      kind: 'scalar',
+      instanceOf: Pod,
+      construct: value => {
+        return this.pod;
+      },
+      represent: data => {
+        // Exclude `Pod` objects from serialization.
+        return undefined;
+      },
+    });
+
     for (const shortcutType of this.shortcutTypes) {
       yamlTypeManager.addType(shortcutType.tag, shortcutType.options);
     }

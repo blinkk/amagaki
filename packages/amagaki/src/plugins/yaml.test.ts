@@ -103,12 +103,34 @@ de: de
 `;
 
   const pod = new Pod('./fixtures/yamlTypes/');
+  // Verify serialization when `defaultView` specified.
+  pod.defaultView = async () => {
+    return 'Test';
+  }
   const localizableData = new LocalizableData(pod, {
     default: 'base',
     de: 'de',
   });
   t.deepEqual(sampleYaml, pod.dumpYaml(localizableData));
   t.deepEqual(localizableData, pod.readYamlString(sampleYaml));
+
+  // Verify with references to the pod object.
+  const sampleComplexYaml = `!IfLocale 
+default: {}
+de:
+  foo: bar
+`;
+  const complexData = new LocalizableData(pod, {
+    default: {
+      pod: pod,
+    },
+    de: {
+      pod: pod,
+      'foo': 'bar',
+    }
+  });
+  t.deepEqual(sampleComplexYaml, pod.dumpYaml(complexData));
+
 });
 
 test('!pod.string default', (t: ExecutionContext) => {
@@ -141,4 +163,13 @@ value: Default String
   );
   t.deepEqual(sampleString, pod.dumpYaml(translationString));
   t.deepEqual(translationString, pod.readYamlString(sampleString));
+});
+
+test('!pod', (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/yamlTypes/');
+  // Verify serialization when `defaultView` specified.
+  pod.defaultView = async () => {
+    return 'Test';
+  }
+  t.deepEqual('', pod.dumpYaml(pod));
 });

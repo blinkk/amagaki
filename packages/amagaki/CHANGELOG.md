@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.5](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.4...amagaki-v2.1.5) (2022-03-22)
+
+
+### Bug Fixes
+
+* support dumping pod references into yaml ([f8fad61](https://www.github.com/blinkk/amagaki/commit/f8fad6172f3b3c43f32ee82d8355356c63836ad6))
+
 ### [2.1.4](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.3...amagaki-v2.1.4) (2022-03-21)
 
 

@@ -4,7 +4,7 @@ export default function (pod: Pod) {
   pod.configure({
     environments: {
       prod: {
-        host: 'example.com',
+        host: 'prod.com',
         fields: {
           apiKey: 'foo',
         },

@@ -8,7 +8,7 @@ test('Environment fields', async (t: ExecutionContext) => {
   const route = (await pod.router.resolve('/')) as Route;
   t.is('default,,http://localhost/', await route.build());
   pod.setEnvironment('prod');
-  t.is('prod,foo,https://example.com/', await route.build());
+  t.is('prod,foo,https://prod.com/', await route.build());
   pod.setEnvironment('staging');
   t.is('staging,bar,https://example.com/', await route.build());
 });

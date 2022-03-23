@@ -1,4 +1,5 @@
 import {EnvironmentOptions, Pod} from '..';
+
 import fs from 'fs';
 
 export interface GlobalOptions {
@@ -11,10 +12,8 @@ export function getPodWithEnvironment(
   globalOptions: GlobalOptions,
   env?: EnvironmentOptions
 ): Pod {
-  const pod = new Pod(
-    fs.realpathSync(path),
-    env ?? (globalOptions.env ? {name: globalOptions.env} : undefined)
-  );
+  env = env ?? (globalOptions.env ? {name: globalOptions.env} : undefined);
+  const pod = new Pod(fs.realpathSync(path), env);
   if (env !== undefined && globalOptions.env) {
     pod.setEnvironment(globalOptions.env);
   }

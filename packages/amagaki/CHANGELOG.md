@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.6](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.5...amagaki-v2.1.6) (2022-03-23)
+
+
+### Bug Fixes
+
+* issue setting environment using the cli ([#192](https://www.github.com/blinkk/amagaki/issues/192)) ([564af87](https://www.github.com/blinkk/amagaki/commit/564af87d4aee72e745592968accbe958baaebbee))
+
 ### [2.1.5](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.4...amagaki-v2.1.5) (2022-03-22)
 
 

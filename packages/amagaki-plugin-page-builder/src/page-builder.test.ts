@@ -36,6 +36,14 @@ test('PageBuilder dev', async (t: ExecutionContext) => {
   t.true(html.includes('page-builder-ui.min.js'));
 });
 
+test('Footer can be disabled', async (t: ExecutionContext) => {
+  const pod = new Pod('./example', {dev: true, name: 'test'});
+  await pod.router.warmup();
+  const pageHtml = await (await pod.router.resolve('/pages/') as Route).build();
+  t.true(pageHtml.includes('<page-module partial="custom-footer"'));
+  const fooHtml = await (await pod.router.resolve('/foo/') as Route).build();
+  t.false(fooHtml.includes('<page-module partial="custom-footer"'));
+});
 
 test('Building custom routes', async(t: ExecutionContext) => {
   const pod = new Pod('./example');

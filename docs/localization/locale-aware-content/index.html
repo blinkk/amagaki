@@ -487,7 +487,7 @@
 <p>Amagaki has inbuilt support for generating localized pages, using localized URL<br>paths and supporting localized content. See the steps below to learn how to<br>generate localized pages.</p>
 <h2 id="localized-url-paths">Localized URL paths</h2>
 <p>To start with localization, create a page. Define its localization path<br>structure in front matter, and specify the locales it should be available in.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d315f0c0-aad1-11ec-9982-7319345e6b60" name="t-d3150660-aad1-11ec-9982-7319345e6b60" checked > <label for="t-d315f0c0-aad1-11ec-9982-7319345e6b60" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ff934ff0-ab15-11ec-8aa7-bbd8ab496a79" name="t-ff926590-ab15-11ec-8aa7-bbd8ab496a79" checked > <label for="t-ff934ff0-ab15-11ec-8aa7-bbd8ab496a79" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>
@@ -509,7 +509,7 @@
 <h3 id="localized-collections">Localized collections</h3>
 <p>You can localize all documents within a collection by specifying <code>$localization</code><br>within the collection&#39;s <code>_collection.yaml</code>. In the below example, the <code>$path</code><br>and <code>$localization</code> settings will be applied to all documents within the<br><code>/content/pages</code> collection.</p>
 <p>Settings can be overriden on a per-document basis.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d316db20-aad1-11ec-9982-7319345e6b60" name="t-d315f0c1-aad1-11ec-9982-7319345e6b60" checked > <label for="t-d316db20-aad1-11ec-9982-7319345e6b60" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-ff946160-ab15-11ec-8aa7-bbd8ab496a79" name="t-ff934ff1-ab15-11ec-8aa7-bbd8ab496a79" checked > <label for="t-ff946160-ab15-11ec-8aa7-bbd8ab496a79" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>

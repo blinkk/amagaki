@@ -63,7 +63,7 @@ interface BuiltinPartial {
   enabled?: boolean;
   name?: string;
   content?: string;
-  view: string;
+  view?: string;
 }
 
 /**
@@ -364,7 +364,7 @@ export class PageBuilder {
         }
         <div class="main">
           ${
-            this.getFieldValue('header') === false && this.options.header?.enabled !== false
+            this.getFieldValue('header') === false || this.options.header?.enabled === false
               ? ''
               : await this.buildBuiltinPartial('header', this.options.header)
           }
@@ -380,7 +380,7 @@ export class PageBuilder {
             )}
           </main>
           ${
-            this.getFieldValue('footer') === false && this.options.footer?.enabled !== false
+            this.getFieldValue('footer') === false || this.options.footer?.enabled === false
               ? ''
               : await this.buildBuiltinPartial('footer', this.options.footer)
           }
@@ -492,7 +492,7 @@ export class PageBuilder {
   async buildBuiltinPartial(partial: string, options?: BuiltinPartial) {
     const contentPodPath = options?.content ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.content ?? ['/content/partials/${partial.partial}.yaml'], partial);
     const viewPodPath = options?.view ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.view, partial);
-    return viewPodPath
+    return viewPodPath && this.pod.fileExists(viewPodPath)
       ? html`
         <${partial}>
         ${await this.buildPartialElement({

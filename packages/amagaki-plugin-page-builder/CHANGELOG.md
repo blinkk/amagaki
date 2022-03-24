@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.8.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.0...amagaki-plugin-page-builder-v3.8.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* ability to disable footer and add test [#194](https://www.github.com/blinkk/amagaki/issues/194) ([a083e6e](https://www.github.com/blinkk/amagaki/commit/a083e6eeb8da86f64bf461d010c350140100a42d))
+
 ## [3.8.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.7.4...amagaki-plugin-page-builder-v3.8.0) (2022-03-21)
 
 

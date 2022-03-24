@@ -492,7 +492,7 @@ export class PageBuilder {
   async buildBuiltinPartial(partial: string, options?: BuiltinPartial) {
     const contentPodPath = options?.content ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.content ?? ['/content/partials/${partial.partial}.yaml'], partial);
     const viewPodPath = options?.view ?? PageBuilder.selectPodPath(this.pod, this.partialPaths.view, partial);
-    return viewPodPath
+    return viewPodPath && this.pod.fileExists(viewPodPath)
       ? html`
         <${partial}>
         ${await this.buildPartialElement({

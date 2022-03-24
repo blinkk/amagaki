@@ -37,7 +37,7 @@
     "timeout": "20s"
   },
   "devDependencies": {
-    "@amagaki/amagaki": "^2.1.0",
+    "@amagaki/amagaki": "*",
     "@blinkk/degu": "^2.0.0",
     "@types/gulp": "^4.0.9",
     "@types/js-beautify": "^1.13.3",

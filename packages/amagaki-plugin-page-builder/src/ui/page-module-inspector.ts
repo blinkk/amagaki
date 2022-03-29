@@ -158,7 +158,7 @@ export class PageBuilderInspector extends LitElement {
     return this.enabled
       ? html`
         <link href="/_page-builder/page-builder-ui.min.css" rel="stylesheet">
-        <div class="help-box">
+        <div class="help-box" aria-hidden="true">
           <div class="help-box__label">
             <a href="#${this.elementId}">
               ${this.position}. ${this.partial}

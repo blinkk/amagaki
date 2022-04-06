@@ -496,7 +496,7 @@
 <p>Custom plugins can be created so that other custom plugins may interact with<br>them. For example, you may create one plugin that handles authentication for<br>several other plugins.</p>
 <p>Normally, instead of explicitly creating new plugins, you can extend Amagaki<br>functionality by using hooks available from existing plugins, or by simply<br>interfacing with Amagaki within <code>amagaki.js</code>. But, if you want or need to<br>create a custom plugin, see below.</p>
 <p>First, define the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b2646220-afb4-11ec-94cb-b94316d986e3" name="t-b26350b0-afb4-11ec-94cb-b94316d986e3" checked > <label for="t-b2646220-afb4-11ec-94cb-b94316d986e3" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-2ac16500-b5dd-11ec-aa14-836a5a667f43" name="t-2ac05390-b5dd-11ec-aa14-836a5a667f43" checked > <label for="t-2ac16500-b5dd-11ec-aa14-836a5a667f43" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">pod, options</span>)</span> {
     <span class="hljs-built_in">this</span>.pod = pod;
     <span class="hljs-built_in">this</span>.options = options;
@@ -508,7 +508,7 @@
 </code></pre></div> </div>
 
 <p>Then, register the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b2654c80-afb4-11ec-94cb-b94316d986e3" name="t-b2646221-afb4-11ec-94cb-b94316d986e3" checked > <label for="t-b2654c80-afb4-11ec-94cb-b94316d986e3" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-2ac24f60-b5dd-11ec-aa14-836a5a667f43" name="t-2ac16501-b5dd-11ec-aa14-836a5a667f43" checked > <label for="t-2ac24f60-b5dd-11ec-aa14-836a5a667f43" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     pod.plugins.register(CustomPlugin, {
         <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>
     });
@@ -516,7 +516,7 @@
 </code></pre></div> </div>
 
 <p>Later, within code that depends on the plugin you created, access it.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b2660fd0-afb4-11ec-94cb-b94316d986e3" name="t-b2654c81-afb4-11ec-94cb-b94316d986e3" checked > <label for="t-b2660fd0-afb4-11ec-94cb-b94316d986e3" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-2ac312b0-b5dd-11ec-aa14-836a5a667f43" name="t-2ac24f61-b5dd-11ec-aa14-836a5a667f43" checked > <label for="t-2ac312b0-b5dd-11ec-aa14-836a5a667f43" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
 customPlugin.getFoo();
 </code></pre></div> </div>
 

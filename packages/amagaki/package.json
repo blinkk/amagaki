@@ -83,6 +83,7 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "glob": "^7.1.6",
+    "i": "^0.3.7",
     "isomorphic-git": "^1.12.1",
     "js-yaml": "^4.1.0",
     "marked": "^2.0.3",

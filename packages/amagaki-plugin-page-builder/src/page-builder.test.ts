@@ -50,7 +50,7 @@ test('Building custom routes', async(t: ExecutionContext) => {
   pod.router.addRoutes('custom', async (provider: RouteProvider) => {
     provider.addRoute({
       urlPath: '/custom/',
-      build: async (options) => {
+      build: async (options: BuildRouteOptions) => {
         const fields: PageBuilderDocumentFields = {
           title: 'Custom Page',
           partials: [{

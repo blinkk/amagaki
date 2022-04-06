@@ -5,6 +5,7 @@ import {
   RouteProvider,
   Router,
 } from '@amagaki/amagaki';
+
 import jsBeautify from 'js-beautify';
 
 export interface SitemapPluginOptions {
@@ -14,6 +15,7 @@ export interface SitemapPluginOptions {
 
 export class SitemapPlugin extends RouteProvider {
   options: SitemapPluginOptions;
+  type: string;
 
   constructor(router: Router, options: SitemapPluginOptions) {
     super(router);
@@ -52,6 +54,7 @@ class RobotsTxtRoute extends Route {
 
 class SitemapRoute extends Route {
   provider: SitemapPlugin;
+  pod: Pod;
 
   constructor(provider: SitemapPlugin) {
     super(provider);

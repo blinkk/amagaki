@@ -1,13 +1,14 @@
 {
-    "extends": "gts/tsconfig-google.json",
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
       "experimentalDecorators": true,
       "esModuleInterop": true,
       "outDir": "dist",
-      "skipLibCheck": true,
-      "types": [],
+      "types": [
+        "node",
+      ],
       "lib": [
-        "es2015",
+        "es2020",
         "dom"
       ],
     },

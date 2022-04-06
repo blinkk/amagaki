@@ -1,5 +1,13 @@
 # Changelog
 
+### [3.8.2](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.1...amagaki-plugin-page-builder-v3.8.2) (2022-04-06)
+
+
+### Bug Fixes
+
+* add aria-hidden to the page module inspector ([899223c](https://www.github.com/blinkk/amagaki/commit/899223cf6699a925d6dd98b094c3d87a608bb7f5))
+* skip empty partials ([#198](https://www.github.com/blinkk/amagaki/issues/198)) ([c735ec5](https://www.github.com/blinkk/amagaki/commit/c735ec58fdd34d2866aa530aa50e4f5ed908c695))
+
 ### [3.8.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.0...amagaki-plugin-page-builder-v3.8.1) (2022-03-24)
 
 

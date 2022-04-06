@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.7](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.6...amagaki-v2.1.7) (2022-04-06)
+
+
+### Bug Fixes
+
+* skip empty partials ([#198](https://www.github.com/blinkk/amagaki/issues/198)) ([c735ec5](https://www.github.com/blinkk/amagaki/commit/c735ec58fdd34d2866aa530aa50e4f5ed908c695))
+
 ### [2.1.6](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.5...amagaki-v2.1.6) (2022-03-23)
 
 

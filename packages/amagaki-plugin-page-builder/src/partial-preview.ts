@@ -37,6 +37,8 @@ interface PartialGalleryRouteOptions {
 export class PartialPreviewRouteProvider extends RouteProvider {
   options: PartialPreviewRouteProviderOptions;
   partialsBasePath: string;
+  type: string;
+  pod: Pod;
 
   constructor(router: Router, options: PartialPreviewRouteProviderOptions) {
     super(router);
@@ -88,6 +90,7 @@ export class PartialPreviewRouteProvider extends RouteProvider {
 class PartialGalleryRoute extends Route {
   options: PartialGalleryRouteOptions;
   provider: PartialPreviewRouteProvider;
+  pod: Pod;
 
   constructor(provider: PartialPreviewRouteProvider, options: PartialGalleryRouteOptions) {
     super(provider);
@@ -164,6 +167,8 @@ const findMockInstances = async (pod: Pod, partial: string) => {
 
 class PartialPreviewRoute extends Route {
   options: PartialPreviewRouteOptions;
+  pod: Pod;
+  provider: RouteProvider;
 
   constructor(provider: RouteProvider, options: PartialPreviewRouteOptions) {
     super(provider);

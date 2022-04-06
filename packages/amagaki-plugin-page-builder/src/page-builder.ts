@@ -31,7 +31,7 @@ interface PartialIdentifier {
 
 interface BuiltInPartialFields {
   /** Where to find the partial. */
-  partial: string | PartialIdentifier;
+  partial?: string | PartialIdentifier;
   /** An ID corresponding to the partial. Unique per page. Used as the deep link to the module on the page, in place of a module number. */
   id?: string;
   /** A link to the design file for the partial. */
@@ -701,6 +701,10 @@ export class PageBuilder {
       typeof partial.partial === 'string'
         ? partial.partial
         : partial.partial?.partial;
+    // Skip empty partials, e.g. `{partial: false}`.
+    if (!name) {
+      return;
+    }
     const cssPodPath = PageBuilder.selectPodPath(
       this.pod,
       this.partialPaths.css,
@@ -711,6 +715,7 @@ export class PageBuilder {
       this.partialPaths.js,
       name
     );
+    const absPath = partial.partial && (partial.partial as PartialIdentifier).absolutePath;
 
     const partialBuilder = [];
     const htmlId = partial.id ? ` id="${partial.id}"` : '';
@@ -744,7 +749,6 @@ export class PageBuilder {
     }
     const context = {...this.context, partial};
     let result;
-    const absPath = (partial.partial as PartialIdentifier).absolutePath;
     if (absPath) {
       const engine = this.pod.engines.getEngineByFilename(
         absPath

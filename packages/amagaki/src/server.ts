@@ -5,7 +5,7 @@ import * as http from 'http';
 import * as nunjucks from 'nunjucks';
 
 import {Pod} from './pod';
-import {StaticRoute} from './router';
+import {StaticRoute} from './routes';
 
 import {debounce} from './utils';
 import express = require('express');
@@ -56,15 +56,16 @@ export class Server extends events.EventEmitter {
     });
     app.all('/*', async (req: express.Request, res: express.Response) => {
       try {
-        const route = await this.pod.router.resolve(req.path);
+        const [route, params] = await this.pod.router.resolve(req.path);
         if (!route) {
           const ext = req.path.split('.').pop();
           const routes = (await this.pod.router.routes())
             .filter(route => {
               return (
+                route.type != 'default' && (
                 route.url.path.endsWith('/') ||
                 route.url.path.endsWith('.html') ||
-                (ext && route.url.path.endsWith(ext))
+                (ext && route.url.path.endsWith(ext)))
               );
             })
             .slice(0, 1000); // Show 1000 files max.
@@ -74,7 +75,7 @@ export class Server extends events.EventEmitter {
           });
           return;
         }
-        if (route.provider.type === 'staticDir') {
+        if (route.type === 'staticDir') {
           res.sendFile(
             this.pod.getAbsoluteFilePath(
               (route as StaticRoute).staticFile.podPath
@@ -84,6 +85,7 @@ export class Server extends events.EventEmitter {
         } else {
           const content = await route.build({
             req: req,
+            params: params,
           });
           res.set('Content-Type', route.contentType);
           res.send(content);

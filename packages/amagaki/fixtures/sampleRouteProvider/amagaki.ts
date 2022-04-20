@@ -1,41 +1,20 @@
-import {Pod, Route, RouteProvider, Router} from '../../src';
-
-export interface SampleRouteProviderOptions {
-  slugs: string[];
-  view: string;
-}
+import { Pod, Router } from '../../src';
+import { Route } from '../../src/routes';
 
 export interface SampleRouteOptions {
   slug: string;
   view: string;
 }
 
-export class SampleRouteProvider extends RouteProvider {
-  options: SampleRouteProviderOptions;
-  static type = 'sample';
-
-  constructor(router: Router, options: SampleRouteProviderOptions) {
-    super(router);
-    this.options = options;
-  }
-
-  async routes(): Promise<SampleRoute[]> {
-    return this.options.slugs.map(slug => {
-      return new SampleRoute(this, {
-        slug: slug,
-        view: this.options.view,
-      });
-    });
-  }
-}
-
 export class SampleRoute extends Route {
   fields: Record<string, any>;
   options: SampleRouteOptions;
   view: string;
+  pod: Pod;
 
-  constructor(provider: RouteProvider, options: SampleRouteOptions) {
-    super(provider);
+  constructor(router: Router, options: SampleRouteOptions) {
+    super(router);
+    this.pod = router.pod;
     this.options = options;
     this.view = options.view;
     this.fields = {
@@ -60,9 +39,11 @@ export class SampleRoute extends Route {
 }
 
 export default function (pod: Pod) {
-  const provider = new SampleRouteProvider(pod.router, {
-    slugs: ['rex', 'cody', 'jesse'],
-    view: '/views/base.njk',
+  ['rex', 'cody', 'jesse'].map(slug => {
+    const route = new SampleRoute(pod.router, {
+      slug: slug,
+      view: '/views/base.njk',
+    });
+    pod.router.addRoute(route.url.path, route);
   });
-  pod.router.addProvider(provider);
 }

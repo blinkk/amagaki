@@ -8,7 +8,7 @@ import {Collection} from './collection';
 import {DeepWalk} from '@blinkk/editor.dev-ui/dist/utility/deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
-import {Route} from './router';
+import {Route} from './routes';
 import {Url} from './url';
 import minimatch from 'minimatch';
 
@@ -305,7 +305,7 @@ export class Document {
    * disabled), `undefined` is returned.
    */
   get url(): Url | undefined {
-    return this.pod.router.getUrl('doc', this);
+    return this.pod.router.getUrl(this.toString());
   }
 
   /**

@@ -157,7 +157,8 @@ export class Pod {
 
     if (this.config.staticRoutes) {
       // Remove the default static routes.
-      this.router.providers['staticDir'] = [];
+      // this.router.providers['staticDir'] = [];
+      // TODO: Handle built-in static dirs.
       this.router.addStaticDirectoryRoutes(this.config.staticRoutes);
     }
   }
@@ -487,13 +488,8 @@ export class Pod {
   }
 
   async warmup() {
-    const seconds = await this.router.warmup();
-    const routes = await this.router.routes();
-    if (routes.length > 5000) {
-      console.log(
-        chalk.blue('Warmed up: ') +
-          `${routes.length} routes in ${seconds.toFixed(2)}s`
-      );
-    }
+    const now = new Date().getTime() / 1000;
+    await this.router.warmup();
+    const seconds = new Date().getTime() / 1000 - now;
   }
 }

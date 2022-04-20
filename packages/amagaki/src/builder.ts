@@ -8,12 +8,13 @@ import * as util from 'util';
 import * as utils from './utils';
 
 import { GitCommit, getGitData } from './gitData';
-import {Route, StaticRoute} from './router';
+import {Route, StaticRoute} from './routes';
 
 import {Pod} from './pod';
 import {TranslationString} from './string';
 import chalk from 'chalk';
 import minimatch from 'minimatch';
+import { RouteParams } from './trie';
 
 interface Artifact {
   tempPath: string;
@@ -60,6 +61,8 @@ export interface BuildResult {
 
 interface CreatedPath {
   route: Route;
+  routeParams: RouteParams;
+  staticPath: string;
   tempPath: string;
   normalPath: string;
   realPath: string;
@@ -414,6 +417,7 @@ export class Builder {
   }
 
   async build(options?: BuildOptions): Promise<BuildResult> {
+    await this.pod.warmup();
     await this.pod.plugins.trigger('beforeBuild', this);
     const existingManifest = this.getManifest(this.manifestPath);
     const gitData = await getGitData(this.pod.root);
@@ -462,20 +466,24 @@ export class Builder {
       );
     }
 
-    bar.start(routes.length, artifacts.length, {
+    // For routes that have defined static paths, get them here.
+    const staticPaths: string[] = await this.pod.router.getStaticPaths(routes);
+
+    bar.start(staticPaths.length, artifacts.length, {
       customDuration: Builder.formatProgressBarTime(0),
     });
     const createdPaths: Array<CreatedPath> = [];
 
-    if (routes.length === 0) {
+    if (staticPaths.length === 0) {
       throw new Error(
         `Nothing to build. No routes found for pod rooted at: ${this.pod.root}. Ensure this is the right directory, and ensure that there is either content or static files to build.`
       );
     }
 
     // Collect the routes and assemble the temporary directory mapping.
-    for (const route of routes) {
-      const normalPath = Builder.normalizePath(route.url.path);
+    for (const staticPath of staticPaths) {
+      const [route, params] = await this.pod.router.resolve(staticPath);
+      const normalPath = Builder.normalizePath(staticPath);
       const tempPath = fsPath.join(
         tempDirRoot,
         this.outputDirectoryPodPath,
@@ -486,6 +494,8 @@ export class Builder {
       );
       createdPaths.push({
         route: route,
+        routeParams: params,
+        staticPath: staticPath,
         tempPath: tempPath,
         normalPath: normalPath,
         realPath: realPath,
@@ -501,26 +511,28 @@ export class Builder {
       async createdPath => {
         try {
           // Copy the file, or build it if it's a dynamic route.
-          if (createdPath.route.provider.type === 'staticDir') {
+          if (createdPath.route.type === 'staticDir') {
             return this.copyFileAsync(
               createdPath.tempPath,
               (createdPath.route as StaticRoute).staticFile.podPath
             );
           } else {
             // Use the url path as a unique timer key.
-            const urlPathStub = createdPath.route.urlPath.replace(/\//g, '.');
+            const urlPathStub = createdPath.staticPath.replace(/\//g, '.');
             const timer = this.pod.profiler.timer(
               `builder.build${urlPathStub}`,
-              `Build: ${createdPath.route.urlPath}`,
+              `Build: ${createdPath.staticPath}`,
               {
                 path: createdPath.route.podPath,
-                type: createdPath.route.provider.type,
+                type: createdPath.route.type,
                 urlPath: createdPath.route.urlPath,
               }
             );
             let content = '';
             try {
-              content = await createdPath.route.build();
+              content = await createdPath.route.build({
+                params: createdPath.routeParams
+              });
             } catch (err) {
               errors.push(err as Error);
               errorRoutes.push(createdPath.route);
@@ -585,7 +597,7 @@ export class Builder {
         });
         // Then, update the metrics by getting file sizes.
         const statResult = await fs.promises.stat(createdPath.tempPath);
-        if (createdPath.route.provider.type === 'staticDir') {
+        if (createdPath.route.type === 'staticDir') {
           buildMetrics.numStaticRoutes += 1;
           buildMetrics.outputSizeStaticFiles += statResult.size;
         } else {

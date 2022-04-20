@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "rootDir": ".",
     "outDir": "dist",
-    "lib": ["es2018"],
+    "lib": ["es2020"],
     "resolveJsonModule": true,
     "types": [
       "node",

@@ -1,6 +1,7 @@
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import test from 'ava';
+import fs from 'fs';
 
 test('Num missing translations', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/missingTranslations/');
@@ -55,6 +56,9 @@ test('Build matching patterns', async (t: ExecutionContext) => {
 
 test('Export', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
+  if (fs.existsSync('./export/.amagaki/manifest.json')) {
+    fs.unlinkSync('./export/.amagaki/manifest.json');
+  }
   await pod.builder.build();
   const exportResult = await pod.builder.export({exportDir: './export/'});
   t.deepEqual(exportResult.adds.length, 56);

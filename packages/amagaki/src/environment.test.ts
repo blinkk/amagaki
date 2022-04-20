@@ -1,11 +1,11 @@
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
-import {Route} from './router';
+import {Route} from './routes';
 import test from 'ava';
 
 test('Environment fields', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/environment/');
-  const route = (await pod.router.resolve('/')) as Route;
+  const [route] = await pod.router.resolve('/');
   t.is('default,,http://localhost/', await route.build());
   pod.setEnvironment('prod');
   t.is('prod,foo,https://prod.com/', await route.build());

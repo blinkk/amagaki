@@ -32,7 +32,7 @@
     "fix": "eslint --fix src/**/*.ts",
     "prepare": "rm -rf dist/; npm run dev:start;",
     "start:example": "node ./dist/src/cli.js serve example",
-    "test": "ava",
+    "test": "ava --verbose --timeout 1m",
     "test:watch": "ava --watch"
   },
   "ava": {

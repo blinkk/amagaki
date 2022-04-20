@@ -8,11 +8,13 @@
             </tr>
         </thead>
         {% for item in pod.router.routes()|await %}
-            <tr>
-                <td>{{item.locale.id}}</td>
-                <td><a href="{{item.url.path}}">{{item.url.path}}</a></td>
-                <td>{{item.doc.fields.title}}</td>
-            </tr>
+            {% if item.type != "default" %}
+                <tr>
+                    <td>{{item.locale.id}}</td>
+                    <td><a href="{{item.url.path}}">{{item.url.path}}</a></td>
+                    <td>{{item.doc.fields.title}}</td>
+                </tr>
+            {% endif %}
         {% endfor %}
     </table>
 </div>

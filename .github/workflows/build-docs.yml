@@ -40,7 +40,8 @@ jobs:
         run: |
             rm -rf ./public/api
             npm run docs:ci
-            mv ./public/api ../website/public/api
+            mkdir -p ../website/public/api
+            mv ./public/api/* ../website/public/api/
       - name: Build benchmark build
         run: |
             # Preserve benchmark files, otherwise the gh-pages action will overwrite them.

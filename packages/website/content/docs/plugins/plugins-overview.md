@@ -74,7 +74,7 @@ and which arguments are expected for the hook arguments.
 
 {{button.button({
     label: 'See PluginComponent Reference',
-    url: 'https://amagaki.dev/api/interfaces/plugins.plugincomponent.html',
+    url: 'https://amagaki.dev/api/interfaces/PluginComponent.html',
     external: true,
     class: 'button button--low',
     icon: 'launch'

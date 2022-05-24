@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.7...amagaki-v2.2.0) (2022-05-24)
+
+
+### Features
+
+* plugin hook for `afterRender` for changing contents after rendering. ([#199](https://www.github.com/blinkk/amagaki/issues/199)) ([c91c895](https://www.github.com/blinkk/amagaki/commit/c91c89517fd5815345078caa53250115be43398e))
+
 ### [2.1.7](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.6...amagaki-v2.1.7) (2022-04-06)
 
 

@@ -487,7 +487,7 @@
 <p>Amagaki supports Markdown-formatted content documents. Additionally, front<br>matter facilitates the use of structured content within the Markdown itself.</p>
 <h2 id="full-example">Full example</h2>
 <p>First, use front matter with Markdown within a content document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d6bedbe0-c5a9-11ec-88da-6946270fb80d" name="t-d6bdf180-c5a9-11ec-88da-6946270fb80d" checked > <label for="t-d6bedbe0-c5a9-11ec-88da-6946270fb80d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7d003e60-db74-11ec-bf85-cf284c876f53" name="t-7cff2cf0-db74-11ec-bf85-cf284c876f53" checked > <label for="t-7d003e60-db74-11ec-bf85-cf284c876f53" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/lorem-ipsum.md</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-markdown">---
 $path: /${doc.base}/
 $view: /views/base.njk
 date: 2021-01-06
@@ -499,7 +499,7 @@ author:
  
 <p>By: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;mailto:{{doc.fields.email}}&quot;</span>&gt;</span></span>{{doc.fields.name}}<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><br>Published: {{doc.fields.date}}<br></code></pre></div> </div></p>
 <p>Use the <code>render</code> filter along with <code>doc.body</code> to render the Markdown as HTML.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d6c06280-c5a9-11ec-88da-6946270fb80d" name="t-d6bf9f30-c5a9-11ec-88da-6946270fb80d" checked > <label for="t-d6c06280-c5a9-11ec-88da-6946270fb80d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7d023a30-db74-11ec-bf85-cf284c876f53" name="t-7d003e61-db74-11ec-bf85-cf284c876f53" checked > <label for="t-7d023a30-db74-11ec-bf85-cf284c876f53" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/views/base.njk</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 </span><span class="hljs-template-variable">{{doc.body|render}}</span><span class="xml">
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span>

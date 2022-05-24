@@ -492,7 +492,7 @@
 </ul>
 <p>Remember, Amagaki is intended to be a static site generator. Request handlers<br>made available on the server will not be available in production when serving a<br>fully static site. Therefore, server middleware is most useful for adding<br>functionality that enhances development velocity and the development workflow.</p>
 <h2 id="examples">Examples</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-d711b6d0-c5a9-11ec-88da-6946270fb80d" name="t-d70f1ec0-c5a9-11ec-88da-6946270fb80d" checked > <label for="t-d711b6d0-c5a9-11ec-88da-6946270fb80d" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-7d5aba70-db74-11ec-bf85-cf284c876f53" name="t-7d589790-db74-11ec-bf85-cf284c876f53" checked > <label for="t-7d5aba70-db74-11ec-bf85-cf284c876f53" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
     <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>) <span class="hljs-keyword">as</span> ServerPlugin;
  
 <pre><code>&lt;span class=&quot;hljs-comment&quot;&gt;// Immediate example. Use for registering Express middleware.&lt;/span&gt;

@@ -1,4 +1,4 @@
-import {Pod} from '../../src';
+import {Pod, TemplateEngineRenderResult} from '../../src';
 import { PluginComponent } from '../../src';
 
 export class ExamplePlugin implements PluginComponent {
@@ -9,6 +9,12 @@ export class ExamplePlugin implements PluginComponent {
     this.pod = pod;
     this.config = config;
   }
+
+  async afterRenderHook(result: TemplateEngineRenderResult) {
+    if (result.context.route?.urlPath?.endsWith('/')) {
+      result.content = `${result.content}\r<!-- EXAMPLE PLUGIN - afterRenderHook -->\r`;
+    }
+  };
 
   createTemplateEngineHook(templateEngine: any) {
     if (templateEngine.constructor.name === 'NunjucksTemplateEngine') {

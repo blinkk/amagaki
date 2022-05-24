@@ -185,7 +185,7 @@ export class RouteProvider {
     await Promise.all(this._routeBuilders.map(async (builder) => await builder(this)));
     return this._routes;
   }
-  
+
   addRouteBuilder(builder: RouteBuilder) {
     this._routeBuilders.push(builder);
   }

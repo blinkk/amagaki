@@ -9,11 +9,20 @@ export interface TemplateEngineComponent {
   /**
    * Renders the template from a string using the template engine and the given context.
    */
-  renderFromString: (template: string, context: any) => Promise<string>;
+  renderFromString: (template: string, k) => Promise<string>;
 }
 
 export interface TemplateEngineConstructor {
   new (pod: Pod): TemplateEngineComponent;
+}
+
+export interface TemplateEngineRenderResult {
+  // Path of the rendered template.
+  path?: string;
+  // Contents of the rendered template.
+  content: string;
+  // Context passed for rendering.
+  context: any;
 }
 
 export class TemplateEngineManager {

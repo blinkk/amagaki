@@ -1,9 +1,9 @@
 import express = require('express');
 
 import {BuildResult, Builder} from './builder';
+import {TemplateEngineComponent, TemplateEngineRenderResult} from './templateEngine';
 
 import {Pod} from './pod';
-import {TemplateEngineComponent} from './templateEngine';
 import {YamlTypeManager} from './plugins/yaml';
 
 /**
@@ -14,6 +14,13 @@ export interface PluginComponent {
    * Hook for working with the build result after a build is complete.
    */
   afterBuildHook?: (result: BuildResult) => Promise<void>;
+  /**
+   * Hook for modifying the content after rendering.
+   *
+   * Note: This hook is called from the Template Engine, not all template
+   * engines support this hook.
+   */
+  afterRenderHook?: (result: TemplateEngineRenderResult) => Promise<void>;
   /**
    * Hook for working with the builder before the build is executed.
    */

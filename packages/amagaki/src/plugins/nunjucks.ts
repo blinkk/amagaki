@@ -4,7 +4,7 @@ import * as utils from '../utils';
 import {Document} from '../document';
 import {PluginComponent} from '../plugins';
 import {Pod} from '../pod';
-import {TemplateEngineComponent} from '../templateEngine';
+import {TemplateEngineComponent, TemplateEngineRenderResult} from '../templateEngine';
 import {Translatable} from '../locale';
 import {Url} from '../url';
 import {formatBytes} from '../utils';
@@ -157,6 +157,17 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     );
   }
 
+  getTimerAfterRender(podPath?: string) {
+    podPath = podPath || 'self';
+    return this.pod.profiler.timer(
+      `templates.render.after.${podPath}`,
+      'Template render (after)',
+      {
+        podPath: podPath,
+      }
+    );
+  }
+
   render(path: string, context: any): Promise<string> {
     return new Promise((resolve, reject) => {
       const timer = this.getTimer(path);
@@ -165,8 +176,20 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
           reject(err);
           return;
         }
-        resolve(res || '');
+        const renderResult: TemplateEngineRenderResult = {
+          path,
+          content: res,
+          context
+        };
         timer.stop();
+
+        const afterTimer = this.getTimerAfterRender(path);
+        this.pod.plugins.trigger('afterRender', renderResult).then(() => {
+          resolve(renderResult.content || '');
+          afterTimer.stop();
+        }, (err) => {
+          reject(err);
+        });
       });
     });
   }
@@ -179,8 +202,19 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
           reject(err);
           return;
         }
-        resolve(res || '');
+        const renderResult: TemplateEngineRenderResult = {
+          content: res,
+          context
+        };
         timer.stop();
+
+        const afterTimer = this.getTimerAfterRender();
+        this.pod.plugins.trigger('afterRender', renderResult).then(() => {
+          resolve(renderResult.content || '');
+          afterTimer.stop();
+        }, (err) => {
+          reject(err);
+        });
       });
     });
   }

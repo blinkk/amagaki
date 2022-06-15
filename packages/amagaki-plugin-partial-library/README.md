@@ -49,7 +49,23 @@ end of the build process.
 
 ## Options
 
-Refer to the [`PartialLibraryOptions` interface](src/partial-library.ts) for a full list of options.
+Refer to the [`PartialLibraryPluginOptions` interface](src/partial-library.ts) for a
+full list of options.
+
+## Usage
+
+The partial library is designed to be used within a view from the project the
+plugin is used in. This allows for defining a view that loads the project
+specific styling/js and allows the developer to control the partial output if
+they would like to display examples of the partial usage in the site.
+
+By default the plugin only generates a simple partial listing and usage count
+information.
+
+Set the view using the `rendering.view` configuration option.
+
+Refer to the [`PartialLibraryContext` interface](src/partial-library.ts) for a
+full list of the template context passed to the view.
 
 ## Example
 

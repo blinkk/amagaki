@@ -15,7 +15,7 @@ import {TranslationString} from './string';
 import chalk from 'chalk';
 import minimatch from 'minimatch';
 
-interface Artifact {
+export interface Artifact {
   tempPath: string;
   realPath: string;
 }
@@ -58,8 +58,8 @@ export interface BuildResult {
   diff: BuildDiffPaths;
 }
 
-interface CreatedPath {
-  route: Route;
+export interface CreatedPath {
+  route?: Route;
   tempPath: string;
   normalPath: string;
   realPath: string;
@@ -83,6 +83,7 @@ export class Builder {
   missingTranslationsPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
+  tempDirRoot: string;
   static DefaultOutputDirectory = 'build';
   static NumConcurrentBuilds = 40;
   static NumConcurrentCopies = 2000;
@@ -116,6 +117,14 @@ export class Builder {
       'locales'
     );
     this.date = new Date();
+
+    // Keep the temp directory within the output directory to ensure files are
+    // written to the same volume as the output directory.
+    this.tempDirRoot = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.tmp',
+      `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
+    )
   }
 
   static normalizePath(path: string) {
@@ -436,13 +445,6 @@ export class Builder {
     const bar = Builder.createProgressBar('Building');
     const startTime = new Date().getTime();
     const artifacts: Array<Artifact> = [];
-    // Keep the temp directory within the output directory to ensure files are
-    // written to the same volume as the output directory.
-    const tempDirRoot = fsPath.join(
-      this.outputDirectoryPodPath,
-      '.tmp',
-      `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
-    );
     let routes = await this.pod.router.routes();
 
     // Only build routes matching patterns.
@@ -477,7 +479,7 @@ export class Builder {
     for (const route of routes) {
       const normalPath = Builder.normalizePath(route.url.path);
       const tempPath = fsPath.join(
-        tempDirRoot,
+        this.tempDirRoot,
         this.outputDirectoryPodPath,
         normalPath
       );
@@ -560,6 +562,14 @@ export class Builder {
     );
     bar.stop();
 
+    // Trigger can create extra paths that are not part of the normal routes.
+    // These files are not built as part of the normal routes, but are still
+    // included in the build manifest
+    const extraCreatedPaths: Array<CreatedPath> = [];
+    const extraArtifacts: Array<Artifact> = [];
+    await this.pod.plugins.trigger(
+      'beforeBuildManifest', this, extraCreatedPaths, extraArtifacts);
+
     // Moving files is pretty fast, but when the number of files is sufficiently
     // large, we want to communicate progress to the user with the progress bar.
     // If less than X files need to be moved, don't show the progress bar,
@@ -575,7 +585,7 @@ export class Builder {
     }
 
     await async.mapLimit(
-      createdPaths,
+      createdPaths.concat(extraCreatedPaths),
       Builder.NumConcurrentCopies,
       async (createdPath: CreatedPath) => {
         // Start by building the manifest (and getting file shas).
@@ -585,7 +595,7 @@ export class Builder {
         });
         // Then, update the metrics by getting file sizes.
         const statResult = await fs.promises.stat(createdPath.tempPath);
-        if (createdPath.route.provider.type === 'staticDir') {
+        if (createdPath.route?.provider.type === 'staticDir') {
           buildMetrics.numStaticRoutes += 1;
           buildMetrics.outputSizeStaticFiles += statResult.size;
         } else {
@@ -612,7 +622,7 @@ export class Builder {
     }
 
     // Clean up.
-    this.deleteDirectoryRecursive(tempDirRoot);
+    this.deleteDirectoryRecursive(this.tempDirRoot);
 
     const localesToNumMissingTranslations: LocalesToNumMissingTranslations = {};
     for (const locale of Object.values(this.pod.cache.locales)) {

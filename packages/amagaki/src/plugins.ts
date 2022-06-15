@@ -1,6 +1,6 @@
 import express = require('express');
 
-import {BuildResult, Builder} from './builder';
+import {BuildResult, Builder, CreatedPath, Artifact} from './builder';
 import {TemplateEngineComponent, TemplateEngineRenderResult} from './templateEngine';
 
 import {Pod} from './pod';
@@ -27,6 +27,18 @@ export interface PluginComponent {
    */
   beforeBuildHook?: (builder: Builder) => Promise<void>;
   /**
+   * Hook for working with the builder before the build manifest is generated.
+   *
+   * This occurs after normal routes are built, but before the manifest is
+   * generated.
+   *
+   * New created paths can be appended to the createdPaths array to be included
+   * in the manifest.
+   *
+   * New artifacts can be appended to the artifacts array.
+   */
+  beforeBuildManifestHook?: (builder: Builder, createdPaths: Array<CreatedPath>, artifacts: Array<Artifact>) => Promise<void>;
+  /**
    * Hook for interfacing with the Express server.
    */
   createServerHook?: (app: express.Express) => Promise<void>;
@@ -50,8 +62,10 @@ export interface PluginComponent {
   updatePathFormatContextHook?: (context: Record<string, any>) => void;
 }
 
+export interface PluginConfig {};
+
 export interface PluginConstructor {
-  new (pod: Pod, config: Record<string, any>): PluginComponent;
+  new (pod: Pod, config: PluginConfig): PluginComponent;
 }
 
 /**

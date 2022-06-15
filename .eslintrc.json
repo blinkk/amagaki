@@ -13,6 +13,6 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "sort-imports": ["error", {}],
+    "sort-imports": ["error", {}]
   }
 }

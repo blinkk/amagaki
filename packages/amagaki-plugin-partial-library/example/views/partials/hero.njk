@@ -1,0 +1,18 @@
+<style>
+  .hero__title {
+    margin-bottom: 32px;
+  }
+</style>
+<div class="hero">
+  <div class="hero__title">
+    <h1>{{partial.title}}</h1>
+  </div>
+  {% if partial.image %}
+  <div class="hero__images">
+    <img src="{{partial.image.url}}" alt="{{partial.image.alt}}">
+  </div>
+  {% endif %}
+  <div class="hero__footnotes">
+    Footnotes
+  </div>
+</div>

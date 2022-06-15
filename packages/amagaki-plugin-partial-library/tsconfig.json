@@ -1,0 +1,22 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "outDir": "dist",
+      "types": [
+        "node",
+      ],
+      "lib": [
+        "es2020",
+        "dom"
+      ],
+    },
+    "exclude": [
+      "node_modules",
+      "gulpfile.ts"
+    ],
+    "include": [
+      "./src/**/*.ts", "gulpfile.ts",
+    ]
+  }

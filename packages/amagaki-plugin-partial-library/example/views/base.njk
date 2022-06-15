@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{doc.locale.id}}">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" value="{{doc.fields.description}}">
+<title>{{doc.fields.title}}</title>
+<link href="//fonts.googleapis.com/css?family=Nunito&amp;display=swap" rel="stylesheet">
+<link href="{{pod.staticFile('/dist/css/main.css').url.path}}" rel="stylesheet">
+<script src="{{pod.staticFile('/dist/js/main.js').url.path}}" defer></script>
+<body>
+<div class="main">
+  {% set partial = pod.doc('/content/partials/header.yaml').fields %}
+  {% include "/views/partials/header.njk" %}
+  {% if doc.fields.partials %}
+    {% asyncEach partial in doc.fields.partials %}
+      {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
+    {% endeach %}
+  {% else %}
+    <div class="main__body">
+      {{doc.body|markdown|safe}}
+    </div>
+  {% endif %}
+</div>

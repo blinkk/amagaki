@@ -15,7 +15,7 @@ import {TranslationString} from './string';
 import chalk from 'chalk';
 import minimatch from 'minimatch';
 
-export interface Artifact {
+interface Artifact {
   tempPath: string;
   realPath: string;
 }
@@ -58,8 +58,8 @@ export interface BuildResult {
   diff: BuildDiffPaths;
 }
 
-export interface CreatedPath {
-  route?: Route;
+interface CreatedPath {
+  route: Route;
   tempPath: string;
   normalPath: string;
   realPath: string;
@@ -606,7 +606,7 @@ export class Builder {
         });
         // Then, update the metrics by getting file sizes.
         const statResult = await fs.promises.stat(createdPath.tempPath);
-        if (createdPath.route?.provider.type === 'staticDir') {
+        if (createdPath.route.provider.type === 'staticDir') {
           buildMetrics.numStaticRoutes += 1;
           buildMetrics.outputSizeStaticFiles += statResult.size;
         } else {

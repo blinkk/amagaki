@@ -1,31 +1,16 @@
-import * as fsPath from 'path';
-
 import {
-  Artifact,
   Builder,
-  CreatedPath,
+  DocumentRoute,
+  Locale,
+  NunjucksTemplateEngine,
   PluginComponent,
   Pod,
-  TemplateEngineRenderResult,
+  Route,
+  RouteProvider,
+  Router,
 } from '@amagaki/amagaki';
-import {
-  libraryIndexTemplate,
-  libraryPartialTemplate,
-} from './partial-library-templates';
 
-export interface PartialLibraryPluginOptions {
-  /**
-   * Options for how the plugin acts during the build process.
-   */
-  build?: {
-    /**
-     * Loading bar label for build process.
-     *
-     * @default 'Partials Library'
-     */
-    loadingLabel?: string;
-  };
-
+export interface PartialLibraryPluginConfig {
   /**
    * Options for how the document is parsed for gathering partials.
    */
@@ -36,6 +21,24 @@ export interface PartialLibraryPluginOptions {
      * @default 'partials'
      */
     key?: string;
+  };
+
+  /**
+   * Options for how the partials are parsed.
+   */
+  parsing?: {
+    /**
+     * Directory containing the partials definitions.
+     *
+     * @default '/views/partials/'
+     */
+    partialDirectory?: string;
+    /**
+     * Partial directory contains sub directories of partials.
+     *
+     * @default false
+     */
+    partialsInSubDirectories?: boolean;
   };
 
   /**
@@ -63,21 +66,6 @@ export interface PartialLibraryPluginOptions {
   };
 
   /**
-   * Options for how the plugin renders the library.
-   */
-  rendering?: {
-    /**
-     * View to use for rendering the library.
-     *
-     * Used to determine the template engine to use.
-     *
-     * If no view is provided, renders the library using nunjucks without
-     * styling or other project specific styling.
-     */
-    view?: string;
-  };
-
-  /**
    * Options for how the partials are served during build.
    */
   serving?: {
@@ -90,20 +78,16 @@ export interface PartialLibraryPluginOptions {
     /**
      * Template to use when building the library.
      *
-     * @default '/views/base.njk'
+     * If not provided a default, styleless template will be used.
      */
     template?: string;
+    /**
+     * Title for the partial library.
+     *
+     * @default 'Partial Library'
+     */
+    title?: string;
   };
-}
-
-/**
- * Context used for rendering the partial library.
- */
-export interface PartialLibraryContext {
-  pod: Pod;
-  partials: Record<string, PartialLibraryPartial>;
-  partial?: PartialLibraryPartial;
-  pathPrefix: string;
 }
 
 /**
@@ -112,7 +96,8 @@ export interface PartialLibraryContext {
 export class PartialLibraryInstance {
   constructor(
     public readonly config?: Record<string, any>,
-    public readonly fileName?: string
+    public readonly urlPath?: string,
+    public readonly locale?: Locale
   ) {}
 }
 
@@ -124,12 +109,28 @@ export class PartialLibraryPartial {
 
   constructor(public readonly key: string) {}
 
-  addInstance(config?: Record<string, any>, fileName?: string) {
-    this.instances.push(new PartialLibraryInstance(config, fileName));
+  addInstance(config?: Record<string, any>, urlPath?: string, locale?: Locale) {
+    this.instances.push(new PartialLibraryInstance(config, urlPath, locale));
   }
 
   get length() {
     return this.instances.length;
+  }
+
+  get lengthByLocale(): Record<string, number> {
+    const result: Record<string, number> = {};
+
+    for (const instance of this.instances) {
+      const localeKey = instance.locale?.id ?? 'default';
+
+      if (!result[localeKey]) {
+        result[localeKey] = 0;
+      }
+
+      result[localeKey]++;
+    }
+
+    return result;
   }
 }
 
@@ -146,20 +147,42 @@ export class PartialLibraryPlugin implements PluginComponent {
    */
   static register(
     pod: Pod,
-    options?: PartialLibraryPluginOptions
-  ): PartialLibraryPluginOptions | undefined {
-    pod.plugins.register(PartialLibraryPlugin, options);
+    config: PartialLibraryPluginConfig
+  ): PartialLibraryPluginConfig {
+    // Ignore the library on prod.
+    if (pod.env.name === 'prod') {
+      return undefined;
+    }
 
-    return options;
+    pod.plugins.register(PartialLibraryPlugin, config ?? {});
+    return config;
   }
+
+  constructor(public pod: Pod, public config: PartialLibraryPluginConfig) {
+    // Add the route provider for the partial library.
+    const provider = new PartialLibraryRouteProvider(
+      this.pod.router,
+      this.config
+    );
+    pod.router.addProvider(provider);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async beforeBuildHook(builder: Builder) {
+    // Stub to be recognized as a plugin component.
+  }
+}
+
+class PartialLibraryPartialTracker {
   partials: Record<string, PartialLibraryPartial> = {};
 
-  constructor(public pod: Pod, public config: PartialLibraryPluginOptions) {}
+  constructor(public config: PartialLibraryPluginConfig) {}
 
   addPartialInstance(
     key: string,
     partialConfig: Record<string, any>,
-    fileName?: string
+    urlPath?: string,
+    locale?: Locale
   ) {
     if (!(key in this.partials)) {
       this.partials[key] = new PartialLibraryPartial(key);
@@ -172,185 +195,172 @@ export class PartialLibraryPlugin implements PluginComponent {
 
     // Track only (no config) for the tracked partials.
     if (this.config.partial?.tracked?.includes(key)) {
-      this.partials[key].addInstance(undefined, fileName);
+      this.partials[key].addInstance(undefined, urlPath, locale);
       return;
     }
 
-    this.partials[key].addInstance(partialConfig, fileName);
+    this.partials[key].addInstance(partialConfig, urlPath, locale);
+  }
+}
+
+/**
+ * Custom route provider for the partial library.
+ */
+class PartialLibraryRouteProvider extends RouteProvider {
+  constructor(router: Router, public config: PartialLibraryPluginConfig) {
+    super(router);
+    this.type = 'partialLibrary';
   }
 
-  /**
-   * Hook for finding all of the partial usage when rendering.
-   */
-  async afterRenderHook(result: TemplateEngineRenderResult): Promise<void> {
-    const docPartials =
-      result.context.doc?.fields[this.config.document?.key ?? 'partials'] ?? [];
+  async routes() {
+    const routes = [];
+    const partialDirectory =
+      this.config.parsing?.partialDirectory ?? '/views/partials';
+    const podPaths = this.pod.walk(partialDirectory);
+    const partials: string[] = [];
+    for (const podPath of podPaths) {
+      const useSubDirectories =
+        this.config.parsing?.partialsInSubDirectories ?? false;
 
-    for (const partialConfig of docPartials) {
-      const partialKey = this.config.partial?.key ?? 'partial';
-      const partial = partialConfig[partialKey];
-      this.addPartialInstance(partial, partialConfig, result.path);
-    }
-  }
-
-  /**
-   * Hook for generating the library files before the manifest is generated.
-   *
-   * This allows for all of the document partials to be parsed and tracked
-   * before generating the library output and still be included in the
-   * build manifest for deployment.
-   *
-   * @param builder Builder instance
-   */
-  async beforeBuildManifestHook(
-    builder: Builder,
-    createdPaths: Array<CreatedPath>,
-    artifacts: Array<Artifact>
-  ): Promise<void> {
-    const partialKeys = Object.keys(this.partials).sort();
-    const bar = Builder.createProgressBar(
-      this.config?.build?.loadingLabel ?? 'Partial library'
-    );
-    const startTime = new Date().getTime();
-
-    // Pages for all partials plus main library index.
-    bar.start(partialKeys.length + 1, 0, {
-      customDuration: Builder.formatProgressBarTime(0),
-    });
-
-    const pathPrefix = this.config.serving?.pathPrefix ?? '/library/';
-
-    // Add the main library page.
-    const normalPath = Builder.normalizePath(pathPrefix);
-    const tempPath = fsPath.join(
-      builder.tempDirRoot,
-      builder.outputDirectoryPodPath,
-      normalPath
-    );
-    const realPath = this.pod.getAbsoluteFilePath(
-      fsPath.join(builder.outputDirectoryPodPath, normalPath)
-    );
-
-    const createdPath = {
-      tempPath,
-      normalPath,
-      realPath,
-    };
-
-    // TODO: Use a nunjucks template.
-    const timer = this.pod.profiler.timer(
-      'library.render',
-      'Partial Library render'
-    );
-
-    try {
-      const context = {
-        pod: this.pod,
-        partials: this.partials,
-        pathPrefix,
-      };
-      if (this.config.rendering?.view) {
-        const templateEngine = this.pod.engines.getEngineByFilename(
-          this.config.rendering.view
-        );
-        const content = await templateEngine.render(
-          this.config.rendering.view,
-          context
-        );
-        await builder.writeFileAsync(createdPath.tempPath, content);
+      // Some pods use the directory as the name of the partial.
+      // Ex: /src/partials/<partialName>/...
+      if (useSubDirectories) {
+        const dirName = podPath.replace(partialDirectory, '').split('/')[0];
+        partials.push(dirName);
       } else {
-        const templateEngine =
-          this.pod.engines.getEngineByFilename('library.njk');
-        const content = await templateEngine.renderFromString(
-          libraryIndexTemplate,
-          context
-        );
-        await builder.writeFileAsync(createdPath.tempPath, content);
+        partials.push(podPath.split('/').pop().split('.')[0]);
       }
-    } finally {
-      timer.stop();
     }
-
-    createdPaths.push(createdPath);
-    artifacts.push({
-      tempPath: createdPath.tempPath,
-      realPath: createdPath.realPath,
-    });
-
-    bar.increment({
-      customDuration: Builder.formatProgressBarTime(
-        new Date().getTime() - startTime
-      ),
-    });
-
-    // Add each partial library page.
-    for (const partialKey of partialKeys) {
-      const partial = this.partials[partialKey];
-
-      const partialPath = `${pathPrefix}${partialKey}/`;
-      const normalPath = Builder.normalizePath(partialPath);
-      const tempPath = fsPath.join(
-        builder.tempDirRoot,
-        builder.outputDirectoryPodPath,
-        normalPath
-      );
-      const realPath = this.pod.getAbsoluteFilePath(
-        fsPath.join(builder.outputDirectoryPodPath, normalPath)
-      );
-      const createdPath = {
-        tempPath: tempPath,
-        normalPath: normalPath,
-        realPath: realPath,
-      };
-
-      // TODO: Use a nunjucks template.
-      const timer = this.pod.profiler.timer(
-        'library.render',
-        'Partial Library render'
-      );
-
-      try {
-        const context = {
-          pod: this.pod,
+    routes.push(new PartialLibraryRoute(this, this.config, {}));
+    partials.forEach(partial => {
+      routes.push(
+        new PartialLibraryReviewRoute(this, this.config, {
           partial: partial,
-          partials: this.partials,
-          pathPrefix,
-        };
-        if (this.config.rendering?.view) {
-          const templateEngine = this.pod.engines.getEngineByFilename(
-            this.config.rendering.view
-          );
-          const content = await templateEngine.render(
-            this.config.rendering.view,
-            context
-          );
-          await builder.writeFileAsync(createdPath.tempPath, content);
-        } else {
-          const templateEngine =
-            this.pod.engines.getEngineByFilename('library.njk');
-          const content = await templateEngine.renderFromString(
-            libraryPartialTemplate,
-            context
-          );
-          await builder.writeFileAsync(createdPath.tempPath, content);
-        }
-      } finally {
-        timer.stop();
+        })
+      );
+    });
+    return routes;
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface PartialLibraryRouteOptions {}
+
+interface PartialLibraryReviewRouteOptions extends PartialLibraryRouteOptions {
+  partial: string;
+}
+
+class PartialLibraryRoute extends Route {
+  constructor(
+    public provider: RouteProvider,
+    public config: PartialLibraryPluginConfig,
+    public options: PartialLibraryRouteOptions
+  ) {
+    super(provider);
+  }
+
+  get path() {
+    return this.urlPath;
+  }
+
+  get urlPath() {
+    return this.urlPathBase;
+  }
+
+  get urlPathBase() {
+    return this.config.serving?.pathPrefix ?? '/library/';
+  }
+
+  // Search through the routes to find all documents and pull out the partials.
+  async trackPartials(): Promise<PartialLibraryPartialTracker> {
+    const tracker = new PartialLibraryPartialTracker(this.config);
+    const routes = await this.pod.router.routes();
+
+    // Routes are not sorted by default, but we want to sort the partial usage
+    // by path.
+    const pathToRoute: Record<string, DocumentRoute> = {};
+
+    for (const route of routes) {
+      if (route.provider.type === 'collection' && route.urlPath) {
+        pathToRoute[route.urlPath] = route as DocumentRoute;
       }
-
-      createdPaths.push(createdPath);
-      artifacts.push({
-        tempPath: createdPath.tempPath,
-        realPath: createdPath.realPath,
-      });
-
-      bar.increment({
-        customDuration: Builder.formatProgressBarTime(
-          new Date().getTime() - startTime
-        ),
-      });
     }
 
-    bar.stop();
+    // Sort the routes by path and find all partials.
+    for (const urlPath of Object.keys(pathToRoute).sort()) {
+      const docRoute = pathToRoute[urlPath];
+      const docPartials =
+        docRoute.doc.fields[this.config.document?.key ?? 'partials'] ?? [];
+
+      for (const partialConfig of docPartials) {
+        const partialKey = this.config.partial?.key ?? 'partial';
+        const partial = partialConfig[partialKey];
+        tracker.addPartialInstance(
+          partial,
+          partialConfig,
+          docRoute.urlPath,
+          docRoute.locale
+        );
+      }
+    }
+
+    return tracker;
+  }
+
+  async build() {
+    const tracker = await this.trackPartials();
+    return await this.buildFake({
+      partials: tracker.partials,
+    });
+  }
+
+  async buildFake(fields: Record<string, any>) {
+    const fakeDoc = {
+      fields: {
+        ...fields,
+        title: this.config.serving?.title ?? 'Partial Library',
+        library: {
+          url: {
+            path: this.urlPathBase,
+          },
+        },
+      },
+      locale: this.pod.locale('en'),
+      url: {
+        path: this.urlPath,
+      },
+    };
+    const template = this.config.serving?.template ?? '/views/base.njk';
+    const engine = this.provider.pod.engines.getEngineByFilename(
+      template
+    ) as NunjucksTemplateEngine;
+    return await engine.render(template, {
+      doc: fakeDoc,
+      env: this.provider.pod.env,
+      pod: this.provider.pod,
+      process: process,
+    });
+  }
+}
+
+class PartialLibraryReviewRoute extends PartialLibraryRoute {
+  constructor(
+    public provider: RouteProvider,
+    public config: PartialLibraryPluginConfig,
+    public options: PartialLibraryReviewRouteOptions
+  ) {
+    super(provider, config, options);
+  }
+
+  get urlPath() {
+    return `${this.urlPathBase}${this.options.partial}/`;
+  }
+
+  async build() {
+    const tracker = await this.trackPartials();
+    return await this.buildFake({
+      partials: tracker.partials,
+      partial: this.options.partial,
+    });
   }
 }

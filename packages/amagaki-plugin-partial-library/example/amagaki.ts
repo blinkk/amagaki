@@ -13,12 +13,18 @@ export default async (pod: Pod) => {
     },
     staticRoutes: [
       {
-        path: `/static/`,
+        path: '/static/',
         staticDir: '/dist/',
       },
     ],
   });
 
-
-  PartialLibraryPlugin.register(pod, {})
+  PartialLibraryPlugin.register(pod, {
+    partial: {
+      tracked: ['spacer'],
+    },
+    serving: {
+      template: '/views/library.njk',
+    },
+  });
 };

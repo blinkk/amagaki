@@ -7,7 +7,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
-import { GitCommit, getGitData } from './gitData';
+import {GitCommit, getGitData} from './gitData';
 import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
@@ -124,7 +124,7 @@ export class Builder {
       this.outputDirectoryPodPath,
       '.tmp',
       `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
-    )
+    );
   }
 
   static normalizePath(path: string) {
@@ -210,7 +210,10 @@ export class Builder {
   deleteOutputFiles(paths: Array<string>, outputRootDir: string) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = fsPath.join(outputRootDir, outputPath.replace(/^\//, ''));
+      const absOutputPath = fsPath.join(
+        outputRootDir,
+        outputPath.replace(/^\//, '')
+      );
       try {
         fs.unlinkSync(absOutputPath);
       } catch (err: any) {
@@ -305,17 +308,21 @@ export class Builder {
   }
 
   async export(options: ExportOptions): Promise<BuildDiffPaths> {
-    const buildDir = options.buildDir ?? this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
-    const buildManifestPath = fsPath.join(buildDir, '.amagaki', 'manifest.json');
+    const buildDir =
+      options.buildDir ??
+      this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
+    const buildManifestPath = fsPath.join(
+      buildDir,
+      '.amagaki',
+      'manifest.json'
+    );
     const exportManifestPath = options.exportControlDir
       ? fsPath.join(options.exportControlDir, 'manifest.json')
       : fsPath.join(options.exportDir, '.amagaki', 'manifest.json');
     const buildManifest = this.getManifest(buildManifestPath);
     const exportManifest = this.getManifest(exportManifestPath);
     if (!buildManifest) {
-      throw new Error(
-        `Could not find build manifest at ${buildManifestPath}.`
-      );
+      throw new Error(`Could not find build manifest at ${buildManifestPath}.`);
     }
 
     const filesToExport = buildManifest.files;
@@ -327,7 +334,7 @@ export class Builder {
       edits: [],
       noChanges: [],
       deletes: [],
-    }
+    };
     if (!existingFiles) {
       result.adds = buildManifest.files.map(pathSha => pathSha.path);
     } else {
@@ -358,13 +365,24 @@ export class Builder {
     }
 
     if (exportManifest?.commit) {
-      console.log(chalk.yellow(`Previous export:`), `${exportManifest.built} by ${exportManifest.commit.author.email} (${exportManifest.commit.sha.slice(0, 6)})`);
+      console.log(
+        chalk.yellow('Previous export:'),
+        `${exportManifest.built} by ${
+          exportManifest.commit.author.email
+        } (${exportManifest.commit.sha.slice(0, 6)})`
+      );
     }
     if (buildManifest?.commit) {
-      console.log(chalk.yellow(`  Current build:`), `${buildManifest.built} by ${buildManifest.commit.author.email} (${buildManifest.commit.sha.slice(0, 6)})`);
+      console.log(
+        chalk.yellow('  Current build:'),
+        `${buildManifest.built} by ${
+          buildManifest.commit.author.email
+        } (${buildManifest.commit.sha.slice(0, 6)})`
+      );
     }
 
-    const numOperations = result.adds.length + result.edits.length + result.deletes.length;
+    const numOperations =
+      result.adds.length + result.edits.length + result.deletes.length;
     if (numOperations === 0) {
       console.log(
         chalk.blue('No changes since last export: ') +
@@ -376,7 +394,6 @@ export class Builder {
     const moveBar = Builder.createProgressBar('Exporting');
     const showMoveProgressBar =
       numOperations >= Builder.ShowMoveProgressBarThreshold;
-    const moveStartTime = new Date().getTime();
     if (showMoveProgressBar) {
       moveBar.start(numOperations, 0, {
         customDuration: Builder.formatProgressBarTime(0),
@@ -385,16 +402,18 @@ export class Builder {
 
     // Copy adds and edits.
     const moveFiles = [...result.adds, ...result.edits];
-    await async.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
-      const relativePath = filePath.replace(/^\//, '');
-      const source = fsPath.join(buildDir, relativePath);
-      const destination = fsPath.join(options.exportDir, relativePath);;
-      Builder.ensureDirectoryExists(destination);
-      moveBar.increment();
-      return fs.promises.copyFile(
-        source, destination
-      );
-    });
+    await async.mapLimit(
+      moveFiles,
+      Builder.NumConcurrentCopies,
+      async (filePath: string) => {
+        const relativePath = filePath.replace(/^\//, '');
+        const source = fsPath.join(buildDir, relativePath);
+        const destination = fsPath.join(options.exportDir, relativePath);
+        Builder.ensureDirectoryExists(destination);
+        moveBar.increment();
+        return fs.promises.copyFile(source, destination);
+      }
+    );
 
     // Delete deleted files.
     this.deleteOutputFiles(result.deletes, options.exportDir);
@@ -562,14 +581,6 @@ export class Builder {
     );
     bar.stop();
 
-    // Trigger can create extra paths that are not part of the normal routes.
-    // These files are not built as part of the normal routes, but are still
-    // included in the build manifest
-    const extraCreatedPaths: Array<CreatedPath> = [];
-    const extraArtifacts: Array<Artifact> = [];
-    await this.pod.plugins.trigger(
-      'beforeBuildManifest', this, extraCreatedPaths, extraArtifacts);
-
     // Moving files is pretty fast, but when the number of files is sufficiently
     // large, we want to communicate progress to the user with the progress bar.
     // If less than X files need to be moved, don't show the progress bar,
@@ -585,7 +596,7 @@ export class Builder {
     }
 
     await async.mapLimit(
-      createdPaths.concat(extraCreatedPaths),
+      createdPaths,
       Builder.NumConcurrentCopies,
       async (createdPath: CreatedPath) => {
         // Start by building the manifest (and getting file shas).

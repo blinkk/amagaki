@@ -9,15 +9,17 @@
 <script src="{{pod.staticFile('/dist/js/main.js').url.path}}" defer></script>
 <body>
 <div class="main">
-  {% set partial = pod.doc('/content/partials/header.yaml').fields %}
-  {% include "/views/partials/header.njk" %}
-  {% if doc.fields.partials %}
-    {% asyncEach partial in doc.fields.partials %}
-      {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
-    {% endeach %}
-  {% else %}
-    <div class="main__body">
-      {{doc.body|markdown|safe}}
-    </div>
-  {% endif %}
+  {% block main %}
+    {% set partial = pod.doc('/content/partials/header.yaml').fields %}
+    {% include "/views/partials/header.njk" %}
+    {% if doc.fields.partials %}
+      {% asyncEach partial in doc.fields.partials %}
+        {% include "/views/partials/" ~ partial.partial ~ ".njk" %}
+      {% endeach %}
+    {% else %}
+      <div class="main__body">
+        {{doc.body|markdown|safe}}
+      </div>
+    {% endif %}
+  {% endblock %}
 </div>

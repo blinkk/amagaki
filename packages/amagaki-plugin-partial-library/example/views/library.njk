@@ -1,0 +1,42 @@
+{% extends "/views/base.njk" %}
+
+{% block main %}
+  <ul>
+    {% for key, partial in doc.fields.partials %}
+      <li><a href="{{ doc.fields.library.url.path }}{{key}}/">{{ key }}</a>: {{ partial.length }}</li>
+    {% endfor %}
+  </ul>
+  {% if doc.fields.partial %}
+    {% set trackedPartial = doc.fields.partials[doc.fields.partial] %}
+
+    <h2>{{ doc.fields.partial }}</h2>
+
+    <dl>
+      <dt>Instance count ({{trackedPartial.length}}) split by locale</dt>
+      {% for locale, localeLen in trackedPartial.lengthByLocale %}
+        <dd>{{locale}}: {{localeLen}}</dd>
+      {% endfor %}
+    </dl>
+
+    {% for partialInstance in trackedPartial.instances %}
+      {# Only show if we have the config. #}
+      {% if partialInstance.config %}
+        {% if loop.index > 1 %}
+          <hr>
+        {% endif %}
+
+        <div>
+          {% if partialInstance.urlPath %}
+            <a href="{{ partialInstance.urlPath }}">{{ partialInstance.urlPath }}</a>
+          {% endif %}
+          {% if partialInstance.locale %}
+            ({{partialInstance.locale.id}})
+          {% endif %}
+        </div>
+
+        {% set partial = partialInstance.config %}
+        {% include "/views/partials/" ~ doc.fields.partial ~ ".njk" %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}

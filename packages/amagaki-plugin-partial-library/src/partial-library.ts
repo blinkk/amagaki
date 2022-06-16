@@ -225,10 +225,24 @@ class PartialLibraryRouteProvider extends RouteProvider {
       // Some pods use the directory as the name of the partial.
       // Ex: /src/partials/<partialName>/...
       if (useSubDirectories) {
-        const dirName = podPath.replace(partialDirectory, '').split('/')[0];
-        partials.add(dirName);
+        const dirParts = podPath.replace(partialDirectory, '').split('/');
+
+        // If does not have multiple parts it is a single file, ignore it.
+        if (dirParts.length > 1) {
+          const partialKey = dirParts[0];
+
+          // Ignore the ignored partials.
+          if (!this.config.partial?.ignored?.includes(partialKey)) {
+            partials.add(partialKey);
+          }
+        }
       } else {
-        partials.add(podPath.split('/').pop().split('.')[0]);
+        const partialKey = podPath.split('/').pop().split('.')[0];
+
+        // Ignore the ignored partials.
+        if (!this.config.partial?.ignored?.includes(partialKey)) {
+          partials.add(partialKey);
+        }
       }
     }
     routes.push(new PartialLibraryRoute(this, this.config, {}));

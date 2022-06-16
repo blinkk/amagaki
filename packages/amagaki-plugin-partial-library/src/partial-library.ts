@@ -217,7 +217,7 @@ class PartialLibraryRouteProvider extends RouteProvider {
     const partialDirectory =
       this.config.parsing?.partialDirectory ?? '/views/partials';
     const podPaths = this.pod.walk(partialDirectory);
-    const partials: string[] = [];
+    const partials: Set<string> = new Set();
     for (const podPath of podPaths) {
       const useSubDirectories =
         this.config.parsing?.partialsInSubDirectories ?? false;
@@ -226,9 +226,9 @@ class PartialLibraryRouteProvider extends RouteProvider {
       // Ex: /src/partials/<partialName>/...
       if (useSubDirectories) {
         const dirName = podPath.replace(partialDirectory, '').split('/')[0];
-        partials.push(dirName);
+        partials.add(dirName);
       } else {
-        partials.push(podPath.split('/').pop().split('.')[0]);
+        partials.add(podPath.split('/').pop().split('.')[0]);
       }
     }
     routes.push(new PartialLibraryRoute(this, this.config, {}));

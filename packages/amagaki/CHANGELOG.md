@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.2.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.0...amagaki-v2.2.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* allow for setting the document path to null to disable ([#202](https://www.github.com/blinkk/amagaki/issues/202)) ([d50c6e1](https://www.github.com/blinkk/amagaki/commit/d50c6e19061d7cb8deaeb2137aced42e37dff790))
+
 ## [2.2.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.1.7...amagaki-v2.2.0) (2022-05-24)
 
 

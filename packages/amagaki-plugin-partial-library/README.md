@@ -17,11 +17,11 @@ npm install --save @amagaki/amagaki-plugin-partial-library
 2. Add to `amagaki.ts`.
 
 ```typescript
-import {PartialLibrary} from '@amagaki/amagaki-plugin-partial-library';
+import {PartialLibraryPlugin} from '@amagaki/amagaki-plugin-partial-library';
 import {Pod} from '@amagaki/amagaki';
 
 export default (pod: Pod) => {
-  PartialLibrary.register(pod);
+  PartialLibraryPlugin.register(pod);
 };
 ```
 
@@ -49,8 +49,8 @@ end of the build process.
 
 ## Options
 
-Refer to the [`PartialLibraryPluginOptions` interface](src/partial-library.ts) for a
-full list of options.
+Refer to the [`PartialLibraryPluginOptions` interface](src/partial-library.ts)
+for a full list of options.
 
 ## Usage
 
@@ -62,10 +62,26 @@ they would like to display examples of the partial usage in the site.
 By default the plugin only generates a simple partial listing and usage count
 information.
 
-Set the view using the `rendering.view` configuration option.
+Set the view using the `serving.view` configuration option.
 
-Refer to the [`PartialLibraryContext` interface](src/partial-library.ts) for a
-full list of the template context passed to the view.
+When rendering, the library uses a fake document that has the following fields
+(showing with example/default values):
+
+```yaml
+# Title for the partial library, see config's `serving.title`.
+title: 'Partial Library',
+# Used to link to other pages in the library, see config's `serving.pathPrefix`.
+library:
+  url:
+    path: /library/
+# All partials tracked in the pod: Record<string, PartialLibraryPartial>
+partials:
+  spacer: [PartialLibraryPartial]
+# Partial key when the page being rendered is showing details on a partial.
+partial: spacer
+```
+
+See the [example template](example/views/library.njk) to the fake doc in use.
 
 ## Example
 

@@ -334,8 +334,8 @@ export class Document {
    * Returns the document's path format, which the router uses to generate the
    * document's actual `Url` object. The path format is specified in the `$path`
    * key of the document's fields, or if absent, inherited from the
-   * `_collection.yaml`. For localized documents, the `$localization?path` key
-   * is used instead of the `$path` key. If no `$path` or `$localization?path`
+   * `_collection.yaml`. For localized documents, the `$localization.path` key
+   * is used instead of the `$path` key. If no `$path` or `$localization.path`
    * is specified, the `pathFormat` is `false`.
    */
   get pathFormat() {
@@ -347,8 +347,19 @@ export class Document {
     // If this document's locale is the default locale, match the base `$path`,
     // otherwise, refer to the path defined in the `$localization?path` key.
     if (this.locale.id === this.defaultLocale.id) {
+      //  Allow null path to disable the document rendering.
+      if (this.fields?.['$path'] === null) {
+        return false;
+      }
+
       return this.fields?.['$path'] ?? this.collection?.fields?.['$path'];
     }
+
+    // Allow null path to disable the document rendering.
+    if (this.fields?.['$localization']?.['path'] === null) {
+      return false;
+    }
+
     return (
       this.fields?.['$localization']?.['path'] ??
       this.collection?.fields?.['$localization']?.['path']

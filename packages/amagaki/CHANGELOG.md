@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.2.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.1...amagaki-v2.2.2) (2022-07-10)
+
+
+### Bug Fixes
+
+* nested LocalizableData objects [#204](https://www.github.com/blinkk/amagaki/issues/204) ([6f7906b](https://www.github.com/blinkk/amagaki/commit/6f7906bb2bea67ff65a06ff4c6701279d0985435))
+
 ### [2.2.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.0...amagaki-v2.2.1) (2022-06-16)
 
 

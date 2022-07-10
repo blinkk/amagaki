@@ -60,7 +60,7 @@ test('Inbuilt YAML types', (t: ExecutionContext) => {
     '/content/pages/index.yaml',
     pod.locale('de')
   ) as Document;
-  t.deepEqual(deDoc.fields.IfLocale, 'de Value');
+  t.deepEqual(deDoc.fields.IfLocale, 'Nested DE Value');
 
   const jaDoc = pod.doc(
     '/content/pages/index.yaml',

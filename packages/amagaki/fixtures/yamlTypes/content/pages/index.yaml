@@ -35,7 +35,9 @@ IfEnvironment: !IfEnvironment
 IfLocale: !IfLocale
   default: 'Default Value'
   en: 'en Value'
-  de: 'de Value'
+  de: !IfLocale
+    default: 'Nested Default Value'
+    de: 'Nested DE Value'
 meta: !pod.meta
 metaFoo: !pod.meta 'foo'
 metaFooBar: !pod.meta 'foo.bar'

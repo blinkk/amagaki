@@ -1,3 +1,4 @@
+import {localizeData} from '.';
 import {Document} from './document';
 import {Pod} from './pod';
 import {TranslationString} from './string';
@@ -165,6 +166,8 @@ export class LocalizableData {
    * "default".
    */
   localize(locale: Locale) {
-    return this.data[locale.id] ?? this.data['default'];
+    const result = this.data[locale.id] ?? this.data['default'];
+    // Handle nested `LocalizableData` structures.
+    return localizeData(result, locale);
   }
 }

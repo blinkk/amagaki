@@ -498,7 +498,7 @@
 <ol>
 <li>Use the custom type in YAML:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-785d09d0-023c-11ed-9bc7-73ba977c74f3" name="t-785c1f70-023c-11ed-9bc7-73ba977c74f3" checked > <label for="t-785d09d0-023c-11ed-9bc7-73ba977c74f3" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dcf720b0-023c-11ed-8552-c131591b423f" name="t-dcf63650-023c-11ed-8552-c131591b423f" checked > <label for="t-dcf720b0-023c-11ed-8552-c131591b423f" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">avengers:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-type">!Person</span>
     <span class="hljs-attr">firstName:</span> <span class="hljs-string">Tony</span>
     <span class="hljs-attr">lastName:</span> <span class="hljs-string">Stark</span>
@@ -513,7 +513,7 @@
 <ol start="2">
 <li>Create the custom type:</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-785e6960-023c-11ed-9bc7-73ba977c74f3" name="t-785d09d1-023c-11ed-9bc7-73ba977c74f3" checked > <label for="t-785e6960-023c-11ed-9bc7-73ba977c74f3" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dcf96aa0-023c-11ed-8552-c131591b423f" name="t-dcf720b1-023c-11ed-8552-c131591b423f" checked > <label for="t-dcf96aa0-023c-11ed-8552-c131591b423f" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
         <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">options</span>)</span> {
             <span class="hljs-built_in">this</span>.firstName = options.firstName;
@@ -536,7 +536,7 @@
 <ol start="3">
 <li>Use the <code>Person</code> objects in templates. Note that we never declared any<br><code>fullName</code> in YAML. That property was defined in our <code>Person</code> object.</li>
 </ol>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-785f2cb0-023c-11ed-9bc7-73ba977c74f3" name="t-785e6961-023c-11ed-9bc7-73ba977c74f3" checked > <label for="t-785f2cb0-023c-11ed-9bc7-73ba977c74f3" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dcfa2df0-023c-11ed-8552-c131591b423f" name="t-dcf96aa1-023c-11ed-8552-c131591b423f" checked > <label for="t-dcfa2df0-023c-11ed-8552-c131591b423f" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> person in avengers %}</span><span class="xml">
     </span><span class="hljs-template-variable">{{person.fullName}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span>
 </code></pre></div> </div>

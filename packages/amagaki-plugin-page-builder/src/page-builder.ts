@@ -312,7 +312,7 @@ export class PageBuilder {
       pod: pod,
       podPath: __filename,
       url: new Url({
-        ...pod.env,
+        env: pod.env,
         path: urlPath,
       }),
     } as unknown as Document;

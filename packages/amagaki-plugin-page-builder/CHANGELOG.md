@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.8.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.2...amagaki-plugin-page-builder-v3.8.3) (2022-07-12)
+
+
+### Bug Fixes
+
+* environment issue with route-generated canonical URLs ([833e067](https://www.github.com/blinkk/amagaki/commit/833e06750f857e0eae2bb1b947207d593bca7655))
+
 ### [3.8.2](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.1...amagaki-plugin-page-builder-v3.8.2) (2022-04-06)
 
 

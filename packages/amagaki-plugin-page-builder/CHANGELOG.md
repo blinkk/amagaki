@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.3...amagaki-plugin-page-builder-v3.9.0) (2022-08-31)
+
+
+### Features
+
+* add localized urls to top-level sitemap ([ff1c0b2](https://www.github.com/blinkk/amagaki/commit/ff1c0b2440c3695912fdbe553116393ad47f2fd5))
+
 ### [3.8.3](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.2...amagaki-plugin-page-builder-v3.8.3) (2022-07-12)
 
 

@@ -69,15 +69,29 @@ class SitemapRoute extends Route {
     return `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
       {% for route in routes %}
+      {% set doc = route.doc %}
+      {% if doc.locales %}
+      {% for locale in doc.locales %}
+      {% set localized_doc = pod.doc(doc.podPath, locale) %}
       <url>
-          {% set doc = route.doc %}
+          <loc>{{localized_doc.url}}</loc>
+          <xhtml:link href="{{doc.url}}" hreflang="x-default" rel="alternate" />
+          {% for locale in doc.locales %}
+          {% set inner_doc = pod.doc(doc.podPath, locale) %}
+          <xhtml:link href="{{inner_doc.url}}" hreflang="{{inner_doc.locale.id}}" rel="alternate" />
+          {% endfor %}
+      </url>
+      {% endfor %}
+      {% else %}
+      <url>
           <loc>{{doc.url}}</loc>
           <xhtml:link href="{{doc.url}}" hreflang="x-default" rel="alternate" />
           {% for locale in doc.locales %}
-          {% set doc = pod.doc(doc.podPath, locale) %}
-          <xhtml:link href="{{doc.url}}" hreflang="{{doc.locale.id}}" rel="alternate" />
+          {% set inner_doc = pod.doc(doc.podPath, locale) %}
+          <xhtml:link href="{{inner_doc.url}}" hreflang="{{inner_doc.locale.id}}" rel="alternate" />
           {% endfor %}
       </url>
+      {% endif %}
       {% endfor %}
   </urlset>`;
   }

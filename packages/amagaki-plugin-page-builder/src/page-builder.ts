@@ -814,7 +814,6 @@ export class PageBuilder {
   buildScriptElement(resource: Resource, defer = false, async = false) {
     const href = this.getHrefFromResource(resource);
     const url = this.getUrl(href, {relative: true});
-    const module = (resource as ResourceLoader)?.module;
     // Resource has already been loaded, don't build again.
     if (this.resourceUrls.includes(url)) {
       return '';
@@ -823,6 +822,13 @@ export class PageBuilder {
       throw new Error(
         `Resource ${resource} has no URL. Does it exist and is it mapped in \`staticRoutes\`?`
       );
+    }
+    const module = (resource as ResourceLoader)?.module;
+    if ((resource as ResourceLoader)?.defer !== undefined) {
+      defer = (resource as ResourceLoader)?.defer;
+    }
+    if ((resource as ResourceLoader)?.async !== undefined) {
+      async = (resource as ResourceLoader)?.async;
     }
     this.resourceUrls.push(url);
     return html`

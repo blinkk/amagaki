@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.9.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.9.0...amagaki-plugin-page-builder-v3.9.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* permit loading scripts with defer/async ([4db8319](https://www.github.com/blinkk/amagaki/commit/4db8319385f686ffc440f0de1da61d11c4d8be64))
+
 ## [3.9.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.8.3...amagaki-plugin-page-builder-v3.9.0) (2022-08-31)
 
 

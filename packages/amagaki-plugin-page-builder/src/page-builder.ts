@@ -425,7 +425,9 @@ export class PageBuilder {
     if (item?.url) {
       url = options?.includeDomain ? item.url.toString() : item.url.path;
     }
-    if (options?.relative && url) {
+    // 404 pages may be served from multiple places; ensure the URL is always
+    // absolute for 404 pages.
+    if (options?.relative && url && !this.doc.url.path.includes('404')) {
       url = Url.relative(url, this.context.doc);
     }
     return fingerprint && !url?.includes('?')

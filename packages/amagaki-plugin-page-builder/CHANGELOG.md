@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.9.1...amagaki-plugin-page-builder-v3.10.0) (2022-10-13)
+
+
+### Features
+
+* use absolute paths for 404 pages ([0e1adaa](https://www.github.com/blinkk/amagaki/commit/0e1adaaab0fb3ccebdae1c3c7820443901c102e5))
+
 ### [3.9.1](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.9.0...amagaki-plugin-page-builder-v3.9.1) (2022-10-11)
 
 

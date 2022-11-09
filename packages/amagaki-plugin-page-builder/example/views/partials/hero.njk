@@ -8,9 +8,15 @@
     <h1>{{partial.title}}</h1>
   </div>
   {% if partial.image %}
-  <div class="hero__images">
-    <img src="{{partial.image.url}}" alt="{{partial.image.alt}}">
-  </div>
+    <div class="hero__images">
+      <img src="{{partial.image.url}}" alt="{{partial.image.alt}}">
+    </div>
+  {% endif %}
+  {% if partial.asset %}
+    {# This tests that non-img elements with an alt attribute won't appear in attribute highlighter #}
+    <div class="hero__images" alt="{{partial.asset.alt}}">
+      <img src="{{partial.asset.url}}" alt="{{partial.asset.alt}}">
+    </div>
   {% endif %}
   <div class="hero__footnotes">
     Footnotes

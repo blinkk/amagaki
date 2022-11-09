@@ -1,18 +1,21 @@
 title: Homepage
 partials:
-- partial: hero
-  title: Hello World 1!
-  image:
-    url: 'data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7'
-    alt: 'Alt text'
-- partial: spacer
-# No partial defined, skip.
-- foo: bar
-- partial: hero
-  title: Hello World 2!
-  editContentLink: 'https://example.com/edit-content'
-  submitIssueLink: 'https://example.com/submit-issue'
-- partial: spacer
-- partial: absolute
-  absolutePath: /views/absolute.njk
-  title: Absolute Partial
+  - partial: hero
+    title: Hello World 1!
+    image:
+      url: 'data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7'
+      alt: 'Alt text'
+  - partial: spacer
+  # No partial defined, skip.
+  - foo: bar
+  - partial: hero
+    title: Hello World 2!
+    asset:
+      url: https://placeholder-dot-madebygoog.appspot.com/50x50.svg
+      alt: 'Alt text 2'
+    editContentLink: 'https://example.com/edit-content'
+    submitIssueLink: 'https://example.com/submit-issue'
+  - partial: spacer
+  - partial: absolute
+    absolutePath: /views/absolute.njk
+    title: Absolute Partial

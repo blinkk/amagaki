@@ -1,0 +1,5 @@
+$path: /page/
+$view: /views/base.tsx
+partials:
+- partial: Hero
+  headline: Hello World

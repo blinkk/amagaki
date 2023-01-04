@@ -86,7 +86,7 @@ export class MarginOutliner extends LitElement {
       this.marginOutliner = new DeguMarginOutliner({
         sizes: MarginOutliner.DEFAULT_MARGINS,
         cssClassName: 'margin-outliner-spacer',
-        querySelector: 'page-module div',
+        querySelector: 'page-module div:not(.image-inspector)',
       });
       this.marginOutliner.run();
       this.setSpacingStylesShown(true);

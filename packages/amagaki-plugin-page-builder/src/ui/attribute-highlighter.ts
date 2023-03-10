@@ -1,9 +1,9 @@
-import * as dom from '@blinkk/degu/lib/dom/dom';
-import * as func from '@blinkk/degu/lib/func/func';
+import * as dom from '@blinkk/degu/lib/dom/dom.js';
+import * as func from '@blinkk/degu/lib/func/func.js';
 
 import {LitElement, css, html} from 'lit';
 
-import {AttributeHighlighter as DeguAttributeHighlighter} from '@blinkk/degu/lib/ui/attribute-highlighter';
+import {AttributeHighlighter as DeguAttributeHighlighter} from '@blinkk/degu/lib/ui/attribute-highlighter.js';
 import {customElement} from 'lit/decorators.js';
 
 // Adds required styles to page only ever once.

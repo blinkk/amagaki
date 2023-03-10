@@ -1,7 +1,7 @@
-import * as dom from '@blinkk/degu/lib/dom/dom';
-import * as func from '@blinkk/degu/lib/func/func';
+import * as dom from '@blinkk/degu/lib/dom/dom.js';
+import * as func from '@blinkk/degu/lib/func/func.js';
 
-import {ImageInspector as DeguImageInspector} from '@blinkk/degu/lib/ui/image-inspector';
+import {ImageInspector as DeguImageInspector} from '@blinkk/degu/lib/ui/image-inspector.js';
 import {LitElement, css, html} from 'lit';
 import {customElement} from 'lit/decorators.js';
 
@@ -67,20 +67,25 @@ export class ImageInspector extends LitElement {
   }
 
   get enabledOnLoad() {
-    return localStorage.getItem(ImageInspector.STORAGE_KEY) || new URLSearchParams(window.location.search).has(ImageInspector.QUERY_PARAM_KEY);
+    return (
+      localStorage.getItem(ImageInspector.STORAGE_KEY) ||
+      new URLSearchParams(window.location.search).has(
+        ImageInspector.QUERY_PARAM_KEY
+      )
+    );
   }
 
   private toggleImageInspector() {
-    
     this.show = !this.show;
 
     if (this.show) {
       this.imageInspector = new DeguImageInspector({
         cssClassName: 'image-inspector',
-        querySelector: 'page-module:not([partial="header"]):not([partial="footer"]) img',
+        querySelector:
+          'page-module:not([partial="header"]):not([partial="footer"]) img',
       });
 
-      window.addEventListener('load', (event) => {
+      window.addEventListener('load', event => {
         this.imageInspector.run();
       });
     } else {
@@ -91,7 +96,9 @@ export class ImageInspector extends LitElement {
       this.imageInspectorInitialized = true;
     }
 
-    this.show ? localStorage.setItem(ImageInspector.STORAGE_KEY, 'true') : localStorage.removeItem(ImageInspector.STORAGE_KEY);
+    this.show
+      ? localStorage.setItem(ImageInspector.STORAGE_KEY, 'true')
+      : localStorage.removeItem(ImageInspector.STORAGE_KEY);
   }
 
   createRenderRoot() {

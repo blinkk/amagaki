@@ -40,7 +40,7 @@
     "@blinkk/degu": "^2.0.0",
     "@types/gulp": "^4.0.9",
     "@types/js-beautify": "^1.13.3",
-    "@types/node": "^13.11.1",
+    "@types/node": "^18.11.18",
     "@types/nunjucks": "^3.2.0",
     "ava": "^3.14.0",
     "child_process": "^1.0.2",

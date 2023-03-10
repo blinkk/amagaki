@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/async-retry": "1.4.2",
-    "@types/node": "^12.6.8",
+    "@types/node": "^18.11.18",
     "@types/parse-github-repo-url": "^1.4.0",
     "@types/prompts": "2.0.1",
     "@types/rimraf": "3.0.0",

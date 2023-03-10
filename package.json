@@ -10,7 +10,7 @@
     "packages/website"
   ],
   "devDependencies": {
-    "@types/node": "^16.4.10",
+    "@types/node": "^18.11.18",
     "ava": "^4.0.1",
     "esbuild": "^0.14.23",
     "eslint": "^7.15.0",

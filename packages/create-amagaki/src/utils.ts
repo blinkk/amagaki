@@ -39,9 +39,7 @@ export function downloadAndExtractRepo(
   );
 }
 
-export function validateName(
-  name: string
-): {
+export function validateName(name: string): {
   valid: boolean;
   problems?: string[];
 } {
@@ -80,10 +78,7 @@ export async function isWritable(directory: string): Promise<boolean> {
   }
 }
 
-export function makeDir(
-  root: string,
-  options = {recursive: true}
-): Promise<void> {
+export function makeDir(root: string, options = {recursive: true}) {
   return fs.promises.mkdir(root, options);
 }
 

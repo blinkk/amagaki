@@ -74,7 +74,10 @@ export class AttributeHighlighter extends LitElement {
       this.attributeHighlighter = new DeguAttributeHighlighter({
         cssClassName: 'attribute-highlighter',
         scopeQuerySelector: 'page-module',
-        attributes: ['alt', 'aria-label'],
+        attributes: [
+          {attribute: 'alt', querySelector: 'img'},
+          {attribute: 'aria-label', querySelector: 'img'},
+        ],
         warnMissingAttributes: [
           {
             attribute: 'alt',

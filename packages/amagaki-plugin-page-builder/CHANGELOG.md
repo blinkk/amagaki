@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.11.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.10.0...amagaki-plugin-page-builder-v3.11.0) (2023-03-13)
+
+
+### Features
+
+* add image inspector ([#211](https://www.github.com/blinkk/amagaki/issues/211)) ([6db732d](https://www.github.com/blinkk/amagaki/commit/6db732ddeb297de455acc5fc55dabd3c9cbb7e4f))
+
+
+### Bug Fixes
+
+* alt text will only show once on a11y highlighter ([13ade79](https://www.github.com/blinkk/amagaki/commit/13ade7902ce179fbd3e5901820d0a7b8f829afbc))
+
 ## [3.10.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.9.1...amagaki-plugin-page-builder-v3.10.0) (2022-10-13)
 
 

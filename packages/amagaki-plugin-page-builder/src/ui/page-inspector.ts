@@ -3,10 +3,11 @@ import {LitElement, css, html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import { AttributeHighlighter } from './attribute-highlighter';
+import { ImageInspector } from './image-inspector';
 import { MarginOutliner } from './margin-outliner';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-const ELEMENTS = [AttributeHighlighter, GridInspector, MarginOutliner];
+const ELEMENTS = [AttributeHighlighter, GridInspector, ImageInspector, MarginOutliner];
 
 @customElement('page-inspector')
 export class PageInspector extends LitElement {
@@ -132,6 +133,10 @@ export class PageInspector extends LitElement {
               <div class="page-inspector__ui__shortcuts__description">Toggle internal margins</div>
             </div>
             <div class="page-inspector__ui__shortcuts__row">
+              <div class="page-inspector__ui__shortcuts__label">Ctrl+I</div>
+              <div class="page-inspector__ui__shortcuts__description">Toggle image dimensions</div>
+            </div>
+            <div class="page-inspector__ui__shortcuts__row">
               <div class="page-inspector__ui__shortcuts__label">Measure</div>
               <div class="page-inspector__ui__shortcuts__description">Enable the margin inspector, move the cursor to an element and press <code>Option</code>, then move the cursor to another element</div>
             </div>
@@ -145,6 +150,7 @@ export class PageInspector extends LitElement {
           margins="${ifDefined(this.margins ? JSON.stringify(this.margins) : undefined)}"
         ></margin-outliner>
         <attribute-highlighter></attribute-highlighter>
+        <image-inspector></image-inspector>
       </div>
     `;
   }

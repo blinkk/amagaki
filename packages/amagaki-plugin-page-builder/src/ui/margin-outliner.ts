@@ -1,10 +1,10 @@
-import * as dom from '@blinkk/degu/lib/dom/dom';
-import * as func from '@blinkk/degu/lib/func/func';
+import * as dom from '@blinkk/degu/lib/dom/dom.js';
+import * as func from '@blinkk/degu/lib/func/func.js';
 
 import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
-import {MarginOutliner as DeguMarginOutliner} from '@blinkk/degu/lib/ui/margin-outliner';
+import {MarginOutliner as DeguMarginOutliner} from '@blinkk/degu/lib/ui/margin-outliner.js';
 import Spacing from 'spacingjs/src/spacing.js';
 
 // Adds required styles to page only ever once.
@@ -41,7 +41,9 @@ export class MarginOutliner extends LitElement {
   private spacingInitialized = false;
   private spacingStyleElement?: HTMLStyleElement;
 
-  static DEFAULT_MARGINS = [4, 8, 10, 12, 16, 20, 24, 32, 40, 50, 60, 80, 100, 120];
+  static DEFAULT_MARGINS = [
+    4, 8, 10, 12, 16, 20, 24, 32, 40, 50, 60, 80, 100, 120,
+  ];
   static STORAGE_KEY = 'inspectorMargins';
   static QUERY_PARAM_KEY = 'margins';
 
@@ -62,7 +64,12 @@ export class MarginOutliner extends LitElement {
   }
 
   get enabledOnLoad() {
-    return localStorage.getItem(MarginOutliner.STORAGE_KEY) || new URLSearchParams(window.location.search).has(MarginOutliner.QUERY_PARAM_KEY);
+    return (
+      localStorage.getItem(MarginOutliner.STORAGE_KEY) ||
+      new URLSearchParams(window.location.search).has(
+        MarginOutliner.QUERY_PARAM_KEY
+      )
+    );
   }
 
   setSpacingStylesShown(enabled: boolean) {
@@ -86,7 +93,7 @@ export class MarginOutliner extends LitElement {
       this.marginOutliner = new DeguMarginOutliner({
         sizes: MarginOutliner.DEFAULT_MARGINS,
         cssClassName: 'margin-outliner-spacer',
-        querySelector: 'page-module div',
+        querySelector: 'page-module div:not(.image-inspector)',
       });
       this.marginOutliner.run();
       this.setSpacingStylesShown(true);
@@ -98,7 +105,9 @@ export class MarginOutliner extends LitElement {
       Spacing.start();
       this.spacingInitialized = true;
     }
-    this.show ? localStorage.setItem(MarginOutliner.STORAGE_KEY, 'true') : localStorage.removeItem(MarginOutliner.STORAGE_KEY);
+    this.show
+      ? localStorage.setItem(MarginOutliner.STORAGE_KEY, 'true')
+      : localStorage.removeItem(MarginOutliner.STORAGE_KEY);
   }
 
   createRenderRoot() {

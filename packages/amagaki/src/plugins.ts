@@ -5,6 +5,7 @@ import {TemplateEngineComponent, TemplateEngineRenderResult} from './templateEng
 
 import {Pod} from './pod';
 import {YamlTypeManager} from './plugins/yaml';
+import {Timer} from './profile';
 
 /**
  * Interface for defining plugins to work with Amagaki.
@@ -107,13 +108,12 @@ export class Plugins {
         hook: hookName,
       }
     );
-    const triggerPromises: Array<Promise<void>> = [];
     const eventMethodName = `${hookName}${Plugins.HookPostfix}`;
 
     try {
       // Start the triggering of the async hooks.
-      for (const plugin of this.plugins) {
-        if ((plugin as any)[eventMethodName]) {
+      const triggerPromises = this.plugins.map((plugin): Promise<void> => {
+        if (plugin[eventMethodName]) {
           const timer = this.pod.profiler.timer(
             `plugins.hook.${hookName}.${plugin.constructor.name}`,
             `${plugin.constructor.name} hook: ${hookName}`,
@@ -122,17 +122,18 @@ export class Plugins {
               plugin: plugin.constructor.name,
             }
           );
-          const triggerPromise: Promise<void> = (plugin as any)[
-            eventMethodName
-          ](...args);
-          triggerPromises.push(triggerPromise);
-
-          // Stop the timer whenever the promise is complete.
-          triggerPromise.then(() => {
+          // Use a containing async function to stop the timer directly after
+          // the plugin is finished and still allow for all promises to resolve
+          // before finishing the triggering process.
+          const timedTrigger = async function (timer: Timer) {
+            await plugin[eventMethodName](...args);
             timer.stop();
-          });
+          };
+          return timedTrigger(timer);
+        } else {
+          return Promise.resolve();
         }
-      }
+      });
 
       // Wait for the triggered promises to finish.
       await Promise.all(triggerPromises);

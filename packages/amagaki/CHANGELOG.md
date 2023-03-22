@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.3...amagaki-v3.0.0) (2023-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Change `afterRender` hook to be a sync trigger. (#214)
+
+### Bug Fixes
+
+* Change `afterRender` hook to be a sync trigger. ([#214](https://www.github.com/blinkk/amagaki/issues/214)) ([99ce31a](https://www.github.com/blinkk/amagaki/commit/99ce31ad4be727d3a08977f4ff8cb31d246b88c7))
+* Fix issue with uncaught exceptions from timers. ([#215](https://www.github.com/blinkk/amagaki/issues/215)) ([85db1a5](https://www.github.com/blinkk/amagaki/commit/85db1a54d7fd9d094083afc9640303ab409c8070))
+* Update nunjucks to use async for render functions. ([#217](https://www.github.com/blinkk/amagaki/issues/217)) ([3084ae9](https://www.github.com/blinkk/amagaki/commit/3084ae9da0a0b2c978db5341a03a4c6d101a5a1a))
+
 ### [2.2.3](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.2...amagaki-v2.2.3) (2023-03-13)
 
 

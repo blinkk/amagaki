@@ -16,12 +16,12 @@ export interface PluginComponent {
    */
   afterBuildHook?: (result: BuildResult) => Promise<void>;
   /**
-   * Hook for modifying the content after rendering.
+   * Hook for synchronously modifying the content after rendering.
    *
    * Note: This hook is called from the Template Engine, not all template
    * engines support this hook.
    */
-  afterRenderHook?: (result: TemplateEngineRenderResult) => Promise<void>;
+  afterRenderHook?: (result: TemplateEngineRenderResult) => void;
   /**
    * Hook for working with the builder before the build is executed.
    */

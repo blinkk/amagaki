@@ -192,7 +192,7 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     };
 
     const afterTimer = this.getTimerAfterRender(path);
-    await this.pod.plugins.trigger('afterRender', renderResult);
+    this.pod.plugins.triggerSync('afterRender', renderResult);
     afterTimer.stop();
 
     return renderResult.content || '';
@@ -221,7 +221,7 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     };
 
     const afterTimer = this.getTimerAfterRender();
-    await this.pod.plugins.trigger('afterRender', renderResult);
+    this.pod.plugins.triggerSync('afterRender', renderResult);
     afterTimer.stop();
 
     return renderResult.content || '';

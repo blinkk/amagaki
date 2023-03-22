@@ -55,6 +55,10 @@ test('Build matching patterns', async (t: ExecutionContext) => {
 
 test('Export', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/simple/');
+
+  // Clean the export directory for test.
+  await pod.builder.deleteDirectoryRecursive('./export/');
+
   await pod.builder.build();
   const exportResult = await pod.builder.export({exportDir: './export/'});
   t.deepEqual(exportResult.adds.length, 56);

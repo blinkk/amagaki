@@ -292,7 +292,7 @@ export class Document {
       } else {
         // Otherwise, look up the engine associated with the view by its extension.
         const templateEngine = this.pod.engines.getEngineByFilename(this.view);
-        return templateEngine.render(this.view, defaultContext);
+        return await templateEngine.render(this.view, defaultContext);
       }
     } finally {
       timer.stop();

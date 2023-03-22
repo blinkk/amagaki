@@ -168,55 +168,63 @@ export class NunjucksTemplateEngine implements TemplateEngineComponent {
     );
   }
 
-  render(path: string, context: any): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const timer = this.getTimer(path);
+  async render(path: string, context: any): Promise<string> {
+    const timer = this.getTimer(path);
+
+    // Use a promise for handling the nunjucks render callback.
+    const renderPromise = new Promise<string>((resolve, reject) => {
       this.env.render(path, context, (err, res) => {
         if (err) {
           reject(err);
           return;
         }
-        const renderResult: TemplateEngineRenderResult = {
-          path,
-          content: res,
-          context
-        };
-        timer.stop();
-
-        const afterTimer = this.getTimerAfterRender(path);
-        this.pod.plugins.trigger('afterRender', renderResult).then(() => {
-          resolve(renderResult.content || '');
-          afterTimer.stop();
-        }, (err) => {
-          reject(err);
-        });
+        resolve(res);
       });
     });
+
+    const content = await renderPromise;
+    timer.stop();
+
+    const renderResult: TemplateEngineRenderResult = {
+      path,
+      content,
+      context
+    };
+
+    const afterTimer = this.getTimerAfterRender(path);
+    await this.pod.plugins.trigger('afterRender', renderResult);
+    afterTimer.stop();
+
+    return renderResult.content || '';
   }
 
-  renderFromString(template: string, context: any): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const timer = this.getTimer();
+  async renderFromString(template: string, context: any): Promise<string> {
+    const timer = this.getTimer();
+
+    // Use a promise for handling the nunjucks render callback.
+    const renderPromise = new Promise<string>((resolve, reject) => {
       this.env.renderString(template, context, (err, res) => {
         if (err) {
           reject(err);
           return;
         }
-        const renderResult: TemplateEngineRenderResult = {
-          content: res,
-          context
-        };
-        timer.stop();
-
-        const afterTimer = this.getTimerAfterRender();
-        this.pod.plugins.trigger('afterRender', renderResult).then(() => {
-          resolve(renderResult.content || '');
-          afterTimer.stop();
-        }, (err) => {
-          reject(err);
-        });
+        resolve(res);
       });
     });
+
+    const content = await renderPromise;
+    timer.stop();
+
+    const renderResult: TemplateEngineRenderResult = {
+      content,
+      context
+    };
+
+    const afterTimer = this.getTimerAfterRender();
+    await this.pod.plugins.trigger('afterRender', renderResult);
+    afterTimer.stop();
+
+    return renderResult.content || '';
   }
 }
 

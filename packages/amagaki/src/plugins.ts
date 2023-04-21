@@ -1,7 +1,10 @@
 import express = require('express');
 
 import {BuildResult, Builder} from './builder';
-import {TemplateEngineComponent, TemplateEngineRenderResult} from './templateEngine';
+import {
+  TemplateEngineComponent,
+  TemplateEngineRenderResult,
+} from './templateEngine';
 
 import {Pod} from './pod';
 import {YamlTypeManager} from './plugins/yaml';
@@ -50,8 +53,11 @@ export interface PluginComponent {
   updatePathFormatContextHook?: (context: Record<string, any>) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface PluginConfig {}
+
 export interface PluginConstructor {
-  new (pod: Pod, config: Record<string, any>): PluginComponent;
+  new (pod: Pod, config: PluginConfig): PluginComponent;
 }
 
 /**

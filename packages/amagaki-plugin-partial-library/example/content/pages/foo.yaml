@@ -1,0 +1,9 @@
+title: Foo Page
+order: 1
+footer: false
+
+partials:
+- partial: spacer
+- partial: hero
+  title: Hello World 2!
+- partial: spacer

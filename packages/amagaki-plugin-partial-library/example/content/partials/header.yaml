@@ -1,0 +1,9 @@
+partial: header
+logo:
+  doc: !pod.doc /content/pages/index.yaml
+  title: !pod.yaml /content/partials/base.yaml?title
+  image:
+    url: https://placeholder-dot-madebygoog.appspot.com/7x3.svg
+nav:
+- !pod.doc /content/pages/index.yaml
+- !pod.doc /content/pages/foo.yaml

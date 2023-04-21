@@ -6,6 +6,7 @@
     "packages/amagaki",
     "packages/amagaki-engine-preact",
     "packages/amagaki-plugin-page-builder",
+    "packages/amagaki-plugin-partial-library",
     "packages/create-amagaki",
     "packages/website"
   ],

@@ -30,7 +30,6 @@ export interface RouteOptions {
   fields?: Record<string, any>;
 }
 
-
 export type RouteBuilder = (provider: RouteProvider) => Promise<void>;
 
 export class Router {
@@ -182,7 +181,9 @@ export class RouteProvider {
       return this._routes;
     }
     // Build all routes, then clear the route builders so they are not built again.
-    await Promise.all(this._routeBuilders.map(async (builder) => await builder(this)));
+    await Promise.all(
+      this._routeBuilders.map(async builder => await builder(this))
+    );
     return this._routes;
   }
 

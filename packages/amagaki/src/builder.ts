@@ -7,7 +7,7 @@ import * as stream from 'stream';
 import * as util from 'util';
 import * as utils from './utils';
 
-import { GitCommit, getGitData } from './gitData';
+import {GitCommit, getGitData} from './gitData';
 import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
@@ -83,6 +83,7 @@ export class Builder {
   missingTranslationsPodPath: string;
   outputDirectoryPodPath: string;
   controlDirectoryAbsolutePath: string;
+  tempDirRoot: string;
   static DefaultOutputDirectory = 'build';
   static NumConcurrentBuilds = 40;
   static NumConcurrentCopies = 2000;
@@ -116,6 +117,14 @@ export class Builder {
       'locales'
     );
     this.date = new Date();
+
+    // Keep the temp directory within the output directory to ensure files are
+    // written to the same volume as the output directory.
+    this.tempDirRoot = fsPath.join(
+      this.outputDirectoryPodPath,
+      '.tmp',
+      `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
+    );
   }
 
   static normalizePath(path: string) {
@@ -201,7 +210,10 @@ export class Builder {
   deleteOutputFiles(paths: Array<string>, outputRootDir: string) {
     paths.forEach(outputPath => {
       // Delete the file.
-      const absOutputPath = fsPath.join(outputRootDir, outputPath.replace(/^\//, ''));
+      const absOutputPath = fsPath.join(
+        outputRootDir,
+        outputPath.replace(/^\//, '')
+      );
       try {
         fs.unlinkSync(absOutputPath);
       } catch (err: any) {
@@ -296,17 +308,21 @@ export class Builder {
   }
 
   async export(options: ExportOptions): Promise<BuildDiffPaths> {
-    const buildDir = options.buildDir ?? this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
-    const buildManifestPath = fsPath.join(buildDir, '.amagaki', 'manifest.json');
+    const buildDir =
+      options.buildDir ??
+      this.pod.getAbsoluteFilePath(this.outputDirectoryPodPath);
+    const buildManifestPath = fsPath.join(
+      buildDir,
+      '.amagaki',
+      'manifest.json'
+    );
     const exportManifestPath = options.exportControlDir
       ? fsPath.join(options.exportControlDir, 'manifest.json')
       : fsPath.join(options.exportDir, '.amagaki', 'manifest.json');
     const buildManifest = this.getManifest(buildManifestPath);
     const exportManifest = this.getManifest(exportManifestPath);
     if (!buildManifest) {
-      throw new Error(
-        `Could not find build manifest at ${buildManifestPath}.`
-      );
+      throw new Error(`Could not find build manifest at ${buildManifestPath}.`);
     }
 
     const filesToExport = buildManifest.files;
@@ -318,7 +334,7 @@ export class Builder {
       edits: [],
       noChanges: [],
       deletes: [],
-    }
+    };
     if (!existingFiles) {
       result.adds = buildManifest.files.map(pathSha => pathSha.path);
     } else {
@@ -349,13 +365,24 @@ export class Builder {
     }
 
     if (exportManifest?.commit) {
-      console.log(chalk.yellow(`Previous export:`), `${exportManifest.built} by ${exportManifest.commit.author.email} (${exportManifest.commit.sha.slice(0, 6)})`);
+      console.log(
+        chalk.yellow('Previous export:'),
+        `${exportManifest.built} by ${
+          exportManifest.commit.author.email
+        } (${exportManifest.commit.sha.slice(0, 6)})`
+      );
     }
     if (buildManifest?.commit) {
-      console.log(chalk.yellow(`  Current build:`), `${buildManifest.built} by ${buildManifest.commit.author.email} (${buildManifest.commit.sha.slice(0, 6)})`);
+      console.log(
+        chalk.yellow('  Current build:'),
+        `${buildManifest.built} by ${
+          buildManifest.commit.author.email
+        } (${buildManifest.commit.sha.slice(0, 6)})`
+      );
     }
 
-    const numOperations = result.adds.length + result.edits.length + result.deletes.length;
+    const numOperations =
+      result.adds.length + result.edits.length + result.deletes.length;
     if (numOperations === 0) {
       console.log(
         chalk.blue('No changes since last export: ') +
@@ -367,7 +394,6 @@ export class Builder {
     const moveBar = Builder.createProgressBar('Exporting');
     const showMoveProgressBar =
       numOperations >= Builder.ShowMoveProgressBarThreshold;
-    const moveStartTime = new Date().getTime();
     if (showMoveProgressBar) {
       moveBar.start(numOperations, 0, {
         customDuration: Builder.formatProgressBarTime(0),
@@ -376,16 +402,18 @@ export class Builder {
 
     // Copy adds and edits.
     const moveFiles = [...result.adds, ...result.edits];
-    await async.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
-      const relativePath = filePath.replace(/^\//, '');
-      const source = fsPath.join(buildDir, relativePath);
-      const destination = fsPath.join(options.exportDir, relativePath);;
-      Builder.ensureDirectoryExists(destination);
-      moveBar.increment();
-      return fs.promises.copyFile(
-        source, destination
-      );
-    });
+    await async.mapLimit(
+      moveFiles,
+      Builder.NumConcurrentCopies,
+      async (filePath: string) => {
+        const relativePath = filePath.replace(/^\//, '');
+        const source = fsPath.join(buildDir, relativePath);
+        const destination = fsPath.join(options.exportDir, relativePath);
+        Builder.ensureDirectoryExists(destination);
+        moveBar.increment();
+        return fs.promises.copyFile(source, destination);
+      }
+    );
 
     // Delete deleted files.
     this.deleteOutputFiles(result.deletes, options.exportDir);
@@ -436,13 +464,6 @@ export class Builder {
     const bar = Builder.createProgressBar('Building');
     const startTime = new Date().getTime();
     const artifacts: Array<Artifact> = [];
-    // Keep the temp directory within the output directory to ensure files are
-    // written to the same volume as the output directory.
-    const tempDirRoot = fsPath.join(
-      this.outputDirectoryPodPath,
-      '.tmp',
-      `amagaki-build-${(Math.random() + 1).toString(36).substring(6)}`
-    );
     let routes = await this.pod.router.routes();
 
     // Only build routes matching patterns.
@@ -477,7 +498,7 @@ export class Builder {
     for (const route of routes) {
       const normalPath = Builder.normalizePath(route.url.path);
       const tempPath = fsPath.join(
-        tempDirRoot,
+        this.tempDirRoot,
         this.outputDirectoryPodPath,
         normalPath
       );
@@ -612,7 +633,7 @@ export class Builder {
     }
 
     // Clean up.
-    this.deleteDirectoryRecursive(tempDirRoot);
+    this.deleteDirectoryRecursive(this.tempDirRoot);
 
     const localesToNumMissingTranslations: LocalesToNumMissingTranslations = {};
     for (const locale of Object.values(this.pod.cache.locales)) {

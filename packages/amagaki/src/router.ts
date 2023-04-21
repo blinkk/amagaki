@@ -366,7 +366,7 @@ export class DocumentRoute extends Route {
         route: this,
       });
     } catch (err) {
-      console.error(`Error buildng: ${this.doc}`);
+      console.error(`Error building: ${this.doc}`);
       throw err;
     }
   }

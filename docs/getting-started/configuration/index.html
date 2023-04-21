@@ -498,7 +498,7 @@
 <p>The <code>amagaki.js</code> file configures pod-wide settings. Similar configuration (i.e.<br>URL paths, templates, custom fields, and localization behavior) can be specified<br>at the content-level, on a per-document or per-collection basis.</p>
 <h2 id="example">Example</h2>
 <p>Here&#39;s what a sample <code>amagaki.js</code> file may look like:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c7b79790-e065-11ed-b3be-d7a82cd06d83" name="t-c7b65f10-e065-11ed-b3be-d7a82cd06d83" checked > <label for="t-c7b79790-e065-11ed-b3be-d7a82cd06d83" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-453ac550-e06d-11ed-85fe-25e1bd173293" name="t-45398cd0-e06d-11ed-85fe-25e1bd173293" checked > <label for="t-453ac550-e06d-11ed-85fe-25e1bd173293" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">meta</span>: {
       <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Amagaki Example&#x27;</span>,
@@ -523,7 +523,7 @@
 
 <h2 id="custom-metadata">Custom metadata</h2>
 <p>Specify custom metadata:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c7b881f0-e065-11ed-b3be-d7a82cd06d83" name="t-c7b79791-e065-11ed-b3be-d7a82cd06d83" checked > <label for="t-c7b881f0-e065-11ed-b3be-d7a82cd06d83" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript">pod.configure({
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-453c4bf0-e06d-11ed-85fe-25e1bd173293" name="t-453ac551-e06d-11ed-85fe-25e1bd173293" checked > <label for="t-453c4bf0-e06d-11ed-85fe-25e1bd173293" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript">pod.configure({
     <span class="hljs-attr">meta</span>: {
         <span class="hljs-attr">siteTitle</span>: <span class="hljs-string">&#x27;Amagaki&#x27;</span>,
         <span class="hljs-attr">siteDescription</span>: <span class="hljs-string">&#x27;A cool tool for hand-coding marketing websites.&#x27;</span>,
@@ -532,7 +532,7 @@
 </code></pre></div> </div>
 
 <p>Metadata can be accessed using a pod function:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-c7b94540-e065-11ed-b3be-d7a82cd06d83" name="t-c7b881f1-e065-11ed-b3be-d7a82cd06d83" checked > <label for="t-c7b94540-e065-11ed-b3be-d7a82cd06d83" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.meta.siteTitle}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-453d3650-e06d-11ed-85fe-25e1bd173293" name="t-453c7300-e06d-11ed-85fe-25e1bd173293" checked > <label for="t-453d3650-e06d-11ed-85fe-25e1bd173293" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.meta.siteTitle}}</span>
 </code></pre></div> </div>
             </div>
             

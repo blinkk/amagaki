@@ -251,13 +251,12 @@ export class ProfileReport {
   }
 
   output(showExpandedReport = false) {
-    const shownTimerKeys: Set<string> = new Set();
-    this.reportThreshold(shownTimerKeys);
-
     if (!showExpandedReport) {
       return;
     }
 
+    const shownTimerKeys: Set<string> = new Set();
+    this.reportThreshold(shownTimerKeys);
     this.reportHooks(shownTimerKeys);
     this.reportTimers(shownTimerKeys);
     this.reportSlowBuilds(shownTimerKeys);

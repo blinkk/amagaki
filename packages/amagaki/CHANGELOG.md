@@ -1,5 +1,13 @@
 # Changelog
 
+### [3.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.0...amagaki-v3.0.1) (2023-04-21)
+
+
+### Bug Fixes
+
+* Remove extra threshold reporting to clean up default builds. ([#219](https://www.github.com/blinkk/amagaki/issues/219)) ([48f90e7](https://www.github.com/blinkk/amagaki/commit/48f90e71efd4cfb7c308908178ab3183f50b4ed4))
+* Update spelling for error message. ([#220](https://www.github.com/blinkk/amagaki/issues/220)) ([6b1d19c](https://www.github.com/blinkk/amagaki/commit/6b1d19c15ad4a2934556b2846c550ffaac912dc3))
+
 ## [3.0.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v2.2.3...amagaki-v3.0.0) (2023-03-22)
 
 

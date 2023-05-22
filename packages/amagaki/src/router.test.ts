@@ -1,6 +1,6 @@
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
-import { Route } from './router';
+import {Route} from './router';
 import {Server} from './server';
 import getPort from 'get-port';
 import test from 'ava';
@@ -49,17 +49,17 @@ test('Changing static files alters the router', async (t: ExecutionContext) => {
 
 test('AddRoute', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/sampleRouteProvider/');
-  pod.router.addRoutes('default', async (provider) => {
+  pod.router.addRoutes('default', async provider => {
     provider.addRoute({
       urlPath: '/foo/bar/',
       build: async () => '<title>foo</title>',
-    })
+    });
   });
-  pod.router.addRoutes('custom', async (provider) => {
+  pod.router.addRoutes('custom', async provider => {
     provider.addRoute({
       urlPath: '/foo/custom/',
       build: async () => '<title>custom</title>',
-    })
+    });
   });
   for (const [path, content] of [
     ['/foo/bar/', '<title>foo</title>'],
@@ -69,4 +69,9 @@ test('AddRoute', async (t: ExecutionContext) => {
     const html = await (route as Route).build();
     t.deepEqual(content, html);
   }
+});
+
+test('Parallel route building', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/sampleRouteProvider/');
+  await Promise.all([pod.warmup(), pod.warmup()]);
 });

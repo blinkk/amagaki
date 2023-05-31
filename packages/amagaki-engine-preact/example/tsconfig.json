@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "jsx": "react",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
-  "include": [
-    "src/**/*.tsx",
-  ],
-  "exclude": [
-    "node_modules",
-  ],
+  "include": ["src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

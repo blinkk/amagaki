@@ -8,23 +8,14 @@
     "outDir": "dist",
     "lib": ["es2018"],
     "resolveJsonModule": true,
-    "types": [
-      "node",
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-  ],
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "typedocOptions": {
     "excludeProtected": true,
     "excludeExternals": true,
-    "entryPoints": [
-      "./src/",
-    ],
-    "exclude": [
-      "./src/**/*.test.ts",
-    ],
-    "out": "docs",
+    "entryPoints": ["./src/"],
+    "exclude": ["./src/**/*.test.ts"],
+    "out": "docs"
   }
 }

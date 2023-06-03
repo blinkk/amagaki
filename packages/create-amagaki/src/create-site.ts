@@ -52,6 +52,8 @@ export async function createSite({
       )}. This might take a few seconds...`
     );
     await retry(() => downloadAndExtractRepo(root, repo), {
+      // https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60193
+      // @ts-ignore
       retries: 3,
     });
   } catch (reason) {

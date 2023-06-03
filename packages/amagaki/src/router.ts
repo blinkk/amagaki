@@ -30,7 +30,6 @@ export interface RouteOptions {
   fields?: Record<string, any>;
 }
 
-
 export type RouteBuilder = (provider: RouteProvider) => Promise<void>;
 
 export class Router {
@@ -89,25 +88,27 @@ export class Router {
     if (this.pod.cache.routes.length) {
       return this.pod.cache.routes;
     }
+    const routes = new Map<string, Route>();
     for (const providers of Object.values(this.providers)) {
       for (const provider of providers) {
-        const routes = await provider.routes();
-        for (const route of routes) {
-          const routeUrl = route.url.path;
-          if (routeUrl in this.pod.cache.routeMap) {
-            // Reset the cache so subsequent requests continue to error until
-            // the problem is resolved.
-            const foundRoute = this.pod.cache.routeMap[routeUrl];
+        const providerRoutes = await provider.routes();
+        for (const route of providerRoutes) {
+          const urlPath = route.url.path;
+          if (routes.has(urlPath)) {
+            // Reset the cache so subsequent requests to the dev server continue
+            // to show an error until the problem is resolved.
             this.pod.cache.reset();
+            const existingRoute = routes[urlPath];
             throw Error(
-              `Two routes share the same URL path (${route.url.path}): ${foundRoute} and ${route}. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
+              `Two routes share the same URL path (${urlPath}): ${route} and ${existingRoute}. This probably means you have set the value for "$path" to the same thing for two different documents, or two locales of the same document. Ensure every route has a unique URL path by changing one of the "$path" values.`
             );
           }
-          this.pod.cache.routes.push(route);
-          this.pod.cache.routeMap[route.url.path] = route;
+          routes.set(urlPath, route);
         }
       }
     }
+    this.pod.cache.routes = [...routes.values()];
+    this.pod.cache.routeMap = Object.fromEntries(routes);
     return this.pod.cache.routes;
   }
 
@@ -182,7 +183,9 @@ export class RouteProvider {
       return this._routes;
     }
     // Build all routes, then clear the route builders so they are not built again.
-    await Promise.all(this._routeBuilders.map(async (builder) => await builder(this)));
+    await Promise.all(
+      this._routeBuilders.map(async builder => await builder(this))
+    );
     return this._routes;
   }
 

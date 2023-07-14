@@ -484,10 +484,14 @@
         <div class="markdown-body">
             <div>
                 <h1 id="creating-navigation-or-menus">Creating navigation or menus</h1>
-<p>Navigation and menus can be created manually or automatically. We generally<br>recommend creating headers and footers manually by managing links within partial<br>header and footer files, whereas tables of contents, or menus for content-heavy<br>sites should be automatically generated.</p>
+<p>Navigation and menus can be created manually or automatically. We generally
+recommend creating headers and footers manually by managing links within partial
+header and footer files, whereas tables of contents, or menus for content-heavy
+sites should be automatically generated.</p>
 <h2 id="explicit-menu">Explicit menu</h2>
-<p>Assume we are creating a header menu. First, create a partial file that can be<br>used to store the header’s content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5acaa340-e06d-11ed-9585-09c079dc0dc8" name="t-5ac7bd10-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5acaa340-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
+<p>Assume we are creating a header menu. First, create a partial file that can be
+used to store the header’s content:</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f263e870-2261-11ee-b577-4f96b982765b" name="t-f261eca0-2261-11ee-b577-4f96b982765b" checked > <label for="t-f263e870-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partial:</span> <span class="hljs-string">header</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">My</span> <span class="hljs-string">Website</span>
 <span class="hljs-attr">menu:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">doc:</span> <span class="hljs-type">!pod.doc</span> <span class="hljs-string">/content/pages/index.yaml</span>
@@ -499,7 +503,7 @@
 </code></pre></div> </div>
 
 <p>Next, create a template to render this content:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5acced30-e06d-11ed-9585-09c079dc0dc8" name="t-5acaa341-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5acced30-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2668080-2261-11ee-b577-4f96b982765b" name="t-f263e871-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2668080-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header__logo&quot;</span>&gt;</span>
     </span><span class="hljs-template-variable">{{partial.title}}</span><span class="xml">
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -518,8 +522,10 @@
 
 <p>Finally, use a code snippet to render the template:</p>
 <h2 id="automatic-menu">Automatic menu</h2>
-<p>Assume we are creating a table of contents allowing the user to navigate through<br>various categories of page content. First, create your content structure:</p>
-<p>Second, ensure that each <code>_collection.yaml</code> file has fields populated, with<br>appropriate titles and orders.</p>
+<p>Assume we are creating a table of contents allowing the user to navigate through
+various categories of page content. First, create your content structure:</p>
+<p>Second, ensure that each <code>_collection.yaml</code> file has fields populated, with
+appropriate titles and orders.</p>
 <p>Last, use a code snippet to render the menu:</p>
 <p>TODO</p>
 

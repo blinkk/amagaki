@@ -484,10 +484,18 @@
         <div class="markdown-body">
             <div>
                 <h1 id="environments">Environments</h1>
-<p>Amagaki supports multiple build environments. You may want your templates – or<br>your content – to do different things depending on the current status of your<br>project. For example, you may want to show certain content in development or<br>staging only, or you may want to include or exclude content or functionality in<br>production.</p>
+<p>Amagaki supports multiple build environments. You may want your templates – or
+your content – to do different things depending on the current status of your
+project. For example, you may want to show certain content in development or
+staging only, or you may want to include or exclude content or functionality in
+production.</p>
 <h3 id="configuration">Configuration</h3>
-<p>To set up different environments, first configure them in <code>amagaki.js</code>. In the<br>below example, we are configuring two environments (prod, and staging).<br>Environments accept arbitrary fields, allowing you to centrally manage global<br>data (such as API keys or other configuration) and easily change it depending on<br>the environment.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ae38270-e06d-11ed-9585-09c079dc0dc8" name="t-5ae1fbd0-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ae38270-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
+<p>To set up different environments, first configure them in <code>amagaki.js</code>. In the
+below example, we are configuring two environments (prod, and staging).
+Environments accept arbitrary fields, allowing you to centrally manage global
+data (such as API keys or other configuration) and easily change it depending on
+the environment.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2841aa0-2261-11ee-b577-4f96b982765b" name="t-f28245e0-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2841aa0-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pod</span>) </span>{
   pod.configure({
     <span class="hljs-attr">environments</span>: {
       <span class="hljs-attr">prod</span>: {
@@ -509,7 +517,7 @@
 
 <h3 id="in-templates">In templates</h3>
 <p>In templates, the <code>pod.env</code> variable is available. It returns the pod’s current environment. <a href="https://blinkk.github.io/amagaki/api/classes/environment.environment-1.html">See Environment reference</a>.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ae493e0-e06d-11ed-9585-09c079dc0dc8" name="t-5ae38271-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ae493e0-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2857a30-2261-11ee-b577-4f96b982765b" name="t-f2841aa1-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2857a30-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.env.name}}</span><span class="xml">
 </span><span class="hljs-template-variable">{{pod.env.fields.apiKey}}</span><span class="xml">
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> pod.env.name == &quot;prod&quot; %}</span><span class="xml">
 <span class="hljs-comment">&lt;!-- Output prod stuff. --&gt;</span>
@@ -517,18 +525,22 @@
 </code></pre></div> </div>
 
 <h3 id="in-content">In content</h3>
-<p>While this can be represented in template logic using an if statement like in<br>the above examples,  changing content based on the environment is better<br>represented using the !IfEnvironment YAML type. See the example below:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ae57e40-e06d-11ed-9585-09c079dc0dc8" name="t-5ae493e1-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ae57e40-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
+<p>While this can be represented in template logic using an if statement like in
+the above examples,  changing content based on the environment is better
+represented using the !IfEnvironment YAML type. See the example below:</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2868ba0-2261-11ee-b577-4f96b982765b" name="t-f2857a31-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2868ba0-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">foo:</span> <span class="hljs-type">!IfEnvironment</span>
   <span class="hljs-attr">default:</span> <span class="hljs-string">&#x27;Hello World!&#x27;</span>
   <span class="hljs-attr">prod:</span> <span class="hljs-string">&#x27;&#x27;</span>
 </code></pre></div> </div>
 
 <h3 id="defaults">Defaults</h3>
 <ul>
-<li>  When running the dev server, the environment <code>dev</code> is used.</li>
-<li>  When running <code>amagaki build</code>, the environment <code>default</code> is used.</li>
+<li>When running the dev server, the environment <code>dev</code> is used.</li>
+<li>When running <code>amagaki build</code>, the environment <code>default</code> is used.</li>
 </ul>
-<p>Different environment names can be invoked during the <code>serve</code> or <code>build</code><br>commands by using the <code>--env &lt;name&gt;</code> flag. For example, to build the prod<br>environment: <code>amagaki build --env prod</code>.</p>
+<p>Different environment names can be invoked during the <code>serve</code> or <code>build</code>
+commands by using the <code>--env &lt;name&gt;</code> flag. For example, to build the prod
+environment: <code>amagaki build --env prod</code>.</p>
 
             </div>
             

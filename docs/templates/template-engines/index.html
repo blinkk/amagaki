@@ -484,14 +484,20 @@
         <div class="markdown-body">
             <div>
                 <h1 id="template-engines">Template engines</h1>
-<p>Amagaki supports multiple template engines. Because Amagaki is primarily an HTML<br>generator, and because Nunjucks is a simple template engine that is fully<br>compatible with HTML, Amagaki&#39;s core includes Nunjucks. But, any template engine<br>is a first-party citizen of Amagaki and can be brought in using plugins.</p>
+<p>Amagaki supports multiple template engines. Because Amagaki is primarily an HTML
+generator, and because Nunjucks is a simple template engine that is fully
+compatible with HTML, Amagaki&#39;s core includes Nunjucks. But, any template engine
+is a first-party citizen of Amagaki and can be brought in using plugins.</p>
 <p><a
         class="button button button--low button--small button--icon"
         href="https://mozilla.github.io/nunjucks/templating.html"
         target="_blank"><span>Read Nunjucks templating guide</span><span class="material-icons">launch</span></a></p>
 <h3 id="template-specification">Template specification</h3>
-<p>Amagaki determines which template engine to used based on the file extension of<br>the template specified by the page&#39;s <code>$view</code>. When using the <a href="/docs/content-management/partial-content/">partial<br>loop</a>,<br>the partial&#39;s <code>partial</code> key specifies the template.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5b649950-e06d-11ed-9585-09c079dc0dc8" name="t-5b63aef0-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5b649950-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$view:</span> <span class="hljs-string">/views/page.njk</span>
+<p>Amagaki determines which template engine to used based on the file extension of
+the template specified by the page&#39;s <code>$view</code>. When using the <a href="/docs/content-management/partial-content/">partial
+loop</a>,
+the partial&#39;s <code>partial</code> key specifies the template.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f325fff0-2261-11ee-b577-4f96b982765b" name="t-f3251590-2261-11ee-b577-4f96b982765b" checked > <label for="t-f325fff0-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/index.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$view:</span> <span class="hljs-string">/views/page.njk</span>
 <span class="hljs-attr">partials:</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">partial:</span> <span class="hljs-string">hero</span>
   <span class="hljs-comment"># ...</span>
@@ -500,9 +506,15 @@
 </code></pre></div> </div>
 
 <h3 id="global-default-template">Global default template</h3>
-<p>By default, if <code>$view</code> is not specified within <code>_collection.yaml</code> or within a<br>document’s front matter, the default <code>/views/base.njk</code> template is used. When<br>used in conjunction with the partial loop, this global default represents a<br>powerful way to follow the DRY (don’t repeat yourself) concept -- avoiding<br>specification of different $view settings – while maintaining the concept of<br>building websites out of reusable modules.</p>
+<p>By default, if <code>$view</code> is not specified within <code>_collection.yaml</code> or within a
+document’s front matter, the default <code>/views/base.njk</code> template is used. When
+used in conjunction with the partial loop, this global default represents a
+powerful way to follow the DRY (don’t repeat yourself) concept -- avoiding
+specification of different $view settings – while maintaining the concept of
+building websites out of reusable modules.</p>
 <h3 id="adding-new-template-engines">Adding new template engines</h3>
-<p>Different template engines can be used by installing or writing an Amagaki<br>plugin. See the template engines plugin documentation to understand how.</p>
+<p>Different template engines can be used by installing or writing an Amagaki
+plugin. See the template engines plugin documentation to understand how.</p>
 <p><a
         class="button button button--low button--icon"
         href=""

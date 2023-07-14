@@ -484,7 +484,9 @@
         <div class="markdown-body">
             <div>
                 <h1 id="categorizing-pages">Categorizing pages</h1>
-<p>There are a variety of ways to categorize content. The simplest way would be to<br>use subcollections. To use subcollections, create a collection folder, and then<br>create a subcollection folder within that collection.</p>
+<p>There are a variety of ways to categorize content. The simplest way would be to
+use subcollections. To use subcollections, create a collection folder, and then
+create a subcollection folder within that collection.</p>
 <p>Here’s what a sample content structure may look like:</p>
 <pre><code>.
 └── content
@@ -498,15 +500,15 @@
             └── post.md
 </code></pre>
 <p>To list categories within the <code>posts</code> collection:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ab853c0-e06d-11ed-9585-09c079dc0dc8" name="t-5ab6f430-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ab853c0-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts&#x27;).subcollections}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f24def70-2261-11ee-b577-4f96b982765b" name="t-f24c41c0-2261-11ee-b577-4f96b982765b" checked > <label for="t-f24def70-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts&#x27;).subcollections}}</span>
 </code></pre></div> </div>
 
 <p>To list posts within a subcollection:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ab96530-e06d-11ed-9585-09c079dc0dc8" name="t-5ab853c1-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ab96530-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts/a&#x27;).docs()}}</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f24f00e0-2261-11ee-b577-4f96b982765b" name="t-f24def71-2261-11ee-b577-4f96b982765b" checked > <label for="t-f24f00e0-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.collection(&#x27;/content/posts/a&#x27;).docs()}}</span>
 </code></pre></div> </div>
 
 <p>You can also use glob syntax to fetch posts from a specific category:</p>
-<div class="codeTabs" data-num-tabs="3"> <input class="codeTabs__tabRadio" type="radio" id="t-5abc4b60-e06d-11ed-9585-09c079dc0dc8" name="t-5ab96531-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5abc4b60-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-5abc4b61-e06d-11ed-9585-09c079dc0dc8" name="t-5ab96531-e06d-11ed-9585-09c079dc0dc8" > <label for="t-5abc4b61-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>javascript</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-5abc7270-e06d-11ed-9585-09c079dc0dc8" name="t-5ab96531-e06d-11ed-9585-09c079dc0dc8" > <label for="t-5abc7270-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.docs([&#x27;/content/posts/**&#x27;])}}</span>
+<div class="codeTabs" data-num-tabs="3"> <input class="codeTabs__tabRadio" type="radio" id="t-f252aa60-2261-11ee-b577-4f96b982765b" name="t-f24f00e1-2261-11ee-b577-4f96b982765b" checked > <label for="t-f252aa60-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-f252aa61-2261-11ee-b577-4f96b982765b" name="t-f24f00e1-2261-11ee-b577-4f96b982765b" > <label for="t-f252aa61-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>javascript</span> </label> <input class="codeTabs__tabRadio" type="radio" id="t-f252aa62-2261-11ee-b577-4f96b982765b" name="t-f24f00e1-2261-11ee-b577-4f96b982765b" > <label for="t-f252aa62-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-variable">{{pod.docs([&#x27;/content/posts/**&#x27;])}}</span>
 </code></pre>
 <pre><code class="language-javascript">pod.docs([<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>])
 </code></pre>

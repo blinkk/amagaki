@@ -484,13 +484,16 @@
         <div class="markdown-body">
             <div>
                 <h1 id="creating-breadcrumbs">Creating breadcrumbs</h1>
-<p>Leverage the <code>doc.collection.parents</code> property along with the<br><code>doc.collection.index</code> property to dynamically create a breadcrumb for the<br>current document.</p>
+<p>Leverage the <code>doc.collection.parents</code> property along with the
+<code>doc.collection.index</code> property to dynamically create a breadcrumb for the
+current document.</p>
 <ul>
 <li><code>doc.collection.parents</code>: A list of the document&#39;s collection ancestors</li>
 <li><code>doc.collection.index</code>: A document within the collection whose basename is &quot;index&quot;, or simply the first document in the collection&#39;s directory</li>
 </ul>
-<p>The following code snippet will output the current document&#39;s collection, and<br>its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5ab28760-e06d-11ed-9585-09c079dc0dc8" name="t-5aa67970-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5ab28760-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+<p>The following code snippet will output the current document&#39;s collection, and
+its ancestors, in reverse order, suitable for rendering a breadcrumb.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f24515d0-2261-11ee-b577-4f96b982765b" name="t-f23648c0-2261-11ee-b577-4f96b982765b" checked > <label for="t-f24515d0-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> collection in doc.collection.parents|<span class="hljs-keyword">reverse</span> %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{collection.index.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span>

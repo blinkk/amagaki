@@ -484,20 +484,35 @@
         <div class="markdown-body">
             <div>
                 <h1 id="yaml-types">YAML types</h1>
-<p>One of Amagaki’s unique concepts is bringing elevating YAML types to first party<br>citizens in the ecosystem. Amagaki provides Pod Functions and additional inbuilt<br>YAML types to assist with common content management tasks.</p>
-<p>Amagaki’s YAML types facilitate content management best practices, entirely<br>within the content layer. For example, using YAML types, you can:</p>
+<p>One of Amagaki’s unique concepts is bringing elevating YAML types to first party
+citizens in the ecosystem. Amagaki provides Pod Functions and additional inbuilt
+YAML types to assist with common content management tasks.</p>
+<p>Amagaki’s YAML types facilitate content management best practices, entirely
+within the content layer. For example, using YAML types, you can:</p>
 <ul>
-<li>  Create and reuse partial content (such as common modules)</li>
-<li>Refer to pod objects, such as documents, collections, static files, and URLs<br>  – entirely within the content layer</li>
-<li>Refer to translation strings, including the ability to use preferred string<br>  values and fall back to previous translations if a new translation is not<br>  yet available</li>
-<li>Conditionally change content based on the pod’s environment or document’s<br>  locale</li>
-<li>Create custom YAML types representing custom content structures within your<br>  site. For example, you can create a YAML type representing a button, or a<br>  YAML type representing a media asset. Custom YAML types can be validated,<br>  and represented into objects of your choosing.</li>
+<li>Create and reuse partial content (such as common modules)</li>
+<li>Refer to pod objects, such as documents, collections, static files, and URLs
+– entirely within the content layer</li>
+<li>Refer to translation strings, including the ability to use preferred string
+values and fall back to previous translations if a new translation is not
+yet available</li>
+<li>Conditionally change content based on the pod’s environment or document’s
+locale</li>
+<li>Create custom YAML types representing custom content structures within your
+site. For example, you can create a YAML type representing a button, or a
+YAML type representing a media asset. Custom YAML types can be validated,
+and represented into objects of your choosing.</li>
 </ul>
 <h3 id="when-to-use-yaml-types">When to use YAML types</h3>
-<p>Always avoid hardcoding objects that can be represented through an existing or<br>custom YAML type. For example, you should:</p>
+<p>Always avoid hardcoding objects that can be represented through an existing or
+custom YAML type. For example, you should:</p>
 <ul>
-<li>Never hardcode URLs. URLs can change throughout the life of a project. Use<br>  the <code>url</code> property on a document to determine URLs instead.</li>
-<li>Never hardcode document or collection paths. Use the !pod.doc or<br>  !pod.collection YAML types to represent documents instead. Hardcoding<br>  document or collection paths could result in a template error if a typo was<br>  made.</li>
+<li>Never hardcode URLs. URLs can change throughout the life of a project. Use
+the <code>url</code> property on a document to determine URLs instead.</li>
+<li>Never hardcode document or collection paths. Use the !pod.doc or
+!pod.collection YAML types to represent documents instead. Hardcoding
+document or collection paths could result in a template error if a typo was
+made.</li>
 </ul>
 <h3 id="built-in-yaml-types">Built-in YAML types</h3>
 <ul>
@@ -516,15 +531,16 @@
 </ul>
 <h4 id="poddoc">!pod.doc</h4>
 <p>Returns a document.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5aff20c0-e06d-11ed-9585-09c079dc0dc8" name="t-5afe3660-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5aff20c0-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2aadc80-2261-11ee-b577-4f96b982765b" name="t-f2a907c0-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2aadc80-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Single document.</span>
 <span class="hljs-type">!pod.doc</span> <span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>
 <span class="hljs-comment"># Single document, localized.</span>
 <span class="hljs-type">!pod.doc</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-type">!pod.locale</span> <span class="hljs-string">&#x27;de&#x27;</span>]
 </code></pre></div> </div>
 
 <h4 id="poddocs">!pod.docs</h4>
-<p>Returns a list of documents. Either multiple docs can be enumerated explicitly,<br>or glob syntax can be used to fetch documents using a glob pattern.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-5b008050-e06d-11ed-9585-09c079dc0dc8" name="t-5aff20c1-e06d-11ed-9585-09c079dc0dc8" checked > <label for="t-5b008050-e06d-11ed-9585-09c079dc0dc8" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
+<p>Returns a list of documents. Either multiple docs can be enumerated explicitly,
+or glob syntax can be used to fetch documents using a glob pattern.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-f2ac6320-2261-11ee-b577-4f96b982765b" name="t-f2ab0390-2261-11ee-b577-4f96b982765b" checked > <label for="t-f2ac6320-2261-11ee-b577-4f96b982765b" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-comment"># Two documents.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/pages/index.yaml&#x27;</span>, <span class="hljs-string">&#x27;/content/posts/2019-01-06.md&#x27;</span>]
 <span class="hljs-comment"># All documents within the `posts` collection, with options.</span>
 <span class="hljs-type">!pod.docs</span> [<span class="hljs-string">&#x27;/content/posts/**&#x27;</span>, {<span class="hljs-attr">sort:</span> <span class="hljs-string">&#x27;order&#x27;</span>}]
@@ -533,7 +549,9 @@
 </code></pre></div> </div>
 
 <h3 id="custom-yaml-types">Custom YAML types</h3>
-<p>Custom YAML types are created through plugins. Custom YAML types can be used to<br>represent objects that may be helpful for reusing throughout the content layer<br>in your site.</p>
+<p>Custom YAML types are created through plugins. Custom YAML types can be used to
+represent objects that may be helpful for reusing throughout the content layer
+in your site.</p>
 <p>Often, custom YAML types will be used for things like:</p>
 <ul>
 <li>Restructure content prior to being inserted into the template layer</li>

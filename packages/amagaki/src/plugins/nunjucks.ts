@@ -8,7 +8,10 @@ import {TemplateEngineComponent, TemplateEngineRenderResult} from '../templateEn
 import {Translatable} from '../locale';
 import {Url} from '../url';
 import {formatBytes} from '../utils';
-import marked from 'marked';
+import { marked } from 'marked';
+import { gfmHeadingId } from "marked-gfm-heading-id";
+
+marked.use(gfmHeadingId());
 
 /**
  * Built-in Nunjucks filters.
@@ -45,7 +48,7 @@ export class NunjucksBuiltInFilters {
     if (!value) {
       return '';
     }
-    return marked(value);
+    return marked.parse(value);
   }
 
   /**

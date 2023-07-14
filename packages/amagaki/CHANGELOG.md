@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.0.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.1...amagaki-v3.0.2) (2023-07-14)
+
+
+### Bug Fixes
+
+* Update marked to latest and add heading id parsing. ([#223](https://www.github.com/blinkk/amagaki/issues/223)) ([d22aba9](https://www.github.com/blinkk/amagaki/commit/d22aba9cd73196e0e389d424cac37b8297b6c5b3))
+
 ### [3.0.1](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.0...amagaki-v3.0.1) (2023-04-21)
 
 

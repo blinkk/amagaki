@@ -88,6 +88,7 @@
     "js-yaml": "^4.1.0",
     "marked": "^5.1.1",
     "marked-gfm-heading-id": "^3.0.4",
+    "marked-mangle": "^1.1.2",
     "mime-types": "^2.1.30",
     "minimatch": "^3.0.4",
     "nunjucks": "^3.2.3",

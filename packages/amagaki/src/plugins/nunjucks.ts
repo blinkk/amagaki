@@ -10,8 +10,10 @@ import {Url} from '../url';
 import {formatBytes} from '../utils';
 import { marked } from 'marked';
 import { gfmHeadingId } from "marked-gfm-heading-id";
+import { mangle } from "marked-mangle";
 
 marked.use(gfmHeadingId());
+marked.use(mangle());
 
 /**
  * Built-in Nunjucks filters.

@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.2...amagaki-v3.1.0) (2023-08-18)
+
+
+### Features
+
+* Use mangled plugin for email addresses ([#225](https://www.github.com/blinkk/amagaki/issues/225)) ([ce645ad](https://www.github.com/blinkk/amagaki/commit/ce645add64a2f6c9bfdaf1493d4a0d832003df06))
+
 ### [3.0.2](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.1...amagaki-v3.0.2) (2023-07-14)
 
 

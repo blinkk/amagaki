@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.11.0...amagaki-plugin-page-builder-v3.12.0) (2024-01-16)
+
+
+### Features
+
+* add ability to customize class on main element [#173](https://www.github.com/blinkk/amagaki/issues/173) ([a0cb6f9](https://www.github.com/blinkk/amagaki/commit/a0cb6f9f9d0138f2c08ee89712d8c61d915f4ff4))
+
 ## [3.11.0](https://www.github.com/blinkk/amagaki/compare/amagaki-plugin-page-builder-v3.10.0...amagaki-plugin-page-builder-v3.11.0) (2023-03-13)
 
 

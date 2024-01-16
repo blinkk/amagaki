@@ -216,6 +216,17 @@ export interface PageBuilderOptions {
     /** Append extra HTML to the bottom of the <head> element. */
     extra?: string[];
   };
+  main ?: {
+    /**
+     * Add a class on the <main> element. The class can either be a
+     * string or an async function that returns a string.
+     */
+    class?: string | ((context: TemplateContext) => Promise<string>);
+    /** Prepend HTML to the top of the <main> element. */
+    prepend?: string[];
+    /** Append extra HTML to the bottom of the <main> element. */
+    extra?: string[];
+  },
   partialPaths?: PartialPaths;
   /** Options for generating the sitemap. */
   sitemapXml?: {
@@ -335,7 +346,7 @@ export class PageBuilder {
     return this.doc.fields[name] ?? this.doc.collection?.fields[name];
   }
 
-  async buildBodyTag() {
+  async buildBodyElement() {
     if (this.options.body?.class) {
       const className =
         typeof this.options.body?.class === 'function'
@@ -344,6 +355,18 @@ export class PageBuilder {
       return html`<body class="${className}">`;
     } else {
       return html`<body>`;
+    }
+  }
+
+  async buildMainElement() {
+    if (this.options.main?.class) {
+      const className =
+        typeof this.options.main?.class === 'function'
+          ? await this.options.main?.class(this.context)
+          : this.options.main?.class;
+      return html`<main class="${className}">`;
+    } else {
+      return html`<main>`;
     }
   }
 
@@ -356,7 +379,7 @@ export class PageBuilder {
         this.doc.locale
       )}" itemscope itemtype="https://schema.org/WebPage">
       ${await this.buildHeadElement()}
-      ${await this.buildBodyTag()}
+      ${await this.buildBodyElement()}
         ${
           this.options.body?.prepend
             ? safeString(await this.buildExtraElements(this.options.body?.prepend))
@@ -368,7 +391,12 @@ export class PageBuilder {
               ? ''
               : await this.buildBuiltinPartial('header', this.options.header)
           }
-          <main>
+          ${await this.buildMainElement()}
+            ${
+              this.options.main?.prepend
+                ? safeString(await this.buildExtraElements(this.options.main?.prepend))
+                : ''
+            }
             ${safeString(
               (
                 await Promise.all(
@@ -378,6 +406,11 @@ export class PageBuilder {
                 )
               ).join('\n')
             )}
+            ${
+              this.options.main?.extra
+                ? safeString(await this.buildExtraElements(this.options.main?.extra))
+                : ''
+            }
           </main>
           ${
             this.getFieldValue('footer') === false || this.options.footer?.enabled === false

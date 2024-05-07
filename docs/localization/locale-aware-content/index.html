@@ -484,13 +484,10 @@
         <div class="markdown-body">
             <div>
                 <h1 id="locale-aware-content">Locale-aware content</h1>
-<p>Amagaki has inbuilt support for generating localized pages, using localized URL
-paths and supporting localized content. See the steps below to learn how to
-generate localized pages.</p>
+<p>Amagaki has inbuilt support for generating localized pages, using localized URL<br>paths and supporting localized content. See the steps below to learn how to<br>generate localized pages.</p>
 <h2 id="localized-url-paths">Localized URL paths</h2>
-<p>To start with localization, create a page. Define its localization path
-structure in front matter, and specify the locales it should be available in.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6aad430-b431-11ee-856f-15cc6eb94096" name="t-b6a99bb0-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6aad430-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<p>To start with localization, create a page. Define its localization path<br>structure in front matter, and specify the locales it should be available in.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc13a2f0-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc1306b0-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc13a2f0-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/about.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>
@@ -506,19 +503,13 @@ structure in front matter, and specify the locales it should be available in.</p
 <li><code>/it/about/</code></li>
 </ul>
 <h3 id="default-locale">Default locale</h3>
-<p>Within <code>amagaki.ts</code>, you can specify the pod&#39;s default locale. By default,
-the default locale for all Amagaki projects is <code>en</code>. The default locale
-indicates the &quot;base&quot; document, and it will not be included in localized paths.</p>
+<p>Within <code>amagaki.ts</code>, you can specify the pod&#39;s default locale. By default,<br>the default locale for all Amagaki projects is <code>en</code>. The default locale<br>indicates the &quot;base&quot; document, and it will not be included in localized paths.</p>
 <h3 id="unique-url-paths">Unique URL paths</h3>
-<p>Ensure that every localized path is unique. If two localized paths are
-identical, Amagaki will raise an error.</p>
+<p>Ensure that every localized path is unique. If two localized paths are<br>identical, Amagaki will raise an error.</p>
 <h3 id="localized-collections">Localized collections</h3>
-<p>You can localize all documents within a collection by specifying <code>$localization</code>
-within the collection&#39;s <code>_collection.yaml</code>. In the below example, the <code>$path</code>
-and <code>$localization</code> settings will be applied to all documents within the
-<code>/content/pages</code> collection.</p>
+<p>You can localize all documents within a collection by specifying <code>$localization</code><br>within the collection&#39;s <code>_collection.yaml</code>. In the below example, the <code>$path</code><br>and <code>$localization</code> settings will be applied to all documents within the<br><code>/content/pages</code> collection.</p>
 <p>Settings can be overriden on a per-document basis.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6ab9780-b431-11ee-856f-15cc6eb94096" name="t-b6aad431-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6ab9780-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc14b460-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc13a2f1-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc14b460-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>/content/pages/_collection.yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/${doc.basename}/</span>
 <span class="hljs-string">$localization:</span>
   <span class="hljs-attr">path:</span> <span class="hljs-string">/${doc.locale.id}/${doc.basename}/</span>
   <span class="hljs-attr">locales:</span>
@@ -528,22 +519,16 @@ and <code>$localization</code> settings will be applied to all documents within 
 </code></pre></div> </div>
 
 <h2 id="localized-content">Localized content</h2>
-<p>Now that you&#39;re generating localized pages, you can use the <code>!IfLocale</code> YAML
-type to conditionally change content.</p>
+<p>Now that you&#39;re generating localized pages, you can use the <code>!IfLocale</code> YAML<br>type to conditionally change content.</p>
 <p>Let&#39;s say you want to change the hero copy in the <code>de</code> locale:</p>
-<pre><code class="language-yaml"># ...
-hero: !IfLocale
-  default: !pod.string Hello World
-  de: !pod.string Welcome to the site
-# ...
+<pre><code class="language-yaml"><span class="hljs-comment"># ...</span>
+<span class="hljs-attr">hero:</span> <span class="hljs-type">!IfLocale</span>
+  <span class="hljs-attr">default:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Hello</span> <span class="hljs-string">World</span>
+  <span class="hljs-attr">de:</span> <span class="hljs-type">!pod.string</span> <span class="hljs-string">Welcome</span> <span class="hljs-string">to</span> <span class="hljs-string">the</span> <span class="hljs-string">site</span>
+<span class="hljs-comment"># ...</span>
 </code></pre>
-<p>In the above example, Amagaki will render &quot;Hello World&quot; for all locales, and
-request the translation for &quot;Welcome to the site&quot; for locale <code>de</code> from
-<code>/content/locales/de.yaml</code>.</p>
-<p>NOTE: Avoid the common pitfall of including translated copy in YAML files.
-Website translations should always be managed witin <code>locales</code> files. The
-<code>!IfLocale</code> type is meant to vary source strings (or non-translated data), and
-you should avoid storing translations within the documents.</p>
+<p>In the above example, Amagaki will render &quot;Hello World&quot; for all locales, and<br>request the translation for &quot;Welcome to the site&quot; for locale <code>de</code> from<br><code>/content/locales/de.yaml</code>.</p>
+<p>NOTE: Avoid the common pitfall of including translated copy in YAML files.<br>Website translations should always be managed witin <code>locales</code> files. The<br><code>!IfLocale</code> type is meant to vary source strings (or non-translated data), and<br>you should avoid storing translations within the documents.</p>
 
             </div>
             

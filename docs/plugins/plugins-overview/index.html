@@ -485,9 +485,7 @@
             <div>
                 <h1 id="plugins-overview">Plugins overview</h1>
 <h2 id="built-in-plugins">Built-in plugins</h2>
-<p>Amagaki provides a handful of inbuilt plugins which can trigger callbacks at
-different times during Amagaki&#39;s lifecycle. Plugins can be used to do things
-such as:</p>
+<p>Amagaki provides a handful of inbuilt plugins which can trigger callbacks at<br>different times during Amagaki&#39;s lifecycle. Plugins can be used to do things<br>such as:</p>
 <ul>
 <li><a href="/docs/plugins/build-hooks/">BuilderPlugin</a> - Adding events before and after building</li>
 <li><a href="/docs/plugins/server-middleware/">ServerPlugin</a> - Adding events before the dev server starts</li>
@@ -495,15 +493,10 @@ such as:</p>
 <li><a href="/docs/plugins/template-engines/">Adding new template engines</a></li>
 </ul>
 <h2 id="creating-plugins">Creating plugins</h2>
-<p>Custom plugins can be created so that other custom plugins may interact with
-them. For example, you may create one plugin that handles authentication for
-several other plugins.</p>
-<p>Normally, instead of explicitly creating new plugins, you can extend Amagaki
-functionality by using hooks available from existing plugins, or by simply
-interfacing with Amagaki within <code>amagaki.js</code>. But, if you want or need to
-create a custom plugin, see below.</p>
+<p>Custom plugins can be created so that other custom plugins may interact with<br>them. For example, you may create one plugin that handles authentication for<br>several other plugins.</p>
+<p>Normally, instead of explicitly creating new plugins, you can extend Amagaki<br>functionality by using hooks available from existing plugins, or by simply<br>interfacing with Amagaki within <code>amagaki.js</code>. But, if you want or need to<br>create a custom plugin, see below.</p>
 <p>First, define the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6b3fbf0-b431-11ee-856f-15cc6eb94096" name="t-b6b338a0-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6b3fbf0-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc1d8e00-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc1c0760-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc1d8e00-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>plugin.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomPlugin</span> </span>{
   <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">pod, options</span>)</span> {
     <span class="hljs-built_in">this</span>.pod = pod;
     <span class="hljs-built_in">this</span>.options = options;
@@ -515,7 +508,7 @@ create a custom plugin, see below.</p>
 </code></pre></div> </div>
 
 <p>Then, register the plugin.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6b49830-b431-11ee-856f-15cc6eb94096" name="t-b6b3fbf1-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6b49830-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc1ec680-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc1d8e01-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc1ec680-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.js</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function">(<span class="hljs-params">pod</span>) =&gt;</span> {
     pod.plugins.register(CustomPlugin, {
         <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span>
     });
@@ -523,15 +516,13 @@ create a custom plugin, see below.</p>
 </code></pre></div> </div>
 
 <p>Later, within code that depends on the plugin you created, access it.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6b50d60-b431-11ee-856f-15cc6eb94096" name="t-b6b49831-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6b50d60-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc1fd7f0-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc1ec681-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc1fd7f0-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel " > <span>javascript</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-javascript"><span class="hljs-keyword">const</span> customPlugin = pod.plugins.get(<span class="hljs-string">&#x27;CustomPlugin&#x27;</span>);
 customPlugin.getFoo();
 </code></pre></div> </div>
 
 <h2 id="using-plugin-hooks">Using plugin hooks</h2>
-<p>Plugins can interface with hooks in Amagaki. These hooks allow for extending the functionality
-of Amagaki without needing to change the core of Amagaki.</p>
-<p>The <code>PluginComponent</code> interface defines the hooks that are available for plugins to use
-and which arguments are expected for the hook arguments.</p>
+<p>Plugins can interface with hooks in Amagaki. These hooks allow for extending the functionality<br>of Amagaki without needing to change the core of Amagaki.</p>
+<p>The <code>PluginComponent</code> interface defines the hooks that are available for plugins to use<br>and which arguments are expected for the hook arguments.</p>
 <p><a
         class="button button button--low button--icon"
         href="https://amagaki.dev/api/interfaces/PluginComponent.html"

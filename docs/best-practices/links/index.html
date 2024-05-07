@@ -484,14 +484,10 @@
         <div class="markdown-body">
             <div>
                 <h1 id="creating-links-to-pages">Creating links to pages</h1>
-<p>All internal links in Amagaki are declarative and dynamic. An Amagaki function
-can and should always be used to generate internal links to your pages and
-assets (or really, to anything that has a route).</p>
-<p>Why? Using an Amagaki function to create a link to a page is more maintainable –
-it ensures you’ll never have a broken link internally, and also empowers you to
-change your URL format halfway through a project with few repercussions.</p>
+<p>All internal links in Amagaki are declarative and dynamic. An Amagaki function<br>can and should always be used to generate internal links to your pages and<br>assets (or really, to anything that has a route).</p>
+<p>Why? Using an Amagaki function to create a link to a page is more maintainable –<br>it ensures you’ll never have a broken link internally, and also empowers you to<br>change your URL format halfway through a project with few repercussions.</p>
 <p>From your content, use a custom YAML type to refer to another document:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6575d00-b431-11ee-856f-15cc6eb94096" name="t-b65672a0-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6575d00-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dbc4e6b0-0c0c-11ef-85bf-d7ae5db12dba" name="t-dbc3fc50-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dbc4e6b0-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-attr">partials:</span>
 <span class="hljs-string">...</span>
 <span class="hljs-bullet">-</span> <span class="hljs-attr">button:</span>
   <span class="hljs-attr">label:</span> <span class="hljs-string">Go</span> <span class="hljs-string">home</span>
@@ -500,25 +496,21 @@ change your URL format halfway through a project with few repercussions.</p>
 </code></pre></div> </div>
 
 <p>Then, within a template:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6584760-b431-11ee-856f-15cc6eb94096" name="t-b6575d01-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6584760-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{partial.button.doc.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.button.label}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dbc5d110-0c0c-11ef-85bf-d7ae5db12dba" name="t-dbc4e6b1-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dbc5d110-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{partial.button.doc.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{partial.button.label}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
 </code></pre></div> </div>
 
 
-<p>Or, if you need to hardcode a link within a template, see below. Note this is
-not advised as it begins to couple content to your views. It’s a best practice
-to keep your content decoupled from your templates, so your content can be
-easily managed later, and so your templates can be reused.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b65958d0-b431-11ee-856f-15cc6eb94096" name="t-b6584761-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b65958d0-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> page = pod.doc(&#x27;/content/pages/index.yaml&#x27;) %}</span><span class="xml">
+<p>Or, if you need to hardcode a link within a template, see below. Note this is<br>not advised as it begins to couple content to your views. It’s a best practice<br>to keep your content decoupled from your templates, so your content can be<br>easily managed later, and so your templates can be reused.</p>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dbc6bb70-0c0c-11ef-85bf-d7ae5db12dba" name="t-dbc5d111-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dbc6bb70-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> page = pod.doc(&#x27;/content/pages/index.yaml&#x27;) %}</span><span class="xml">
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{page.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span><span class="hljs-template-variable">{{page.fields.title}}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
 </code></pre></div> </div>
 
 <p>Remember, this also works for static files:</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b65a6a40-b431-11ee-856f-15cc6eb94096" name="t-b65958d1-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b65a6a40-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> css = pod.staticFile(&#x27;/dist/css/main.min.css&#x27;) %}</span><span class="xml">
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dbc7a5d0-0c0c-11ef-85bf-d7ae5db12dba" name="t-dbc6bb71-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dbc7a5d0-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel " > <span>nunjucks</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-nunjucks"><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> css = pod.staticFile(&#x27;/dist/css/main.min.css&#x27;) %}</span><span class="xml">
 <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">{{css.url.path}}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span></span>
 </code></pre></div> </div>
 
-<p>Avoid a common pitfall! You should never hardcode internal links. To understand
-how to configure the URLs for documents and static files, see the URLs section.</p>
+<p>Avoid a common pitfall! You should never hardcode internal links. To understand<br>how to configure the URLs for documents and static files, see the URLs section.</p>
 
             </div>
             

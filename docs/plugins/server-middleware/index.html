@@ -484,20 +484,15 @@
         <div class="markdown-body">
             <div>
                 <h1 id="server-middleware">Server middleware</h1>
-<p>The Amagaki server can be extended with Express middleware. This may be useful
-in a variety of scenarios, such as:</p>
+<p>The Amagaki server can be extended with Express middleware. This may be useful<br>in a variety of scenarios, such as:</p>
 <ul>
 <li>Enforcing authentication flows, i.e. for headless CMS or content integrations</li>
-<li>Adding headers or metadata to the HTTP responses, i.e. for testing production
-behavior</li>
+<li>Adding headers or metadata to the HTTP responses, i.e. for testing production<br>behavior</li>
 <li>Extending the functionality of Amagaki with custom request handlers</li>
 </ul>
-<p>Remember, Amagaki is intended to be a static site generator. Request handlers
-made available on the server will not be available in production when serving a
-fully static site. Therefore, server middleware is most useful for adding
-functionality that enhances development velocity and the development workflow.</p>
+<p>Remember, Amagaki is intended to be a static site generator. Request handlers<br>made available on the server will not be available in production when serving a<br>fully static site. Therefore, server middleware is most useful for adding<br>functionality that enhances development velocity and the development workflow.</p>
 <h2 id="examples">Examples</h2>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-b6be5c30-b431-11ee-856f-15cc6eb94096" name="t-b6bd23b0-b431-11ee-856f-15cc6eb94096" checked > <label for="t-b6be5c30-b431-11ee-856f-15cc6eb94096" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-dc29c300-0c0c-11ef-85bf-d7ae5db12dba" name="t-dc28b190-0c0c-11ef-85bf-d7ae5db12dba" checked > <label for="t-dc29c300-0c0c-11ef-85bf-d7ae5db12dba" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
     <span class="hljs-keyword">const</span> serverPlugin = pod.plugins.get(<span class="hljs-string">&#x27;ServerPlugin&#x27;</span>) <span class="hljs-keyword">as</span> ServerPlugin;
  
 <pre><code>&lt;span class=&quot;hljs-comment&quot;&gt;// Immediate example. Use for registering Express middleware.&lt;/span&gt;
@@ -520,8 +515,7 @@ serverPlugin.register(&lt;span class=&quot;hljs-keyword&quot;&gt;async&lt;/span&
     &lt;span class=&quot;hljs-keyword&quot;&gt;await&lt;/span&gt; promise();
 });
 </code></pre>
-<p>}
-</code></pre></div> </div></p>
+<p>}<br></code></pre></div> </div></p>
 
             </div>
             

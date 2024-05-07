@@ -484,17 +484,12 @@
         <div class="markdown-body">
             <div>
                 <h1 id="template-variables-and-rendering-context">Template variables and rendering context</h1>
-<p>Amagaki’s document route provider will render all documents configured with
-URLs. Binding a URL to a document means “render me as a page”. Documents without
-URLs are not built as pages.</p>
-<p>When Amagaki renders a document, it selects a template (either the pod’s default
-template or a template bound to a collection), and renders it with the following
-context object.</p>
+<p>Amagaki’s document route provider will render all documents configured with<br>URLs. Binding a URL to a document means “render me as a page”. Documents without<br>URLs are not built as pages.</p>
+<p>When Amagaki renders a document, it selects a template (either the pod’s default<br>template or a template bound to a collection), and renders it with the following<br>context object.</p>
 <h2 id="template-variables">Template variables</h2>
 <p>Here is the top-level rendering context available when templates are rendered:</p>
 <h3 id="doc">doc</h3>
-<p>A reference to the current document being rendered. All properties of the
-document are available. Some commonly used ones are:</p>
+<p>A reference to the current document being rendered. All properties of the<br>document are available. Some commonly used ones are:</p>
 <ul>
 <li><code>doc.body</code> – The document&#39;s body (i.e. for Markdown or HTML documents)</li>
 <li><code>doc.collection</code> – A reference to the document’s collection</li>
@@ -506,8 +501,7 @@ document are available. Some commonly used ones are:</p>
         href="https://blinkk.github.io/amagaki/api/classes/document.document-1.html"
         target="_blank"><span>Read Document API Reference</span><span class="material-icons">launch</span></a></p>
 <h3 id="pod">pod</h3>
-<p>A reference to the pod. All pod functions are available from the <code>pod</code> object,
-which can be invoked from your templates. Some commonly used ones are:</p>
+<p>A reference to the pod. All pod functions are available from the <code>pod</code> object,<br>which can be invoked from your templates. Some commonly used ones are:</p>
 <ul>
 <li><code>pod.collection(...)</code> – Returns a collection object</li>
 <li><code>pod.collections(...)</code> – Returns a list of collections</li>
@@ -524,11 +518,9 @@ which can be invoked from your templates. Some commonly used ones are:</p>
 <h3 id="process">process</h3>
 <p>The <code>NodeJS.Process</code> object.</p>
 <h3 id="req">req</h3>
-<p>The Express request object. Warning! This object is only available when using
-the server. The object is <code>undefined</code> when generating a static site.</p>
+<p>The Express request object. Warning! This object is only available when using<br>the server. The object is <code>undefined</code> when generating a static site.</p>
 <h3 id="route">route</h3>
-<p>A reference to the route binding the URL to the document. Some commonly used
-properties of the route are:</p>
+<p>A reference to the route binding the URL to the document. Some commonly used<br>properties of the route are:</p>
 <ul>
 <li><code>route.fields</code> – Any data fields added to the route (i.e. by a route provider)</li>
 <li><code>route.params</code> – Any params used when matching the request to the route</li>

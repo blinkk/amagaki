@@ -50,8 +50,8 @@ export interface PluginComponent {
   updatePathFormatContextHook?: (context: Record<string, any>) => void;
 }
 
-export interface PluginConstructor {
-  new (pod: Pod, config: Record<string, any>): PluginComponent;
+export interface PluginConstructor<T = Record<string, any>> {
+  new (pod: Pod, config: T): PluginComponent;
 }
 
 /**

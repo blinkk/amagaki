@@ -1,9 +1,17 @@
 {
   "packages": {
-    "packages/amagaki": {},
-    "packages/amagaki-engine-preact": {},
-    "packages/amagaki-plugin-page-builder": {},
-    "packages/create-amagaki": {}
+    "packages/amagaki": {
+      "release-type": "node"
+    },
+    "packages/amagaki-engine-preact": {
+      "release-type": "node"
+    },
+    "packages/amagaki-plugin-page-builder": {
+      "release-type": "node"
+    },
+    "packages/create-amagaki": {
+      "release-type": "node"
+    }
   },
   "bootstrap-sha": "a9ad6d1f979a15909238eabd20f1945dca8313b7"
 }

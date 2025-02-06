@@ -486,7 +486,7 @@
                 <h1 id="router-plugins">Router plugins</h1>
 <h2 id="path-format-plugin">Path format plugin</h2>
 <p>Custom functions can be added to use with the <code>$path</code> key in content documents<br>and collections.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-0309ecd0-e40b-11ef-8e9c-ff1e8c5c0d8c" name="t-03081810-e40b-11ef-8e9c-ff1e8c5c0d8c" checked > <label for="t-0309ecd0-e40b-11ef-8e9c-ff1e8c5c0d8c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8fbe85b0-e496-11ef-9406-c7a4840cd831" name="t-8fbcb0f0-e496-11ef-9406-c7a4840cd831" checked > <label for="t-8fbe85b0-e496-11ef-9406-c7a4840cd831" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   <span class="hljs-keyword">const</span> plugin = pod.plugins.get(<span class="hljs-string">&#x27;RouterPlugin&#x27;</span>) <span class="hljs-keyword">as</span> RouterPlugin;
   plugin.addPathFormatFunction(<span class="hljs-string">&#x27;slug&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">title: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
     <span class="hljs-keyword">return</span> title.toLowerCase().replace(<span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">&#x27;-&#x27;</span>);
@@ -494,14 +494,14 @@
 }
 </code></pre></div> </div>
 
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-030b2550-e40b-11ef-8e9c-ff1e8c5c0d8c" name="t-0309ecd1-e40b-11ef-8e9c-ff1e8c5c0d8c" checked > <label for="t-030b2550-e40b-11ef-8e9c-ff1e8c5c0d8c" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/articles/${slug(doc.fields.title)}/</span>
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8fc00c50-e496-11ef-9406-c7a4840cd831" name="t-8fbe85b1-e496-11ef-9406-c7a4840cd831" checked > <label for="t-8fc00c50-e496-11ef-9406-c7a4840cd831" class="codeTabs__tabLabel " > <span>yaml</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-yaml"><span class="hljs-string">$path:</span> <span class="hljs-string">/articles/${slug(doc.fields.title)}/</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">Lorem</span> <span class="hljs-string">ipsum</span> <span class="hljs-string">dolor</span> <span class="hljs-string">sit</span> <span class="hljs-string">amet</span>
 </code></pre></div> </div>
 
 <h2 id="adding-routes">Adding routes</h2>
 <p>Amagaki provides a quick way to add new routes to extend functionality of your<br>site outside of rendering content documents, collections, and static files.<br>Routes may be added to integrate with external tools or generate custom output<br>programmatically.</p>
 <p>Note that if the list of URL paths changes after the development server is<br>started, the router must be reset using <code>pod.router.reset()</code>. This may occur,<br>for example, if you are building routes generated from items fetched from an<br>external service.</p>
-<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-030c36c0-e40b-11ef-8e9c-ff1e8c5c0d8c" name="t-030b2551-e40b-11ef-8e9c-ff1e8c5c0d8c" checked > <label for="t-030c36c0-e40b-11ef-8e9c-ff1e8c5c0d8c" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
+<div class="codeTabs" data-num-tabs="1"> <input class="codeTabs__tabRadio" type="radio" id="t-8fc144d0-e496-11ef-9406-c7a4840cd831" name="t-8fc00c51-e496-11ef-9406-c7a4840cd831" checked > <label for="t-8fc144d0-e496-11ef-9406-c7a4840cd831" class="codeTabs__tabLabel codeTabs__tabLabel--filename" > <span>amagaki.ts</span> </label> <div class="codeTabs__blocks" tabindex="1"><pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> (pod: Pod) =&gt; {
   <span class="hljs-comment">// Example: Add a single route.</span>
   pod.router.addRoutes(<span class="hljs-string">&#x27;default&#x27;</span>, <span class="hljs-keyword">async</span> (provider) =&gt; {
     provider.addRoute({

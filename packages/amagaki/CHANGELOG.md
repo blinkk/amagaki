@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.0...amagaki-v3.1.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* Update PluginConstructor to use a generic constructor signature ([#229](https://github.com/blinkk/amagaki/issues/229)) ([016e56f](https://github.com/blinkk/amagaki/commit/016e56fc5a008d67a6a1348f6664bfb1e8443e90))
+
 ## [3.1.0](https://www.github.com/blinkk/amagaki/compare/amagaki-v3.0.2...amagaki-v3.1.0) (2023-08-18)
 
 

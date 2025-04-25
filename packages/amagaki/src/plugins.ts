@@ -90,7 +90,7 @@ export class Plugins {
    * @param PluginClass Class for the plugin.
    * @param config Configuration object passed to the new plugin instance.
    */
-  register(PluginClass: PluginConstructor, config: Record<string, any>) {
+  register<T extends Record<string, any>>(PluginClass: PluginConstructor<T>, config: T): void {
     this.plugins.push(new PluginClass(this.pod, config));
   }
 

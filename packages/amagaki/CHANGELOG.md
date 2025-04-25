@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.1...amagaki-v3.1.2) (2025-04-25)
+
+
+### Bug Fixes
+
+* preserve config types in plugins.ts ([#236](https://github.com/blinkk/amagaki/issues/236)) ([9146c1d](https://github.com/blinkk/amagaki/commit/9146c1debada19fb84147e799e4efaa0c12d8662))
+
 ## [3.1.1](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.0...amagaki-v3.1.1) (2025-02-05)
 
 

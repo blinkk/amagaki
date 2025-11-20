@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.2...amagaki-v4.0.0) (2025-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* add support for other ts loaders
+
+### Features
+
+* add support for other ts loaders ([45de118](https://github.com/blinkk/amagaki/commit/45de1180560d61be8faf0fa8704c2465c2511e05))
+
 ## [3.1.2](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.1...amagaki-v3.1.2) (2025-04-25)
 
 

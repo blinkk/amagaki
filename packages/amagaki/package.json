@@ -81,10 +81,12 @@
     "cli-table": "^0.3.6",
     "commander": "^7.2.0",
     "compression": "^1.7.4",
+    "esbuild-register": "^3.5.0",
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "i": "^0.3.7",
     "isomorphic-git": "^1.12.1",
+    "jiti": "^1.21.0",
     "js-yaml": "^4.1.0",
     "marked": "^5.1.1",
     "marked-gfm-heading-id": "^3.0.4",
@@ -92,6 +94,7 @@
     "mime-types": "^2.1.30",
     "minimatch": "^3.0.4",
     "nunjucks": "^3.2.3",
-    "sucrase": "^3.18.1"
+    "sucrase": "^3.18.1",
+    "tsx": "^4.7.0"
   }
 }

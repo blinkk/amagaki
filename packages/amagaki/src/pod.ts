@@ -29,6 +29,25 @@ import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
 import chalk from 'chalk';
 
+export type TypeScriptLoader =
+  | 'sucrase'
+  | 'tsx'
+  | 'esbuild-register'
+  | 'jiti'
+  | 'auto';
+
+export interface PodOptions {
+  /**
+   * Preferred TypeScript loader for amagaki.ts files.
+   * - 'sucrase': Simple, fast loader (default for backwards compatibility)
+   * - 'tsx': Modern, fast, esbuild-based loader (recommended for monorepos)
+   * - 'esbuild-register': Fast alternative with good monorepo support
+   * - 'jiti': Universal loader with excellent compatibility
+   * - 'auto': Try loaders in order: tsx -> esbuild-register -> jiti -> sucrase
+   */
+  tsLoader?: TypeScriptLoader;
+}
+
 export interface LocalizationConfig {
   defaultLocale?: string;
   locales?: Array<string>;
@@ -52,6 +71,23 @@ export interface PodConfig {
  * references to things like the build environment, template engines, file
  * system accessors, routes, etc. Pods provide an interaction model for accessing
  * the different elements of a site and operating on them.
+ *
+ * @example
+ * ```typescript
+ * // Basic usage
+ * const pod = new Pod('./path/to/site');
+ *
+ * // With environment options
+ * const pod = new Pod('./path/to/site', {
+ *   name: 'prod',
+ *   host: 'https://example.com',
+ * });
+ *
+ * // With TypeScript loader preference (for monorepos with complex imports)
+ * const pod = new Pod('./path/to/site', undefined, {
+ *   tsLoader: 'tsx' // or 'esbuild-register', 'jiti', 'sucrase' (default), 'auto'
+ * });
+ * ```
  */
 export class Pod {
   static BuiltInPlugins: Array<PluginConstructor> = [
@@ -79,7 +115,11 @@ export class Pod {
   readonly root: string;
   readonly router: Router;
 
-  constructor(root: string, environmentOptions?: EnvironmentOptions) {
+  constructor(
+    root: string,
+    environmentOptions?: EnvironmentOptions,
+    podOptions?: PodOptions
+  ) {
     // Anything that occurs in the Pod constructor must be very lightweight.
     // Instantiating a pod should have no side effects and must be immediate.
     this.root = resolve(root);
@@ -104,20 +144,27 @@ export class Pod {
     }
 
     // Setup the pod using the `amagaki.{js|ts}` file.
-    // Use `sucrase` for runtime TS compilation.
+    // Use modern TS loaders that support ESM imports and monorepo resolution.
     for (const podPath of Pod.DefaultConfigFiles) {
       if (this.fileExists(podPath)) {
+        let configAlreadyLoaded = false;
         if (podPath.endsWith('.ts')) {
-          require('sucrase/register/ts');
+          configAlreadyLoaded = this.registerTypeScriptLoader(
+            podOptions?.tsLoader ?? 'sucrase',
+            podPath
+          );
         }
-        const configFilename = this.getAbsoluteFilePath(podPath);
-        // Allow runtime reloading of the config file.
-        delete require.cache[require.resolve(configFilename)];
-        // tslint:disable-next-line
-        const amagakiConfig = require(configFilename);
-        amagakiConfig && typeof amagakiConfig.default === 'function'
-          ? amagakiConfig.default(this)
-          : amagakiConfig(this);
+        // If the loader already loaded the config (e.g., jiti), skip the require()
+        if (!configAlreadyLoaded) {
+          const configFilename = this.getAbsoluteFilePath(podPath);
+          // Allow runtime reloading of the config file.
+          delete require.cache[require.resolve(configFilename)];
+          // tslint:disable-next-line
+          const amagakiConfig = require(configFilename);
+          amagakiConfig && typeof amagakiConfig.default === 'function'
+            ? amagakiConfig.default(this)
+            : amagakiConfig(this);
+        }
         break;
       }
     }
@@ -125,6 +172,100 @@ export class Pod {
 
   toString() {
     return `[Pod: ${this.root}]`;
+  }
+
+  /**
+   * Registers a TypeScript loader based on the specified preference.
+   * Supports tsx, esbuild-register, jiti, or auto-detection.
+   * @param loader The TypeScript loader to use.
+   * @param podPath The path to the config file being loaded.
+   * @returns true if the config was already loaded by the loader (e.g., jiti), false otherwise.
+   */
+  private registerTypeScriptLoader(
+    loader: TypeScriptLoader,
+    podPath: string
+  ): boolean {
+    const configFilename = this.getAbsoluteFilePath(podPath);
+
+    // Helper to try a specific loader
+    const tryLoader = (loaderName: string): boolean | 'handled' => {
+      try {
+        switch (loaderName) {
+          case 'sucrase':
+            require('sucrase/register/ts');
+            return true;
+          case 'tsx':
+            require('tsx/cjs/api').register();
+            return true;
+          case 'esbuild-register':
+            require('esbuild-register/dist/node').register();
+            return true;
+          case 'jiti': {
+            const jiti = require('jiti')(__filename, {
+              interopDefault: true,
+              esmResolve: true,
+            });
+            // jiti requires direct file loading, not registration
+            delete require.cache[require.resolve(configFilename)];
+            const amagakiConfig = jiti(configFilename);
+            amagakiConfig && typeof amagakiConfig.default === 'function'
+              ? amagakiConfig.default(this)
+              : amagakiConfig(this);
+            // Signal that we've handled the config loading
+            return 'handled';
+          }
+          default:
+            return false;
+        }
+      } catch (err) {
+        return false;
+      }
+    };
+
+    // If a specific loader is requested, try only that one
+    if (loader !== 'auto') {
+      const result = tryLoader(loader);
+      if (result === 'handled') {
+        // jiti has already loaded the config
+        return true;
+      }
+      if (!result) {
+        console.warn(
+          chalk.yellow(
+            `Warning: Could not load TypeScript loader "${loader}". ` +
+              `Make sure it's installed. Falling back to require().`
+          )
+        );
+      }
+      return false;
+    }
+
+    // Auto mode: try loaders in order of preference (modern first, then sucrase for compatibility)
+    const loaders: Array<TypeScriptLoader> = [
+      'tsx',
+      'esbuild-register',
+      'jiti',
+      'sucrase',
+    ];
+    for (const loaderName of loaders) {
+      const result = tryLoader(loaderName);
+      if (result === 'handled') {
+        // jiti has already loaded the config
+        return true;
+      }
+      if (result) {
+        return false;
+      }
+    }
+
+    // No loader found
+    console.warn(
+      chalk.yellow(
+        'Warning: No TypeScript loader found (tsx, esbuild-register, jiti, or sucrase). ' +
+          'Install at least one TypeScript loader to use .ts config files.'
+      )
+    );
+    return false;
   }
 
   /**

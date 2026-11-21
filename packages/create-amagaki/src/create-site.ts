@@ -1,6 +1,7 @@
 /* eslint-disable no-process-exit */
 
 import {
+  ansi,
   cleanInstalledStarter,
   downloadAndExtractRepo,
   getRepo,
@@ -9,11 +10,10 @@ import {
   isDirectoryEmpty,
   isWritable,
   makeDir,
+  retry,
 } from './utils';
 
-import chalk from 'chalk';
 import path from 'path';
-import retry from 'async-retry';
 
 export async function createSite({
   sitePath,
@@ -40,20 +40,18 @@ export async function createSite({
   }
 
   const originalDir = process.cwd();
-  console.log(`Creating a new 🍊 Amagaki site in ${chalk.green(root)}.`);
+  console.log(`Creating a new 🍊 Amagaki site in ${ansi.green(root)}.`);
   await makeDir(root);
   process.chdir(root);
 
   try {
     const repo = getRepo(starter);
     console.log(
-      `Downloading from ${chalk.cyan(
+      `Downloading from ${ansi.cyan(
         starter
       )}. This might take a few seconds...`
     );
-    await retry(() => downloadAndExtractRepo(root, repo), {
-      retries: 3,
-    });
+    await retry(() => downloadAndExtractRepo(root, repo), 3);
   } catch (reason) {
     throw new Error((reason as any)?.message ?? reason + '');
   }
@@ -71,19 +69,19 @@ export async function createSite({
   const cdPath =
     path.join(originalDir, siteName) === sitePath ? siteName : sitePath;
   console.log(
-    `${chalk.green('🍊 Success!')} Created ${siteName} at ${sitePath}`
+    `${ansi.green('🍊 Success!')} Created ${siteName} at ${sitePath}`
   );
   console.log('From that directory, you can run:');
   console.log();
-  console.log(chalk.cyan('  npm run dev'));
+  console.log(ansi.cyan('  npm run dev'));
   console.log('    Starts the development server.');
   console.log();
-  console.log(chalk.cyan('  npm run build'));
+  console.log(ansi.cyan('  npm run build'));
   console.log('    Builds the static site for production.');
   console.log();
   console.log('Get started by typing:');
   console.log();
-  console.log(chalk.cyan('  cd'), cdPath);
-  console.log(chalk.cyan('  npm run dev'));
+  console.log(ansi.cyan('  cd'), cdPath);
+  console.log(ansi.cyan('  npm run dev'));
   console.log();
 }

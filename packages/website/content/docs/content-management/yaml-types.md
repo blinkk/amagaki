@@ -1,100 +1,77 @@
 ---
 title: YAML types
 order: 6
+description: Reference for Amagaki's built-in YAML constructors and custom YAML types.
 ---
 # YAML types
 
-One of Amagaki’s unique concepts is bringing elevating YAML types to first party
-citizens in the ecosystem. Amagaki provides Pod Functions and additional inbuilt
-YAML types to assist with common content management tasks.
+Amagaki treats custom YAML types as first-class citizens so you can model references, partials, translations, and environment/locale conditionals directly inside your content files — without hardcoding URLs or paths.
 
-Amagaki’s YAML types facilitate content management best practices, entirely
-within the content layer. For example, using YAML types, you can:
+## Built-in YAML types
 
-*   Create and reuse partial content (such as common modules)
-*   Refer to pod objects, such as documents, collections, static files, and URLs
-    – entirely within the content layer
-*   Refer to translation strings, including the ability to use preferred string
-    values and fall back to previous translations if a new translation is not
-    yet available
-*   Conditionally change content based on the pod’s environment or document’s
-    locale
-*   Create custom YAML types representing custom content structures within your
-    site. For example, you can create a YAML type representing a button, or a
-    YAML type representing a media asset. Custom YAML types can be validated,
-    and represented into objects of your choosing.
+| Tag | Syntax | Description |
+| --- | --- | --- |
+| `!pod.doc` | `!pod.doc '/content/pages/about.yaml'` or `!pod.doc ['/content/pages/about.yaml', !pod.locale 'de']` | Resolves to a `Document` object. |
+| `!pod.docs` | `!pod.docs ['/content/posts/**', {sort: 'order'}]` | Resolves to an array of `Document` objects. |
+| `!pod.collection` | `!pod.collection '/content/posts'` | Resolves to a `Collection` object. |
+| `!pod.collections` | `!pod.collections ['/content/**', {sort: 'order'}]` | Resolves to an array of `Collection` objects. |
+| `!pod.staticFile` | `!pod.staticFile '/static/images/logo.svg'` | Resolves to a `StaticFile` object. |
+| `!pod.string` | `!pod.string 'Hello'` or `!pod.string {value: 'Old', prefer: 'New'}` | Resolves to a `TranslationString` localized for the current document. |
+| `!pod.yaml` | `!pod.yaml '/content/partials/nav.yaml'` or `!pod.yaml '/content/data.yaml?footer.links'` | Loads a YAML file (with optional `?dot.path` query). |
+| `!pod.locale` | `!pod.locale 'ja'` | Resolves to a `Locale` object. |
+| `!pod.locales` | `!pod.locales ['en', 'de', 'ja']` | Resolves to a `LocaleSet` of `Locale` objects. |
+| `!pod.meta` | `!pod.meta 'siteTitle'` | Reads a key from `pod.meta` configured in `amagaki.ts`. |
+| `!pod` | `!pod 'basePath'` | Reads a property directly from the `Pod` instance. |
+| `!IfEnvironment` | `!IfEnvironment {default: 'a', prod: 'b'}` | Returns the value matching `pod.env.name`, falling back to `default`. |
+| `!IfLocale` | `!IfLocale {default: 'a', ja: 'b'}` | Returns the value matching `doc.locale.id`, falling back to `default`. |
 
-### When to use YAML types
+## Examples
 
-Always avoid hardcoding objects that can be represented through an existing or
-custom YAML type. For example, you should:
+### Referencing documents and collections
 
-*   Never hardcode URLs. URLs can change throughout the life of a project. Use
-    the `url` property on a document to determine URLs instead.
-*   Never hardcode document or collection paths. Use the !pod.doc or
-    !pod.collection YAML types to represent documents instead. Hardcoding
-    document or collection paths could result in a template error if a typo was
-    made.
-
-### Built-in YAML types
-
-- `!pod.doc`
-- `!pod.docs`
-- `!pod.collection`
-- `!pod.collections`
-- `!pod.meta`
-- `!pod.string`
-- `!pod.staticFile`
-- `!pod.yaml`
-- `!pod.locale`
-- `!pod.locales`
-- `!IfEnvironment`
-- `!IfLocale`
-
-#### !pod.doc
-
-Returns a document.
-
-{% filter codeTabs %}
 ```yaml
-# Single document.
-!pod.doc '/content/pages/index.yaml'
-# Single document, localized.
-!pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
+# Single document
+home: !pod.doc '/content/pages/index.yaml'
+
+# Single document in a specific locale
+homeDe: !pod.doc ['/content/pages/index.yaml', !pod.locale 'de']
+
+# Explicit list of documents
+featured: !pod.docs ['/content/pages/index.yaml', '/content/posts/launch.md']
+
+# Glob with options
+posts: !pod.docs ['/content/posts/**', {sort: 'order'}]
 ```
-{% endfilter %}
 
-#### !pod.docs
+### Partial YAML & dot-path queries
 
-Returns a list of documents. Either multiple docs can be enumerated explicitly,
-or glob syntax can be used to fetch documents using a glob pattern.
-
-{% filter codeTabs %}
 ```yaml
-# Two documents.
-!pod.docs ['/content/pages/index.yaml', '/content/posts/2019-01-06.md']
-# All documents within the `posts` collection, with options.
-!pod.docs ['/content/posts/**', {sort: 'order'}]
-# All documents within the `pages` and `posts` collection, with options.
-!pod.docs [['/content/pages/**', '/content/posts/**'], {sort: 'order'}]
+# Load an entire partial file
+header: !pod.yaml '/content/partials/header.yaml'
+
+# Load a nested key from a YAML file
+primaryCta: !pod.yaml '/content/partials/ctas.yaml?signup.button'
 ```
-{% endfilter %}
 
-### Custom YAML types
+### Environment and locale conditionals
 
-Custom YAML types are created through plugins. Custom YAML types can be used to
-represent objects that may be helpful for reusing throughout the content layer
-in your site.
+```yaml
+analyticsId: !IfEnvironment
+  default: ''
+  staging: 'G-STAGING'
+  prod: 'G-PROD'
 
-Often, custom YAML types will be used for things like:
+heroImage: !IfLocale
+  default: !pod.staticFile '/static/images/hero-en.png'
+  ja: !pod.staticFile '/static/images/hero-ja.png'
+```
 
-- Restructure content prior to being inserted into the template layer
-- Simplify template logic
-- Connect with headless CMSes
+## Custom YAML types
+
+You can define your own YAML tags in `amagaki.ts` or a plugin (for example, to validate structured components or fetch data from an external CMS).
 
 {{button.button({
     label: 'Learn how to create custom YAML types',
     doc: '/content/docs/plugins/yaml-types.md',
-    class: 'button button--low',
     icon: 'arrow_forward'
 })}}

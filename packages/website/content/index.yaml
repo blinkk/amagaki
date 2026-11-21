@@ -1,129 +1,71 @@
-title: Amagaki – The best way to hand-code marketing sites
+title: Amagaki — TypeScript static site generator
 include_site_title: false
+description: Amagaki is a TypeScript-based static site generator for hand-coding marketing and informational websites with structured content, localization, and plugins.
+layout: home
 
-partials:
-
-- partial: hero
-  title: The best way to hand‑code high‑fidelity marketing websites
-  body: Amagaki is a TypeScript-based website generator. It's fast, flexible, and extensible. It's more than Jekyll, less than Next.js or Gatsby – and perfect for hand-coding high-fidelity marketing websites.
-  image:
-    url: https://lh3.googleusercontent.com/XmOO56dH01rI5j1WdSfzK8i_O06BaylF28vP-6diaRblzW5jtEMuh_1oHNvSBJsqaF5I-R3oa8fIOsOEePt-wrSZtDoxnol6p3M
-    width: 400
-    height: 400
+hero:
+  title: A TypeScript static site generator for hand‑coded websites
+  body: Amagaki is a lightweight, extensible website generator written in TypeScript. It separates structured YAML and Markdown content from HTML templates, includes first-class localization and build profiling, and stays out of your frontend stack's way.
   buttons:
-  - label: Read manual
-    doc: !pod.doc /content/docs/index.md
-    icon: arrow_forward
-    class: button--high
-  - label: Explore the starter
-    doc: !pod.doc /content/docs/getting-started/starter-project.md
-    class: button--low
+    - label: Read the docs
+      doc: /content/docs/index.md
+      icon: arrow_forward
+      variant: primary
+    - label: API Reference
+      url: /api/
+    - label: Explore the starter
+      doc: /content/docs/getting-started/starter-project.md
 
-- partial: spacer
-  size: large
-
-- partial: simpleMarkdown
+quickstart:
+  title: Quick start
   body: |
-    ## Quick start
+    Amagaki is distributed as an npm package (Node.js 20+). To scaffold a project with the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter), run:
 
-    Amagaki is distributed as an npm package. When starting a new site from scratch,
-    we recommend using `create-amagaki` which uses the official
-    [`amagaki-starter`](https://github.com/blinkk/amagaki-starter).
-
-    {% filter codeTabs %}
-    ```shell
+    ```bash
     # Create a new Amagaki project interactively
-    npx create-amagaki
+    npx create-amagaki my-site
+    cd my-site
 
-    # Start the dev server
+    # Start the dev server (renders pages on request)
     npm run dev
 
-    # Build the site
+    # Build the static site to ./build/
     npm run build
     ```
-    {% endfilter %}
 
-    If you are integrating into an existing project, you can install Amagaki directly.
+    Or install `@amagaki/amagaki` directly in an existing project:
 
-    {% filter codeTabs %}
-    ```shell
+    ```bash
     npm install --save @amagaki/amagaki
     ```
-    {% endfilter %}
 
-- partial: spacer
-  size: large
+features:
+  title: Key features
+  items:
+    - title: Built-in build profiling
+      body: Every build tracks memory usage, output sizes, route counts, and missing translations, with detailed per-template and per-route timing tables via <code>--profile</code>.
+    - title: Plain HTML, CSS, and TypeScript
+      body: Focus on templates, styling, and content architecture without heavy frontend framework boilerplate or opaque build pipelines.
+    - title: Not a frontend framework
+      body: Amagaki generates plain static files. Pair it with vanilla JS, Web Components, Preact, or any frontend tooling you choose.
+    - title: Extensible in TypeScript
+      body: Configure routes, custom YAML types, template filters, Express dev-server middleware, and build hooks directly in <code>amagaki.ts</code>.
+    - title: First-class localization
+      body: Define site, collection, and document locales natively, resolve localized fields with <code>!IfLocale</code>, and manage translatable strings with <code>!pod.string</code>.
+    - title: Structured content layer
+      body: Model repeatable collections, partial modules, and cross-document references in YAML and Markdown without hardcoding URLs.
 
-- partial: touts
-  header:
-    title: Key features
-  touts:
-  - title: Performance first
-    body: Performance metrics come with every build. Insights inform you of slowdowns with your site’s build time. <a href="{{pod.doc('/content/benchmark.md').url.path}}">See benchmarks</a>.
-  - title: Just write HTML, CSS, and TS
-    body: "Amagaki lets you focus on the things that matter for marketing sites: building out the templates, making the styles pixel perfect, and maintaining the content. Avoid fussing with boilerplate configuration and routing on every project."
-  - title: Not a frontend framework
-    body: Amagaki helps you follow best practices such as separating content and markup. You can pair it with the frontend framework of your choosing, if needed. Since it just generates HTML, you can integrate it into an existing project or system (even a totally proprietary one).
-  - title: Extendible. Written in TypeScript.
-    body: Enhance Amagaki with the same language used to write your frontend. Leverage the full Amagaki API, which is documented, tested, and has auto-generated API Reference. Amagaki comes with Nunjucks for HTML templates, but supports unlimited template engines.
-  - title: Locale aware
-    body: Localization features are a first party citizen. Generate localized variations of your website without complexity. Plus, you can change source strings without breaking translated copy, and automatically use translated copy when you receive it. Stop micro-managing your translations.
-  - title: Content management flexibility
-    body: Architect your content structure, taxonomies, and relationships. Create custom content types. Bind content types to components. Amagaki sites let you focus on content architecture, binding that content to your site's reusable modules, and assembling it all together on pages.
+sections:
+  - body: |
+      ## Why Amagaki?
 
-- partial: spacer
-  size: large
+      Amagaki was designed specifically for marketing and informational websites that sit between simple blogs and full single-page applications:
 
-- partial: simpleMarkdown
-  body: |
-    ## Why?
+      - **TypeScript-first:** Write configuration, plugins, and custom routes in TypeScript using the same Node.js ecosystem as your frontend.
+      - **Clean content/template separation:** Store copy, structured fields, and cross-references in YAML/Markdown while keeping presentation in Nunjucks or custom template engines.
+      - **On-demand dev server:** During development, pages render on request rather than triggering full site rebuilds on every edit.
+      - **Maintenance status:** Amagaki continues to be maintained for existing sites with bug fixes and dependency updates. For new projects, we recommend [Root.js](https://rootjs.dev) — Blinkk's modern successor built with TypeScript, Preact/TSX, file routing, i18n, and a built-in CMS.
 
-    We know there are dozens and dozens of static site generators. Amagaki was built specifically for two reasons:
+      ## Open source
 
-    - **TypeScript.** There aren’t a lot of robust TypeScript static site generators. Amagaki aims to be the best. We are betting on the evolution of TypeScript and the JavaScript ecosystem, and want to empower developers to use the same tools to extend Amagaki as they use to build their website.
-
-    - **A laser focus on the marketing website lifecycle.** Marketing websites face certain challenges and sit somewhere in between blogs and webapps. For example, a popular tool like Jekyll may have too few features for a marketing website, and Next.js may have too many. Hugo and Grow are great, but they are in non-JavaScript languages. Something has to bridge the gap.
-
-    ### More on marketing sites
-
-    Marketing websites are often constructed with elements such as repeatable content types, reusable modules, frontend components, and translations. Amagaki makes it easy to separate content and views, allowing developers to follow this critical maintainability best practice. All while just writing HTML (templates), CSS (Sass), and JS (TypeScript).
-
-    And, often, stakeholders require developers to stage updates on a dime and push content updates rapidly. Amagaki facilitates this workflow with confidence.
-
-- partial: spacer
-  size: large
-
-- partial: simpleMarkdown
-  body: |
-    ## The editor (coming soon)
-
-    You’re using a static site generator, but you want to empower stakeholders with the ability to edit and publish content themselves; and you want to avoid a complicated headless CMS integration. That’s where Editor.dev comes in.
-
-    Amagaki was built to pair with Editor.dev – a robust, minimal configuration, user-friendly way to empower non-technical users to assemble pages, update copy, images, and translations, and interact with your website content – all without requiring integrations.
-
-- partial: spacer
-  size: large
-
-- partial: simpleMarkdown
-  contributors: !GetGithubContributors ['blinkk/amagaki', 'blinkk/degu']
-  body: |
-    ## The team
-
-    Amagaki is an independent project released under the MIT License largely maintained by Blinkk, a small web development studio. We use Amagaki to build projects for ourselves, our stakeholders, and partners.
-
-    <div class="simpleMarkdown__body__contributors">
-    {% for person in partial.contributors %}
-      <a href="{{person.html_url}}">
-        <img src="{{person.avatar_url}}" alt="{{person.login}}" loading="lazy">
-      </a>
-    {% endfor %}
-    </div>
-
-    ### Other projects
-
-    - [Editor.dev](https://github.com/blinkk/live-edit)
-    - [Fileset](https://github.com/blinkk/fileset)
-    - [Degu](https://github.com/blinkk/degu)
-
-- partial: spacer
-  size: large
+      Amagaki is released under the MIT License and maintained by [Blinkk](https://blinkk.com). View the source code, file issues, or browse related packages on [GitHub](https://github.com/blinkk/amagaki).

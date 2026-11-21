@@ -1,16 +1,16 @@
 import * as fsPath from 'path';
-import * as glob from 'glob';
+import {globSync} from 'glob';
 import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
 
 import {Collection} from './collection';
-import {DeepWalk} from '@blinkk/editor.dev-ui/dist/utility/deepWalk';
+import {DeepWalk} from './deepWalk';
 import {Environment} from './environment';
 import {Pod} from './pod';
 import {Route} from './router';
 import {Url} from './url';
-import minimatch from 'minimatch';
+import {minimatch} from 'minimatch';
 
 import express = require('express');
 
@@ -143,13 +143,13 @@ export class Document {
     patterns = patterns || [`${pod.defaultContentPodPath}**/*`];
     patterns.forEach(pattern => {
       paths = paths.concat(
-        glob.sync(pattern, {
+        globSync(pattern, {
           cwd: pod.root,
           root: pod.root,
-          ignore: '/**/*/_*',
+          ignore: ['**/_*', '/**/*/_*'],
           matchBase: false,
           nodir: true,
-        })
+        }).sort()
       );
     });
 
@@ -175,7 +175,9 @@ export class Document {
       }
 
       for (const pattern of options.exclude) {
-        const pathsToBeExcluded = paths.filter(minimatch.filter(pattern));
+        const pathsToBeExcluded = paths.filter(path =>
+          minimatch(path, pattern)
+        );
         paths = paths.filter(path => !pathsToBeExcluded.includes(path));
       }
     }

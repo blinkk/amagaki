@@ -1,20 +1,13 @@
-{%- macro button(options) -%}
-    {%- if options.doc -%}
-        {%- set url = options.doc.url.path -%}
-    {%- else -%}
-        {%- set url = options.url -%}
-    {%- endif -%}
-    <a
-        class="button {{options.class}} {{'button--icon' if options.icon or options.left_icon}}"
-        href="{{url|relative}}"
-        {% if options.external %}target="_blank"{% endif -%}
-    >
-        {%- if options.left_icon -%}
-            <span class="material-icons">{{options.left_icon}}</span>
-        {%- endif -%}
-        <span>{{options.label}}</span>
-        {%- if options.icon -%}
-            <span class="material-icons">{{options.icon}}</span>
-        {%- endif -%}
-    </a>
-{%- endmacro -%}
+{% macro button(options) %}
+{%- set href = pod.doc(options.doc).url.path if options.doc else options.url -%}
+{%- set isExternal = href and (href.startsWith('http://') or href.startsWith('https://')) -%}
+{%- set isPrimary = options.variant == 'primary' or (options.class and 'button--high' in options.class) -%}
+<a class="button{% if not isPrimary %} button--secondary{% endif %}" href="{{href}}"{% if isExternal %} target="_blank" rel="noopener"{% endif %}>
+  <span>{{options.label}}</span>
+  {%- if options.icon == 'launch' or isExternal -%}
+  <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg>
+  {%- elif options.icon == 'arrow_forward' -%}
+  <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg>
+  {%- endif -%}
+</a>
+{% endmacro %}

@@ -1,7 +1,7 @@
 import {GlobalOptions, getPodWithEnvironment} from './global';
 import {Server, ServerListeningEvent} from '../server';
 
-import chalk from 'chalk';
+import chalk from '../ansi';
 
 interface ServeOptions {
   fcd?: string;

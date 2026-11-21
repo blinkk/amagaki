@@ -14,10 +14,8 @@ object contains a diff, manifest, and metrics about the build.
 
 {{button.button({
     label: 'Read BuildResult Reference',
-    url: 'https://blinkk.github.io/amagaki/api/interfaces/builder.buildresult.html',
-    external: true,
-    class: 'button button--low',
-    icon: 'launch'
+    url: '/api/routing-and-building/#buildresult',
+    icon: 'arrow_forward'
 })}}
 
 ## Example

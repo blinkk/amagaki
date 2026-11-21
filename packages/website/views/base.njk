@@ -1,40 +1,225 @@
-{% import "/views/macros/renderPartial.njk" as renderPartial with context %}
-
+{% import "/views/macros/button.njk" as button with context %}
+{%- set isHome = doc.fields.layout == 'home' -%}
+{%- set isApi = doc.podPath.startsWith('/content/api/') -%}
+{%- set isDocs = doc.podPath.startsWith('/content/docs/') -%}
+{%- set sidebarRoot = '/content/api' if isApi else '/content/docs' -%}
 <!DOCTYPE html>
 <html lang="{{doc.locale.id}}">
-<head>
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2022.73%2022.7%22%3E%3Cpath%20d%3D%22M23.07%2C12.76h0A10.84%2C10.84%2C0%2C0%2C0%2C12.22%2C1.91h0A10.85%2C10.85%2C0%2C0%2C0%2C1.37%2C12.76h0V13A20.77%2C20.77%2C0%2C0%2C0%2C3.3%2C21.68h0A20.77%2C20.77%2C0%2C0%2C0%2C12%2C23.61h.19A10.85%2C10.85%2C0%2C0%2C0%2C23.07%2C12.76Z%22%20transform%3D%22translate%28-1.37%20-0.91%29%22%20style%3D%22fill%3A%23e27f24%22%2F%3E%3Cpath%20d%3D%22M22.33%2C12.46a3.32%2C3.32%2C0%2C0%2C0-2.55-3.6L19%2C8.68V8.36l1%2C.09a.81.81%2C0%2C0%2C0%2C.78-1.2l-1.11-2-2-1.11a.81.81%2C0%2C0%2C0-1.2.78l.09%2C1h-.33l-.17-.74a3.31%2C3.31%2C0%2C0%2C0-3.6-2.54l-1.13.13-.12%2C1.12a3.31%2C3.31%2C0%2C0%2C0%2C2.54%2C3.6l.74.18v.28l-1.32-.13a2.37%2C2.37%2C0%2C0%2C0-2.57%2C2.84l.62%2C3%2C3%2C.63a2.38%2C2.38%2C0%2C0%2C0%2C2.85-2.57L17%2C10.43h.28l.17.74a3.33%2C3.33%2C0%2C0%2C0%2C3.61%2C2.54l1.12-.12Z%22%20transform%3D%22translate%28-1.37%20-0.91%29%22%20style%3D%22fill%3A%232d542d%22%2F%3E%3Cline%20x1%3D%2219.56%22%20y1%3D%223.22%22%20x2%3D%2215.73%22%20y2%3D%227.05%22%20style%3D%22fill%3Anone%3Bstroke%3A%23688248%3Bstroke-linecap%3Around%3Bstroke-miterlimit%3A10%22%2F%3E%3Cpath%20d%3D%22M23.63%2C8.49a11.23%2C11.23%2C0%2C0%2C0-7.16-7.1%22%20transform%3D%22translate%28-1.37%20-0.91%29%22%20style%3D%22fill%3Anone%3Bstroke%3A%2391b166%3Bstroke-miterlimit%3A10%22%2F%3E%3C%2Fsvg%3E">
-    <title>
-        {{doc.fields.title}}
-        {% if doc.collection.fields.title -%}
-        – {{doc.collection.fields.title}}
-        {% endif %}
-        {%- if doc.fields.include_site_title !== false -%}
-        – Amagaki
-        {%- endif %}
-    </title>
-    <meta name="description" value="{{doc.fields.description}}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{pod.staticFile('/dist/css/main.min.css').url.path|relative}}">
-    <script src="{{pod.staticFile('/dist/js/main.min.js').url.path|relative}}"></script>
-</head>
-<body>
-<div class="main">
-    {% set partial = pod.doc('/content/partials/header.yaml').fields %}
-    {{renderPartial.renderPartial(partial)}}
-    {% if doc.fields.partials %}
-        {% for partial in doc.fields.partials %}
-            {{renderPartial.renderPartial(partial)}}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if doc.fields.description %}<meta name="description" content="{{doc.fields.description}}">{% endif %}
+    <link rel="icon" type="image/svg+xml" href="{{pod.staticFile('/static/images/amagaki.svg').url.path}}">
+    <title>{% if doc.fields.title %}{{doc.fields.title}}{% if doc.fields.include_site_title !== false %} — {{pod.meta.siteTitle}}{% endif %}{% else %}{{pod.meta.siteTitle}}{% endif %}</title>
+    <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}">
+  </head>
+  <body class="{% if isHome %}page-home{% else %}page-docs{% endif %}">
+    <header class="topbar">
+      <div class="topbar__inner">
+        <div class="topbar__left">
+          <button
+            type="button"
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-label="Toggle navigation"
+            aria-controls="docs-sidebar"
+            aria-expanded="false"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="3" y1="5" x2="17" y2="5"></line>
+              <line x1="3" y1="10" x2="17" y2="10"></line>
+              <line x1="3" y1="15" x2="17" y2="15"></line>
+            </svg>
+          </button>
+          <a class="brand" href="/">
+            <img class="brand__logo" src="{{pod.staticFile('/static/images/amagaki.svg').url.path}}" alt="" width="28" height="28">
+            <span class="brand__name">Amagaki</span>
+          </a>
+          <nav class="topbar__nav" aria-label="Primary">
+            <a href="/docs/" class="topbar__link{% if isDocs %} is-active{% endif %}">Docs</a>
+            <a href="/api/" class="topbar__link{% if isApi %} is-active{% endif %}">API</a>
+          </nav>
+        </div>
+        <div class="search-box">
+          <input
+            type="search"
+            id="docs-search"
+            class="search-input"
+            placeholder="Search docs…"
+            autocomplete="off"
+            data-index-url="/search-index.json"
+          >
+          <div id="docs-search-results" class="search-results" hidden></div>
+        </div>
+        <div class="topbar__actions">
+          <a href="{{pod.meta.githubUrl}}" class="btn" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/></svg><span class="btn__label">GitHub</span></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="notice-bar" role="note">
+      <div class="notice-bar__inner">
+        <span>
+          Amagaki is in maintenance mode. For new projects, we recommend
+          <a href="https://rootjs.dev" target="_blank" rel="noopener"><img class="notice-bar__icon" src="{{pod.staticFile('/static/images/rootjs-beet.svg').url.path}}" alt="" width="13" height="19">Root.js<svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg></a>
+        </span>
+      </div>
+    </div>
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+    {% if isHome %}
+      <aside class="docs-sidebar docs-sidebar--drawer-only" id="docs-sidebar" role="navigation" aria-label="Documentation">
+        <div class="sidebar__mobile-header">
+          <span>Navigation</span>
+          <button type="button" class="nav-close" id="nav-close" aria-label="Close navigation">&times;</button>
+        </div>
+        <div class="sidebar__mobile-tabs">
+          <a href="/docs/" class="topbar__link">Docs</a>
+          <a href="/api/" class="topbar__link">API</a>
+        </div>
+        {% for section in getSidebarSections('/content/docs') %}
+          <div class="sidebar__heading">{{section.title}}</div>
+          {% for item in section.docs %}
+            <a class="sidebar__link" href="{{item.url.path}}">{{item.fields.title}}</a>
+          {% endfor %}
         {% endfor %}
-    {% elif doc.body %}
-        {{renderPartial.renderPartial({
-            partial: 'markdown',
-            body: doc.body
-        })}}
+      </aside>
+
+      <main class="home-shell" role="main">
+        <section class="hero">
+          <div class="hero__content">
+            <h1 class="hero__title">{{doc.fields.hero.title}}</h1>
+            <p class="hero__body">{{doc.fields.hero.body}}</p>
+            <div class="hero__actions">
+              {% for btn in doc.fields.hero.buttons %}
+                {{button.button(btn)}}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="hero__mark">
+            <img src="{{pod.staticFile('/static/images/hero-illustration.webp').url.path}}" alt="Amagaki illustration" width="340" height="340">
+          </div>
+        </section>
+
+        {% if doc.fields.quickstart %}
+        <section class="home-section">
+          <h2>{{doc.fields.quickstart.title}}</h2>
+          <div class="docs-content docs-content--compact">
+            {{doc.fields.quickstart.body|render|markdown|highlightCode|safe}}
+          </div>
+        </section>
+        {% endif %}
+
+        {% if doc.fields.features %}
+        <section class="home-section">
+          <h2>{{doc.fields.features.title}}</h2>
+          <div class="feature-grid">
+            {% for feat in doc.fields.features.items %}
+              <div class="feature-card">
+                <h3>{{feat.title}}</h3>
+                <p>{{feat.body|render|safe}}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+        {% endif %}
+
+        {% if doc.fields.sections %}
+          {% for sec in doc.fields.sections %}
+          <section class="home-section">
+            <div class="docs-content docs-content--compact">
+              {{sec.body|render|markdown|highlightCode|safe}}
+            </div>
+          </section>
+          {% endfor %}
+        {% endif %}
+      </main>
+
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div class="site-footer__brand">
+            <img src="{{pod.staticFile('/static/images/amagaki.svg').url.path}}" alt="" width="20" height="20">
+            <span>Amagaki</span>
+          </div>
+          <div class="site-footer__links">
+            <a href="/docs/">Documentation</a>
+            <a href="/api/">API Reference</a>
+            <a href="{{pod.meta.githubUrl}}" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://rootjs.dev" target="_blank" rel="noopener">Root.js</a>
+          </div>
+          <div class="site-footer__copy">
+            MIT License &middot; Maintained by <a href="https://blinkk.com" target="_blank" rel="noopener">Blinkk</a>
+          </div>
+        </div>
+      </footer>
+    {% else %}
+      <div class="docs-shell">
+        <aside class="docs-sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation">
+          <div class="sidebar__mobile-header">
+            <span>{% if isApi %}API Reference{% else %}Documentation{% endif %}</span>
+            <button type="button" class="nav-close" id="nav-close" aria-label="Close navigation">&times;</button>
+          </div>
+          <div class="sidebar__mobile-tabs">
+            <a href="/docs/" class="topbar__link{% if isDocs %} is-active{% endif %}">Docs</a>
+            <a href="/api/" class="topbar__link{% if isApi %} is-active{% endif %}">API</a>
+          </div>
+
+          {% for section in getSidebarSections(sidebarRoot) %}
+            <div class="sidebar__heading">{{section.title}}</div>
+            {% for item in section.docs %}
+              <a
+                class="sidebar__link{% if doc.podPath == item.podPath %} is-active{% endif %}"
+                href="{{item.url.path}}"
+              >{{item.fields.title}}</a>
+            {% endfor %}
+          {% endfor %}
+
+          <div class="sidebar__badges">
+            <a href="https://www.npmjs.com/package/@amagaki/amagaki" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/npm/v/@amagaki/amagaki.svg?style=flat" alt="npm version">
+            </a>
+            <a href="https://github.com/blinkk/amagaki/actions/workflows/test-amagaki.yml" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/github/actions/workflow/status/blinkk/amagaki/test-amagaki.yml?branch=main&amp;label=CI&amp;style=flat" alt="CI status">
+            </a>
+            <a href="https://github.com/blinkk/amagaki/blob/main/LICENSE.md" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License">
+            </a>
+          </div>
+        </aside>
+
+        <main class="docs-content" role="main">
+          {{doc.body|render|markdown|highlightCode|safe}}
+          {% set pager = getPager(doc, sidebarRoot) %}
+          {% if pager.prev or pager.next %}
+            <nav class="pager" aria-label="Pagination">
+              {% if pager.prev %}
+                <a href="{{pager.prev.url.path}}" class="pager__link"><svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M5 12l6 6"/><path d="M5 12l6 -6"/></svg>{{pager.prev.fields.title}}</a>
+              {% else %}
+                <span></span>
+              {% endif %}
+              {% if pager.next %}
+                <a href="{{pager.next.url.path}}" class="pager__link">{{pager.next.fields.title}}<svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg></a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        </main>
+
+        <aside class="docs-toc" role="complementary" aria-label="On this page">
+          <div class="toc__title">On this page</div>
+          <ul class="toc__list" id="docs-toc"></ul>
+          <div class="toc__footer">
+            <a
+              href="{{pod.meta.githubEditRoot}}{{doc.podPath}}"
+              class="toc__edit"
+              target="_blank"
+              rel="noopener"
+            >Edit this page on GitHub<svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></a>
+          </div>
+        </aside>
+      </div>
     {% endif %}
-    {{renderPartial.renderPartial(pod.doc('/content/partials/footer.yaml').fields)}}
-</div>
+
+    <script src="{{pod.staticFile('/static/js/docs.js').url.path}}"></script>
+  </body>
+</html>

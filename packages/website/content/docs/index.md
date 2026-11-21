@@ -1,21 +1,25 @@
 ---
+$path: /docs/
 title: Introduction
+order: 0
+description: Introduction to Amagaki, a TypeScript static site generator for hand-coded marketing and informational websites.
 ---
 # Introduction
 
-Amagaki is a static site generator. It's written in TypeScript and designed
-specifically for offering a great developer experience for hand-coding marketing
-and informational websites.
+Amagaki is a TypeScript-based static site generator designed for hand-coding marketing and informational websites. It keeps structured content cleanly separated from templates, includes built-in localization and build profiling, and is extensible through a lightweight plugin system.
 
-## Feature highlights
+> **Maintenance mode:** Amagaki continues to receive bug fixes and dependency updates for existing sites. For new projects, we recommend [Root.js](https://rootjs.dev) — Blinkk's modern successor built with TypeScript, Preact/TSX, file routing, i18n, and a built-in CMS.
 
-- **TypeScript.** Amagaki is written in TypeScript. Its code is meant to be
-  well-organized, easy to understand, and extendible with plugins.
-- **Multiple template engines.** Amagaki ships with Nunjucks for HTML
-  compatibility, but supports unlimited template engines.
-- **Not a large project.** Amagaki has a slim core. It contains everything
-  needed to assemble a marketing website, but not more than that. It should be
-  easy to understand Amagaki's core code and extend it as needed with plugins.
-- **Localization.** Easy localization is a first-party citizen. Configure locales
-  and Amagaki will take care of the workflows around localization to make it
-  easy to translate and localize your project.
+## Highlights
+
+- **TypeScript-first:** Configure your site, routes, YAML types, and plugins in TypeScript (`amagaki.ts`).
+- **Multiple template engines:** Ships with Nunjucks out of the box and supports registering custom template engines (such as Preact/TSX).
+- **Minimal core:** Focuses on content, routing, localization, and static generation without imposing a frontend framework.
+- **On-demand dev server:** Renders pages at request time during development rather than rebuilding the full site on every edit.
+- **Built-in localization:** Manage site, collection, and document locales, locale-conditional fields (`!IfLocale`), and translation catalogs natively.
+
+## Next steps
+
+- [Install Amagaki](/docs/getting-started/installation/) or scaffold with [`create-amagaki`](/docs/getting-started/starter-project/)
+- [Explore the project structure](/docs/getting-started/project-structure/)
+- [Browse the full API Reference](/api/)

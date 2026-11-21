@@ -6,46 +6,17 @@
     "url": "git://github.com/blinkk/amagaki.git"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
-  "private": "true",
+  "private": true,
   "scripts": {
-    "browsersync:reload": "browser-sync reload",
-    "browsersync:start": "browser-sync start --proxy localhost:8080 --no-open --files dist",
-    "build": "npm run build:src:prod && npx amagaki build",
-    "build:src": "webpack --mode development",
-    "build:src:prod": "webpack --mode production --config webpack.prod.config.js",
-    "build:src:notify": "webpack --mode development --env notify",
-    "dev": "npm run build:src && concurrently -k \"npm:watch:src\" \"npm:watch:pages\" \"npm:start\" \"npm:browsersync:start\"",
-    "fix": "npm run fix:sass",
-    "fix:sass": "sass-lint-auto-fix -c .sasslintrc.fix.yaml",
+    "build": "npx amagaki build",
+    "dev": "npx amagaki serve",
     "start": "npx amagaki serve",
-    "test": "",
-    "watch:src": "nodemon --watch src -e ts,js,sass --exec npm run build:src:notify",
-    "watch:pages": "nodemon --watch content --watch views -e njk,yaml --exec npm run browsersync:reload"
+    "test": ""
   },
   "dependencies": {
     "@amagaki/amagaki": "*",
-    "browser-sync": "^2.26.13",
-    "common-tags": "^1.8.0",
-    "concurrently": "^5.3.0",
-    "file-loader": "^6.2.0",
-    "github-markdown-css": "^4.0.0",
-    "glob": "^7.1.6",
-    "gts": "^3.1.0",
-    "highlight.js": "^10.7.2",
-    "jsdom": "^16.5.3",
-    "marked": "^2.0.6",
-    "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.7",
-    "sass": "^1.32.4",
-    "sass-loader": "^10.1.1",
-    "terser-webpack-plugin": "^5.1.1",
-    "ts-loader": "^8.0.14",
-    "typescript": "^4.3.5",
-    "uuid": "^8.3.2",
-    "webpack": "^5.15.0",
-    "webpack-cli": "^4.3.1",
-    "webpack-notifier": "^1.12.0"
+    "highlight.js": "^11.12.0"
   }
 }

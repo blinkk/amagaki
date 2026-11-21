@@ -13,10 +13,9 @@
       ],
     },
     "exclude": [
-      "node_modules",
-      "gulpfile.ts"
+      "node_modules"
     ],
     "include": [
-      "./src/**/*.ts", "gulpfile.ts",
+      "./src/**/*.ts"
     ]
   }

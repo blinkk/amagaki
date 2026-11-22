@@ -20,7 +20,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "release": "esbuild ./src/index.ts --bundle --platform=node --target=node20 --minify --outfile=./dist/index.js",
-    "prepare": "npm run release",
+    "build": "npm run release",
+    "prepack": "npm run release",
     "prepublish": "npm run release",
     "test": ""
   },

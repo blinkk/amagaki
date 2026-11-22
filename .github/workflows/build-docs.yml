@@ -26,10 +26,10 @@ jobs:
           cache: 'npm'
       - uses: actions/configure-pages@v5
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
       - name: Build website
         run: |
-          npm run prepare -w packages/amagaki
+          npm run build -w packages/amagaki
           npm run build -w packages/website
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

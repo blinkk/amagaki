@@ -16,7 +16,8 @@
     "build:example": "npx amagaki build example",
     "clean": "rm -rf dist",
     "compile": "tsc && node ./scripts/build.mjs",
-    "prepare": "rm -rf dist && npm run compile",
+    "build": "rm -rf dist && npm run compile",
+    "prepack": "npm run build",
     "start:example": "npx amagaki serve example",
     "test": "npm run compile && ava"
   },

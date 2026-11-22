@@ -61,11 +61,11 @@ This monorepo uses npm workspaces, TypeScript, and AVA:
 ```bash
 git clone https://github.com/blinkk/amagaki.git
 cd amagaki
-npm ci --ignore-scripts
-npm run prepare -w packages/amagaki
-npm run prepare -w packages/amagaki-plugin-page-builder
-npm run prepare -w packages/amagaki-engine-preact
-npm run prepare -w packages/create-amagaki
+npm ci
+npm run build -w packages/amagaki
+npm run build -w packages/amagaki-plugin-page-builder
+npm run build -w packages/amagaki-engine-preact
+npm run build -w packages/create-amagaki
 npm test --workspaces
 ```
 

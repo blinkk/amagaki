@@ -15,7 +15,8 @@
   "scripts": {
     "build:example": "amagaki build example",
     "clean": "rm -rf dist",
-    "prepare": "rm -rf dist && tsc && rm -f dist/*.tsbuildinfo",
+    "build": "rm -rf dist && tsc && rm -f dist/*.tsbuildinfo",
+    "prepack": "npm run build",
     "test": "ava"
   },
   "ava": {

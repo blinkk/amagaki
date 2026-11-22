@@ -16,8 +16,8 @@ jobs:
           node-version: '22'
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
       - name: Build amagaki and example site
         run: |
-          npm run prepare -w packages/amagaki
+          npm run build -w packages/amagaki
           npm run build:example -w packages/amagaki

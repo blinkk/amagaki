@@ -23,10 +23,10 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - name: Install and build packages
         run: |
-          npm ci --ignore-scripts
-          npm run prepare -w packages/amagaki
-          npm run prepare -w packages/amagaki-plugin-page-builder
-          npm run prepare -w packages/amagaki-engine-preact
+          npm ci
+          npm run build -w packages/amagaki
+          npm run build -w packages/amagaki-plugin-page-builder
+          npm run build -w packages/amagaki-engine-preact
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish -w packages/amagaki
         env:

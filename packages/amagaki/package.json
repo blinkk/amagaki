@@ -25,7 +25,8 @@
     "compile": "tsc && chmod +x dist/src/cli.js",
     "copy": "mkdir -p dist/src/static && cp src/static/* dist/src/static",
     "dev:start": "npm run copy && npm run compile",
-    "prepare": "rm -rf dist && npm run dev:start",
+    "build": "rm -rf dist && npm run dev:start",
+    "prepack": "npm run build",
     "start:example": "node ./dist/src/cli.js serve example",
     "test": "ava",
     "test:watch": "ava --watch"

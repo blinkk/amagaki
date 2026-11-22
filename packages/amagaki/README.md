@@ -31,7 +31,7 @@ Read the full documentation and API reference at **[amagaki.dev](https://amagaki
 
 ## Quick Start
 
-Scaffold a new project from the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter):
+Scaffold a new zero-bundler project from [`examples/starter/`](https://github.com/blinkk/amagaki/tree/main/examples/starter):
 
 ```bash
 npx create-amagaki my-site

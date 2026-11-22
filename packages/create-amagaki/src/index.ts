@@ -22,7 +22,7 @@ const program = new Command(packageJson.name)
   .option(
     '-s, --starter [github-url]',
     'the starter to use for the project',
-    'https://github.com/blinkk/amagaki-starter'
+    'https://github.com/blinkk/amagaki/tree/main/examples/starter'
   )
   .allowUnknownOption()
   .parse(process.argv);

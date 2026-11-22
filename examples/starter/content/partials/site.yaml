@@ -1,0 +1,6 @@
+nav:
+  - label: !pod.string Home
+    doc: !pod.doc /content/pages/index.yaml
+  - label: !pod.string About
+    doc: !pod.doc /content/pages/about.md
+footerText: !pod.string Built with Amagaki.

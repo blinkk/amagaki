@@ -1,73 +1,44 @@
 ---
 title: Starter project
 order: 1
+description: Start a minimal, zero-bundler Amagaki project using create-amagaki or examples/starter.
 ---
 # Starter project
 
-The quickest way to start an Amagaki project with enough foundational bells and
-whistles is to use `create-amagaki` which simply clones and installs the
-official Amagaki starter project.
+The quickest way to spin up an Amagaki site is with `create-amagaki`, which scaffolds a minimal, zero-bundler project from [`examples/starter/`](https://github.com/blinkk/amagaki/tree/main/examples/starter) inside the main repository.
 
-This guide assumes you have Node and Git installed. Amagaki is a command line
-program, so you’ll invoke these commands from your terminal.
-
-{% filter codeTabs %}
-```shell
-npx create-amagaki
+```bash
+npx create-amagaki my-site
+cd my-site
 npm run dev
 ```
-{% endfilter %}
-
-To see how the starter works, you can browse it on GitHub.
 
 {{button.button({
-    label: 'Browse amagaki-starter on GitHub',
-    url: 'https://github.com/blinkk/amagaki-starter',
-    external: true,
-    class: 'button button--low',
+    label: 'Browse examples/starter on GitHub',
+    url: 'https://github.com/blinkk/amagaki/tree/main/examples/starter',
     icon: 'launch'
 })}}
 
-## What’s included in the quick start project?
+## What's included
 
-*   Sample pages
-    *   Homepage
-    *   Sub-page
-*   Foundational development tools
-    *   Nunjucks templates
-        *   Base template
-        *   Reusable partial modules
-    *   Sass (with code splitting on a per-partial basis)
-    *   TypeScript (with code splitting on a per-partial basis)
-    *   Live reloading using BrowserSync
-*   Lighthouse scores
+The starter has a single dependency (`@amagaki/amagaki`) and zero frontend bundler boilerplate:
 
-The quick start project demonstrates how to assemble a preliminary Amagaki
-website. You can customize the look and feel and adjust the styles to meet
-your project’s needs.
+- **Sample pages**: YAML homepage with reusable partials (`/content/pages/index.yaml`) and a Markdown page with front matter (`/content/pages/about.md`)
+- **Nunjucks templates**: Base layout (`/views/base.njk`) plus `hero` and `cards` partials
+- **Shared site chrome**: Navigation and footer links in `/content/partials/site.yaml` using `!pod.doc`
+- **Built-in localization**: `en` and `ja` locales configured in `amagaki.ts` with translations in `/locales/ja.yaml`
+- **Plain CSS**: Clean stylesheet at `/static/css/main.css` served via `staticRoutes` — bring your own CSS/JS bundler only if you need one
 
-The quick start project can be built into static HTML, CSS, and JavaScript
-using:
+## Building for production
 
-{% filter codeTabs %}
-```shell
+Generate the static site to `./build/`:
+
+```bash
 npm run build
 ```
-{% endfilter %}
 
-## Other starter projects
+You can also pass a custom GitHub starter repo (or subdirectory URL) via `--starter`:
 
-The official starter project follows our presumptions and recommendations, and
-shows how to make use of the partial loop, which is a powerful way to build
-maintainable marketing websites. If you want to add your own starter project,
-add it below.
-
-[Startline](https://github.com/frzrbox/startline)
-
-{{button.button({
-    label: 'Add your starter',
-    url: pod.config.meta.githubEditRoot + doc.podPath,
-    external: true,
-    class: 'button button--small button--tonal button--reverse',
-    icon: 'add'
-})}}
+```bash
+npx create-amagaki my-site --starter https://github.com/<owner>/<repo>
+```

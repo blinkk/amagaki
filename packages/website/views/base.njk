@@ -11,7 +11,7 @@
     {% if doc.fields.description %}<meta name="description" content="{{doc.fields.description}}">{% endif %}
     <link rel="icon" type="image/svg+xml" href="{{pod.staticFile('/static/images/amagaki.svg').url.path}}">
     <title>{% if doc.fields.title %}{{doc.fields.title}}{% if doc.fields.include_site_title !== false %} — {{pod.meta.siteTitle}}{% endif %}{% else %}{{pod.meta.siteTitle}}{% endif %}</title>
-    <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}">
+    <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}?v={{pod.staticFile('/static/css/main.css').fingerprint}}">
   </head>
   <body class="{% if isHome %}page-home{% else %}page-docs{% endif %}">
     <header class="topbar">
@@ -220,6 +220,6 @@
       </div>
     {% endif %}
 
-    <script src="{{pod.staticFile('/static/js/docs.js').url.path}}"></script>
+    <script src="{{pod.staticFile('/static/js/docs.js').url.path}}?v={{pod.staticFile('/static/js/docs.js').fingerprint}}"></script>
   </body>
 </html>

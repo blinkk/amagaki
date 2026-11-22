@@ -1,0 +1,23 @@
+$path: /
+$localization:
+  path: /${doc.locale.id}/
+title: !pod.string Home
+description: A minimal, zero-bundler starter site built with Amagaki.
+
+partials:
+  - partial: hero
+    title: !pod.string Welcome to Amagaki
+    body: !pod.string A lightweight TypeScript static site generator with structured YAML content, Nunjucks templates, and built-in localization — no frontend bundler required.
+    cta:
+      label: !pod.string Read the About page
+      doc: !pod.doc /content/pages/about.md
+
+  - partial: cards
+    heading: !pod.string Included in this starter
+    items:
+      - title: !pod.string Structured content
+        body: !pod.string Author pages in YAML and Markdown using built-in tags like !pod.doc and !pod.string.
+      - title: !pod.string Plain CSS & Nunjucks
+        body: !pod.string Zero Webpack, Sass, or Gulp boilerplate — add your own frontend tooling only if you want it.
+      - title: !pod.string Built-in localization
+        body: !pod.string Switch languages using the locale links in the header, backed by /locales/*.yaml.

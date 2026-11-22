@@ -19,7 +19,7 @@ hero:
 quickstart:
   title: Quick start
   body: |
-    Amagaki is distributed as an npm package (Node.js 20+). To scaffold a project with the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter), run:
+    Amagaki is distributed as an npm package (Node.js 20+). To scaffold a zero-bundler starter site from [`examples/starter/`](https://github.com/blinkk/amagaki/tree/main/examples/starter), run:
 
     ```bash
     # Create a new Amagaki project interactively

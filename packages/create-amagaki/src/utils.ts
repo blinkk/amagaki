@@ -25,6 +25,7 @@ export interface GitHubRepoInfo {
   owner: string;
   project: string;
   branch?: string;
+  subdir?: string;
 }
 
 export async function retry<T>(
@@ -56,11 +57,25 @@ export async function downloadAndExtractRepo(
   if (!res.ok || !res.body) {
     throw new Error(`Failed to download ${url}: HTTP ${res.status}`);
   }
+  const subdirParts = repo.subdir
+    ? repo.subdir.replace(/^\/+|\/+$/g, '').split('/').filter(Boolean)
+    : [];
+  const subdirPrefix = subdirParts.length ? `${subdirParts.join('/')}/` : '';
   await pipeline(
     Readable.fromWeb(res.body as any),
     tar.extract({
       cwd: root,
-      strip: 1,
+      strip: 1 + subdirParts.length,
+      filter: subdirPrefix
+        ? entryPath => {
+            const firstSlash = entryPath.indexOf('/');
+            if (firstSlash === -1) {
+              return false;
+            }
+            const rel = entryPath.slice(firstSlash + 1);
+            return rel.startsWith(subdirPrefix) && rel.length > subdirPrefix.length;
+          }
+        : undefined,
     })
   );
 }
@@ -164,12 +179,16 @@ export function getRepo(url: string): GitHubRepoInfo {
   if (parts.length < 2 || !parts[0] || !parts[1]) {
     throw new Error(`Unable to parse GitHub details from URL: ${repoUrl}`);
   }
-  const branch =
-    parts[2] === 'tree' && parts[3] ? parts.slice(3).join('/') : undefined;
+  const branch = parts[2] === 'tree' && parts[3] ? parts[3] : undefined;
+  const subdir =
+    parts[2] === 'tree' && parts.length > 4
+      ? parts.slice(4).join('/')
+      : undefined;
   return {
     owner: parts[0],
     project: parts[1],
     branch,
+    subdir,
   };
 }
 

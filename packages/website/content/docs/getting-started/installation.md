@@ -9,7 +9,7 @@ Amagaki requires **Node.js 20 or higher**.
 
 ## Start from the starter template
 
-To scaffold a new site with the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter):
+To scaffold a new zero-bundler site from [`examples/starter/`](https://github.com/blinkk/amagaki/tree/main/examples/starter):
 
 ```bash
 npx create-amagaki my-site

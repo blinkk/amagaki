@@ -1,0 +1,11 @@
+<section class="cards-section">
+  {% if partial.heading %}<h2>{{partial.heading}}</h2>{% endif %}
+  <div class="cards-grid">
+    {% for item in partial.items %}
+      <div class="card">
+        <h3>{{item.title}}</h3>
+        <p>{{item.body}}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>

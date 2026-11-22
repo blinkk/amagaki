@@ -37,9 +37,9 @@
     "@amagaki/amagaki": "*",
     "@amagaki/amagaki-plugin-page-builder": "*",
     "@types/jsdom": "^21.1.7",
-    "ava": "^6.4.1",
-    "jsdom": "^26.1.0",
-    "typescript": "^5.9.3"
+    "ava": "^8.4.0",
+    "jsdom": "^31.0.1",
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "@amagaki/amagaki": "*",

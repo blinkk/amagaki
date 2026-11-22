@@ -10,11 +10,11 @@
     "packages/website"
   ],
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "ava": "^6.4.1",
+    "@types/node": "^26.6.6",
+    "ava": "^8.4.0",
     "esbuild": "^0.28.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "overrides": {
     "glob": "^14.0.6",

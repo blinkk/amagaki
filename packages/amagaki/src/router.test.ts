@@ -70,3 +70,34 @@ test('AddRoute', async (t: ExecutionContext) => {
     t.deepEqual(content, html);
   }
 });
+
+test('Disable default-locale route while building localized routes (#111)', async (t: ExecutionContext) => {
+  const pod = new Pod('./.test/disableRootRoute/');
+  await pod.writeFileAsync(
+    '/content/_collection.yaml',
+    '$path: /${doc.basename}/\n$localization:\n  path: /${doc.locale.id}/${doc.basename}/\n  locales: [en, ja]\n'
+  );
+  await pod.writeFileAsync(
+    '/content/page.yaml',
+    '$path: false\n$view: /views/base.njk\ntitle: Hello\n'
+  );
+  await pod.writeFileAsync('/views/base.njk', '{{doc.fields.title}}');
+  try {
+    await pod.router.warmup();
+    t.falsy(await pod.router.resolve('/page/'));
+    t.truthy(await pod.router.resolve('/ja/page/'));
+  } finally {
+    await pod.deleteFileAsync('/content/_collection.yaml');
+    await pod.deleteFileAsync('/content/page.yaml');
+    await pod.deleteFileAsync('/views/base.njk');
+  }
+});
+
+test('Url reflects active pod environment (#191)', async (t: ExecutionContext) => {
+  const pod = new Pod('./fixtures/environment/');
+  await pod.router.warmup();
+  const doc = pod.doc('/content/index.njk');
+  t.is(doc.url?.toString(), 'http://localhost/');
+  pod.setEnvironment('prod');
+  t.is(doc.url?.toString(), 'https://prod.com/');
+});

@@ -59,7 +59,7 @@ export class Server extends events.EventEmitter {
       autoescape: true,
       express: app,
     });
-    app.all('/*', async (req: express.Request, res: express.Response) => {
+    app.use(async (req: express.Request, res: express.Response) => {
       try {
         const route = await this.pod.router.resolve(req.path);
         if (!route) {

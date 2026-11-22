@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "release": "esbuild ./src/index.ts --bundle --platform=node --target=node20 --minify --outfile=./dist/index.js",
+    "release": "esbuild ./src/index.ts --bundle --platform=node --target=node22 --minify --outfile=./dist/index.js",
     "build": "npm run release",
     "prepack": "npm run release",
     "prepublish": "npm run release",
@@ -28,13 +28,13 @@
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@types/validate-npm-package-name": "^4.0.2",
-    "commander": "^12.1.0",
+    "commander": "^15.1.0",
     "esbuild": "^0.28.2",
     "tar": "^7.5.23",
     "typescript": "^5.9.3",
-    "validate-npm-package-name": "^5.0.1"
+    "validate-npm-package-name": "^8.0.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }

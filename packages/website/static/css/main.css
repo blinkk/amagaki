@@ -917,9 +917,11 @@ a:hover {
   .hero {
     grid-template-columns: 1fr;
     gap: 24px;
+    padding: 0 0 32px;
   }
-  .hero__mark {
-    display: none;
+  .hero__mark img {
+    width: 240px;
+    max-width: 72%;
   }
 }
 
@@ -1098,11 +1100,31 @@ a:hover {
   }
 
   .home-shell {
-    padding: 28px 16px 48px;
+    padding: 20px 16px 48px;
+  }
+
+  .hero {
+    padding: 0 0 28px;
+    gap: 20px;
   }
 
   .hero__title {
-    font-size: 28px;
+    font-size: 26px;
+    margin: 0 0 12px;
+  }
+
+  .hero__body {
+    font-size: 15.5px;
+    margin: 0 0 20px;
+  }
+
+  .hero__mark img {
+    width: 220px;
+    max-width: 68%;
+  }
+
+  .home-section {
+    padding: 28px 0 0;
   }
 
   .feature-grid {

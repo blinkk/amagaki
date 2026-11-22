@@ -2,6 +2,11 @@ name: Release Please
 
 on:
   workflow_dispatch:
+    inputs:
+      publish_packages:
+        description: 'Optional comma-separated workspace paths to publish via OIDC (e.g. packages/amagaki,packages/create-amagaki)'
+        required: false
+        type: string
   push:
     branches:
       - main
@@ -9,18 +14,22 @@ on:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
+        if: ${{ inputs.publish_packages == '' }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v7
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
       - uses: actions/setup-node@v7
         with:
-          node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs.releases_created }}
+          node-version: '24'
+        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
       - name: Install and build packages
         run: |
           npm ci
@@ -28,20 +37,12 @@ jobs:
           npm run build -w packages/amagaki-plugin-page-builder
           npm run build -w packages/amagaki-engine-preact
           npm run build -w packages/create-amagaki
-        if: ${{ steps.release.outputs.releases_created }}
-      - run: npm publish -w packages/amagaki
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
-      - run: npm publish -w packages/amagaki-engine-preact
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
-      - run: npm publish -w packages/amagaki-plugin-page-builder
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] }}
-      - run: npm publish -w packages/create-amagaki
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        if: ${{ steps.release.outputs['packages/create-amagaki--release_created'] }}
+        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
+      - run: npm publish -w packages/amagaki --provenance --access public
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki,') }}
+      - run: npm publish -w packages/amagaki-engine-preact --provenance --access public
+        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-engine-preact,') }}
+      - run: npm publish -w packages/amagaki-plugin-page-builder --provenance --access public
+        if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-plugin-page-builder,') }}
+      - run: npm publish -w packages/create-amagaki --provenance --access public
+        if: ${{ steps.release.outputs['packages/create-amagaki--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/create-amagaki,') }}

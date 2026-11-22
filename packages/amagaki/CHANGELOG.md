@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0](https://github.com/blinkk/amagaki/compare/amagaki-v4.0.0...amagaki-v4.1.0) (2026-11-22)
+
+
+### Features
+
+* add zero-bundler examples/starter, point create-amagaki to it, and bust CSS cache for mobile drawer tabs ([#243](https://github.com/blinkk/amagaki/issues/243)) ([a79dca9](https://github.com/blinkk/amagaki/commit/a79dca9ad1ad78256b2699023dff3039e53eedfe))
+
+
+### Bug Fixes
+
+* **router:** use effective doc defaultLocale and add [#111](https://github.com/blinkk/amagaki/issues/111)/[#191](https://github.com/blinkk/amagaki/issues/191) regression tests ([#241](https://github.com/blinkk/amagaki/issues/241)) ([ebed748](https://github.com/blinkk/amagaki/commit/ebed748e4d99ec84cb2ca592a69266b12dae0d8e))
+
 ## [4.0.0](https://github.com/blinkk/amagaki/compare/amagaki-v3.1.2...amagaki-v4.0.0) (2025-11-20)
 
 

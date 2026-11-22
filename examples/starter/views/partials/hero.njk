@@ -1,0 +1,8 @@
+<section class="hero">
+  <h1>{{partial.title}}</h1>
+  <p class="hero__body">{{partial.body}}</p>
+  {% if partial.cta %}
+    {%- set ctaDoc = pod.doc(partial.cta.doc.podPath, doc.locale) -%}
+    <a class="button" href="{{ctaDoc.url.path}}">{{partial.cta.label}}</a>
+  {% endif %}
+</section>

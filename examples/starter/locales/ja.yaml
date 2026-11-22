@@ -1,0 +1,14 @@
+translations:
+  Home: ホーム
+  About: このサイトについて
+  Welcome to Amagaki: Amagaki へようこそ
+  A lightweight TypeScript static site generator with structured YAML content, Nunjucks templates, and built-in localization — no frontend bundler required.: 構造化された YAML コンテンツ、Nunjucks テンプレート、組み込みローカライズを備えた軽量な TypeScript 静的サイトジェネレーターです。
+  Read the About page: About ページを見る
+  Included in this starter: このスターターに含まれるもの
+  Structured content: 構造化コンテンツ
+  'Author pages in YAML and Markdown using built-in tags like !pod.doc and !pod.string.': '!pod.doc や !pod.string などの組み込みタグを使って YAML や Markdown でページを作成できます。'
+  Plain CSS & Nunjucks: プレーン CSS と Nunjucks
+  Zero Webpack, Sass, or Gulp boilerplate — add your own frontend tooling only if you want it.: Webpack・Sass・Gulp などのボイラープレートは不要です。必要なツールだけを追加できます。
+  Built-in localization: 組み込みローカライズ
+  Switch languages using the locale links in the header, backed by /locales/*.yaml.: ヘッダーの言語リンクから /locales/*.yaml に基づいた多言語ページへ切り替えられます。
+  Built with Amagaki.: Amagaki で構築されています。

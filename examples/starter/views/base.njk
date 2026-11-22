@@ -1,0 +1,48 @@
+{%- set site = pod.doc('/content/partials/site.yaml', doc.locale).fields -%}
+<!DOCTYPE html>
+<html lang="{{doc.locale.id}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if doc.fields.description %}<meta name="description" content="{{doc.fields.description}}">{% endif %}
+    <title>{{doc.fields.title}} — {{pod.meta.siteTitle}}</title>
+    <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-brand" href="{{pod.doc('/content/pages/index.yaml', doc.locale).url.path}}">{{pod.meta.siteTitle}}</a>
+        <nav class="site-nav" aria-label="Primary">
+          {% for item in site.nav %}
+            {%- set target = pod.doc(item.doc.podPath, doc.locale) -%}
+            <a class="site-nav__link{% if target.podPath == doc.podPath %} is-active{% endif %}" href="{{target.url.path}}">{{item.label}}</a>
+          {% endfor %}
+        </nav>
+        <div class="locale-switcher" aria-label="Language">
+          {% for loc in doc.locales %}
+            {%- set localized = pod.doc(doc.podPath, loc) -%}
+            <a class="locale-link{% if loc.id == doc.locale.id %} is-active{% endif %}" href="{{localized.url.path}}">{{loc.id | upper}}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </header>
+
+    <main class="container main-content">
+      {% if doc.fields.partials %}
+        {% for partial in doc.fields.partials %}
+          {% include "/views/partials/" + partial.partial + ".njk" %}
+        {% endfor %}
+      {% elif doc.body %}
+        <article class="prose">
+          {{doc.body | markdown | safe}}
+        </article>
+      {% endif %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span>{{site.footerText}}</span>
+      </div>
+    </footer>
+  </body>
+</html>

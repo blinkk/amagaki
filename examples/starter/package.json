@@ -1,0 +1,12 @@
+{
+  "name": "amagaki-starter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "amagaki serve",
+    "build": "amagaki build"
+  },
+  "dependencies": {
+    "@amagaki/amagaki": "^4.0.0"
+  }
+}

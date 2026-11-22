@@ -1,10 +1,10 @@
 :root {
-  --accent: #f97316;
-  --accent-dark: #ea580c;
+  --accent: #c2410c;
+  --accent-dark: #9a3412;
   --accent-soft: #fff7ed;
   --accent-border: #fed7aa;
-  --btn-primary: #22c55e;
-  --btn-primary-hover: #16a34a;
+  --btn-primary: #15803d;
+  --btn-primary-hover: #166534;
   --navy: #3b415e;
   --bg: #ffffff;
   --bg-subtle: #f8fafc;
@@ -40,6 +40,11 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.docs-content a:not(.button) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Maintenance mode notice bar */

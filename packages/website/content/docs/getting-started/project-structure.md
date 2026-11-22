@@ -17,10 +17,8 @@ object.
 
 {{button.button({
     label: 'Read Pod API Reference',
-    url: 'https://blinkk.github.io/amagaki/api/',
-    external: true,
-    class: 'button button--low',
-    icon: 'launch'
+    url: '/api/pod/',
+    icon: 'arrow_forward'
 })}}
 
 Throughout this manual, and throughout Amagaki functions, we always refer to

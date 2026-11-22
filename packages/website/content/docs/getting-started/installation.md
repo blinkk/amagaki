@@ -1,26 +1,34 @@
 ---
 title: Installation
 order: 0
+description: Install @amagaki/amagaki or create a new project with create-amagaki.
 ---
-# Install
+# Installation
 
-While we recommend using our quick start project as the foundation for getting
-started with Amagaki (as it comes with the nuts and bolts needed for building
-marketing sites beyond just the website build tool), you can also use Amagaki
-from scratch.
+Amagaki requires **Node.js 20 or higher**.
 
-{% filter codeTabs %}
-```shell
-npm install @amagaki/amagaki
+## Start from the starter template
 
-# Start the dev server.
+To scaffold a new site with the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter):
+
+```bash
+npx create-amagaki my-site
+cd my-site
+npm run dev
+```
+
+## Install directly
+
+To integrate Amagaki into an existing Node.js project or start from scratch:
+
+```bash
+npm install --save @amagaki/amagaki
+
+# Start the development server (default port 8080)
 npx amagaki serve
 
-# Build the site.
+# Build the static site to ./build/
 npx amagaki build
 ```
-{% endfilter %}
 
-Amagaki assumes a defaults project structure and will generate your site using
-the defaults, in absence of an amagaki.js configuration file. Learn more about
-the project structure.
+Amagaki uses sensible defaults even without an `amagaki.ts` file. See [Project structure](/docs/getting-started/project-structure/) and [Configuration](/docs/getting-started/configuration/) to customize your site.

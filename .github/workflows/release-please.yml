@@ -1,9 +1,11 @@
-name: 'Release Please'
+name: Release Please
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -16,20 +18,25 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs.releases_created }}
-      - run: npm install
+      - name: Install and build packages
+        run: |
+          npm ci
+          npm run build -w packages/amagaki
+          npm run build -w packages/amagaki-plugin-page-builder
+          npm run build -w packages/amagaki-engine-preact
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish -w packages/amagaki
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         if: ${{ steps.release.outputs['packages/amagaki--release_created'] }}
       - run: npm publish -w packages/amagaki-engine-preact
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] }}
       - run: npm publish -w packages/amagaki-plugin-page-builder
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] }}

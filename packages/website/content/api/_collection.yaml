@@ -1,0 +1,3 @@
+$path: /api/${doc.basename}/
+title: API Reference
+order: 0

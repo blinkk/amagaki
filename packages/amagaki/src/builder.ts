@@ -1,5 +1,5 @@
-import * as async from 'async';
-import * as cliProgress from 'cli-progress';
+import * as concurrency from './concurrency';
+import {ProgressBar} from './progress';
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as fsPath from 'path';
@@ -12,8 +12,8 @@ import {Route, StaticRoute} from './router';
 
 import {Pod} from './pod';
 import {TranslationString} from './string';
-import chalk from 'chalk';
-import minimatch from 'minimatch';
+import chalk from './ansi';
+import {minimatch} from 'minimatch';
 
 interface Artifact {
   tempPath: string;
@@ -282,17 +282,7 @@ export class Builder {
   }
 
   static createProgressBar(label: string) {
-    const isTTY = Boolean(process.env.TERM !== 'dumb' && process.stdin.isTTY);
-    const options: cliProgress.Options = {
-      format:
-        chalk.green(`${label} ({value}/{total}): `) +
-        '{bar} Total: {customDuration}',
-      noTTYOutput: isTTY,
-    };
-    return new cliProgress.SingleBar(
-      options,
-      cliProgress.Presets.shades_classic
-    );
+    return new ProgressBar(label);
   }
 
   async export(options: ExportOptions): Promise<BuildDiffPaths> {
@@ -376,7 +366,7 @@ export class Builder {
 
     // Copy adds and edits.
     const moveFiles = [...result.adds, ...result.edits];
-    await async.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
+    await concurrency.mapLimit(moveFiles, Builder.NumConcurrentCopies, async (filePath: string) => {
       const relativePath = filePath.replace(/^\//, '');
       const source = fsPath.join(buildDir, relativePath);
       const destination = fsPath.join(options.exportDir, relativePath);;
@@ -495,7 +485,7 @@ export class Builder {
     // Copy all static files and build all other routes.
     const errors: Error[] = [];
     const errorRoutes: Route[] = [];
-    await async.eachLimit(
+    await concurrency.eachLimit(
       createdPaths,
       Builder.NumConcurrentBuilds,
       async createdPath => {
@@ -574,7 +564,7 @@ export class Builder {
       });
     }
 
-    await async.mapLimit(
+    await concurrency.mapLimit(
       createdPaths,
       Builder.NumConcurrentCopies,
       async (createdPath: CreatedPath) => {

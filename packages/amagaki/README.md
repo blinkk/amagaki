@@ -1,70 +1,74 @@
 # Amagaki
 
-[![NPM Version][npm-image]][npm-url]
-[![GitHub Actions][github-image]][github-url]
-[![codecov][codecov-image]][codecov-url]
-[![TypeScript Style Guide][gts-image]][gts-url]
+[![npm version](https://img.shields.io/npm/v/@amagaki/amagaki.svg)](https://www.npmjs.com/package/@amagaki/amagaki)
+[![Run tests](https://github.com/blinkk/amagaki/actions/workflows/test-amagaki.yml/badge.svg)](https://github.com/blinkk/amagaki/actions/workflows/test-amagaki.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/blinkk/amagaki/blob/main/LICENSE.md)
 
-Amagaki is a marketing website generator. It's written in TypeScript and TS is a
-first-class citizen. It's specifically built for hand-coding marketing and
-informational websites. Flexible URLs, benchmarking, localization, a plugin
-system, and multiple template engines are all built-in.
+> [!NOTE]
+> **Maintenance mode:** Amagaki is actively maintained for existing sites with bug fixes and dependency updates, but for new projects we recommend <img src="https://amagaki.dev/static/images/rootjs-beet.svg" width="13" height="19" alt="" align="absmiddle">&nbsp;[**Root.js**](https://rootjs.dev) ([GitHub](https://github.com/blinkk/rootjs)) — our modern successor built with TypeScript, Preact/TSX, file routing, i18n, and a built-in CMS.
 
-Amagaki takes concepts from [Grow.dev](https://github.com/grow/grow) and evolves
-them to a TypeScript-first ecosystem.
+**Amagaki** is a TypeScript-based static site generator designed for hand-coding marketing and informational websites. It provides flexible URL routing, built-in localization, custom YAML types, an extensible plugin architecture, build profiling, and pluggable template engines.
 
-## [🍊 Start here with the documentation](https://amagaki.dev)
+Amagaki takes concepts from [Grow](https://grow.dev) and brings them to a TypeScript and Node.js ecosystem.
 
-## Key concepts
+## Documentation
 
-- TypeScript and Node
-- Minimal core dependencies
-- Inbuilt build metrics (memory usage, generated file size, routes, locales,
-  translations)
-- Multiple template languages (Nunjucks as default)
-- A static site generator (not a frontend framework)
-- Renders pages at request time (unlike other static generators which watch and rebuild)
-- Localization is an inbuilt feature
-- Custom YAML types for extending the content layer
-- Plugin system
-- Benchmarking inbuilt
+Read the full documentation and API reference at **[amagaki.dev](https://amagaki.dev)**.
 
-## Try it out
+## Key Features
 
-Amagaki is distributed as an npm package. When starting a new site from scratch,
-we recommend using `create-amagaki` which uses the official
-[`amagaki-starter`](https://github.com/blinkk/amagaki-starter).
+- **TypeScript & Node.js**: Write site configuration, plugins, and custom routes in TypeScript with minimal core dependencies.
+- **Data-driven content**: Author structured content in YAML and Markdown with built-in YAML constructors (`!pod.doc`, `!pod.collection`, `!pod.staticFile`, `!pod.string`, `!IfLocale`, `!IfEnvironment`).
+- **Pluggable template engines**: Ships with Nunjucks out of the box and supports registering custom template engines (such as Preact/TSX).
+- **On-demand dev server**: Renders pages on request during development instead of rebuilding the entire site on every edit.
+- **Built-in localization (i18n)**: Manage translatable strings, locale-scoped fields, and localized URLs natively.
+- **Extensible plugin system**: Hook into routing, YAML parsing, template engines, Express dev server middleware, and build lifecycle events.
+- **Built-in profiling**: Inspect memory usage, build times, route counts, and missing translation reports on every build.
 
-```shell
-# Create a new Amagaki project interactively
-npx create-amagaki
+## Requirements
 
-# Start the dev server
+- Node.js **20+**
+
+## Quick Start
+
+Scaffold a new project from the official [`amagaki-starter`](https://github.com/blinkk/amagaki-starter):
+
+```bash
+npx create-amagaki my-site
+cd my-site
 npm run dev
-
-# Build the site
-npm run build
 ```
 
-If you are integrating into an existing project, you can install Amagaki directly.
+Or install `@amagaki/amagaki` directly in an existing project:
 
-```shell
-# Install Amagaki
+```bash
 npm install --save @amagaki/amagaki
 ```
-## Benchmarks
 
-You can view the [benchmark
-history](https://blinkk.github.io/amagaki/benchmark/) that shows the benchmark
-metrics when running `amagaki build` against the
-[amagaki-benchmark](https://github.com/blinkk/amagaki-benchmark) test
-repository.
+### Common Commands
 
-[github-image]: https://github.com/blinkk/amagaki/workflows/Run%20tests/badge.svg
-[github-url]: https://github.com/blinkk/amagaki/actions
-[codecov-image]: https://codecov.io/gh/blinkk/amagaki/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/blinkk/amagaki
-[gts-image]: https://img.shields.io/badge/code%20style-google-blueviolet.svg
-[gts-url]: https://github.com/google/gts
-[npm-image]: https://img.shields.io/npm/v/@amagaki/amagaki.svg
-[npm-url]: https://npmjs.org/package/@amagaki/amagaki
+```bash
+npx amagaki serve             # Start the local development server (default port 8080)
+npx amagaki build             # Build the static site to ./build/
+npx amagaki --profile build   # Build and print detailed profiling tables
+npx amagaki export -o ./out   # Export a build to another directory with diff summary
+```
+
+## Development
+
+This monorepo uses npm workspaces, TypeScript, and AVA:
+
+```bash
+git clone https://github.com/blinkk/amagaki.git
+cd amagaki
+npm ci
+npm run build -w packages/amagaki
+npm run build -w packages/amagaki-plugin-page-builder
+npm run build -w packages/amagaki-engine-preact
+npm run build -w packages/create-amagaki
+npm test --workspaces
+```
+
+## License
+
+[MIT](https://github.com/blinkk/amagaki/blob/main/LICENSE.md)

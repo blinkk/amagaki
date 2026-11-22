@@ -2,18 +2,24 @@
 
 import * as fs from 'fs';
 
-import {Stream} from 'stream';
-import chalk from 'chalk';
+import {Readable} from 'stream';
+import {pipeline} from 'stream/promises';
 import {execSync} from 'child_process';
-import got from 'got';
-import parseGithubRepoUrl from 'parse-github-repo-url';
 import path from 'path';
-import {promisify} from 'util';
-import rimraf from 'rimraf';
-import tar from 'tar';
+import * as tar from 'tar';
 import validateProjectName from 'validate-npm-package-name';
 
-const pipeline = promisify(Stream.pipeline);
+const useColor =
+  Boolean(process.stdout.isTTY) && !('NO_COLOR' in process.env);
+
+const wrap = (code: number) => (s: string) =>
+  useColor ? `\x1b[${code}m${s}\x1b[39m` : s;
+
+export const ansi = {
+  cyan: wrap(36),
+  green: wrap(32),
+  red: wrap(31),
+};
 
 export interface GitHubRepoInfo {
   owner: string;
@@ -21,17 +27,37 @@ export interface GitHubRepoInfo {
   branch?: string;
 }
 
-export function downloadAndExtractRepo(
+export async function retry<T>(
+  fn: () => Promise<T>,
+  retries = 3
+): Promise<T> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+      if (attempt < retries) {
+        await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+      }
+    }
+  }
+  throw lastError;
+}
+
+export async function downloadAndExtractRepo(
   root: string,
   repo: GitHubRepoInfo
 ): Promise<void> {
-  // TODO: Support additional repo URL formats.
-  return pipeline(
-    got.stream(
-      `https://codeload.github.com/${repo.owner}/${repo.project}/tar.gz/${
-        repo.branch || 'main'
-      }`
-    ),
+  const url = `https://codeload.github.com/${repo.owner}/${
+    repo.project
+  }/tar.gz/${repo.branch || 'main'}`;
+  const res = await fetch(url);
+  if (!res.ok || !res.body) {
+    throw new Error(`Failed to download ${url}: HTTP ${res.status}`);
+  }
+  await pipeline(
+    Readable.fromWeb(res.body as any),
     tar.extract({
       cwd: root,
       strip: 1,
@@ -83,7 +109,7 @@ export function makeDir(root: string, options = {recursive: true}) {
 }
 
 export function installSync(root: string) {
-  const command = 'npm install --also=dev --no-fund --loglevel error';
+  const command = 'npm install --no-fund --loglevel error';
   return execSync(command, {
     stdio: 'inherit',
     cwd: root,
@@ -115,31 +141,35 @@ export function gitInit(root: string): boolean {
   } catch (e) {
     if (initted) {
       try {
-        rimraf.sync(path.join(root, '.git'));
+        fs.rmSync(path.join(root, '.git'), {recursive: true, force: true});
       } catch (_) {}
     }
     return false;
   }
 }
 
-export function getRepo(url: string) {
-  // TODO: Support additional repo URL formats.
+export function getRepo(url: string): GitHubRepoInfo {
   const repoUrl = new URL(url);
   if (repoUrl.origin !== 'https://github.com') {
     throw new Error(
-      `Invalid URL: ${chalk.red(
+      `Invalid URL: ${ansi.red(
         `"${url}"`
-      )}. Only GitHub repositories are supported. Please use a GitHub URL starting and try again.`
+      )}. Only GitHub repositories are supported. Please use a GitHub URL and try again.`
     );
   }
-  const result = parseGithubRepoUrl(repoUrl.toString());
-  if (!result) {
+  const parts = repoUrl.pathname
+    .replace(/^\/+|\/+$/g, '')
+    .replace(/\.git$/, '')
+    .split('/');
+  if (parts.length < 2 || !parts[0] || !parts[1]) {
     throw new Error(`Unable to parse GitHub details from URL: ${repoUrl}`);
   }
+  const branch =
+    parts[2] === 'tree' && parts[3] ? parts.slice(3).join('/') : undefined;
   return {
-    owner: result[0],
-    project: result[1],
-    branch: result[2],
+    owner: parts[0],
+    project: parts[1],
+    branch,
   };
 }
 
@@ -149,5 +179,5 @@ export async function cleanInstalledStarter(root: string, name: string) {
   const jsonData = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   delete jsonData.repository;
   jsonData.name = name;
-  await fs.writeFileSync(packageJsonPath, JSON.stringify(jsonData, null, 2));
+  fs.writeFileSync(packageJsonPath, JSON.stringify(jsonData, null, 2));
 }

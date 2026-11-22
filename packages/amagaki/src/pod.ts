@@ -27,7 +27,7 @@ import {RouterPlugin} from './plugins/router';
 import {ServerPlugin} from './plugins/server';
 import {StaticFile} from './staticFile';
 import {TemplateEngineManager} from './templateEngine';
-import chalk from 'chalk';
+import chalk from './ansi';
 
 export type TypeScriptLoader =
   | 'sucrase'

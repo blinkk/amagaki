@@ -1,41 +1,69 @@
 ---
 title: CLI
 order: 5
+description: Reference for the amagaki CLI commands (serve, build, export) and options.
 ---
 # CLI
 
-The `@amagaki/amagaki` package provides a command line interface (CLI) program.
-All commands should be invoked from your pod's root directory. You can invoke
-the `amagaki` command easily using `npx`.
+The `@amagaki/amagaki` package ships with the `amagaki` CLI. Run commands from your pod's root directory (or pass an optional `[root]` path) via `npx amagaki`.
 
-There are two commands:
+## Global options
 
-- `build`
-- `serve`
+Pass global flags **before** the subcommand:
 
-## build
+| Flag | Description |
+| --- | --- |
+| `-V, --version` | Print the installed `@amagaki/amagaki` version. |
+| `--profile` | Print build/template/route profiling tables when the command finishes. |
+| `-e, --env <name>` | Activate a named environment defined in `amagaki.ts` (e.g. `prod`, `staging`). |
 
-{% filter codeTabs %}
-```shell
-npx amagaki build
+```bash
+npx amagaki --profile -e prod build
 ```
-{% endfilter %}
 
-The `build` command is used to build the HTML and collect static file
-dependencies for your site.
+## `serve [root]`
 
-When building the site, Amagaki will walk all content, generate routes, render
-HTML, and copy static files to the specified output paths. The deployed fileset
-will contain everything needed to deploy your static site.
+Starts the local Express development server. Pages render on demand at request time and reset their cache automatically when content, templates, plugins, or `amagaki.ts` change.
 
-## serve
+| Option | Default | Description |
+| --- | --- | --- |
+| `-p, --port <number>` | `8080` | Port to listen on (automatically increments if already in use). |
 
-{% filter codeTabs %}
-```shell
+```bash
 npx amagaki serve
+npx amagaki serve --port 3000
 ```
-{% endfilter %}
 
-The `serve` command starts the Amagaki dev server. The Amagaki dev server builds
-pages on the fly at request time (and caches the result, until the underlying
-filesystem is changed).
+## `build [root]`
+
+Walks all content, resolves routes, renders documents, copies static files, and writes a manifest (`.amagaki/manifest.json`) to `./build/`.
+
+| Option | Description |
+| --- | --- |
+| `-p, --pattern <patterns...>` | Glob pattern(s) for an incremental build of matching pod paths only. |
+| `-l, --write-locales` | Write missing translation strings per locale to `./build/.amagaki/locales/`. |
+
+```bash
+# Full build
+npx amagaki build
+
+# Incremental build for specific content files
+npx amagaki build -p '/content/pages/about.yaml'
+
+# Build with profiling and missing translation export
+npx amagaki --profile build --write-locales
+```
+
+## `export [root]`
+
+Copies a completed build directory to another output directory (such as a deployment checkout), adding new/modified files and deleting stale files tracked by the build manifest.
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `-o, --exportDir <path>` | *(required)* | Target directory to export files into. |
+| `-b, --buildDir <path>` | `build` | Source build directory relative to the pod root. |
+| `-c, --exportControlDir <path>` | *(same as exportDir)* | Optional directory for storing the export control manifest. |
+
+```bash
+npx amagaki export -o ./dist-deploy
+```

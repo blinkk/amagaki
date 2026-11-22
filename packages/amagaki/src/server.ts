@@ -9,7 +9,7 @@ import {StaticRoute} from './router';
 
 import {debounce} from './utils';
 import express = require('express');
-import chalk from 'chalk';
+import chalk from './ansi';
 import compression from 'compression';
 
 interface ServerOptions {
@@ -21,11 +21,16 @@ export interface ServerListeningEvent {
   server: Server;
 }
 
+export interface ServerWatcher {
+  close(): Promise<void>;
+  on(event: string, listener: (...args: any[]) => void): any;
+}
+
 export class Server extends events.EventEmitter {
   private pod: Pod;
   private httpServer?: http.Server;
   port: number;
-  watcher?: chokidar.FSWatcher;
+  watcher?: ServerWatcher;
 
   static AUTORELOAD_PATHS_REGEX = /^\/amagaki.(j|t)s$|^\/plugins/;
   static CLEAR_MODULE_CACHE_PATH_REGEX = /.*.js$|.*ts$|.*tsx$|.*jsx$/;
@@ -174,7 +179,8 @@ export class Server extends events.EventEmitter {
   watch() {
     this.watcher = chokidar.watch(this.pod.root, {
       cwd: this.pod.root,
-      ignored: ['**/node_modules/**', '**/.git/**', '**/dist/**', '**/build/**'],
+      ignored: (filePath: string) =>
+        /(^|[\\/])(node_modules|\.git|dist|build)([\\/]|$)/.test(filePath),
       ignoreInitial: true,
     });
 
@@ -228,6 +234,13 @@ export class Server extends events.EventEmitter {
 
   /** Stops the web server. */
   async stop() {
+    if (this.watcher) {
+      await this.watcher.close();
+      this.watcher = undefined;
+    }
+    if (!this.httpServer) {
+      return;
+    }
     return new Promise<void>((resolve, reject) => {
       this.httpServer?.close(err => {
         err ? reject(err) : resolve();

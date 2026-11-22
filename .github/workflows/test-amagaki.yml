@@ -1,7 +1,12 @@
-name: "Run tests"
+name: Run tests
+
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,16 +14,21 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '16'
-      - name: Run npm tests
+          node-version: '22'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build packages
         run: |
-          npm install -w packages/amagaki
-          npm install
-          npm test --workspaces
-      - name: Run external tests
+          npm run build -w packages/amagaki
+          npm run build -w packages/amagaki-plugin-page-builder
+          npm run build -w packages/amagaki-engine-preact
+          npm run build -w packages/create-amagaki
+      - name: Run unit tests
+        run: npm test --workspaces
+      - name: Run external package tests
         working-directory: packages/amagaki/tests
-        run: |
-          ./runAll.sh
+        run: ./runAll.sh
       - name: Archive npm failure logs
         uses: actions/upload-artifact@v4
         if: failure()

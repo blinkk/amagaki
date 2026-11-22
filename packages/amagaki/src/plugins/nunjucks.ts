@@ -50,7 +50,7 @@ export class NunjucksBuiltInFilters {
     if (!value) {
       return '';
     }
-    return marked.parse(value);
+    return marked.parse(value, {async: false}) as string;
   }
 
   /**

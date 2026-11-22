@@ -1,4 +1,4 @@
-import Table = require('cli-table');
+import {SimpleTable as Table} from './table';
 
 import {performance} from 'perf_hooks';
 

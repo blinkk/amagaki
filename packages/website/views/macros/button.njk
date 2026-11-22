@@ -2,7 +2,8 @@
 {%- set href = pod.doc(options.doc).url.path if options.doc else options.url -%}
 {%- set isExternal = href and (href.startsWith('http://') or href.startsWith('https://')) -%}
 {%- set isPrimary = options.variant == 'primary' or (options.class and 'button--high' in options.class) -%}
-<a class="button{% if not isPrimary %} button--secondary{% endif %}" href="{{href}}"{% if isExternal %} target="_blank" rel="noopener"{% endif %}>
+{%- set isTertiary = options.variant == 'tertiary' -%}
+<a class="button{% if isTertiary %} button--tertiary{% elif not isPrimary %} button--secondary{% endif %}" href="{{href}}"{% if isExternal %} target="_blank" rel="noopener"{% endif %}>
   <span>{{options.label}}</span>
   {%- if options.icon == 'launch' or isExternal -%}
   <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg>

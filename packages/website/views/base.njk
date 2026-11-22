@@ -93,7 +93,16 @@
             <p class="hero__body">{{doc.fields.hero.body}}</p>
             <div class="hero__actions">
               {% for btn in doc.fields.hero.buttons %}
-                {{button.button(btn)}}
+                {% if btn.variant != 'tertiary' %}
+                  {{button.button(btn)}}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="hero__tertiary">
+              {% for btn in doc.fields.hero.buttons %}
+                {% if btn.variant == 'tertiary' %}
+                  {{button.button(btn)}}
+                {% endif %}
               {% endfor %}
             </div>
           </div>

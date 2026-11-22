@@ -15,6 +15,8 @@ hero:
       url: /api/
     - label: Explore the starter
       doc: /content/docs/getting-started/starter-project.md
+      icon: arrow_forward
+      variant: tertiary
 
 quickstart:
   title: Quick start

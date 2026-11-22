@@ -166,17 +166,6 @@
             {% endfor %}
           {% endfor %}
 
-          <div class="sidebar__badges">
-            <a href="https://www.npmjs.com/package/@amagaki/amagaki" target="_blank" rel="noopener">
-              <img src="https://img.shields.io/npm/v/@amagaki/amagaki.svg?style=flat" alt="npm version">
-            </a>
-            <a href="https://github.com/blinkk/amagaki/actions/workflows/test-amagaki.yml" target="_blank" rel="noopener">
-              <img src="https://img.shields.io/github/actions/workflow/status/blinkk/amagaki/test-amagaki.yml?branch=main&amp;label=CI&amp;style=flat" alt="CI status">
-            </a>
-            <a href="https://github.com/blinkk/amagaki/blob/main/LICENSE.md" target="_blank" rel="noopener">
-              <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License">
-            </a>
-          </div>
         </aside>
 
         <main class="docs-content" role="main">
@@ -244,7 +233,11 @@
               <ul class="site-footer__list">
                 <li><a class="site-footer__eco-link" href="https://rootjs.dev" target="_blank" rel="noopener"><img class="site-footer__eco-icon" src="{{pod.staticFile('/static/images/rootjs-beet.svg').url.path}}" alt="" width="15" height="15">Root.js</a></li>
                 <li><a class="site-footer__eco-link" href="https://grow.dev" target="_blank" rel="noopener"><img class="site-footer__eco-icon" src="{{pod.staticFile('/static/images/grow.png').url.path}}" alt="" width="15" height="15">Grow</a></li>
-                <li><a class="site-footer__eco-link" href="https://www.npmjs.com/package/@amagaki/amagaki" target="_blank" rel="noopener"><svg class="site-footer__eco-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z"/></svg>npm</a></li>
+                <li class="site-footer__eco-badge">
+                  <a href="https://www.npmjs.com/package/@amagaki/amagaki" target="_blank" rel="noopener">
+                    <img src="https://img.shields.io/npm/v/@amagaki/amagaki.svg?style=flat" alt="npm version">
+                  </a>
+                </li>
               </ul>
             </div>
           </nav>

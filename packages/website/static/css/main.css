@@ -443,6 +443,19 @@ a:hover {
   background: var(--bg-subtle);
 }
 
+.feature-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
 .feature-card h3 {
   font-size: 16px;
   font-weight: 700;

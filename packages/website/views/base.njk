@@ -176,6 +176,38 @@
           <div class="feature-grid">
             {% for feat in doc.fields.features.items %}
               <div class="feature-card">
+                {% if feat.icon %}
+                <div class="feature-card__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    {% if feat.icon == 'gauge' %}
+                      <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                      <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                      <path d="M13.41 10.59l2.59 -2.59" />
+                      <path d="M7 12a5 5 0 0 1 5 -5" />
+                    {% elif feat.icon == 'code' %}
+                      <path d="M7 8l-4 4l4 4" />
+                      <path d="M17 8l4 4l-4 4" />
+                      <path d="M14 4l-4 16" />
+                    {% elif feat.icon == 'puzzle' %}
+                      <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
+                    {% elif feat.icon == 'plug' %}
+                      <path d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z" />
+                      <path d="M4 20l3.5 -3.5" />
+                      <path d="M15 4l-3.5 3.5" />
+                      <path d="M20 9l-3.5 3.5" />
+                    {% elif feat.icon == 'language' %}
+                      <path d="M4 5h7" />
+                      <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+                      <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
+                      <path d="M12 20l4 -9l4 9" />
+                      <path d="M19.1 18h-6.2" />
+                    {% elif feat.icon == 'layers-intersect' %}
+                      <path d="M8 4m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+                      <path d="M4 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+                    {% endif %}
+                  </svg>
+                </div>
+                {% endif %}
                 <h3>{{feat.title}}</h3>
                 <p>{{feat.body|render|safe}}</p>
               </div>

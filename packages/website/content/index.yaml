@@ -44,17 +44,23 @@ quickstart:
 features:
   title: Key features
   items:
-    - title: Built-in build profiling
+    - icon: gauge
+      title: Built-in build profiling
       body: Every build tracks memory usage, output sizes, route counts, and missing translations, with detailed per-template and per-route timing tables via <code>--profile</code>.
-    - title: Plain HTML, CSS, and TypeScript
+    - icon: code
+      title: Plain HTML, CSS, and TypeScript
       body: Focus on templates, styling, and content architecture without heavy frontend framework boilerplate or opaque build pipelines.
-    - title: Not a frontend framework
+    - icon: puzzle
+      title: Not a frontend framework
       body: Amagaki generates plain static files. Pair it with vanilla JS, Web Components, Preact, or any frontend tooling you choose.
-    - title: Extensible in TypeScript
+    - icon: plug
+      title: Extensible in TypeScript
       body: Configure routes, custom YAML types, template filters, Express dev-server middleware, and build hooks directly in <code>amagaki.ts</code>.
-    - title: First-class localization
+    - icon: language
+      title: First-class localization
       body: Define site, collection, and document locales natively, resolve localized fields with <code>!IfLocale</code>, and manage translatable strings with <code>!pod.string</code>.
-    - title: Structured content layer
+    - icon: layers-intersect
+      title: Structured content layer
       body: Model repeatable collections, partial modules, and cross-document references in YAML and Markdown without hardcoding URLs.
 
 sections:

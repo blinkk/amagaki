@@ -236,12 +236,12 @@ export class CollectionRouteProvider extends RouteProvider {
         return;
       }
 
-      // Add base doc.
-      addRoute(doc.podPath);
+      // Add base doc using its effective default locale.
+      addRoute(doc.podPath, doc.defaultLocale);
 
       // Add localized docs.
       doc.locales.forEach((locale: Locale) => {
-        if (locale !== doc.defaultLocale) {
+        if (locale.id !== doc.defaultLocale.id) {
           addRoute(doc.podPath, locale);
         }
       });

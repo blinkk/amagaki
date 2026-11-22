@@ -28,7 +28,7 @@
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@types/validate-npm-package-name": "^4.0.2",
-    "commander": "^12.1.0",
+    "commander": "^15.1.0",
     "esbuild": "^0.28.2",
     "tar": "^7.5.23",
     "typescript": "^5.9.3",

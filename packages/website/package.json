@@ -10,9 +10,9 @@
   },
   "private": true,
   "scripts": {
-    "build": "npx amagaki build",
-    "dev": "npx amagaki serve",
-    "start": "npx amagaki serve",
+    "build": "node ../amagaki/dist/src/cli.js build",
+    "dev": "node ../amagaki/dist/src/cli.js serve",
+    "start": "node ../amagaki/dist/src/cli.js serve",
     "test": ""
   },
   "dependencies": {

@@ -195,5 +195,29 @@ export default (pod: Pod) => {
           '',
         ].join('\n'),
     });
+
+    provider.addRoute({
+      urlPath: '/404.html',
+      contentType: 'text/html; charset=utf-8',
+      build: async () => {
+        const nunjucksEngine = pod.engines.getEngineByExtension(
+          '.njk'
+        ) as NunjucksTemplateEngine;
+        return nunjucksEngine.env.render('views/404.njk', {
+          pod,
+          doc: {
+            fields: {
+              title: 'Page not found',
+              description: 'The requested page could not be found on Amagaki.',
+              layout: '404',
+              noindex: true,
+            },
+            locale: pod.defaultLocale,
+            url: {path: '/404.html'},
+            podPath: '/404.html',
+          },
+        });
+      },
+    });
   });
 };

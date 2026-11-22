@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{pageDesc}}">
+    {% if doc.fields.noindex %}<meta name="robots" content="noindex">{% endif %}
     <link rel="canonical" href="{{canonicalUrl}}">
     <meta property="og:type" content="{% if isHome %}website{% else %}article{% endif %}">
     <meta property="og:site_name" content="{{pod.meta.siteTitle}}">
@@ -118,7 +119,7 @@
 
     <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
 
-    {% if isHome %}
+    {% if isHome or doc.fields.layout == '404' %}
       <nav class="docs-sidebar docs-sidebar--drawer-only" id="docs-sidebar" aria-label="Documentation">
         <div class="sidebar__mobile-header">
           <span>Navigation</span>
@@ -136,6 +137,7 @@
         {% endfor %}
       </nav>
 
+      {% block main %}
       <main class="home-shell" role="main">
         <section class="hero">
           <div class="hero__content">
@@ -226,6 +228,7 @@
           {% endfor %}
         {% endif %}
       </main>
+      {% endblock %}
     {% else %}
       <div class="docs-shell">
         <nav class="docs-sidebar" id="docs-sidebar" aria-label="Documentation">

@@ -51,7 +51,7 @@
     "@types/node": "^22.10.0",
     "@types/nunjucks": "^3.2.6",
     "ava": "^6.4.1",
-    "get-port": "^5.1.1",
+    "get-port": "^7.2.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {

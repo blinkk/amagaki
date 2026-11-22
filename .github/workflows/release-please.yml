@@ -21,15 +21,15 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
-        if: ${{ inputs.publish_packages == '' }}
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.publish_packages != '') }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v7
-        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
+        if: ${{ steps.release.outputs.releases_created == 'true' || (github.event_name == 'workflow_dispatch' && inputs.publish_packages != '') }}
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
-        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
+        if: ${{ steps.release.outputs.releases_created == 'true' || (github.event_name == 'workflow_dispatch' && inputs.publish_packages != '') }}
       - name: Install and build packages
         run: |
           npm ci
@@ -37,12 +37,12 @@ jobs:
           npm run build -w packages/amagaki-plugin-page-builder
           npm run build -w packages/amagaki-engine-preact
           npm run build -w packages/create-amagaki
-        if: ${{ steps.release.outputs.releases_created || inputs.publish_packages != '' }}
+        if: ${{ steps.release.outputs.releases_created == 'true' || (github.event_name == 'workflow_dispatch' && inputs.publish_packages != '') }}
       - run: npm publish -w packages/amagaki --provenance --access public
-        if: ${{ steps.release.outputs['packages/amagaki--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki,') }}
+        if: ${{ steps.release.outputs['packages/amagaki--release_created'] == 'true' || (github.event_name == 'workflow_dispatch' && contains(format(',{0},', inputs.publish_packages), ',packages/amagaki,')) }}
       - run: npm publish -w packages/amagaki-engine-preact --provenance --access public
-        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-engine-preact,') }}
+        if: ${{ steps.release.outputs['packages/amagaki-engine-preact--release_created'] == 'true' || (github.event_name == 'workflow_dispatch' && contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-engine-preact,')) }}
       - run: npm publish -w packages/amagaki-plugin-page-builder --provenance --access public
-        if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-plugin-page-builder,') }}
+        if: ${{ steps.release.outputs['packages/amagaki-plugin-page-builder--release_created'] == 'true' || (github.event_name == 'workflow_dispatch' && contains(format(',{0},', inputs.publish_packages), ',packages/amagaki-plugin-page-builder,')) }}
       - run: npm publish -w packages/create-amagaki --provenance --access public
-        if: ${{ steps.release.outputs['packages/create-amagaki--release_created'] || contains(format(',{0},', inputs.publish_packages), ',packages/create-amagaki,') }}
+        if: ${{ steps.release.outputs['packages/create-amagaki--release_created'] == 'true' || (github.event_name == 'workflow_dispatch' && contains(format(',{0},', inputs.publish_packages), ',packages/create-amagaki,')) }}

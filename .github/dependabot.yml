@@ -5,6 +5,11 @@ updates:
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 5
+    ignore:
+      # Avoid breaking major-version migrations (e.g. TypeScript 7, js-yaml 5)
+      # while keeping minor/patch and security updates active.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       npm-dependencies:
         patterns:

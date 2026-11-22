@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@types/compression": "^1.7.5",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.6",
     "@types/express-serve-static-core": "^4.19.6",
     "@types/js-yaml": "^4.0.9",
     "@types/mime-types": "^2.1.4",
@@ -59,7 +59,7 @@
     "commander": "^12.1.0",
     "compression": "^1.7.5",
     "esbuild-register": "^3.6.0",
-    "express": "^4.22.3",
+    "express": "^5.3.0",
     "glob": "^14.0.6",
     "isomorphic-git": "^1.27.1",
     "jiti": "^1.21.7",

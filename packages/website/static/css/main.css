@@ -324,6 +324,19 @@ a:hover {
   color: var(--btn-primary-hover);
 }
 
+.button--tertiary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--navy);
+  padding: 6px 4px;
+}
+
+.button--tertiary:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent);
+}
+
 /* Home page layout */
 .docs-sidebar--drawer-only {
   display: none;
@@ -368,6 +381,14 @@ a:hover {
 }
 
 .hero__actions .button {
+  margin-top: 0;
+}
+
+.hero__tertiary {
+  margin-top: 10px;
+}
+
+.hero__tertiary .button {
   margin-top: 0;
 }
 

@@ -32,7 +32,7 @@ jobs:
           npm run build -w packages/amagaki
           npm run build -w packages/website
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./packages/website/build
 

@@ -342,6 +342,10 @@ a:hover {
   color: var(--accent);
 }
 
+.docs-content .button {
+  margin: 4px 0 20px;
+}
+
 /* Home page layout */
 .docs-sidebar--drawer-only {
   display: none;

@@ -3,15 +3,65 @@
 {%- set isApi = doc.podPath.startsWith('/content/api/') -%}
 {%- set isDocs = doc.podPath.startsWith('/content/docs/') -%}
 {%- set sidebarRoot = '/content/api' if isApi else '/content/docs' -%}
+{%- set pageTitle = (doc.fields.title ~ ' — ' ~ pod.meta.siteTitle) if (doc.fields.title and doc.fields.include_site_title !== false) else (doc.fields.title or pod.meta.siteTitle) -%}
+{%- set pageDesc = doc.fields.description or 'Amagaki is a lightweight, extensible TypeScript static site generator with structured YAML/Markdown content, Nunjucks templates, and built-in localization.' -%}
+{%- set canonicalUrl = 'https://amagaki.dev' ~ (doc.url.path if doc.url else '/') -%}
 <!DOCTYPE html>
 <html lang="{{doc.locale.id}}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% if doc.fields.description %}<meta name="description" content="{{doc.fields.description}}">{% endif %}
+    <meta name="description" content="{{pageDesc}}">
+    <link rel="canonical" href="{{canonicalUrl}}">
+    <meta property="og:type" content="{% if isHome %}website{% else %}article{% endif %}">
+    <meta property="og:site_name" content="{{pod.meta.siteTitle}}">
+    <meta property="og:title" content="{{pageTitle}}">
+    <meta property="og:description" content="{{pageDesc}}">
+    <meta property="og:url" content="{{canonicalUrl}}">
+    <meta property="og:image" content="https://amagaki.dev{{pod.staticFile('/static/images/hero-illustration.webp').url.path}}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{pageTitle}}">
+    <meta name="twitter:description" content="{{pageDesc}}">
     <link rel="icon" type="image/svg+xml" href="{{pod.staticFile('/static/images/amagaki.svg').url.path}}">
-    <title>{% if doc.fields.title %}{{doc.fields.title}}{% if doc.fields.include_site_title !== false %} — {{pod.meta.siteTitle}}{% endif %}{% else %}{{pod.meta.siteTitle}}{% endif %}</title>
+    <title>{{pageTitle}}</title>
     <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}?v={{pod.staticFile('/static/css/main.css').fingerprint}}">
+    <script type="application/ld+json">
+      {% if isHome %}
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Amagaki",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Linux, Windows",
+        "url": "https://amagaki.dev/",
+        "description": "{{pageDesc}}",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": {
+          "@type": "Organization",
+          "name": "Blinkk",
+          "url": "https://blinkk.com/"
+        }
+      }
+      {% else %}
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "{{doc.fields.title or pod.meta.siteTitle}}",
+        "description": "{{pageDesc}}",
+        "url": "{{canonicalUrl}}",
+        "author": {
+          "@type": "Organization",
+          "name": "Blinkk",
+          "url": "https://blinkk.com/"
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Amagaki",
+          "url": "https://amagaki.dev/"
+        }
+      }
+      {% endif %}
+    </script>
   </head>
   <body class="{% if isHome %}page-home{% else %}page-docs{% endif %}">
     <header class="topbar">
@@ -69,7 +119,7 @@
     <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
 
     {% if isHome %}
-      <aside class="docs-sidebar docs-sidebar--drawer-only" id="docs-sidebar" role="navigation" aria-label="Documentation">
+      <nav class="docs-sidebar docs-sidebar--drawer-only" id="docs-sidebar" aria-label="Documentation">
         <div class="sidebar__mobile-header">
           <span>Navigation</span>
           <button type="button" class="nav-close" id="nav-close" aria-label="Close navigation">&times;</button>
@@ -84,7 +134,7 @@
             <a class="sidebar__link" href="{{item.url.path}}">{{item.fields.title}}</a>
           {% endfor %}
         {% endfor %}
-      </aside>
+      </nav>
 
       <main class="home-shell" role="main">
         <section class="hero">
@@ -107,7 +157,7 @@
             </div>
           </div>
           <div class="hero__mark">
-            <img src="{{pod.staticFile('/static/images/hero-illustration.webp').url.path}}" alt="Amagaki illustration" width="340" height="340">
+            <img src="{{pod.staticFile('/static/images/hero-illustration.webp').url.path}}" alt="Amagaki illustration" width="340" height="340" fetchpriority="high">
           </div>
         </section>
 
@@ -146,7 +196,7 @@
       </main>
     {% else %}
       <div class="docs-shell">
-        <aside class="docs-sidebar" id="docs-sidebar" role="navigation" aria-label="Documentation">
+        <nav class="docs-sidebar" id="docs-sidebar" aria-label="Documentation">
           <div class="sidebar__mobile-header">
             <span>{% if isApi %}API Reference{% else %}Documentation{% endif %}</span>
             <button type="button" class="nav-close" id="nav-close" aria-label="Close navigation">&times;</button>
@@ -166,7 +216,7 @@
             {% endfor %}
           {% endfor %}
 
-        </aside>
+        </nav>
 
         <main class="docs-content" role="main">
           {{doc.body|render|markdown|highlightCode|safe}}
@@ -235,7 +285,7 @@
                 <li><a class="site-footer__eco-link" href="https://grow.dev" target="_blank" rel="noopener"><img class="site-footer__eco-icon" src="{{pod.staticFile('/static/images/grow.png').url.path}}" alt="" width="15" height="15">Grow</a></li>
                 <li class="site-footer__eco-badge">
                   <a href="https://www.npmjs.com/package/@amagaki/amagaki" target="_blank" rel="noopener">
-                    <img src="https://img.shields.io/npm/v/@amagaki/amagaki.svg?style=flat" alt="npm version">
+                    <img src="https://img.shields.io/npm/v/@amagaki/amagaki.svg?style=flat" alt="npm version" width="80" height="20">
                   </a>
                 </li>
               </ul>

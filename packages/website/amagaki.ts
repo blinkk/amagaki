@@ -131,4 +131,69 @@ export default (pod: Pod) => {
       },
     });
   });
+
+  // Generate sitemap.xml, robots.txt, and llms.txt for SEO & AEO.
+  pod.router.addRoutes('seo', async provider => {
+    provider.addRoute({
+      urlPath: '/sitemap.xml',
+      contentType: 'application/xml; charset=utf-8',
+      build: async () => {
+        const docs = pod.docs(['/content/**/*.yaml', '/content/**/*.md']);
+        const urls = docs
+          .map(d => d.url?.path)
+          .filter((p): p is string => Boolean(p))
+          .sort();
+        const items = urls
+          .map(u => `  <url><loc>https://amagaki.dev${u}</loc></url>`)
+          .join('\n');
+        return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items}\n</urlset>\n`;
+      },
+    });
+
+    provider.addRoute({
+      urlPath: '/robots.txt',
+      contentType: 'text/plain; charset=utf-8',
+      build: async () =>
+        'User-agent: *\nAllow: /\n\nSitemap: https://amagaki.dev/sitemap.xml\n',
+    });
+
+    provider.addRoute({
+      urlPath: '/llms.txt',
+      contentType: 'text/plain; charset=utf-8',
+      build: async () =>
+        [
+          '# Amagaki',
+          '',
+          '> Amagaki is a lightweight, extensible TypeScript static site generator with structured YAML/Markdown content, Nunjucks templates, and built-in localization. Created by Blinkk.',
+          '',
+          'Note: Amagaki is in maintenance mode. For new projects, Blinkk recommends [Root.js](https://rootjs.dev).',
+          '',
+          '## Quick Start',
+          '',
+          '```bash',
+          'npm init amagaki',
+          '```',
+          '',
+          '## Documentation',
+          '',
+          '- [Home](https://amagaki.dev/)',
+          '- [Docs](https://amagaki.dev/docs/)',
+          '- [Installation](https://amagaki.dev/docs/getting-started/installation/)',
+          '- [Starter Project](https://amagaki.dev/docs/getting-started/starter-project/)',
+          '- [CLI](https://amagaki.dev/docs/getting-started/cli/)',
+          '- [Templates](https://amagaki.dev/docs/templates/)',
+          '- [Plugins](https://amagaki.dev/docs/plugins/)',
+          '- [Localization](https://amagaki.dev/docs/localization/)',
+          '- [API Reference](https://amagaki.dev/api/)',
+          '',
+          '## Links',
+          '',
+          '- GitHub: https://github.com/blinkk/amagaki',
+          '- npm: https://www.npmjs.com/package/@amagaki/amagaki',
+          '- Releases: https://github.com/blinkk/amagaki/releases',
+          '- Ecosystem: [Root.js](https://rootjs.dev), [Grow](https://grow.dev)',
+          '',
+        ].join('\n'),
+    });
+  });
 };

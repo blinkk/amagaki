@@ -92,18 +92,17 @@ automatically create changelogs, releases, and versions.
 
 ### Getting started
 
-Note: Node version 10 or higher is required. We recommend using
-[nvm](https://github.com/nvm-sh/nvm#installing-and-updating) to manage Node
-versions on your system.
+Note: Node.js **20+** is required.
 
 1. Clone this project.
-2. Run `npm install`.
-3. Run `npm run dev` in one Terminal to start the watcher. The watcher invokes
-   the TypeScript compiler when code is changed.
-4. Run `node ./dist/src/cli.js` to invoke the CLI from the local project
-   directory.
-5. Run `node ./dist/src/cli.js build example` to test building the included
-   example site.
+2. Run `npm ci`.
+3. Build all workspace packages:
+   - `npm run build -w packages/amagaki`
+   - `npm run build -w packages/amagaki-plugin-page-builder`
+   - `npm run build -w packages/amagaki-engine-preact`
+   - `npm run build -w packages/create-amagaki`
+4. Run the test suite across workspaces with `npm test --workspaces`.
+5. Run `node ./packages/amagaki/dist/src/cli.js build examples/starter` to test building the included starter site.
 
 ### Running against other sites locally
 

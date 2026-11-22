@@ -1,8 +1,8 @@
 # Create Amagaki
 
 Create Amagaki sites using a minimal CLI that sets the project up for you.
-Create Amagaki uses the official
-[amagaki-starter](https://github.com/blinkk/amagaki-starter), but you can also
+Create Amagaki uses the official zero-bundler
+[starter](https://github.com/blinkk/amagaki/tree/main/examples/starter), but you can also
 specify a different starter.
 
 ## Usage

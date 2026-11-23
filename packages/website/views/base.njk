@@ -24,11 +24,10 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{pageTitle}}">
     <meta name="twitter:description" content="{{pageDesc}}">
-    <link rel="icon" href="{{pod.staticFile('/static/images/favicon.ico').url.path}}" sizes="32x32">
-    <link rel="icon" type="image/svg+xml" href="{{pod.staticFile('/static/images/amagaki.svg').url.path}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{pod.staticFile('/static/images/favicon-32x32.png').url.path}}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{pod.staticFile('/static/images/icon-192.png').url.path}}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{pod.staticFile('/static/images/apple-touch-icon.png').url.path}}">
+    <link rel="icon" href="{{pod.staticFile('/static/images/favicon.ico').url.path}}?v={{pod.staticFile('/static/images/favicon.ico').fingerprint}}" sizes="32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{pod.staticFile('/static/images/favicon-32x32.png').url.path}}?v={{pod.staticFile('/static/images/favicon-32x32.png').fingerprint}}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{pod.staticFile('/static/images/icon-192.png').url.path}}?v={{pod.staticFile('/static/images/icon-192.png').fingerprint}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{pod.staticFile('/static/images/apple-touch-icon.png').url.path}}?v={{pod.staticFile('/static/images/apple-touch-icon.png').fingerprint}}">
     <title>{{pageTitle}}</title>
     <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}?v={{pod.staticFile('/static/css/main.css').fingerprint}}">
     <script type="application/ld+json">
@@ -335,7 +334,7 @@
 
         <div class="site-footer__bottom">
           <div class="site-footer__legal">
-            <img src="{{pod.staticFile('/static/images/amagaki.svg').url.path}}" alt="" width="20" height="20">
+            <img src="{{pod.staticFile('/static/images/amagaki-logo.webp').url.path}}" alt="" width="20" height="20">
             <span>MIT License &copy; 2026</span>
             <a href="https://blinkk.com/" target="_blank" rel="noopener">Blinkk</a>
           </div>

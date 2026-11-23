@@ -24,7 +24,11 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{pageTitle}}">
     <meta name="twitter:description" content="{{pageDesc}}">
+    <link rel="icon" href="{{pod.staticFile('/static/images/favicon.ico').url.path}}" sizes="32x32">
     <link rel="icon" type="image/svg+xml" href="{{pod.staticFile('/static/images/amagaki.svg').url.path}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{pod.staticFile('/static/images/favicon-32x32.png').url.path}}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{pod.staticFile('/static/images/icon-192.png').url.path}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{pod.staticFile('/static/images/apple-touch-icon.png').url.path}}">
     <title>{{pageTitle}}</title>
     <link rel="stylesheet" href="{{pod.staticFile('/static/css/main.css').url.path}}?v={{pod.staticFile('/static/css/main.css').fingerprint}}">
     <script type="application/ld+json">

@@ -455,13 +455,29 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-border);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) padding-box,
+    linear-gradient(135deg, #f97316 0%, #c2410c 100%) border-box;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.feature-card:nth-child(3n + 2) .feature-card__icon {
+  background:
+    linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) padding-box,
+    linear-gradient(135deg, #22c55e 0%, #15803d 100%) border-box;
+  color: var(--btn-primary);
+}
+
+.feature-card:nth-child(3n + 3) .feature-card__icon {
+  background:
+    linear-gradient(135deg, #fefce8 0%, #fff7ed 100%) padding-box,
+    linear-gradient(135deg, #f59e0b 0%, #f97316 55%, #15803d 100%) border-box;
+  color: var(--navy);
 }
 
 .feature-card h3 {

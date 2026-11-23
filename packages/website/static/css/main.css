@@ -455,13 +455,15 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-border);
-  color: var(--accent);
-  margin-bottom: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%) padding-box,
+    linear-gradient(135deg, #4ade80 0%, #15803d 100%) border-box;
+  color: var(--btn-primary);
+  margin-bottom: 14px;
 }
 
 .feature-card h3 {

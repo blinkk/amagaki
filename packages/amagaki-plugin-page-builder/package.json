@@ -34,20 +34,20 @@
     "timeout": "20s"
   },
   "devDependencies": {
-    "@blinkk/degu": "^3.1.3",
-    "@types/js-beautify": "^1.14.3",
-    "@types/node": "^22.10.0",
-    "@types/nunjucks": "^3.2.6",
-    "ava": "^6.4.1",
-    "esbuild": "^0.28.2",
-    "nunjucks": "^3.2.4",
-    "typescript": "^5.9.3"
+    "@blinkk/degu": "3.2.1",
+    "@types/js-beautify": "1.14.3",
+    "@types/node": "22.20.5",
+    "@types/nunjucks": "3.2.6",
+    "ava": "6.4.1",
+    "esbuild": "0.28.2",
+    "nunjucks": "3.2.4",
+    "typescript": "5.9.3"
   },
   "dependencies": {
-    "@shoelace-style/shoelace": "^2.0.0-beta.71",
-    "js-beautify": "^1.15.4",
-    "lit": "^2.8.0",
-    "spacingjs": "^1.0.7"
+    "@shoelace-style/shoelace": "2.20.1",
+    "js-beautify": "1.15.4",
+    "lit": "2.8.0",
+    "spacingjs": "1.0.9"
   },
   "files": [
     "dist/",

@@ -7,6 +7,6 @@
     "build": "amagaki build"
   },
   "dependencies": {
-    "@amagaki/amagaki": "^4.0.0"
+    "@amagaki/amagaki": "4.1.0"
   }
 }

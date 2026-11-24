@@ -2,12 +2,18 @@
 
 import * as fs from 'fs';
 
+import {builtinModules} from 'module';
 import {Readable} from 'stream';
 import {pipeline} from 'stream/promises';
 import {execSync} from 'child_process';
 import path from 'path';
 import * as tar from 'tar';
-import validateProjectName from 'validate-npm-package-name';
+
+const SCOPED_PACKAGE_REGEX = /^(?:@([^/]+?)[/])?([^/]+?)$/;
+const NODE_BUILTINS = new Set(
+  builtinModules.map(name => name.replace(/^node:/, '').toLowerCase())
+);
+const BLOCKLIST = new Set(['node_modules', 'favicon.ico']);
 
 const useColor =
   Boolean(process.stdout.isTTY) && !('NO_COLOR' in process.env);
@@ -84,18 +90,52 @@ export function validateName(name: string): {
   valid: boolean;
   problems?: string[];
 } {
-  const nameValidation = validateProjectName(name);
-  if (nameValidation.validForNewPackages) {
-    return {valid: true};
+  const problems: string[] = [];
+
+  if (typeof name !== 'string' || !name.length) {
+    return {valid: false, problems: ['name length must be greater than zero']};
+  }
+  if (name.startsWith('.')) {
+    problems.push('name cannot start with a period');
+  }
+  if (name.startsWith('_')) {
+    problems.push('name cannot start with an underscore');
+  }
+  if (name.trim() !== name) {
+    problems.push('name cannot contain leading or trailing spaces');
+  }
+  if (BLOCKLIST.has(name.toLowerCase())) {
+    problems.push(`${name} is a blacklisted name`);
+  }
+  if (NODE_BUILTINS.has(name.toLowerCase())) {
+    problems.push(`${name} is a core module name`);
+  }
+  if (name.length > 214) {
+    problems.push('name can no longer contain more than 214 characters');
+  }
+  if (name.toLowerCase() !== name) {
+    problems.push('name can no longer contain capital letters');
+  }
+  if (/[~'!()*]/.test(name.split('/').slice(-1)[0])) {
+    problems.push('name can no longer contain special characters ("~\'!()*")');
+  }
+  if (encodeURIComponent(name) !== name) {
+    const match = name.match(SCOPED_PACKAGE_REGEX);
+    if (match) {
+      const [, user, pkg] = match;
+      if (
+        !user ||
+        encodeURIComponent(user) !== user ||
+        encodeURIComponent(pkg) !== pkg
+      ) {
+        problems.push('name can only contain URL-friendly characters');
+      }
+    } else {
+      problems.push('name can only contain URL-friendly characters');
+    }
   }
 
-  return {
-    valid: false,
-    problems: [
-      ...(nameValidation.errors || []),
-      ...(nameValidation.warnings || []),
-    ],
-  };
+  return problems.length ? {valid: false, problems} : {valid: true};
 }
 
 export async function isDirectoryEmpty(dirPath: string) {

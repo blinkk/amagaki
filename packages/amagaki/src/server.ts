@@ -3,6 +3,7 @@ import * as events from 'events';
 import * as fsPath from 'path';
 import * as http from 'http';
 import * as nunjucks from 'nunjucks';
+import * as zlib from 'zlib';
 
 import {Pod} from './pod';
 import {StaticRoute} from './router';
@@ -10,7 +11,121 @@ import {StaticRoute} from './router';
 import {debounce} from './utils';
 import express = require('express');
 import chalk from './ansi';
-import compression from 'compression';
+
+const NON_COMPRESSIBLE_CONTENT_TYPE =
+  /^(?:image\/(?!svg\+xml)|video\/|audio\/|font\/|application\/(?:zip|gzip|x-gzip|br|zstd|octet-stream|pdf|wasm))/i;
+
+function createGzipMiddleware(): express.RequestHandler {
+  return (req, res, next) => {
+    if (req.method === 'HEAD') {
+      next();
+      return;
+    }
+    const acceptEncoding = req.headers['accept-encoding'];
+    if (
+      typeof acceptEncoding !== 'string' ||
+      !/\bgzip\b/i.test(acceptEncoding)
+    ) {
+      next();
+      return;
+    }
+
+    const origWrite = res.write.bind(res);
+    const origEnd = res.end.bind(res);
+    let gzipStream: zlib.Gzip | null = null;
+    let decided = false;
+
+    const shouldCompress = (): boolean => {
+      if (
+        res.statusCode < 200 ||
+        res.statusCode === 204 ||
+        res.statusCode === 304
+      ) {
+        return false;
+      }
+      if (res.getHeader('Content-Encoding')) {
+        return false;
+      }
+      const cacheControl = String(res.getHeader('Cache-Control') || '');
+      if (/\bno-transform\b/i.test(cacheControl)) {
+        return false;
+      }
+      const contentType = String(res.getHeader('Content-Type') || '');
+      if (contentType && NON_COMPRESSIBLE_CONTENT_TYPE.test(contentType)) {
+        return false;
+      }
+      return true;
+    };
+
+    const initCompression = () => {
+      if (decided) {
+        return;
+      }
+      decided = true;
+      res.vary('Accept-Encoding');
+      if (!shouldCompress()) {
+        return;
+      }
+      res.setHeader('Content-Encoding', 'gzip');
+      res.removeHeader('Content-Length');
+      gzipStream = zlib.createGzip();
+      gzipStream.on('data', chunk => {
+        if (!origWrite(chunk) && gzipStream) {
+          gzipStream.pause();
+          res.once('drain', () => gzipStream?.resume());
+        }
+      });
+      gzipStream.on('end', () => {
+        origEnd();
+      });
+      res.on('close', () => {
+        if (!res.writableEnded) {
+          gzipStream?.destroy();
+        }
+      });
+    };
+
+    res.write = ((chunk: any, ...args: any[]) => {
+      initCompression();
+      if (gzipStream) {
+        return (gzipStream.write as any)(chunk, ...args);
+      }
+      return (origWrite as any)(chunk, ...args);
+    }) as any;
+
+    res.end = ((chunk?: any, encoding?: any, cb?: any) => {
+      if (typeof chunk === 'function') {
+        cb = chunk;
+        chunk = undefined;
+        encoding = undefined;
+      } else if (typeof encoding === 'function') {
+        cb = encoding;
+        encoding = undefined;
+      }
+      if (chunk === undefined && !decided) {
+        return cb ? origEnd(cb) : origEnd();
+      }
+      initCompression();
+      if (gzipStream) {
+        if (cb) {
+          res.once('finish', cb);
+        }
+        if (chunk !== undefined) {
+          encoding ? gzipStream.end(chunk, encoding) : gzipStream.end(chunk);
+        } else {
+          gzipStream.end();
+        }
+        return res;
+      }
+      if (chunk !== undefined) {
+        return encoding ? origEnd(chunk, encoding, cb) : origEnd(chunk, cb);
+      }
+      return cb ? origEnd(cb) : origEnd();
+    }) as any;
+
+    next();
+  };
+}
 
 interface ServerOptions {
   port: string | number;
@@ -54,7 +169,7 @@ export class Server extends events.EventEmitter {
     const app = express();
     await this.pod.plugins.trigger('createServer', app);
     app.disable('x-powered-by');
-    app.use(compression());
+    app.use(createGzipMiddleware());
     nunjucks.configure(fsPath.join(__dirname, './static/'), {
       autoescape: true,
       express: app,

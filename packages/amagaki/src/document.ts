@@ -1,5 +1,4 @@
 import * as fsPath from 'path';
-import {globSync} from 'glob';
 import * as utils from './utils';
 
 import {Locale, LocaleSet} from './locale';
@@ -10,7 +9,7 @@ import {Environment} from './environment';
 import {Pod} from './pod';
 import {Route} from './router';
 import {Url} from './url';
-import {minimatch} from 'minimatch';
+import {globFiles, matchesGlob} from './glob';
 
 import express = require('express');
 
@@ -143,13 +142,10 @@ export class Document {
     patterns = patterns || [`${pod.defaultContentPodPath}**/*`];
     patterns.forEach(pattern => {
       paths = paths.concat(
-        globSync(pattern, {
+        globFiles(pattern, {
           cwd: pod.root,
-          root: pod.root,
-          ignore: ['**/_*', '/**/*/_*'],
-          matchBase: false,
-          nodir: true,
-        }).sort()
+          ignoreUnderscore: true,
+        })
       );
     });
 
@@ -176,7 +172,7 @@ export class Document {
 
       for (const pattern of options.exclude) {
         const pathsToBeExcluded = paths.filter(path =>
-          minimatch(path, pattern)
+          matchesGlob(path, pattern)
         );
         paths = paths.filter(path => !pathsToBeExcluded.includes(path));
       }

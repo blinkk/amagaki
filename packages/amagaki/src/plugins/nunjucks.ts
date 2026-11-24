@@ -10,7 +10,47 @@ import {Url} from '../url';
 import {formatBytes} from '../utils';
 import { marked } from 'marked';
 import { gfmHeadingId } from "marked-gfm-heading-id";
-import { mangle } from "marked-mangle";
+
+function mangleEmail(text: string): string {
+  let out = '';
+  for (let i = 0; i < text.length; i++) {
+    let ch: number | string = text.charCodeAt(i);
+    if (Math.random() > 0.5) {
+      ch = 'x' + ch.toString(16);
+    }
+    out += '&#' + ch + ';';
+  }
+  return out;
+}
+
+function mangle() {
+  return {
+    walkTokens(token: any) {
+      if (token.type !== 'link' || typeof token.href !== 'string') {
+        return;
+      }
+      if (!token.href.startsWith('mailto:')) {
+        return;
+      }
+      const email = token.href.substring(7);
+      const mangledEmail = mangleEmail(email);
+      token.href = `mailto:${mangledEmail}`;
+      if (
+        !Array.isArray(token.tokens) ||
+        token.tokens.length !== 1 ||
+        token.tokens[0].type !== 'text' ||
+        token.tokens[0].text !== email
+      ) {
+        return;
+      }
+      if (token.autolink) {
+        token.autolink = false;
+      }
+      token.text = mangledEmail;
+      token.tokens[0].text = mangledEmail;
+    },
+  };
+}
 
 marked.use(gfmHeadingId());
 marked.use(mangle());

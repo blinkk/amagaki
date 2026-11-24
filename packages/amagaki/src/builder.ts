@@ -13,7 +13,7 @@ import {Route, StaticRoute} from './router';
 import {Pod} from './pod';
 import {TranslationString} from './string';
 import chalk from './ansi';
-import {minimatch} from 'minimatch';
+import {matchesGlob} from './glob';
 
 interface Artifact {
   tempPath: string;
@@ -441,7 +441,7 @@ export class Builder {
         options.patterns?.some(
           pattern =>
             route.podPath &&
-            minimatch(
+            matchesGlob(
               route.podPath.replace(/^\//, ''),
               pattern.replace(/^\//, ''),
               {

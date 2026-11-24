@@ -5,7 +5,7 @@ import {Document, DocumentListOptions} from './document';
 import {Locale, LocaleSet} from './locale';
 
 import {Pod} from './pod';
-import {globSync} from 'glob';
+import {globFiles} from './glob';
 
 export interface CollectionDocsOptions extends DocumentListOptions {
   excludeSubcollections?: boolean;
@@ -80,16 +80,11 @@ export class Collection {
       `${pod.defaultContentPodPath}**/${Collection.ConfigFile}`,
     ];
     patterns.forEach(pattern => {
-      globSync(pattern, {
+      globFiles(pattern, {
         cwd: pod.root,
-        root: pod.root,
-        matchBase: false,
-        nodir: true,
-      })
-        .sort()
-        .forEach(path => {
-          paths.add(path);
-        });
+      }).forEach(path => {
+        paths.add(path);
+      });
     });
 
     // Normalize paths returned by glob. Depending on the glob pattern, the
@@ -128,15 +123,13 @@ export class Collection {
    */
   get subcollections(): Array<Collection> {
     const pattern = fsPath.join(this.podPath, '**', Collection.ConfigFile);
-    return globSync(pattern, {
+    return globFiles(pattern, {
       cwd: this.pod.root,
-      root: this.pod.root,
-      nodir: true,
     })
-      .sort()
       .map(path => {
-        // Convert absolute paths to pod paths.
-        return fsPath.dirname(path).replace(this.pod.root, '');
+        // Convert relative paths to pod paths.
+        const dir = fsPath.dirname(path);
+        return dir === '.' ? '/' : `/${dir.replace(/^\/+/, '')}`;
       })
       .filter(podPath => {
         // Avoid including the current collection in its subcollections.

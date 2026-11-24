@@ -1,9 +1,26 @@
+import * as net from 'net';
 import {ExecutionContext} from 'ava';
 import {Pod} from './pod';
 import { Route } from './router';
 import {Server} from './server';
-import getPort from 'get-port';
 import test from 'ava';
+
+function getAvailablePort(): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const server = net.createServer();
+    server.unref();
+    server.on('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address();
+      if (!address || typeof address === 'string') {
+        server.close(() => reject(new Error('Failed to allocate port')));
+        return;
+      }
+      const {port} = address;
+      server.close(() => resolve(port));
+    });
+  });
+}
 
 test('StaticRoute contentType', async (t: ExecutionContext) => {
   const pod = new Pod('./fixtures/static/');
@@ -26,7 +43,7 @@ test('SampleRouteProvider', async (t: ExecutionContext) => {
 test('Changing static files alters the router', async (t: ExecutionContext) => {
   const pod = new Pod('./.test/staticDevServer/');
   await pod.writeFileAsync('/src/static/file.txt', 'file');
-  const port = await getPort();
+  const port = await getAvailablePort();
   const server = new Server(pod, {
     port: port,
   });
